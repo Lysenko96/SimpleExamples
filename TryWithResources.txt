@@ -1,0 +1,43 @@
+static class AutoClose implements AutoCloseable{
+
+		@Override
+		public void close() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	public static void main(String[] args) {
+		// check();
+		
+		try(AutoClose o = new AutoClose()){
+			System.out.println("file");
+		}
+		
+		
+		Reader reader = null;
+		try {
+			reader = new FileReader(new File("file.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try (Reader reader1 = new FileReader(new File("file1.txt"));) {
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	static void check() {
+		for (int i = 10; i > 0; i++) {
+			int[][][] d = new int[][][] { { { 1, 2 }, { 3, 4 }, { 5, 6 } }, { { 7, 8 } } };
+			System.out.println("+");
+		}
+	}
