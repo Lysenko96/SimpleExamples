@@ -25,7 +25,6 @@ CREATE TABLE driver_cars(
 		FOREIGN KEY (driver_id) REFERENCES drivers (driver_id),
 		car_id INT,
 		FOREIGN KEY (car_id) REFERENCES cars (car_id),
-		UNIQUE (driver_id, car_id)
 );
 		
 --INSERT INTO cars (car_model, car_speed) VALUES ('Sauber Mercedes', 405);
