@@ -8,13 +8,12 @@
 		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
 		<property name="hibernate.connection.username">postgres</property>
 		<property name="hibernate.connection.password">postgres</property>
-		<property name="hibernate.connection.pool_size">1</property>
-		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-		<property name="hibernate.connection.characerEncoding">utf8</property>
-		<property name="hibernate.fomat_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">create-drop</property>
 
+		<mapping class="edu.tasks.lysenko.entity.Key" />
 		<mapping class="edu.tasks.lysenko.entity.Car" />
+		<mapping class="edu.tasks.lysenko.entity.Driver" />
 	</session-factory>
 </hibernate-configuration>
