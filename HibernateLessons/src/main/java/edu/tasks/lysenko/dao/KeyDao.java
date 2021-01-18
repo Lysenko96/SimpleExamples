@@ -6,14 +6,14 @@ import edu.tasks.lysenko.entity.Key;
 
 public interface KeyDao {
 
-	void add(Key driver);
+	void add(Key key);
 
 	Key getById(int id);
 
 	List<Key> getAll();
 
-	void update(Key driver);
+	void update(Key key);
 
-	void removeById(int id);
+	void remove(Key key);
 
 }

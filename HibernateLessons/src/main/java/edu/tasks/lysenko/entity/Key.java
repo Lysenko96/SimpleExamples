@@ -26,6 +26,11 @@ public class Key {
 		this.model = model;
 	}
 
+	public Key(int id, String model) {
+		this.id = id;
+		this.model = model;
+	}
+
 	public int getId() {
 		return id;
 	}

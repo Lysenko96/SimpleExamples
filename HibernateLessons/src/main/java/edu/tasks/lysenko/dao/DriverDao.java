@@ -14,5 +14,5 @@ public interface DriverDao {
 
 	void update(Driver driver);
 
-	void removeById(int id);
+	void remove(Driver driver);
 }

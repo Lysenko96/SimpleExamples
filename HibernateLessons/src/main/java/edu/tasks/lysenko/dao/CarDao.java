@@ -6,13 +6,13 @@ import edu.tasks.lysenko.entity.Car;
 
 public interface CarDao {
 
-	void add(Car driver);
+	void add(Car car);
 
 	Car getById(int id);
 
 	List<Car> getAll();
 
-	void update(Car driver);
+	void update(Car car);
 
-	void removeById(int id);
+	void remove(Car car);
 }

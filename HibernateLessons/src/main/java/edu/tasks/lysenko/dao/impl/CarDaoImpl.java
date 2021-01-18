@@ -15,6 +15,8 @@ import edu.tasks.lysenko.hibernate.HibernateUtil;
 
 public class CarDaoImpl implements CarDao {
 
+	private static final String ADD_CAR = "SELECT * cars WHERE car_id=?";
+
 	@Override
 	public void add(Car car) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -26,7 +28,14 @@ public class CarDaoImpl implements CarDao {
 
 	@Override
 	public Car getById(int id) {
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query = session.createNativeQuery(ADD_CAR).addEntity(Car.class);
+		query.setParameter(1, id);
+		Car car = (Car) query.getSingleResult();
+		session.getTransaction().commit();
+		session.close();
+		return car;
 	}
 
 	@Override
@@ -44,12 +53,19 @@ public class CarDaoImpl implements CarDao {
 
 	@Override
 	public void update(Car car) {
-		
-
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(car);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	@Override
-	public void removeById(int id) {
-		
+	public void remove(Car car) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.remove(car);
+		session.getTransaction();
+		session.close();
 	}
 }

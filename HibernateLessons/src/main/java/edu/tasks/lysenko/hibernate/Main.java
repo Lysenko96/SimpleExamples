@@ -3,7 +3,6 @@ package edu.tasks.lysenko.hibernate;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import edu.tasks.lysenko.dao.impl.CarDaoImpl;
 import edu.tasks.lysenko.dao.impl.DriverDaoImpl;
 import edu.tasks.lysenko.dao.impl.KeyDaoImpl;
@@ -45,5 +44,12 @@ public class Main {
 		System.out.println(carDao.getAll());
 		System.out.println(carDao.getAll().get(0).getSetDrivers());
 		System.out.println(carDao.getAll().get(1).getSetDrivers());
+		key1 = new Key(key1.getId(), "Ferrari key");
+		keyDao.update(key1);
+		driverDao.remove(driver);
+		System.out.println(keyDao.getAll());
+		System.out.println(driverDao.getAll());
+		System.out.println(carDao.getAll());
+		System.out.println(carDao.getAll().get(0).getSetDrivers());
 	}
 }

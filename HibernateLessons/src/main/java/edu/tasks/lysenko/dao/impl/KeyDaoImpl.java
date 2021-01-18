@@ -15,6 +15,8 @@ import edu.tasks.lysenko.hibernate.HibernateUtil;
 
 public class KeyDaoImpl implements KeyDao {
 
+	private static final String ADD_KEY = "SELECT * FROM key WHERE key_id=?";
+
 	@Override
 	public void add(Key key) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -26,7 +28,14 @@ public class KeyDaoImpl implements KeyDao {
 
 	@Override
 	public Key getById(int id) {
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query = session.createNativeQuery(ADD_KEY).addEntity(Key.class);
+		query.setParameter("key_id", id);
+		Key key = (Key) query.getSingleResult();
+		session.getTransaction().commit();
+		session.close();
+		return key;
 	}
 
 	@Override
@@ -44,14 +53,20 @@ public class KeyDaoImpl implements KeyDao {
 
 	@Override
 	public void update(Key key) {
-		
-
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(key);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	@Override
-	public void removeById(int id) {
-		
-
+	public void remove(Key key) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.remove(key);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

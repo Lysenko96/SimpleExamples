@@ -15,6 +15,8 @@ import edu.tasks.lysenko.hibernate.HibernateUtil;
 
 public class DriverDaoImpl implements DriverDao {
 
+	private static final String ADD_DRIVER = "SELECT * FROM driver WHERE driver_id=?";
+
 	@Override
 	public void add(Driver driver) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -26,7 +28,14 @@ public class DriverDaoImpl implements DriverDao {
 
 	@Override
 	public Driver getById(int id) {
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query = session.createNativeQuery(ADD_DRIVER).addEntity(Driver.class);
+		query.setParameter("driver_id", id);
+		Driver driver = (Driver) query.getSingleResult();
+		session.getTransaction().commit();
+		session.close();
+		return driver;
 	}
 
 	@Override
@@ -44,12 +53,20 @@ public class DriverDaoImpl implements DriverDao {
 
 	@Override
 	public void update(Driver driver) {
-		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(driver);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	@Override
-	public void removeById(int id) {
-		
+	public void remove(Driver driver) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.remove(driver);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }
