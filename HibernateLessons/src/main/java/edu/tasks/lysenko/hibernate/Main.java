@@ -40,15 +40,10 @@ public class Main {
 		keyDao.add(key1);
 		driverDao.add(driver);
 		driverDao.add(driver1);
-		System.out.println("----");
 		System.out.println(driverDao.getAll());
-		System.out.println("----");
 		System.out.println(keyDao.getAll());
-		System.out.println("----");
 		System.out.println(carDao.getAll());
-		System.out.println("----");
 		System.out.println(carDao.getAll().get(0).getSetDrivers());
-		System.out.println("----");
 		System.out.println(carDao.getAll().get(1).getSetDrivers());
 	}
 }
