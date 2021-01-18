@@ -29,8 +29,6 @@ public class Driver implements Serializable {
 	private String name;
 	@Column(name = "driver_surname")
 	private String surname;
-	@Column(name = "car_id")
-	private int carId;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Key driver_key;
@@ -43,10 +41,9 @@ public class Driver implements Serializable {
 
 	}
 
-	public Driver(String name, String surname, int carId, Key driver_key, Set<Car> setCars) {
+	public Driver(String name, String surname, Key driver_key, Set<Car> setCars) {
 		this.name = name;
 		this.surname = surname;
-		this.carId = carId;
 		this.driver_key = driver_key;
 		this.setCars = setCars;
 	}
@@ -75,14 +72,6 @@ public class Driver implements Serializable {
 		this.surname = surname;
 	}
 
-	public int getCarId() {
-		return carId;
-	}
-
-	public void setCarId(int carId) {
-		this.carId = carId;
-	}
-
 	public Key getKey() {
 		return driver_key;
 	}
@@ -103,7 +92,6 @@ public class Driver implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + carId;
 		result = prime * result + id;
 		result = prime * result + ((driver_key == null) ? 0 : driver_key.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -121,8 +109,6 @@ public class Driver implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Driver other = (Driver) obj;
-		if (carId != other.carId)
-			return false;
 		if (id != other.id)
 			return false;
 		if (driver_key == null) {
@@ -150,6 +136,6 @@ public class Driver implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Driver [id=" + id + ", name=" + name + ", surname=" + surname + ", carId=" + carId + "]";
+		return "Driver [id=" + id + ", name=" + name + ", surname=" + surname + "]";
 	}
 }

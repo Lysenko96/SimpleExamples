@@ -13,7 +13,6 @@ CREATE TABLE keys(
 );
 CREATE TABLE drivers(
 		driver_id SERIAL PRIMARY KEY,
-		car_id INT,
 		key_id INT,
  		driver_name VARCHAR(50),
  		driver_surname VARCHAR(50),
