@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<context:property-placeholder
+		location="classpath:computers.properties" />
+
+	<bean id="gameBeanStrategy" class="edu.mytasks.lysenko.Strategy">
+	</bean>
+	<bean id="gameBeanAction" class="edu.mytasks.lysenko.Action">
+	</bean>
+	<!-- <bean id="computerStrategy" class="edu.mytasks.lysenko.Computer"> <constructor-arg 
+		ref="gameBeanStrategy" /> </bean> -->
+	<!-- <bean id="computerAction" class="edu.mytasks.lysenko.Computer"> <constructor-arg 
+		ref="gameBeanAction" /> </bean> -->
+	<!-- create empty constructor public Computer() -->
+	<bean id="computerAction" class="edu.mytasks.lysenko.Computer"
+		scope="prototype">
+		<!-- insert Playable game in setter method in Computer class -->
+		<property name="genre" ref="gameBeanAction"></property>
+		<property name="modelPC" value="${computerAction.model}"></property>
+		<property name="pricePC" value="${computerAction.price}"></property>
+	</bean>
+	<bean id="computerStrategy" class="edu.mytasks.lysenko.Computer">
+		<!-- spring know about camaleCase and search name="genre" from setter -->
+		<property name="genre" ref="gameBeanStrategy"></property>
+		<property name="modelPC" value="Acer"></property>
+		<property name="pricePC" value="10000"></property>
+	</bean>
+
+</beans>
