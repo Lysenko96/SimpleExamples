@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
-		Creatable creatable = context.getBean("gameCompany", Creatable.class);
+		Creatable creatable = context.getBean("company", Creatable.class);
 
 		GameShop gameShop = new GameShop(creatable);
 

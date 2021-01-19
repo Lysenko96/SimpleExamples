@@ -1,8 +1,8 @@
 package edu.tasks.springcore;
 
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
-@Component("gameCompany")
+//@Component("gameCompany")
 public class Company implements Creatable {
 
 	@Override
