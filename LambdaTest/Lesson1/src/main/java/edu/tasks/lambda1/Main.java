@@ -2,13 +2,16 @@ package edu.tasks.lambda1;
 
 import static java.util.Collections.sort;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -60,8 +63,9 @@ public class Main {
 		Supplier<Object> objectSupplier = Object::new;
 		System.out.println(objectSupplier.get());
 		// consumer
-		Consumer<Car> consumer = (car) -> System.out.println("driver for " + car.getModel());
-		consumer.accept(new Main().new Car("audi", 200));
+		Consumer<Car> consumer = (car) -> System.out
+				.println("driver for " + car.getModel() + " with speed: " + car.getSpeed());
+		consumer.accept(new Main().new Car("audi", 200));// driver for audi with speed: 200
 
 		// optional
 		Optional<Integer> optional = Optional.of(14);
@@ -91,8 +95,54 @@ public class Main {
 		// reduce
 		Optional<String> reduced = strings.stream().sorted().reduce((s1, s2) -> s1 + "?" + s2);
 		reduced.ifPresent(System.out::println); // aa?baa2?bb?bdd?dd4?zz?zz1
-		
-		
+
+		Map<String, LocalDateTime> map = new HashMap<>();
+		for (int i = 0; i < 10; i++) {
+			map.putIfAbsent("date#" + (i + 1),
+					LocalDateTime.of(2021 + i, Month.JANUARY.plus(i), 12 + i, 11 + i, 20 + i, 30 + i));
+		}
+
+		map.forEach((string, dateTime) -> System.out.println(string + ": " + dateTime));
+
+		map.computeIfPresent("date#5", (str, dt) -> {
+			char[] s = str.toCharArray();
+			int n = 0;
+			for (Character st : s) {
+				n += (st + '0');
+			}
+			return LocalDateTime.of(2021 - n, Month.JANUARY.minus(n / 1000), 12 + n / 1000, 11 + n / 1000,
+					20 + n / 1000, 30 + n / 1000);
+		});
+		System.out.println(map.get("date#5")); // 1231-01-12T11:20:30
+
+		map.computeIfPresent("date#2", (str, dt) -> null);
+		System.out.println(map.containsKey("date#2"));// false
+		LocalDateTime ldt = map.computeIfAbsent("date#2",
+				str -> LocalDateTime.of((("dd" + str).toCharArray()[0] + '0') / 10, Month.APRIL,
+						(("dd" + str).toCharArray()[1] + '0') / 10, 0, 10, 3));// 0014-04-14T00:10:03
+
+		System.out.println(map.containsKey("date#2")); // true
+		map.remove("date#3", ldt);
+		System.out.println(map.get("date#3")); // 2023-03-14T13:22:32
+		map.remove("date#3", LocalDateTime.parse("2023-03-14T13:22:32"));
+		System.out.println(map.get("date#3")); // null
+		map.put("date#3", ldt);
+		System.out.println(map.get("date#3")); // 0014-04-14T00:10:03
+		System.out.println(map.get("date#2").equals(map.get("date#3")));// true date#2 equals date#3
+
+		System.out.println(map.getOrDefault("xrc", LocalDateTime.now())); // today LocalDateTime
+
+		// merge value in map
+
+		Map<String, Integer> map1 = new HashMap<>();
+		map1.put("ar", 11);
+		map1.put("cd", 23);
+		map1.merge("ar", 23, (value1, newValue) -> value1 + newValue);
+		System.out.println(map1.get("ar"));// 11 + 23 = 34
+		map1.merge("cd", 55, (value1, newValue) -> value1 + newValue);
+		System.out.println(map1.get("cd"));// 23 + 55 = 78
+		map1.merge("cd", 22, (value1, newValue) -> value1 + newValue);
+		System.out.println(map1.get("cd"));// 22 + 78 = 100
 	}
 
 	private static Integer check(MyGeneric ref, Integer value, Object obj) {
