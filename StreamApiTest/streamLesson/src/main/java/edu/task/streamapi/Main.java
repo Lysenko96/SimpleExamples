@@ -16,7 +16,7 @@ public class Main {
 				new Book("Neal Stephenson", 338.7f, "Cryptonomicon"));
 
 		checkFile();
-		
+
 		for (Book book : filterBookAutor(books)) {
 			System.out.println(book); // Book [author=William Gibson, price=399.9, title=Neuromant]
 										// Book [author=William Gibson, price=200.9, title=Johnny Mnemonic]
@@ -24,16 +24,22 @@ public class Main {
 		for (Book book : filterBookPrice(books)) {
 			System.out.println(book); // Book [author=Neal Stephenson, price=338.7, title=Cryptonomicon]
 		}
+
+		for (Book book : filterBookPredicate(books, (Book b) -> b.getPrice() >= 350)) {
+			System.out.println(book); // Book [author=William Gibson, price=399.9, title=Neuromant]
+		}
 	}
 
 	private static void checkFile() {
-		File[] files = new File("C:/workspace/streamapi/src/main/java/edu/task/streamapi/").listFiles(new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				return file.isFile();
-			}
-		});
-		System.out.println(Arrays.toString(files)); // [C:\workspace\streamapi\src\main\java\edu\task\streamapi\Main.java]
+		File[] files = new File(
+				"/home/gweep/Documents/GitHub/SimpleExamples/StreamApiTest/streamLesson/src/main/java/edu/task/streamapi/")
+						.listFiles(new FileFilter() {
+							@Override
+							public boolean accept(File file) {
+								return file.isFile();
+							}
+						});
+		System.out.println(Arrays.toString(files)); // [/home/gweep/Documents/GitHub/SimpleExamples/StreamApiTest/streamLesson/src/main/java/edu/task/streamapi/Main.javaMain.java]
 
 		files = new File(".").listFiles(File::isFile);
 
@@ -60,6 +66,21 @@ public class Main {
 		return result;
 	}
 
+	private static List<Book> filterBookPredicate(List<Book> books, Predicate<Book> p) {
+		List<Book> result = new ArrayList<>();
+
+		for (Book book : books) {
+			if (p.test(book)) {
+				result.add(book);
+			}
+		}
+		return result;
+	}
+
+}
+
+interface Predicate<T> {
+	boolean test(T t);
 }
 
 class Book {
@@ -100,6 +121,10 @@ class Book {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public Boolean isHighCost() {
+		return false;
 	}
 
 	@Override
