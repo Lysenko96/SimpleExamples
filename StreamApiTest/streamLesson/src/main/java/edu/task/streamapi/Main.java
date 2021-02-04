@@ -122,10 +122,6 @@ class Book {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	public Boolean isHighCost() {
-		return false;
-	}
 
 	@Override
 	public String toString() {
