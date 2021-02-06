@@ -7,27 +7,40 @@ import java.util.Arrays;
 import java.util.List;
 import static java.util.Arrays.asList;
 
+import edu.task.behaviour.Predicate;
+import edu.task.entity.Book;
+import static edu.task.streamapi.Main.WILL;
+import edu.task.filter.GibsonAndPriceLess350;
+
 public class Main {
+
+	public static final String WILL = "William Gibson";
+	public static final String NEAL = "Neal Stephenson";
 
 	public static void main(String[] args) {
 
-		List<Book> books = asList(new Book("William Gibson", 399.9f, "Neuromant"),
-				new Book("William Gibson", 200.9f, "Johnny Mnemonic"),
-				new Book("Neal Stephenson", 338.7f, "Cryptonomicon"));
+		List<Book> books = asList(new Book(WILL, 399.9f, "Neuromant"), new Book(WILL, 200.9f, "Johnny Mnemonic"),
+				new Book(NEAL, 338.7f, "Cryptonomicon"));
 
 		checkFile();
 
-		for (Book book : filterBookAutor(books)) {
-			System.out.println(book); // Book [author=William Gibson, price=399.9, title=Neuromant]
-										// Book [author=William Gibson, price=200.9, title=Johnny Mnemonic]
-		}
-		for (Book book : filterBookPrice(books)) {
-			System.out.println(book); // Book [author=Neal Stephenson, price=338.7, title=Cryptonomicon]
-		}
+		System.out.println(filterBookAutor(books)); // Book [author=William Gibson, price=399.9, title=Neuromant] Book
+													// [author=William Gibson, price=200.9, title=Johnny Mnemonic]
 
-		for (Book book : filterBookPredicate(books, (Book b) -> b.getPrice() >= 350)) {
-			System.out.println(book); // Book [author=William Gibson, price=399.9, title=Neuromant]
-		}
+		System.out.println(filterBookPrice(books)); // Book [author=Neal Stephenson, price=338.7, title=Cryptonomicon]
+
+		System.out.println(filterBookPredicate(books, (Book b) -> b.getPrice() >= 350)); // Book [author=William Gibson,
+																							// price=399.9, //
+																							// title=Neuromant]
+		System.out.println(filterBooks(books, NEAL, 330)); // Book [author=Neal Stephenson, price=338.7,
+															// title=Cryptonomicon]
+
+		List<Book> autorGibsonAndPriceLess350 = filterBookPredicate(books, new GibsonAndPriceLess350());
+
+		System.out.println(autorGibsonAndPriceLess350); // Book [author=William Gibson, price=200.9, title=Johnny
+														// Mnemonic], Book [author=Neal Stephenson, price=338.7,
+														// title=Cryptonomicon]
+
 	}
 
 	private static void checkFile() {
@@ -49,7 +62,7 @@ public class Main {
 	private static List<Book> filterBookAutor(List<Book> books) {
 		List<Book> result = new ArrayList<>();
 		for (Book book : books) {
-			if ("William Gibson".equals(book.getAuthor())) {
+			if (WILL.equals(book.getAuthor())) {
 				result.add(book);
 			}
 		}
@@ -77,55 +90,14 @@ public class Main {
 		return result;
 	}
 
-}
-
-interface Predicate<T> {
-	boolean test(T t);
-}
-
-class Book {
-
-	private String author;
-	private float price;
-	private String title;
-
-	public Book() {
-
-	}
-
-	public Book(String author, float price, String title) {
-		this.author = author;
-		this.price = price;
-		this.title = title;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	@Override
-	public String toString() {
-		return "Book [author=" + author + ", price=" + price + ", title=" + title + "]";
+	public static List<Book> filterBooks(List<Book> books, String autor, float price) {
+		List<Book> result = new ArrayList<>();
+		for (Book book : books) {
+			if (book.getAuthor().equals(autor) || book.getPrice() <= price) {
+				result.add(book);
+			}
+		}
+		return result;
 	}
 
 }
