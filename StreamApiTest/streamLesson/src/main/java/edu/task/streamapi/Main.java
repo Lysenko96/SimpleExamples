@@ -7,9 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import static java.util.Arrays.asList;
 
+import edu.task.behaviour.BookFormatter;
 import edu.task.behaviour.Predicate;
 import edu.task.entity.Book;
-import static edu.task.streamapi.Main.WILL;
+import edu.task.entity.BookFormatterImpl;
 import edu.task.filter.GibsonAndPriceLess350;
 
 public class Main {
@@ -40,6 +41,8 @@ public class Main {
 		System.out.println(autorGibsonAndPriceLess350); // Book [author=William Gibson, price=200.9, title=Johnny
 														// Mnemonic], Book [author=Neal Stephenson, price=338.7,
 														// title=Cryptonomicon]
+
+		printBookCost(books, new BookFormatterImpl());
 
 	}
 
@@ -90,7 +93,7 @@ public class Main {
 		return result;
 	}
 
-	public static List<Book> filterBooks(List<Book> books, String autor, float price) {
+	private static List<Book> filterBooks(List<Book> books, String autor, float price) {
 		List<Book> result = new ArrayList<>();
 		for (Book book : books) {
 			if (book.getAuthor().equals(autor) || book.getPrice() <= price) {
@@ -98,6 +101,13 @@ public class Main {
 			}
 		}
 		return result;
+	}
+
+	private static void printBookCost(List<Book> books, BookFormatter formatter) {
+		for (Book book : books) {
+			String description = formatter.accept(book);
+			System.out.println(description);
+		}
 	}
 
 }
