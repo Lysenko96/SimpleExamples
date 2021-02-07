@@ -5,6 +5,8 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
+
 import static java.util.Arrays.asList;
 
 import edu.task.behaviour.BookFormatter;
@@ -18,7 +20,20 @@ public class Main {
 	public static final String WILL = "William Gibson";
 	public static final String NEAL = "Neal Stephenson";
 
-	public static void main(String[] args) {
+	Main() throws Exception {
+
+		doing(() -> {
+			System.out.println("doing"); // doing
+		});
+		System.out.println(fetch().call()); // 123
+
+		// Predicate<Book> b = (Book book) -> book.getPrice(); // need return boolean
+		// not float
+	}
+
+	public static void main(String[] args) throws Exception {
+
+		new Main();
 
 		List<Book> books = asList(new Book(WILL, 399.9f, "Neuromant"), new Book(WILL, 200.9f, "Johnny Mnemonic"),
 				new Book(NEAL, 338.7f, "Cryptonomicon"));
@@ -44,6 +59,14 @@ public class Main {
 
 		printBookCost(books, new BookFormatterImpl());
 
+	}
+
+	private Callable<Integer> fetch() {
+		return () -> 123;
+	}
+
+	private static void doing(Runnable runnbale) {
+		runnbale.run();
 	}
 
 	private static void checkFile() {
