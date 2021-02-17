@@ -10,6 +10,16 @@ public class Book {
 
 	}
 
+	public Book(String author) {
+		this.author = author;
+	}
+
+	public Book(Type type) {
+		this.author = type.getName();
+		this.price = type.getPrice();
+		this.title = type.getTitle();
+	}
+
 	public Book(String author, float price, String title) {
 		this.author = author;
 		this.price = price;

@@ -1,9 +1,14 @@
 package edu.task.streamapi;
 
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import edu.task.entity.Book;
+import edu.task.entity.Type;
 
 import static java.util.Arrays.asList;
 
@@ -20,7 +25,32 @@ public class MainMethodReference {
 		out.println(digits); // [11.7, 20.3, 26.1, 31.8]
 
 		Function<String, Character> stringToCharacter = (String s) -> method(s);
-		out.print(stringToCharacter.apply("./run.sh")); // л
+		out.println(stringToCharacter.apply("./run.sh")); // л
+
+		BiPredicate<List<Integer>, Integer> contains = (list, element) -> list.contains(element);
+		out.println(contains.test(asList(1, 2, 3), 3)); // 4 - false, 3 - true
+		BiPredicate<List<Character>, Character> contains2 = List::contains;
+		out.println(contains2.negate().test(asList('z', 'f'), 'z')); // z - false, any symbol but not 'z', 'f' - true
+		Supplier<Book> b1 = Book::new;
+		b1.get().setAuthor("author"); // not set to book
+		b1.get().setPrice(33f); // not set to book
+		b1.get().setTitle("title"); // not set to book
+		Book a1 = b1.get();
+		out.println(a1); // Book [author=null, price=0.0, title=null]
+		Supplier<Book> b3 = () -> new Book("auth", 23f, "bookname"); // set to book
+		Book a3 = b3.get();
+		out.println(a3); // Book [author=auth, price=23.0, title=bookname]
+		Function<String, Book> b2 = Book::new;
+		Book a2 = b2.apply("new author"); // set in author
+		out.println(a2); // Book [author=new author, price=0.0, title=null]
+		Function<Type, Book> b4 = Book::new;
+		Type t = new Type();
+		t.setName("noname"); // set to book
+		t.setPrice(100f); // set to book
+		t.setTitle("lul"); // set to book
+		Book a4 = b4.apply(t); // Book [author=noname, price=100.0, title=lul]
+		out.println(a4);
+
 	}
 
 	public static char method(String s) {
