@@ -12,6 +12,9 @@ import edu.task.entity.Type;
 
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static java.lang.System.out;
 
 public class MainMethodReference {
@@ -50,7 +53,10 @@ public class MainMethodReference {
 		t.setTitle("lul"); // set to book
 		Book a4 = b4.apply(t); // Book [author=noname, price=100.0, title=lul]
 		out.println(a4);
-
+		List<String> authors = Arrays.asList("author", "author1", "author2");
+		List<Book> books = map(authors, Book::new);
+		out.println(books); // [Book [author=author, price=0.0, title=null], Book [author=author1,
+							// price=0.0, title=null], Book [author=author2, price=0.0, title=null]]
 	}
 
 	public static char method(String s) {
@@ -62,5 +68,13 @@ public class MainMethodReference {
 			}
 			return (char) number;
 		}).collect(Collectors.toList()).get(0);
+	}
+
+	public static List<Book> map(List<String> authors, Function<String, Book> f) {
+		List<Book> result = new ArrayList<>();
+		for (String author : authors) {
+			result.add(f.apply(author));
+		}
+		return result;
 	}
 }
