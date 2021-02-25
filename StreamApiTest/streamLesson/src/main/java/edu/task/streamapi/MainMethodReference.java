@@ -27,6 +27,7 @@ public class MainMethodReference {
 	static List<Book> myListBooks = new ArrayList<>();
 	static Book newBook = new Book();
 	static Book newBook2 = new Book();
+	static Type newType = new Type();
 	static {
 		Function<String, Book> fBook1 = Book::new;
 		newBook = fBook1.apply("author23");
@@ -34,6 +35,8 @@ public class MainMethodReference {
 		out.println(newBook);
 		mapBooks.put("genre1", fBook1);
 		mapBooks.put("genre2", Type::new); // Type extends Book
+		newType.setAuthor("authType");
+		newType.setNumber(22);
 		Function<String, Book> fBook2 = Book::new;
 		newBook2 = fBook2.apply("author21");
 		mapBooks.put("genre3", fBook2);
@@ -85,20 +88,21 @@ public class MainMethodReference {
 		BiFunction<String, Float, Book> bookTwoArgsL = (author, price) -> new Book(author, price);// method lambda
 		Book bookObjL = bookTwoArgsL.apply("author5", 211.7f);
 		out.println(bookObjL);// Book [author=author5, price=211.7, title=null]
-		
+
 		Book newBook3 = giveBookForAuthor("genre3", "auth13");
-		out.println(newBook3); // give book and change author
-		
+		out.println(newBook3); // give book and change author (if exist key in map)
+
 		myListBooks.add(newBook3);
 		myListBooks.add(newBook);
 		myListBooks.add(newBook2);
+		myListBooks.add(newType); // add Type extends Book
 		out.println(myListBooks); // [Book [author=auth13, price=0.0, title=null], Book [author=author23,
-									// price=123.3, title=null], Book [author=author21, price=0.0, title=null]]
-
-	
-	TriFunction<String, Float, String, Book> threeArgsBook = Book::new;
-	Book threeBook = threeArgsBook.apply("authThree", 22.4f, "threeTitle");
-	out.println(threeBook); // Book [author=authThree, price=22.4, title=threeTitle]
+									// price=123.3, title=null], Book [author=author21, price=0.0, title=null], Book
+									// [author=authType, price=0.0, title=null]]
+		out.println(((Type) myListBooks.get(3)).getNumber()); // 22 
+		TriFunction<String, Float, String, Book> threeArgsBook = Book::new;
+		Book threeBook = threeArgsBook.apply("authThree", 22.4f, "threeTitle");
+		out.println(threeBook); // Book [author=authThree, price=22.4, title=threeTitle]
 	}
 
 	public static char method(String s) {

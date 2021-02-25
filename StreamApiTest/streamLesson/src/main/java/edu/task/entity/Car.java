@@ -2,22 +2,22 @@ package edu.task.entity;
 
 public class Car {
 
-	private int speed;
+	private Float speed;
 	private String model;
 
 	public Car() {
 	}
 
-	public Car(String model, int speed) {
+	public Car(String model, Float speed) {
 		this.model = model;
 		this.speed = speed;
 	}
 
-	public int getSpeed() {
+	public Float getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(int speed) {
+	public void setSpeed(Float speed) {
 		this.speed = speed;
 	}
 
@@ -27,6 +27,11 @@ public class Car {
 
 	public void setModel(String model) {
 		this.model = model;
+	}
+
+	@Override
+	public String toString() {
+		return "Car [speed=" + speed + ", model=" + model + "]";
 	}
 
 }

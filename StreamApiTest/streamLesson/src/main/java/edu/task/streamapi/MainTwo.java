@@ -30,8 +30,8 @@ public class MainTwo {
 																		// interface
 		String lineOneAndTwo = doingFile((BufferedReader r) -> r.readLine() + " " + r.readLine());
 		out.println(lineOne + lineSeparator() + lineOneAndTwo);
-		out.println(new CarMakerImpl().makeCar(new Car("Audi", 322))); // model: Audi speed: 322
-		out.println(getCarInfo((Car c) -> c.getModel() + lineSeparator() + c.getSpeed())); // Tesl 251
+		out.println(new CarMakerImpl().makeCar(new Car("Audi", 322f))); // model: Audi speed: 322
+		out.println(getCarInfo((Car c) -> c.getModel() + lineSeparator() + c.getSpeed())); // Tesla 251
 
 		Predicate<Integer> nonZeroIntegerPredicate = (Integer n) -> n != 0;
 		List<Integer> nonZero = filter(Arrays.asList(0, 2, 4, 0, 0, 1), nonZeroIntegerPredicate);
@@ -80,7 +80,7 @@ public class MainTwo {
 	}
 
 	public static String getCarInfo(CarMaker carMaker) {
-		return carMaker.makeCar(new Car("Tesla", 251));
+		return carMaker.makeCar(new Car("Tesla", 251f));
 	}
 
 	public static <T> List<T> filter(List<T> list, Predicate<T> p) {

@@ -5,6 +5,7 @@ public class Type extends Book {
 	private String name;
 	private float price;
 	private String title;
+	private int number;
 
 	public Type() {
 
@@ -13,16 +14,23 @@ public class Type extends Book {
 	public Type(String name) {
 		this.name = name;
 	}
-	
+
 	public Type(String name, float price) {
 		this.name = name;
 		this.price = price;
 	}
-	
+
 	public Type(String name, float price, String title) {
 		this.name = name;
 		this.price = price;
 		this.title = title;
+	}
+
+	public Type(String name, float price, String title, int number) {
+		this.name = name;
+		this.price = price;
+		this.title = title;
+		this.number = number;
 	}
 
 	public String getName() {
@@ -47,6 +55,14 @@ public class Type extends Book {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 }
