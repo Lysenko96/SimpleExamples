@@ -1,12 +1,15 @@
 package edu.task.streamapi;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.task.behaviour.TriFunction;
 import edu.task.entity.Book;
 import edu.task.entity.Type;
 
@@ -14,10 +17,28 @@ import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static java.lang.System.out;
 
 public class MainMethodReference {
+
+	static Map<String, Function<String, Book>> mapBooks = new HashMap<>();
+	static List<Book> myListBooks = new ArrayList<>();
+	static Book newBook = new Book();
+	static Book newBook2 = new Book();
+	static {
+		Function<String, Book> fBook1 = Book::new;
+		newBook = fBook1.apply("author23");
+		newBook.setPrice(123.3f);
+		out.println(newBook);
+		mapBooks.put("genre1", fBook1);
+		mapBooks.put("genre2", Type::new); // Type extends Book
+		Function<String, Book> fBook2 = Book::new;
+		newBook2 = fBook2.apply("author21");
+		mapBooks.put("genre3", fBook2);
+
+	}
 
 	public static void main(String[] args) {
 
@@ -57,6 +78,27 @@ public class MainMethodReference {
 		List<Book> books = map(authors, Book::new);
 		out.println(books); // [Book [author=author, price=0.0, title=null], Book [author=author1,
 							// price=0.0, title=null], Book [author=author2, price=0.0, title=null]]
+
+		BiFunction<String, Float, Book> bookTwoArgs = Book::new; // method reference constructor
+		Book bookObj = bookTwoArgs.apply("author4", 153.4f);
+		out.println(bookObj); // Book [author=author4, price=153.4, title=null]
+		BiFunction<String, Float, Book> bookTwoArgsL = (author, price) -> new Book(author, price);// method lambda
+		Book bookObjL = bookTwoArgsL.apply("author5", 211.7f);
+		out.println(bookObjL);// Book [author=author5, price=211.7, title=null]
+		
+		Book newBook3 = giveBookForAuthor("genre3", "auth13");
+		out.println(newBook3); // give book and change author
+		
+		myListBooks.add(newBook3);
+		myListBooks.add(newBook);
+		myListBooks.add(newBook2);
+		out.println(myListBooks); // [Book [author=auth13, price=0.0, title=null], Book [author=author23,
+									// price=123.3, title=null], Book [author=author21, price=0.0, title=null]]
+
+	
+	TriFunction<String, Float, String, Book> threeArgsBook = Book::new;
+	Book threeBook = threeArgsBook.apply("authThree", 22.4f, "threeTitle");
+	out.println(threeBook); // Book [author=authThree, price=22.4, title=threeTitle]
 	}
 
 	public static char method(String s) {
@@ -76,5 +118,9 @@ public class MainMethodReference {
 			result.add(f.apply(author));
 		}
 		return result;
+	}
+
+	public static Book giveBookForAuthor(String genre, String author) {
+		return mapBooks.get(genre.toLowerCase()).apply(author);
 	}
 }

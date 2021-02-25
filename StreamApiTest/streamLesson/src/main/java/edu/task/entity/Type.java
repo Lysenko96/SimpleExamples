@@ -1,10 +1,29 @@
 package edu.task.entity;
 
-public class Type {
+public class Type extends Book {
 
 	private String name;
 	private float price;
 	private String title;
+
+	public Type() {
+
+	}
+
+	public Type(String name) {
+		this.name = name;
+	}
+	
+	public Type(String name, float price) {
+		this.name = name;
+		this.price = price;
+	}
+	
+	public Type(String name, float price, String title) {
+		this.name = name;
+		this.price = price;
+		this.title = title;
+	}
 
 	public String getName() {
 		return name;

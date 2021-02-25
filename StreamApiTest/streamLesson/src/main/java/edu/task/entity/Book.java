@@ -13,6 +13,11 @@ public class Book {
 	public Book(String author) {
 		this.author = author;
 	}
+	
+	public Book(String author, float price) {
+		this.author = author;
+		this.price = price;
+	}
 
 	public Book(Type type) {
 		this.author = type.getName();
