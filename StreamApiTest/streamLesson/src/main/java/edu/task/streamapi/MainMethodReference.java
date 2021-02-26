@@ -99,7 +99,7 @@ public class MainMethodReference {
 		out.println(myListBooks); // [Book [author=auth13, price=0.0, title=null], Book [author=author23,
 									// price=123.3, title=null], Book [author=author21, price=0.0, title=null], Book
 									// [author=authType, price=0.0, title=null]]
-		out.println(((Type) myListBooks.get(3)).getNumber()); // 22 
+		out.println(((Type) myListBooks.get(3)).getNumber()); // 22
 		TriFunction<String, Float, String, Book> threeArgsBook = Book::new;
 		Book threeBook = threeArgsBook.apply("authThree", 22.4f, "threeTitle");
 		out.println(threeBook); // Book [author=authThree, price=22.4, title=threeTitle]
