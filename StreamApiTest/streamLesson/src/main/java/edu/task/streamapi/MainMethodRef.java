@@ -3,6 +3,7 @@ package edu.task.streamapi;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import edu.task.entity.Car;
@@ -69,6 +70,16 @@ public class MainMethodRef {
 		out.println(tesla.test(car5));// true
 		out.println(teslaMore300.test(car1));// false
 		out.println(teslaMore300.test(car5));// true
+
+		Function<Double, Double> f = x -> x + 1.4;
+		Function<Double, Double> g = x -> x * 3.6;
+		Function<Double, Double> h = f.andThen(g); // g(f(x))
+		out.println(h.apply(1.2d)); // (1.2 + 1.4) * 3.6 = 9.36
+
+		Function<Double, Double> h1 = f.compose(g); // f(g(x))
+		// (1.2 * 3.6) + 1.4 = 5.720000000000001
+		out.println(h1.apply(1.2d));
+
 	}
 
 }
