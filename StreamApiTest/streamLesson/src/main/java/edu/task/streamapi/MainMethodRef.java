@@ -7,6 +7,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import edu.task.entity.Car;
+import edu.task.entity.Computer;
+
 import static java.util.Comparator.comparing;
 import static java.lang.System.out;
 
@@ -80,6 +82,14 @@ public class MainMethodRef {
 		// (1.2 * 3.6) + 1.4 = 5.720000000000001
 		out.println(h1.apply(1.2d));
 
+		// using andThen
+
+		Function<Integer, Integer> compute = Computer::firstCompute;
+		Function<Integer, String> strCompute = compute.andThen(Computer::strTransform);
+		Function<Integer, int[]> intCompute = compute.andThen(Computer::strTransform).andThen(Computer::intTransform); // pipeline
+		out.println(strCompute.apply(7)); // 0 ƨ
+		out.println(intCompute.apply(7)[0]); // 96
+		out.println(intCompute.apply(7)[1]); // 472
 	}
 
 }
