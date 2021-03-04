@@ -3,11 +3,17 @@ package edu.task.streamapi;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+import java.util.function.BiFunction;
+import java.util.function.DoubleFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
+import edu.task.behaviour.TriFunction;
 import edu.task.entity.Car;
 import edu.task.entity.Computer;
+import edu.task.entity.Integrator;
 
 import static java.util.Comparator.comparing;
 import static java.lang.System.out;
@@ -90,6 +96,27 @@ public class MainMethodRef {
 		out.println(strCompute.apply(7)); // 0 ƨ
 		out.println(intCompute.apply(7)[0]); // 96
 		out.println(intCompute.apply(7)[1]); // 472
+		// Supplier<Integrator> t = Integrator::new;
+		BiFunction<Double, Double, Integrator> t2 = Integrator::new;
+		// add to list return 0 if repeat use lambda
+		for (int i = 0; i < 2; i++) {
+			out.println(integrate(t2, 2.5d, 5.1d));
+		}
+		DoubleFunction<Double> dfNew = (a) -> a + 10d;
+		DoubleFunction<Double> dfNewA = (a) -> a;
+		out.println(integrateTwo(dfNewA, 1d, 3d)); // add 10 to two args (a + 10, b + 10) in integrateTwo
+		out.println(integrateTwo(dfNew, 1d, 3d));
+	}
+
+	static Double integrate(BiFunction<Double, Double, Integrator> f, Double a, Double b) {
+		Random r = new Random();
+		Integrator tg = f.apply(a, b);
+		TriFunction<Double, Double, Integer, Double> s = tg::calculate;
+		return s.apply(a, b, r.nextInt(2));
+	}
+
+	static double integrateTwo(DoubleFunction<Double> df, double a, double b) {
+		return (df.apply(a) + df.apply(b)) * (b - a) / 2d;
 	}
 
 }
