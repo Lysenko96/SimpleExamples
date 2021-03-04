@@ -99,9 +99,15 @@ public class MainMethodRef {
 		// Supplier<Integrator> t = Integrator::new;
 		BiFunction<Double, Double, Integrator> t2 = Integrator::new;
 		// add to list return 0 if repeat use lambda
+		List<Double> l = new ArrayList<>();
 		for (int i = 0; i < 2; i++) {
-			out.println(integrate(t2, 2.5d, 5.1d));
+			l.add(integrate(t2, 2.5d, 5.1d));
 		}
+		Predicate<Double> dp = (a) -> a.equals(l.get(1));
+		if (dp.test(l.get(0))) {
+			l.set(1, 0d);
+		}
+		out.println(l);
 		DoubleFunction<Double> dfNew = (a) -> a + 10d;
 		DoubleFunction<Double> dfNewA = (a) -> a;
 		out.println(integrateTwo(dfNewA, 1d, 3d)); // add 10 to two args (a + 10, b + 10) in integrateTwo
