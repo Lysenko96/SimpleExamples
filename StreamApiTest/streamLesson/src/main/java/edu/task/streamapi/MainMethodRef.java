@@ -8,7 +8,7 @@ import java.util.function.BiFunction;
 import java.util.function.DoubleFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
+//import java.util.function.Supplier;
 
 import edu.task.behaviour.TriFunction;
 import edu.task.entity.Car;
@@ -128,10 +128,8 @@ public class MainMethodRef {
 }
 
 class CarComparator implements Comparator<Car> {
-
 	@Override
 	public int compare(Car c0, Car c1) {
 		return c0.getSpeed().compareTo(c1.getSpeed());
 	}
-
 }
