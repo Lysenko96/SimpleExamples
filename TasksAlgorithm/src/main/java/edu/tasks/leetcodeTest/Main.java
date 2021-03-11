@@ -1,4 +1,4 @@
-package edu.tasks.task3;
+package edu.tasks.leetcodeTest;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Main {
 
 	Main() {
-		System.out.println(Arrays.toString(twoSum(new int[] { 1, 2, 3, 4 }, 4))); // [0, 2]
+		System.out.println(Arrays.toString(twoSum(new int[] { 2, 5, 5, 11 }, 10))); // [2, 0, 0, 11]
 	}
 
 	public static void main(String[] args) {
@@ -15,15 +15,14 @@ public class Main {
 	}
 
 	public int[] twoSum(int[] nums, int target) {
-		int[] arr = new int[2];
 		for (int i = 0; i < nums.length; i++) {
-			for (int j = 0; j < nums.length; j++) {
+			for (int j = 1; j < nums.length - 1; j++) {
 				if (nums[j] + nums[i] == target) {
-					arr[0] = j;
-					arr[1] = i;
+					nums[j] = 0;
+					nums[i] = 0;
 				}
 			}
 		}
-		return arr;
+		return nums;
 	}
 }

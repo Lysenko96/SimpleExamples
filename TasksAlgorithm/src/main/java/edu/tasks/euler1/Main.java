@@ -1,4 +1,4 @@
-package edu.tasks.task2;
+package edu.tasks.euler1;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package edu.tasks.task1;
+package edu.tasks.euler;
 
 //sum Multiples of 3 and 5
 
