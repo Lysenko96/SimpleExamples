@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -7,15 +7,15 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- <bean id="bookBean" class="edu.lessons.spring.main.BookBean"> <constructor-arg 
-		value="myBook" /> <constructor-arg value="theAuthor" /> </bean> -->
+	<bean id="bookBean" class="edu.lessons.spring.main.BookBean"> <constructor-arg 
+		value="myBook" /> <constructor-arg value="theAuthor" /> </bean>
 
 	<context:property-placeholder
 		location="classpath:book.properties" />
 
-	<!-- <bean id="bookBean" class="edu.lessons.spring.main.BookBean"> <property 
+	<bean id="bookBean" class="edu.lessons.spring.main.BookBean"> <property 
 		name="name" value="myBook"></property> <property name="author" value="myAuthor"></property> 
-		</bean> -->
+		</bean>
 
 	<bean id="bookBean" class="edu.lessons.spring.main.BookBean">
 		<property name="name" value="${bookBean.name}"></property>
@@ -31,3 +31,4 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		base-package="edu.lessons.spring.main" />
 
 </beans>
+ -->

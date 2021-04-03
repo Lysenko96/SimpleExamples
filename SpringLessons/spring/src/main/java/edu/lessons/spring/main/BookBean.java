@@ -1,11 +1,15 @@
 package edu.lessons.spring.main;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BookBean {
 
+	@Value("${bookBean.name}")
 	private String name;
+	@Value("${bookBean.author}")
 	private String author;
 
 	public BookBean() {

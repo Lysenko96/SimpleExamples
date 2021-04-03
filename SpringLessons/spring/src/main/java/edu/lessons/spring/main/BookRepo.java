@@ -12,7 +12,7 @@ public class BookRepo {
 
 	}
 
-	// @Autowired
+	 @Autowired
 	public BookRepo(BookBean book) {
 		this.book = book;
 	}
