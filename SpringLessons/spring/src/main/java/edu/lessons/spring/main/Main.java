@@ -1,5 +1,6 @@
 package edu.lessons.spring.main;
 
+//import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
@@ -8,14 +9,24 @@ public class Main {
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
 
+		// AnnotationConfigApplicationContext context = new
+		// AnnotationConfigApplicationContext(Config.class);
+
 		BookBean book = context.getBean("bookBean", BookBean.class);
 
-		book.setName("myName");
+		System.out.println(book.toString());
 
-		book.setAuthor("myAuthor");
+//		book.setName("myName");
+//
+//		book.setAuthor("myAuthor");
+		
 
 		BookRepo repo = context.getBean("bookRepo", BookRepo.class);
-
+		
+		//BookRepo repo1 = new BookRepo();
+		//repo1.setBook(book);
+		//System.out.println(repo1.toString()); 
+		
 		System.out.println(repo.toString());
 
 		context.close();

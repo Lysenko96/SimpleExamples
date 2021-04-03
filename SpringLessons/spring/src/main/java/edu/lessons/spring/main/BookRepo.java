@@ -8,7 +8,11 @@ public class BookRepo {
 
 	private BookBean book;
 
-	@Autowired
+	public BookRepo() {
+
+	}
+
+	// @Autowired
 	public BookRepo(BookBean book) {
 		this.book = book;
 	}
@@ -16,7 +20,7 @@ public class BookRepo {
 	public BookBean getBook() {
 		return book;
 	}
-	
+
 	public void setBook(BookBean book) {
 		this.book = book;
 	}

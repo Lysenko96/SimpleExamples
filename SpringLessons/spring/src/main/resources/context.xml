@@ -7,9 +7,27 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- <bean id="book" class="edu.lessons.spring.bean.BookBean"> <constructor-arg 
+	<!-- <bean id="bookBean" class="edu.lessons.spring.main.BookBean"> <constructor-arg 
 		value="myBook" /> <constructor-arg value="theAuthor" /> </bean> -->
 
-	<context:component-scan base-package="edu.lessons.spring.main"/>
+	<context:property-placeholder
+		location="classpath:book.properties" />
+
+	<!-- <bean id="bookBean" class="edu.lessons.spring.main.BookBean"> <property 
+		name="name" value="myBook"></property> <property name="author" value="myAuthor"></property> 
+		</bean> -->
+
+	<bean id="bookBean" class="edu.lessons.spring.main.BookBean">
+		<property name="name" value="${bookBean.name}"></property>
+		<property name="author" value="${bookBean.author}"></property>
+	</bean>
+
+
+	<bean id="bookRepo" class="edu.lessons.spring.main.BookRepo">
+		<property name="book" ref="bookBean"></property>
+	</bean>
+
+	<context:component-scan
+		base-package="edu.lessons.spring.main" />
 
 </beans>
