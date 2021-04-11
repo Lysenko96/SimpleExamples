@@ -1,53 +1,41 @@
+package com.foxminded.university.dao.jdbc;
 
-private String GET_ALL_LESSON_GROUP = "SELECT * FROM lessons_groups";
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-// 2 lists to map take repeat keys and make list values for it 
+public class MapGenerator {
 
-@Override
-	public Map<Integer, List<Integer>> getAllLessonIdsGroupIds() {
-		List<Integer> lessonIds = new ArrayList<>();
-		List<Integer> groupIds = new ArrayList<>();
-		try (Connection connection = jdbcTemplate.getDataSource().getConnection();
-				Statement statement = connection.createStatement();) {
-			ResultSet resultSet = statement.executeQuery(GET_ALL_LESSON_GROUP);
-			while (resultSet.next()) {
-				lessonIds.add(resultSet.getInt("lesson_id"));
-				groupIds.add(resultSet.getInt("group_id"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public Map<Integer, List<Integer>> mapFromLists(List<Integer> listIds, List<Integer> list2Ids) {
 
-		return mapFromLists(lessonIds, groupIds);
+		List<Integer> listKeys = listFromSet(listIds);
+
+		List<Integer> lengths = getLengths(listKeys, listIds);
+
+		List<Integer> indexes = getIndexes(listKeys, listIds);
+
+		List<Integer> sortedList2Ids = getSortedList2Ids(indexes, list2Ids);
+
+		return getMap(lengths, sortedList2Ids, listKeys);
 	}
 
-	Map<Integer, List<Integer>> mapFromLists(List<Integer> lessonIds, List<Integer> groupIds) {
-
-		List<Integer> listKeys = listFromSet(lessonIds);
-
-		List<Integer> lengths = getLengths(listKeys, lessonIds);
-
-		List<Integer> indexes = getIndexes(listKeys, lessonIds);
-
-		List<Integer> sortedGroupIds = getSortedGroupIds(indexes, groupIds);
-
-		return getMap(lengths, sortedGroupIds, listKeys);
-	}
-
-	List<Integer> listFromSet(List<Integer> lessonIds) {
+	List<Integer> listFromSet(List<Integer> listIds) {
 		Set<Integer> setKeys = new HashSet<>();
-		for (Integer id : lessonIds) {
+		for (Integer id : listIds) {
 			setKeys.add(id);
 		}
 		return new ArrayList<>(setKeys);
 	}
 
-	List<Integer> getLengths(List<Integer> listKeys, List<Integer> lessonIds) {
+	List<Integer> getLengths(List<Integer> listKeys, List<Integer> listIds) {
 		List<Integer> lengths = new ArrayList<>();
 		int counterRepeat = 0;
 		for (int keyIndex = 0; keyIndex < listKeys.size(); keyIndex++) {
-			for (int lessonIndex = 0; lessonIndex < lessonIds.size(); lessonIndex++) {
-				if (listKeys.get(keyIndex).equals(lessonIds.get(lessonIndex))) {
+			for (int index = 0; index < listIds.size(); index++) {
+				if (listKeys.get(keyIndex).equals(listIds.get(index))) {
 					counterRepeat++;
 				}
 			}
@@ -57,36 +45,38 @@ private String GET_ALL_LESSON_GROUP = "SELECT * FROM lessons_groups";
 		return lengths;
 	}
 
-	List<Integer> getIndexes(List<Integer> listKeys, List<Integer> lessonIds) {
+	List<Integer> getIndexes(List<Integer> listKeys, List<Integer> listIds) {
 		List<Integer> indexes = new ArrayList<>();
 		for (int keyIndex = 0; keyIndex < listKeys.size(); keyIndex++) {
-			for (int lessonIndex = 0; lessonIndex < lessonIds.size(); lessonIndex++) {
-				if (listKeys.get(keyIndex).equals(lessonIds.get(lessonIndex))) {
-					indexes.add(lessonIndex);
+			for (int index = 0; index < listIds.size(); index++) {
+				if (listKeys.get(keyIndex).equals(listIds.get(index))) {
+					indexes.add(index);
 				}
 			}
 		}
 		return indexes;
 	}
 
-	List<Integer> getSortedGroupIds(List<Integer> indexes, List<Integer> groupIds) {
-		List<Integer> sortedGroupIds = new ArrayList<>();
+	List<Integer> getSortedList2Ids(List<Integer> indexes, List<Integer> list2Ids) {
+		List<Integer> sortedList2Ids = new ArrayList<>();
 		for (Integer id : indexes) {
-			sortedGroupIds.add(groupIds.get(id));
+			sortedList2Ids.add(list2Ids.get(id));
 		}
-		return sortedGroupIds;
+		return sortedList2Ids;
 	}
 
-	Map<Integer, List<Integer>> getMap(List<Integer> lengths, List<Integer> sortedGroupIds, List<Integer> listKeys) {
+	Map<Integer, List<Integer>> getMap(List<Integer> lengths, List<Integer> sortedList2Ids, List<Integer> listKeys) {
 		Map<Integer, List<Integer>> map = new HashMap<>();
 		int increment = 0;
 		for (int indexKey = 0; indexKey < lengths.size(); indexKey++) {
 			List<Integer> values = new ArrayList<>();
 			for (int indexValue = increment; indexValue < increment + lengths.get(indexKey); indexValue++) {
-				values.add(sortedGroupIds.get(indexValue));
+				values.add(sortedList2Ids.get(indexValue));
 			}
 			increment += lengths.get(indexKey);
 			map.put(listKeys.get(indexKey), values);
 		}
 		return map;
 	}
+}
+
