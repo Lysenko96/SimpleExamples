@@ -10,7 +10,9 @@ public class Main extends ParentMain {
 	public static void main(String[] args) {
 
 		Main main = new Main();
+		ParentMain parentMain = new ParentMain();
 		ParentMain.result(main);
+		ParentMain.result(parentMain);
 	}
 }
 
