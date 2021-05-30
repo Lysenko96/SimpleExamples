@@ -1,15 +1,35 @@
 package edu.lysenko.lesson.collection1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Generator generator = new Generator();
+		Map<String, Integer> map = new HashMap<>();
+		Set<String> set = new HashSet<>();
+		set.add("jun");
+		set.add("sen");
+		set.add("mid");
+		set.add("zip");
+		set.add("jun");
+		System.out.println(set);
+		Set<String> linkedSet = new LinkedHashSet<>();
+		linkedSet.add("jun");
+		linkedSet.add("sen");
+		linkedSet.add("mid");
+		linkedSet.add("zip");
+		linkedSet.add("jun");
+		System.out.println(linkedSet);
+		map.put(null, 2);
+		System.out.println(map);
 		show(generator);
 
 	}
