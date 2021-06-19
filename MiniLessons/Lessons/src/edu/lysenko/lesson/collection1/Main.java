@@ -3,17 +3,23 @@ package edu.lysenko.lesson.collection1;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import edu.lysenko.abstractclass.IFace;
+
 public class Main {
 
 	public static void main(String[] args) {
 		Generator generator = new Generator();
 		Map<String, Integer> map = new HashMap<>();
+		Map<String, String> table = new Hashtable<>();
+		table.put("", "");
+		System.out.println(table);
 		Set<String> set = new HashSet<>();
 		set.add("jun");
 		set.add("sen");
@@ -65,5 +71,17 @@ public class Main {
 		System.out.println(generator.next(treeSet));
 		System.out.println(generator.next(treeSet));
 	}
+
+}
+
+abstract class Abstract {
+
+	Abstract() {
+
+	}
+
+}
+
+interface Iface {
 
 }
