@@ -1,0 +1,8 @@
+package edu.lysenko.patterns.behavioral.snapshot;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+	}
+}
