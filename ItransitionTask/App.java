@@ -29,12 +29,13 @@ public class App {
            // System.out.println(Arrays.toString(hmacSha256));
             hmacSha256 = mac.doFinal(String.valueOf(v).getBytes());
             // System.out.println(Arrays.toString(hmacSha256));
-            System.out.println(String.format("Hex: %032x", new BigInteger(1, hmacSha256)));
+            System.out.println(String.format("HMAC: %032x", new BigInteger(1, hmacSha256)));
             Scanner sc = new Scanner(System.in);
             System.out.print("Enter you move: ");
             int s = sc.nextInt();
             System.out.println(s);
-            
+            System.out.println(String.format("HMAC key: %032x", new BigInteger(1, bytes)));
+            sc.close();
         //}
     }
 }
