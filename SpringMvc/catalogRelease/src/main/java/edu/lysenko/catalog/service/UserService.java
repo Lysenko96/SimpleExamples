@@ -43,7 +43,7 @@ public class UserService {
 
 	public String getLoginMapping(User user) {
 		log.info(user.toString());
-		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd(), user.getName(), user.getSurname());
+		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd());
 		if (userDb == null) {
 			return "login";
 		} else if (userDb.getRole().name().equals(Role.USER.name())) {

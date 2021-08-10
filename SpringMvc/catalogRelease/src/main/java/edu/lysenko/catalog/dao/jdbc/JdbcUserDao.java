@@ -28,6 +28,7 @@ public class JdbcUserDao implements UserDao {
 	private static final String UPDATE_USER = "UPDATE users SET email=?, password=?, name=?, surname=?, role=? WHERE id=?";
 	private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
 	private static final String GET_USER_DATA = "SELECT * FROM users WHERE email=? AND name=? AND surname=?";
+	private static final String GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email=?";
 
 	private PasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
@@ -88,6 +89,21 @@ public class JdbcUserDao implements UserDao {
 			if (encoder.matches(password, user.getPasswd()) && user.getName().equals(name)
 					&& user.getSurname().equals(surname)) {
 				return jdbcTemplate.queryForObject(GET_USER_DATA, new UserMapper(), email, name, surname);
+			} else {
+				user = null;
+			}
+		} catch (EmptyResultDataAccessException e) {
+			log.info("No user in db");
+		}
+		return user;
+	}
+
+	public User getUserData(String email, String password) {
+		User user = null;
+		try {
+			user = jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, new UserMapper(), email);
+			if (encoder.matches(password, user.getPasswd())) {
+				return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, new UserMapper(), email);
 			} else {
 				user = null;
 			}
