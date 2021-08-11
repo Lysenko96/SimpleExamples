@@ -18,7 +18,7 @@
 				</tr>
 				<tr>
 					<td>Password</td>
-					<td><input type="passwd" name="passwd" id="passwd" /></td>
+					<td><input type="password" name="passwd" id="passwd" /></td>
 					<%=request.getParameter("passwd")%>
 				</tr>
 				<tr>
