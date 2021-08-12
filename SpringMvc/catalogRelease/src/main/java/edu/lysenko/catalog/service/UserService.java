@@ -25,15 +25,16 @@ public class UserService {
 				emails.add(line.getEmail());
 			}
 		}
-		if (!user.getEmail().isEmpty() && !user.getName().isEmpty() && !user.getSurname().isEmpty()
-				&& !user.getRole().name().isEmpty() && !emails.contains(user.getEmail())) {
+		if (user.getRole() != null && !user.getEmail().isEmpty() && !user.getName().isEmpty()
+				&& !user.getSurname().isEmpty() && !user.getRole().name().isEmpty()
+				&& !emails.contains(user.getEmail())) {
 			userDao.add(user);
 		}
 		log.info(user.toString());
-		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd(), user.getName(), user.getSurname());
+		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
 		System.out.println(userDb);
 		String mapping = null;
-		if (userDb == null) {
+		if (userDb == null && user.getRole() == null) {
 			mapping = "redirect:/registerate";
 		} else if (userDb.getRole().equals(Role.USER)) {
 			mapping = "redirect:/user";
@@ -51,28 +52,28 @@ public class UserService {
 				emails.add(line.getEmail());
 			}
 		}
-		if (!user.getEmail().isEmpty() && !user.getName().isEmpty() && !user.getSurname().isEmpty()
-				&& !user.getRole().name().isEmpty() && !emails.contains(user.getEmail())) {
+		if (user.getRole() != null && !user.getEmail().isEmpty() && !user.getName().isEmpty()
+				&& !user.getSurname().isEmpty() && !user.getRole().name().isEmpty()
+				&& !emails.contains(user.getEmail())) {
 			userDao.update(user);
 		}
 		log.info(user.toString());
-		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd(), user.getName(), user.getSurname());
-		System.out.println(userDb);
+		User userDb = userDao.findUserByEmail(user.getEmail());
+		userDao.update(user);
 		String mapping = null;
-		if (userDb == null) {
+		if (userDb == null && user.getRole() == null) {
 			mapping = "redirect:/registerate";
 		} else if (userDb.getRole().equals(Role.USER)) {
 			mapping = "redirect:/user";
 		} else if (userDb.getRole().equals(Role.ADMIN)) {
 			mapping = "redirect:/admin";
 		}
-		System.out.println(mapping);
 		return mapping;
 	}
 
 	public String authorize(User user) {
 		log.info(user.toString());
-		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd());
+		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
 		String mapping = null;
 		if (userDb == null) {
 			mapping = "redirect:/login";

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>New/Edit Contact</title>
+<title>Edit User</title>
 </head>
 <body>
     <div align="center">
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>Pass:</td>
-                <td><form:input path="passwd" /></td>
+                <td><form:input type="password" path="passwd" /></td>
             </tr>
             <tr>
                 <td>Name:</td>

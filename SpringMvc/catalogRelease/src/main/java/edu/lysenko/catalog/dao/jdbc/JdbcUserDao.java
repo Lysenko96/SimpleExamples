@@ -27,7 +27,6 @@ public class JdbcUserDao implements UserDao {
 	private static final String GET_ALL_USERS = "SELECT * FROM users";
 	private static final String UPDATE_USER = "UPDATE users SET email=?, password=?, name=?, surname=?, role=? WHERE id=?";
 	private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
-	private static final String GET_USER_DATA = "SELECT * FROM users WHERE email=? AND name=? AND surname=?";
 	private static final String GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email=?";
 
 	private PasswordEncoder encoder = new BCryptPasswordEncoder(12);
@@ -72,7 +71,8 @@ public class JdbcUserDao implements UserDao {
 
 	@Override
 	public int update(User user) {
-		jdbcTemplate.update(UPDATE_USER, user.getEmail(), user.getPasswd(), user.getName(), user.getSurname(),
+		String encodePass = encoder.encode(user.getPasswd());
+		jdbcTemplate.update(UPDATE_USER, user.getEmail(), encodePass, user.getName(), user.getSurname(),
 				user.getRole().name(), user.getId());
 		return user.getId();
 	}
@@ -82,13 +82,12 @@ public class JdbcUserDao implements UserDao {
 		jdbcTemplate.update(DELETE_USER, id);
 	}
 
-	public User getUserData(String email, String password, String name, String surname) {
+	public User findUserByEmailPass(String email, String password) {
 		User user = null;
 		try {
-			user = jdbcTemplate.queryForObject(GET_USER_DATA, new UserMapper(), email, name, surname);
-			if (encoder.matches(password, user.getPasswd()) && user.getName().equals(name)
-					&& user.getSurname().equals(surname)) {
-				return jdbcTemplate.queryForObject(GET_USER_DATA, new UserMapper(), email, name, surname);
+			user = jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, new UserMapper(), email);
+			if (encoder.matches(password, user.getPasswd())) {
+				return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, new UserMapper(), email);
 			} else {
 				user = null;
 			}
@@ -98,15 +97,11 @@ public class JdbcUserDao implements UserDao {
 		return user;
 	}
 
-	public User getUserData(String email, String password) {
+	public User findUserByEmail(String email) {
 		User user = null;
 		try {
 			user = jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, new UserMapper(), email);
-			if (encoder.matches(password, user.getPasswd())) {
-				return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, new UserMapper(), email);
-			} else {
-				user = null;
-			}
+			return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, new UserMapper(), email);
 		} catch (EmptyResultDataAccessException e) {
 			log.info("No user in db");
 		}
