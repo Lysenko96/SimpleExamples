@@ -18,40 +18,70 @@ public class UserService {
 	@Autowired
 	private JdbcUserDao userDao;
 
-	public String getRegisterateMapping(User user) {
+	public String save(User user) {
 		List<String> emails = new ArrayList<>();
-
 		if (!userDao.getAll().isEmpty()) {
 			for (User line : userDao.getAll()) {
 				emails.add(line.getEmail());
 			}
 		}
-		if (!emails.contains(user.getEmail())) {
+		if (!user.getEmail().isEmpty() && !user.getName().isEmpty() && !user.getSurname().isEmpty()
+				&& !user.getRole().name().isEmpty() && !emails.contains(user.getEmail())) {
 			userDao.add(user);
 		}
 		log.info(user.toString());
 		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd(), user.getName(), user.getSurname());
+		System.out.println(userDb);
+		String mapping = null;
 		if (userDb == null) {
-			return "registerate";
+			mapping = "redirect:/registerate";
 		} else if (userDb.getRole().equals(Role.USER)) {
-			return "user";
+			mapping = "redirect:/user";
 		} else if (userDb.getRole().equals(Role.ADMIN)) {
-			return "admin";
+			mapping = "redirect:/admin";
 		}
-		return "registerate";
+		System.out.println(mapping);
+		return mapping;
 	}
 
-	public String getLoginMapping(User user) {
+	public String update(User user) {
+		List<String> emails = new ArrayList<>();
+		if (!userDao.getAll().isEmpty()) {
+			for (User line : userDao.getAll()) {
+				emails.add(line.getEmail());
+			}
+		}
+		if (!user.getEmail().isEmpty() && !user.getName().isEmpty() && !user.getSurname().isEmpty()
+				&& !user.getRole().name().isEmpty() && !emails.contains(user.getEmail())) {
+			userDao.update(user);
+		}
+		log.info(user.toString());
+		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd(), user.getName(), user.getSurname());
+		System.out.println(userDb);
+		String mapping = null;
+		if (userDb == null) {
+			mapping = "redirect:/registerate";
+		} else if (userDb.getRole().equals(Role.USER)) {
+			mapping = "redirect:/user";
+		} else if (userDb.getRole().equals(Role.ADMIN)) {
+			mapping = "redirect:/admin";
+		}
+		System.out.println(mapping);
+		return mapping;
+	}
+
+	public String authorize(User user) {
 		log.info(user.toString());
 		User userDb = userDao.getUserData(user.getEmail(), user.getPasswd());
+		String mapping = null;
 		if (userDb == null) {
-			return "login";
+			mapping = "redirect:/login";
 		} else if (userDb.getRole().name().equals(Role.USER.name())) {
-			return "user";
+			mapping = "redirect:/user";
 		} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
-			return "admin";
+			mapping = "redirect:/admin";
 		}
-		return "login";
+		return mapping;
 	}
 
 }
