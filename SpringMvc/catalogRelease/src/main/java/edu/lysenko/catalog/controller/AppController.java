@@ -44,11 +44,16 @@ public class AppController {
 		return userService.update(user);
 	}
 
+	@GetMapping(value = "/delete")
+	public String delete(Model model, @ModelAttribute("user") User user) {
+		return userService.delete(user);
+	}
+
 	@GetMapping(value = "/edit")
 	public ModelAndView editUser(HttpServletRequest request) {
 		Integer id = Integer.parseInt(request.getParameter("id"));
 		User user = userDao.getById(id);
-		System.out.println(user);
+		user.setPasswd(""); // always when update need enter new pass
 		ModelAndView model = new ModelAndView("edit");
 		model.addObject("user", user);
 		return model;

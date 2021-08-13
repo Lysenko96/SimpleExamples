@@ -28,7 +28,8 @@
 					<td>${user.name}</td>
 					<td>${user.surname}</td>
 					<td>${user.role}</td>
-					<td><a href="edit?id=${user.id}">Edit</a></td>
+					<td><a href="edit?id=${user.id}">Edit</a> <a
+						href="delete?id=${user.id}">Delete</a>
 				</tr>
 			</c:forEach>
 		</table>
