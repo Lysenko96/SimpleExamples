@@ -14,22 +14,22 @@
 				<tr>
 					<td>Email</td>
 					<td><input type="text" name="email" id="email" /></td>
-					<%=request.getParameter("email")%>
+					<%-- <%=request.getParameter("email")%> --%>
 				</tr>
 				<tr>
 					<td>Password</td>
 					<td><input type="password" name="passwd" id="passwd" /></td>
-					<%=request.getParameter("passwd")%>
+					<%-- <%=request.getParameter("passwd")%> --%>
 				</tr>
 				<tr>
 					<td>User Name</td>
 					<td><input type="text" name="name" id="name" /></td>
-					<%=request.getParameter("name")%>
+					<%-- <%=request.getParameter("name")%> --%>
 				</tr>
 				<tr>
 					<td>User Surname</td>
 					<td><input type="text" name="surname" id="surname" /></td>
-					<%=request.getParameter("surname")%>
+					<%-- <%=request.getParameter("surname")%> --%>
 				</tr>
 				<tr>
 					<td></td>
@@ -41,7 +41,7 @@
 							<option value="ADMIN">admin</option>
 							<option value="USER">user</option>
 					</select></td>
-					<%=request.getParameter("role")%>
+					<%-- <%=request.getParameter("role")%> --%>
 				</tr>
 			</table>
 			<a href="/catalog/">to start page</a>

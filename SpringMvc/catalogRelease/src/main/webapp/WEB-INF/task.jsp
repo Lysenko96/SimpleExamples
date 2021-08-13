@@ -12,14 +12,14 @@
 		<div align="center">
 			<table>
 				<tr>
-					<td>Email</td>
-					<td><input type="text" name="email" id="email" /></td>
-					<%-- <%=request.getParameter("email")%> --%>
+					<td>Name</td>
+					<td><input type="text" name="name" id="name" /></td>
+					<%=request.getParameter("name")%>
 				</tr>
 				<tr>
-					<td>Password</td>
-					<td><input type="password" name="passwd" id="passwd" /></td>
-					<%-- <%=request.getParameter("passwd")%> --%>
+					<td>Title</td>
+					<td><textarea name="title" id="title"></textarea></td>
+					<%=request.getParameter("title")%>
 				</tr>
 				<tr>
 					<td></td>

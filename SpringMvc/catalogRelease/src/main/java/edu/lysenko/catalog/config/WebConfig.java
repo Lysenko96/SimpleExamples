@@ -10,10 +10,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import edu.lysenko.catalog.dao.jdbc.JdbcTaskDao;
 import edu.lysenko.catalog.dao.jdbc.JdbcUserDao;
 
 @Configuration
@@ -46,13 +46,13 @@ public class WebConfig implements WebMvcConfigurer {
 		return bean;
 	}
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/user").setViewName("user");
-	}
-
 	@Bean
 	JdbcUserDao userDao() {
 		return new JdbcUserDao(getDataSource());
+	}
+
+	@Bean
+	JdbcTaskDao taskDao(DataSource dataSource) {
+		return new JdbcTaskDao(getDataSource());
 	}
 }

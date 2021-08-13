@@ -2,7 +2,6 @@ package edu.lysenko.catalog.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import edu.lysenko.catalog.entity.User;
 @Service
 public class UserService {
 
-	private Logger log = Logger.getLogger(UserService.class.getName());
 	@Autowired
 	private JdbcUserDao userDao;
 
@@ -30,18 +28,15 @@ public class UserService {
 				&& !emails.contains(user.getEmail())) {
 			userDao.add(user);
 		}
-		log.info(user.toString());
 		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
-		System.out.println(userDb);
 		String mapping = null;
 		if (userDb == null || user.getRole() == null || user.getPasswd().isEmpty()) {
 			mapping = "redirect:/registerate";
-		} else if (userDb.getRole().equals(Role.USER)) {
-			mapping = "redirect:/user";
-		} else if (userDb.getRole().equals(Role.ADMIN)) {
-			mapping = "redirect:/admin";
+		} else if (userDb.getRole().equals(Role.USER) && user.getRole().name().equals(Role.USER.name())) {
+			mapping = "redirect:/login";
+		} else if (userDb.getRole().equals(Role.ADMIN) && user.getRole().name().equals(Role.ADMIN.name())) {
+			mapping = "redirect:/login";
 		}
-		System.out.println(mapping);
 		return mapping;
 	}
 
@@ -58,14 +53,10 @@ public class UserService {
 				&& !user.getRole().name().isEmpty() && !emails.contains(user.getEmail())) {
 			userDao.update(user);
 		} else if (user.getPasswd().isEmpty()) {
-			System.out.println("is empty");
 			mapping = "redirect:/edit?id=" + user.getId();
 		}
-		log.info(user.toString());
-
 		User userDb = userDao.findUserByEmail(user.getEmail());
-		userDao.update(user);// update pass
-
+		userDao.update(user);
 		if (userDb == null || user.getRole() == null || !user.getPasswd().isEmpty()) {
 			mapping = "redirect:/login";
 		} else if (userDb.getRole().equals(Role.USER) && !user.getPasswd().isEmpty()) {
@@ -77,15 +68,12 @@ public class UserService {
 	}
 
 	public String delete(User user) {
-		log.info(user.toString());
 		User userDb = userDao.getById(user.getId());
-		System.out.println("userDbDel: " + userDb);
 		userDao.deleteById(userDb.getId());
 		return "redirect:/admin";
 	}
 
 	public String authorize(User user) {
-		log.info(user.toString());
 		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
 		String mapping = null;
 		if (userDb == null) {
