@@ -2,14 +2,13 @@ package edu.lysenko.catalog.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.lysenko.catalog.dao.jdbc.JdbcTaskDao;
@@ -25,28 +24,12 @@ public class TaskController {
 	private TaskService taskService;
 
 	@GetMapping(value = "/task")
-	public String menuTask() {
+	public String menu() {
 		return "task";
 	}
 
-	@PostMapping(value = "/task")
-	public String addTask(Model model, @ModelAttribute("task") Task task) {
-		return taskService.save(task);
-	}
-
-	@GetMapping(value = "/deleteTask")
-	public String deleteTask(Model model, @ModelAttribute("task") Task task) {
-		return taskService.delete(task);
-	}
-
-	@PostMapping(value = "/updateTask")
-	public String updateTask(Model model, @ModelAttribute("task") Task task) {
-		return taskService.update(task);
-	}
-
 	@GetMapping(value = "/editTask")
-	public ModelAndView editTask(HttpServletRequest request) {
-		Integer id = Integer.parseInt(request.getParameter("id"));
+	public ModelAndView edit(@RequestParam("id") int id) {
 		Task task = taskDao.getById(id);
 		ModelAndView model = new ModelAndView("editTask");
 		model.addObject("task", task);
@@ -54,10 +37,25 @@ public class TaskController {
 	}
 
 	@GetMapping("/user")
-	public ModelAndView listTask(ModelAndView model) {
+	public ModelAndView list(ModelAndView model) {
 		List<Task> listTask = taskDao.getAll();
 		model.addObject("listTask", listTask);
 		model.setViewName("user");
 		return model;
+	}
+
+	@GetMapping(value = "/deleteTask")
+	public String delete(Model model, @ModelAttribute("task") Task task) {
+		return taskService.delete(task);
+	}
+
+	@PostMapping(value = "/task")
+	public String add(Model model, @ModelAttribute("task") Task task) {
+		return taskService.add(task);
+	}
+
+	@PostMapping(value = "/updateTask")
+	public String update(Model model, @ModelAttribute("task") Task task) {
+		return taskService.update(task);
 	}
 }

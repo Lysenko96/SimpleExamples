@@ -14,7 +14,6 @@
 			<tr>
 				<th>id</th>
 				<th>Email</th>
-				<!--  <th>Password</th> -->
 				<th>Name</th>
 				<th>Surname</th>
 				<th>Role</th>
@@ -24,7 +23,6 @@
 				<tr>
 					<td>${user.id}</td>
 					<td>${user.email}</td>
-					<!--	<td>${user.passwd}</td> -->
 					<td>${user.name}</td>
 					<td>${user.surname}</td>
 					<td>${user.role}</td>

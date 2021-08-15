@@ -94,13 +94,11 @@ public class JdbcUserDao implements UserDao {
 	}
 
 	public User findUserByEmail(String email) {
-		User user = null;
 		try {
-			user = jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, userMapper, email);
 			return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, userMapper, email);
 		} catch (EmptyResultDataAccessException e) {
 			log.info("No user in db");
 		}
-		return user;
+		return null;
 	}
 }

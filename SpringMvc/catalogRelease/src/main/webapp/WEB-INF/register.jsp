@@ -20,8 +20,24 @@
 					<td><input type="password" name="passwd" id="passwd" /></td>
 				</tr>
 				<tr>
+					<td>User Name</td>
+					<td><input type="text" name="name" id="name" /></td>
+				</tr>
+				<tr>
+					<td>User Surname</td>
+					<td><input type="text" name="surname" id="surname" /></td>
+				</tr>
+				<tr>
 					<td></td>
 					<td><input type="submit" value="Submit" /></td>
+				</tr>
+				<tr>
+					<td><select name="role">
+							<option value="" selected disabled hidden>select role</option>
+							<option value="ADMIN">admin</option>
+							<option value="USER">user</option>
+					</select></td>
+					<%-- <%=request.getParameter("role")%> --%>
 				</tr>
 			</table>
 			<a href="/catalog/">to start page</a>

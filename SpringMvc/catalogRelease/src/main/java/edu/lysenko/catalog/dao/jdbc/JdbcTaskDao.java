@@ -65,15 +65,12 @@ public class JdbcTaskDao implements TaskDao {
 	}
 
 	public Task findTaskByName(String name) {
-		Task task = null;
 		try {
-			task = jdbcTemplate.queryForObject(GET_TASK_BY_NAME, taskMapper, name);
-			return task;
+			return jdbcTemplate.queryForObject(GET_TASK_BY_NAME, taskMapper, name);
 		} catch (EmptyResultDataAccessException e) {
 			log.info("No task in db");
-			task = null;
 		}
-		return task;
+		return null;
 	}
 
 }
