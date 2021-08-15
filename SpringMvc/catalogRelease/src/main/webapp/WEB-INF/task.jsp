@@ -14,12 +14,10 @@
 				<tr>
 					<td>Name</td>
 					<td><input type="text" name="name" id="name" /></td>
-					<%=request.getParameter("name")%>
 				</tr>
 				<tr>
 					<td>Title</td>
 					<td><textarea name="title" id="title"></textarea></td>
-					<%=request.getParameter("title")%>
 				</tr>
 				<tr>
 					<td></td>

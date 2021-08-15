@@ -14,21 +14,25 @@ import edu.lysenko.catalog.entity.User;
 public class UserService {
 
 	@Autowired
-	private JdbcUserDao userDao;
+	private JdbcUserDao jdbcUserDao;
+
+	public UserService(JdbcUserDao userDao) {
+		this.jdbcUserDao = userDao;
+	}
 
 	public String save(User user) {
 		List<String> emails = new ArrayList<>();
-		if (!userDao.getAll().isEmpty()) {
-			for (User entity : userDao.getAll()) {
+		if (!jdbcUserDao.getAll().isEmpty()) {
+			for (User entity : jdbcUserDao.getAll()) {
 				emails.add(entity.getEmail());
 			}
 		}
 		if (user.getRole() != null && !user.getEmail().isEmpty() && !user.getPasswd().isEmpty()
 				&& !user.getName().isEmpty() && !user.getSurname().isEmpty() && !user.getRole().name().isEmpty()
 				&& !emails.contains(user.getEmail())) {
-			userDao.add(user);
+			jdbcUserDao.add(user);
 		}
-		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
+		User userDb = jdbcUserDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
 		String mapping = null;
 		if (userDb == null || user.getRole() == null || user.getPasswd().isEmpty()) {
 			mapping = "redirect:/registerate";
@@ -42,8 +46,8 @@ public class UserService {
 
 	public String update(User user) {
 		List<String> emails = new ArrayList<>();
-		if (!userDao.getAll().isEmpty()) {
-			for (User entity : userDao.getAll()) {
+		if (!jdbcUserDao.getAll().isEmpty()) {
+			for (User entity : jdbcUserDao.getAll()) {
 				emails.add(entity.getEmail());
 			}
 		}
@@ -51,12 +55,12 @@ public class UserService {
 		if (user.getRole() != null && !user.getPasswd().isEmpty() && !user.getEmail().isEmpty()
 				&& !user.getPasswd().isEmpty() && !user.getName().isEmpty() && !user.getSurname().isEmpty()
 				&& !user.getRole().name().isEmpty() && !emails.contains(user.getEmail())) {
-			userDao.update(user);
+			jdbcUserDao.update(user);
 		} else if (user.getPasswd().isEmpty()) {
 			mapping = "redirect:/edit?id=" + user.getId();
 		}
-		User userDb = userDao.findUserByEmail(user.getEmail());
-		userDao.update(user);
+		User userDb = jdbcUserDao.findUserByEmail(user.getEmail());
+		jdbcUserDao.update(user);
 		if (userDb == null || user.getRole() == null || !user.getPasswd().isEmpty()) {
 			mapping = "redirect:/login";
 		} else if (userDb.getRole().equals(Role.USER) && !user.getPasswd().isEmpty()) {
@@ -68,13 +72,13 @@ public class UserService {
 	}
 
 	public String delete(User user) {
-		User userDb = userDao.getById(user.getId());
-		userDao.deleteById(userDb.getId());
+		User userDb = jdbcUserDao.getById(user.getId());
+		jdbcUserDao.deleteById(userDb.getId());
 		return "redirect:/admin";
 	}
 
 	public String authorize(User user) {
-		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
+		User userDb = jdbcUserDao.findUserByEmailPass(user.getEmail(), user.getPasswd());
 		String mapping = null;
 		if (userDb == null) {
 			mapping = "redirect:/login";

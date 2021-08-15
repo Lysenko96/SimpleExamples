@@ -7,14 +7,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import edu.lysenko.catalog.dao.jdbc.JdbcTaskDao;
-import edu.lysenko.catalog.dao.jdbc.JdbcUserDao;
 
 @Configuration
 @EnableWebMvc
@@ -32,10 +34,22 @@ public class WebConfig implements WebMvcConfigurer {
 	private String driver;
 
 	@Bean
-	public DataSource getDataSource() {
+	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, user, passwd);
 		dataSource.setDriverClassName(driver);
 		return dataSource;
+	}
+
+	@Bean
+	public ResourceDatabasePopulator databasePopulator() {
+		return new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
+	}
+
+	@Bean
+	@Scope(value = "prototype")
+	public JdbcTemplate jdbcTemplate() {
+		DatabasePopulatorUtils.execute(databasePopulator(), dataSource());
+		return new JdbcTemplate(dataSource());
 	}
 
 	@Bean
@@ -44,15 +58,5 @@ public class WebConfig implements WebMvcConfigurer {
 		bean.setPrefix("/WEB-INF/");
 		bean.setSuffix(".jsp");
 		return bean;
-	}
-
-	@Bean
-	JdbcUserDao userDao() {
-		return new JdbcUserDao(getDataSource());
-	}
-
-	@Bean
-	JdbcTaskDao taskDao(DataSource dataSource) {
-		return new JdbcTaskDao(getDataSource());
 	}
 }

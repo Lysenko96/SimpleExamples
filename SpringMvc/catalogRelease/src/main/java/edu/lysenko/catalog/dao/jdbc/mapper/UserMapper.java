@@ -4,10 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import edu.lysenko.catalog.entity.Role;
 import edu.lysenko.catalog.entity.User;
 
+@Component
 public class UserMapper implements RowMapper<User> {
 
 	@Override
