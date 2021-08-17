@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Car {
 
+	private int id;
 	private String name;
 	private int speed;
 }

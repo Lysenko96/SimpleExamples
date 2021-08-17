@@ -1,0 +1,9 @@
+<html xmlns:th="www.thymeleaf.org">
+<body>
+	<h2>Hello World!</h2>
+	<div th:each="car : ${cars}">
+		<a th:href="@{/cars/findCar/{id}(id=${car.getId()})}"
+			th:text="${car.getName()}">car</a>
+	</div>
+</body>
+</html>
