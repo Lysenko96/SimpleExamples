@@ -13,6 +13,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -50,6 +52,11 @@ public class WebConfig implements WebMvcConfigurer {
 	public JdbcTemplate jdbcTemplate() {
 		DatabasePopulatorUtils.execute(databasePopulator(), dataSource());
 		return new JdbcTemplate(dataSource());
+	}
+
+	@Bean
+	PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Bean

@@ -1,6 +1,5 @@
 package edu.lysenko.catalog.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.lysenko.catalog.dao.jdbc.JdbcUserDao;
@@ -10,8 +9,11 @@ import edu.lysenko.catalog.entity.User;
 @Service
 public class UserService {
 
-	@Autowired
 	private JdbcUserDao jdbcUserDao;
+
+	public UserService(JdbcUserDao jdbcUserDao) {
+		this.jdbcUserDao = jdbcUserDao;
+	}
 
 	public String add(User user) {
 		User userDb = jdbcUserDao.findUserByEmailPass(user.getEmail(), user.getPasswd());

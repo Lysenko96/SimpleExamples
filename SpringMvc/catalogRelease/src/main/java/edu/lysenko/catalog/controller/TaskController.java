@@ -2,7 +2,6 @@ package edu.lysenko.catalog.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +17,13 @@ import edu.lysenko.catalog.service.TaskService;
 @Controller
 public class TaskController {
 
-	@Autowired
 	private JdbcTaskDao taskDao;
-	@Autowired
 	private TaskService taskService;
+
+	public TaskController(JdbcTaskDao taskDao, TaskService taskService) {
+		this.taskDao = taskDao;
+		this.taskService = taskService;
+	}
 
 	@GetMapping(value = "/task")
 	public String menu() {

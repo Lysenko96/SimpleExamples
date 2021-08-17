@@ -1,6 +1,5 @@
 package edu.lysenko.catalog.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.lysenko.catalog.dao.jdbc.JdbcTaskDao;
@@ -9,8 +8,11 @@ import edu.lysenko.catalog.entity.Task;
 @Service
 public class TaskService {
 
-	@Autowired
 	private JdbcTaskDao jdbcTaskDao;
+
+	public TaskService(JdbcTaskDao jdbcTaskDao) {
+		this.jdbcTaskDao = jdbcTaskDao;
+	}
 
 	public String add(Task task) {
 		Task taskDb = jdbcTaskDao.findTaskByName(task.getName());

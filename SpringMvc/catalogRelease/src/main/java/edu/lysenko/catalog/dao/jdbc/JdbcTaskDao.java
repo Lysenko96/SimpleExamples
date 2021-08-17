@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -25,12 +24,15 @@ public class JdbcTaskDao implements TaskDao {
 	private static final String DELETE_TASK = "DELETE FROM tasks WHERE id=?";
 	private static final String GET_TASK_BY_NAME = "SELECT * FROM tasks WHERE name=?";
 
-	@Autowired
+	private Logger log = Logger.getLogger(JdbcTaskDao.class.getName());
+
 	private JdbcTemplate jdbcTemplate;
-	@Autowired
 	private TaskMapper taskMapper;
 
-	private Logger log = Logger.getLogger(JdbcTaskDao.class.getName());
+	public JdbcTaskDao(JdbcTemplate jdbcTemplate, TaskMapper taskMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.taskMapper = taskMapper;
+	}
 
 	@Override
 	public void add(Task task) {

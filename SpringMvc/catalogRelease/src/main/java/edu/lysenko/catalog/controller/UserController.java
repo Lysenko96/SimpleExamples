@@ -2,7 +2,6 @@ package edu.lysenko.catalog.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +17,13 @@ import edu.lysenko.catalog.service.UserService;
 @Controller
 public class UserController {
 
-	@Autowired
 	private JdbcUserDao userDao;
-	@Autowired
 	private UserService userService;
+
+	public UserController(JdbcUserDao userDao, UserService userService) {
+		this.userDao = userDao;
+		this.userService = userService;
+	}
 
 	@GetMapping(value = "/register")
 	public String menuRegister() {

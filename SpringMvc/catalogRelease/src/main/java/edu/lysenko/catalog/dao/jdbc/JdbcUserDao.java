@@ -4,12 +4,10 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -27,14 +25,17 @@ public class JdbcUserDao implements UserDao {
 	private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
 	private static final String GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email=?";
 
-	private PasswordEncoder encoder = new BCryptPasswordEncoder(12);
-
 	private Logger log = Logger.getLogger(JdbcUserDao.class.getName());
 
-	@Autowired
+	private PasswordEncoder encoder;
 	private JdbcTemplate jdbcTemplate;
-	@Autowired
 	private UserMapper userMapper;
+
+	public JdbcUserDao(PasswordEncoder encoder, JdbcTemplate jdbcTemplate, UserMapper userMapper) {
+		this.encoder = encoder;
+		this.jdbcTemplate = jdbcTemplate;
+		this.userMapper = userMapper;
+	}
 
 	@Override
 	public void add(User user) {
