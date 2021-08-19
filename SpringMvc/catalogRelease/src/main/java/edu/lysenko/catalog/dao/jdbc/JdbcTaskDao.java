@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import edu.lysenko.catalog.dao.TaskDao;
-import edu.lysenko.catalog.dao.jdbc.mapper.TaskMapper;
 import edu.lysenko.catalog.entity.Task;
 
 @Component
@@ -27,11 +27,10 @@ public class JdbcTaskDao implements TaskDao {
 	private Logger log = Logger.getLogger(JdbcTaskDao.class.getName());
 
 	private JdbcTemplate jdbcTemplate;
-	private TaskMapper taskMapper;
+	private BeanPropertyRowMapper<Task> taskMapper = BeanPropertyRowMapper.newInstance(Task.class);
 
-	public JdbcTaskDao(JdbcTemplate jdbcTemplate, TaskMapper taskMapper) {
+	public JdbcTaskDao(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-		this.taskMapper = taskMapper;
 	}
 
 	@Override

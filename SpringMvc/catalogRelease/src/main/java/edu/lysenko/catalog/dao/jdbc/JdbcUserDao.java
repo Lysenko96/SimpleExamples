@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -12,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import edu.lysenko.catalog.dao.UserDao;
-import edu.lysenko.catalog.dao.jdbc.mapper.UserMapper;
 import edu.lysenko.catalog.entity.User;
 
 @Component
@@ -29,12 +29,11 @@ public class JdbcUserDao implements UserDao {
 
 	private PasswordEncoder encoder;
 	private JdbcTemplate jdbcTemplate;
-	private UserMapper userMapper;
+	private BeanPropertyRowMapper<User> userMapper = BeanPropertyRowMapper.newInstance(User.class);
 
-	public JdbcUserDao(PasswordEncoder encoder, JdbcTemplate jdbcTemplate, UserMapper userMapper) {
+	public JdbcUserDao(PasswordEncoder encoder, JdbcTemplate jdbcTemplate) {
 		this.encoder = encoder;
 		this.jdbcTemplate = jdbcTemplate;
-		this.userMapper = userMapper;
 	}
 
 	@Override
@@ -44,7 +43,7 @@ public class JdbcUserDao implements UserDao {
 			jdbcTemplate.update(connection -> {
 				PreparedStatement statement = connection.prepareStatement(ADD_USER, new String[] { "id" });
 				statement.setString(1, user.getEmail());
-				statement.setString(2, encoder.encode(user.getPasswd()));
+				statement.setString(2, encoder.encode(user.getPassword()));
 				statement.setString(3, user.getName());
 				statement.setString(4, user.getSurname());
 				statement.setString(5, user.getRole().name());
@@ -68,7 +67,7 @@ public class JdbcUserDao implements UserDao {
 
 	@Override
 	public int update(User user) {
-		String encodePass = encoder.encode(user.getPasswd());
+		String encodePass = encoder.encode(user.getPassword());
 		jdbcTemplate.update(UPDATE_USER, user.getEmail(), encodePass, user.getName(), user.getSurname(),
 				user.getRole().name(), user.getId());
 		return user.getId();
@@ -83,7 +82,7 @@ public class JdbcUserDao implements UserDao {
 		User user = null;
 		try {
 			user = jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, userMapper, email);
-			if (encoder.matches(password, user.getPasswd())) {
+			if (encoder.matches(password, user.getPassword())) {
 				return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, userMapper, email);
 			} else {
 				user = null;
@@ -91,12 +90,13 @@ public class JdbcUserDao implements UserDao {
 		} catch (EmptyResultDataAccessException e) {
 			log.info("No user in db");
 		}
+
 		return user;
 	}
 
 	public User findUserByEmail(String email) {
 		try {
-			return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, userMapper, email);
+			return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, BeanPropertyRowMapper.newInstance(User.class), email);
 		} catch (EmptyResultDataAccessException e) {
 			log.info("No user in db");
 		}

@@ -46,7 +46,7 @@ public class UserController {
 	@GetMapping(value = "/edit")
 	public ModelAndView edit(@RequestParam("id") int id) {
 		User user = userDao.getById(id);
-		user.setPasswd("");
+		user.setPassword("");
 		ModelAndView model = new ModelAndView("edit");
 		model.addObject("user", user);
 		return model;
