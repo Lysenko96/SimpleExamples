@@ -24,7 +24,7 @@ public class JdbcUserDao implements UserDao {
 	private static final String UPDATE_USER = "UPDATE users SET email=?, password=?, name=?, surname=?, role=? WHERE id=?";
 	private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
 	private static final String GET_USER_BY_EMAIL = "SELECT * FROM users WHERE email=?";
-
+	
 	private Logger log = Logger.getLogger(JdbcUserDao.class.getName());
 
 	private PasswordEncoder encoder;

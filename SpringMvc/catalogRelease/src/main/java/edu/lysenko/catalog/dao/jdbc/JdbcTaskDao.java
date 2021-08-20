@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import edu.lysenko.catalog.dao.TaskDao;
 import edu.lysenko.catalog.entity.Task;
+import edu.lysenko.catalog.entity.UsersTasks;
 
 @Component
 public class JdbcTaskDao implements TaskDao {
@@ -23,6 +24,8 @@ public class JdbcTaskDao implements TaskDao {
 	private static final String UPDATE_TASK = "UPDATE tasks SET name=?, title=? WHERE id=?";
 	private static final String DELETE_TASK = "DELETE FROM tasks WHERE id=?";
 	private static final String GET_TASK_BY_NAME = "SELECT * FROM tasks WHERE name=?";
+	private static final String ADD_TASK_USER_ID = "INSERT INTO users_tasks(user_id, task_id) VALUES (?,?)";
+	private static final String GET_ALL_TASK_ID_BY_USER_ID = "SELECT * FROM users_tasks WHERE user_id=?";
 
 	private Logger log = Logger.getLogger(JdbcTaskDao.class.getName());
 
@@ -31,6 +34,19 @@ public class JdbcTaskDao implements TaskDao {
 
 	public JdbcTaskDao(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public List<UsersTasks> getAllTaskIdsByUserId(int id) {
+		return jdbcTemplate.query(GET_ALL_TASK_ID_BY_USER_ID, BeanPropertyRowMapper.newInstance(UsersTasks.class), id);
+	}
+
+	public void add(int userId, int taskId) {
+		jdbcTemplate.update(connection -> {
+			PreparedStatement statement = connection.prepareStatement(ADD_TASK_USER_ID);
+			statement.setInt(1, userId);
+			statement.setInt(2, taskId);
+			return statement;
+		});
 	}
 
 	@Override

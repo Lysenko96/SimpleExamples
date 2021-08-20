@@ -34,7 +34,7 @@ public class UserService {
 				&& !user.getName().isEmpty() && !user.getSurname().isEmpty() && userDb == null) {
 			userDao.update(user);
 		} else {
-			return "redirect:/edit?id=" + user.getId();
+			return "redirect:/edit?id=" + userDb.getId();
 		}
 		return "redirect:/admin";
 	}
@@ -48,7 +48,7 @@ public class UserService {
 	public String authorize(User user) {
 		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
 		if (userDb.getRole().name().equals(Role.USER.name())) {
-			return "redirect:/user";
+			return "redirect:/user?id=" + userDb.getId();
 		} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
 			return "redirect:/admin";
 		}
