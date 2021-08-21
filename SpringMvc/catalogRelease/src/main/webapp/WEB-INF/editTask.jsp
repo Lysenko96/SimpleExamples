@@ -16,7 +16,7 @@
 				<form:hidden path="id" />
 				<tr>
 					<td>Name:</td>
-					<td><form:input path="name" /></td>
+					<td><form:input path="name"  readonly="readonly" /></td>
 				</tr>
 				<tr>
 					<td>Title:</td>

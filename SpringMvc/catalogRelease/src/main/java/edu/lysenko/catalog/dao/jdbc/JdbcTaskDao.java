@@ -14,10 +14,11 @@ import org.springframework.stereotype.Component;
 import edu.lysenko.catalog.dao.TaskDao;
 import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.entity.UsersTasks;
-import edu.lysenko.catalog.service.TaskService;
 
 @Component
 public class JdbcTaskDao implements TaskDao {
+
+	// add sql search for name
 
 	private static final String ADD_TASK = "INSERT INTO tasks (name, title) VALUES (?,?)";
 	private static final String GET_TASK = "SELECT * FROM tasks WHERE id=?";
@@ -27,6 +28,7 @@ public class JdbcTaskDao implements TaskDao {
 	private static final String GET_TASK_BY_NAME = "SELECT * FROM tasks WHERE name=?";
 	private static final String ADD_TASK_USER_ID = "INSERT INTO users_tasks(user_id, task_id) VALUES (?,?)";
 	private static final String GET_ALL_TASK_ID_BY_USER_ID = "SELECT * FROM users_tasks WHERE user_id=?";
+	private static final String DELETE_TASK_FROM_USERSTASKS_BY_TASK_ID = "DELETE FROM users_tasks WHERE task_id=?";
 
 	private Logger log = Logger.getLogger(JdbcTaskDao.class.getName());
 
@@ -39,6 +41,10 @@ public class JdbcTaskDao implements TaskDao {
 
 	public List<UsersTasks> getAllTaskIdsByUserId(int id) {
 		return jdbcTemplate.query(GET_ALL_TASK_ID_BY_USER_ID, BeanPropertyRowMapper.newInstance(UsersTasks.class), id);
+	}
+
+	public void deleteFromUsersTasksByTaskId(int id) {
+		jdbcTemplate.update(DELETE_TASK_FROM_USERSTASKS_BY_TASK_ID, id);
 	}
 
 	public void add(int userId, int taskId) {

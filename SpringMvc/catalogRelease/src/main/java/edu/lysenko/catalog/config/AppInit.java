@@ -14,10 +14,10 @@ public class AppInit implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
-		appContext.register(WebConfig.class);
+		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+		context.register(WebConfig.class);
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("SpringDispatcher",
-				new DispatcherServlet(appContext));
+				new DispatcherServlet(context));
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/");
 	}
