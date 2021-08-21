@@ -13,8 +13,8 @@
 		<div align="center">
 			<table>
 				<tr>
-					<td>Name</td>
-					<td><input name="name" id="name" /></td>
+					<td>Tag</td>
+					<td><input name="tag" id="tag" /></td>
 				</tr>
 				<tr>
 					<td>Title</td>

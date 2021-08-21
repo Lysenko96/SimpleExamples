@@ -18,17 +18,16 @@ import edu.lysenko.catalog.entity.UsersTasks;
 @Component
 public class JdbcTaskDao implements TaskDao {
 
-	// add sql search for name
-
-	private static final String ADD_TASK = "INSERT INTO tasks (name, title) VALUES (?,?)";
+	private static final String ADD_TASK = "INSERT INTO tasks (tag, title) VALUES (?,?)";
 	private static final String GET_TASK = "SELECT * FROM tasks WHERE id=?";
 	private static final String GET_ALL_TASKS = "SELECT * FROM tasks";
-	private static final String UPDATE_TASK = "UPDATE tasks SET name=?, title=? WHERE id=?";
+	private static final String UPDATE_TASK = "UPDATE tasks SET tag=?, title=? WHERE id=?";
 	private static final String DELETE_TASK = "DELETE FROM tasks WHERE id=?";
-	private static final String GET_TASK_BY_NAME = "SELECT * FROM tasks WHERE name=?";
+	private static final String GET_TASK_BY_TAG = "SELECT * FROM tasks WHERE tag=?";
 	private static final String ADD_TASK_USER_ID = "INSERT INTO users_tasks(user_id, task_id) VALUES (?,?)";
 	private static final String GET_ALL_TASK_ID_BY_USER_ID = "SELECT * FROM users_tasks WHERE user_id=?";
 	private static final String DELETE_TASK_FROM_USERSTASKS_BY_TASK_ID = "DELETE FROM users_tasks WHERE task_id=?";
+	private static final String SEARCH_TASK_BY_TAG = "SELECT * FROM tasks WHERE tag LIKE '%' ? '%'";
 
 	private Logger log = Logger.getLogger(JdbcTaskDao.class.getName());
 
@@ -56,12 +55,16 @@ public class JdbcTaskDao implements TaskDao {
 		});
 	}
 
+	public List<Task> searchAllByTag(String keyword) {
+		return jdbcTemplate.query(SEARCH_TASK_BY_TAG, taskMapper, keyword);
+	}
+
 	@Override
 	public void add(Task task) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(connection -> {
 			PreparedStatement statement = connection.prepareStatement(ADD_TASK, new String[] { "id" });
-			statement.setString(1, task.getName());
+			statement.setString(1, task.getTag());
 			statement.setString(2, task.getTitle());
 			return statement;
 		}, keyHolder);
@@ -79,7 +82,7 @@ public class JdbcTaskDao implements TaskDao {
 
 	@Override
 	public int update(Task task) {
-		jdbcTemplate.update(UPDATE_TASK, task.getName(), task.getTitle(), task.getId());
+		jdbcTemplate.update(UPDATE_TASK, task.getTag(), task.getTitle(), task.getId());
 		return task.getId();
 	}
 
@@ -88,9 +91,9 @@ public class JdbcTaskDao implements TaskDao {
 		jdbcTemplate.update(DELETE_TASK, id);
 	}
 
-	public Task findTaskByName(String name) {
+	public Task findTaskByName(String tag) {
 		try {
-			return jdbcTemplate.queryForObject(GET_TASK_BY_NAME, taskMapper, name);
+			return jdbcTemplate.queryForObject(GET_TASK_BY_TAG, taskMapper, tag);
 		} catch (EmptyResultDataAccessException e) {
 			log.info("No task in db");
 		}

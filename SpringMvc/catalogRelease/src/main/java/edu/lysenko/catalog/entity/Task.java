@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class Task {
 
 	private int id;
-	private String name;
+	private String tag;
 	private String title;
 
-	public Task(String name, String title) {
-		this.name = name;
+	public Task(String tag, String title) {
+		this.tag = tag;
 		this.title = title;
 	}
 

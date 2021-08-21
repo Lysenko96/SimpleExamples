@@ -10,6 +10,7 @@
 	Successfully Admin!
 	<div align="center">
 		<h1>User list</h1>
+		<!-- add form search -->
 		<table border="1" cellpadding="2">
 			<tr>
 				<th>id</th>
@@ -23,6 +24,7 @@
 				<tr>
 					<td>${user.id}</td>
 					<td>${user.email}</td>
+					<!-- link to user page for name with rules admin (edit, delete, add) -->
 					<td>${user.name}</td>
 					<td>${user.surname}</td>
 					<td>${user.role}</td>

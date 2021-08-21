@@ -11,7 +11,7 @@ CREATE TABLE users(
 		);
 CREATE TABLE tasks(
 		id INT PRIMARY KEY AUTO_INCREMENT,
-		name VARCHAR(50) UNIQUE,
+		tag VARCHAR(50) UNIQUE,
 		title VARCHAR(100)
 		);
 CREATE TABLE users_tasks(

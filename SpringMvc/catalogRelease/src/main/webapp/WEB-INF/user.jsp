@@ -9,17 +9,21 @@
 	Successfully User!
 	<div align="center">
 		<h1>Task list</h1>
+		<form method="get" action="search">
+			<input type="text" name="keyword" /> &nbsp; <input type="submit"
+				value="Search" />
+		</form>
 		<table border="1" cellpadding="2">
 			<tr>
 				<th>id</th>
-				<th>Name</th>
+				<th>Tag</th>
 				<th>Title</th>
 				<th>Action</th>
 			</tr>
 			<c:forEach items="${listTask}" var="task" varStatus="status">
 				<tr>
 					<td>${task.id}</td>
-					<td>${task.name}</td>
+					<td>${task.tag}</td>
 					<td>${task.title}</td>
 					<td><a href="editTask?id=${task.id}">Edit</a> <a
 						href="deleteTask?id=${task.id}">Delete</a>

@@ -1,5 +1,7 @@
 package edu.lysenko.catalog.service;
 
+import java.util.List;
+
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,10 @@ public class TaskService {
 	public String add(Task task, int userId) {
 		try {
 			if (UserService.getId() == userId) {
-				if (!task.getName().isEmpty() && !task.getTitle().isEmpty()
-						&& taskDao.findTaskByName(task.getName()) == null) {
+				if (!task.getTag().isEmpty() && !task.getTitle().isEmpty()
+						&& taskDao.findTaskByName(task.getTag()) == null) {
 					taskDao.add(task);
-					Task taskDb = taskDao.findTaskByName(task.getName());
+					Task taskDb = taskDao.findTaskByName(task.getTag());
 					taskDao.add(UserService.getId(), taskDb.getId());
 				}
 			}
@@ -32,11 +34,11 @@ public class TaskService {
 	}
 
 	public String update(Task task, int userId) {
-		Task taskDb = taskDao.findTaskByName(task.getName());
+		Task taskDb = taskDao.findTaskByName(task.getTag());
 		if (UserService.getId() == userId) {
-			if (!task.getName().isEmpty() && !task.getTitle().isEmpty() && taskDb != null) {
+			if (!task.getTag().isEmpty() && !task.getTitle().isEmpty() && taskDb != null) {
 				taskDao.update(task);
-			} else if (task.getName().isEmpty() || task.getTitle().isEmpty()) {
+			} else if (task.getTag().isEmpty() || task.getTitle().isEmpty()) {
 				return "redirect:/editTask?id=" + task.getId();
 			}
 		}
@@ -44,9 +46,15 @@ public class TaskService {
 	}
 
 	public String delete(Task task, int userId) {
-		Task taskDb = taskDao.getById(task.getId());
-		taskDao.deleteFromUsersTasksByTaskId(task.getId());
-		taskDao.deleteById(taskDb.getId());
+		if (UserService.getId() == userId) {
+			Task taskDb = taskDao.getById(task.getId());
+			taskDao.deleteFromUsersTasksByTaskId(task.getId());
+			taskDao.deleteById(taskDb.getId());
+		}
 		return "redirect:/user?id=" + userId;
+	}
+
+	public List<Task> search(String keyword) {
+		return taskDao.searchAllByTag(keyword);
 	}
 }

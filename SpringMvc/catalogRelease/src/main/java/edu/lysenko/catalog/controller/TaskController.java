@@ -54,18 +54,27 @@ public class TaskController {
 		return model;
 	}
 
-	@GetMapping(value = "/deleteTask")
+	@GetMapping("/deleteTask")
 	public String delete(Model model, @ModelAttribute("task") Task task) {
 		return taskService.delete(task, userId);
 	}
 
-	@PostMapping(value = "/task")
+	@PostMapping("/task")
 	public String add(Model model, @ModelAttribute("task") Task task) {
 		return taskService.add(task, userId);
 	}
 
-	@PostMapping(value = "/updateTask")
+	@PostMapping("/updateTask")
 	public String update(Model model, @ModelAttribute("task") Task task) {
 		return taskService.update(task, userId);
 	}
+
+	@GetMapping("/search")
+	public ModelAndView search(@RequestParam String keyword) {
+		List<Task> result = taskService.search(keyword);
+		ModelAndView model = new ModelAndView("search");
+		model.addObject("result", result);
+		return model;
+	}
+
 }

@@ -12,10 +12,10 @@ public class UserService {
 	private JdbcUserDao userDao;
 	private static int id;
 
-	public UserService(JdbcUserDao jdbcUserDao) {
-		this.userDao = jdbcUserDao;
+	public UserService(JdbcUserDao userDao) {
+		this.userDao = userDao;
 	}
-
+	
 	public String add(User user) {
 		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
 		if (user.getRole() != null && !user.getEmail().isEmpty() && !user.getPassword().isEmpty()

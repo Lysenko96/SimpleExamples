@@ -15,8 +15,8 @@
 			<table>
 				<form:hidden path="id" />
 				<tr>
-					<td>Name:</td>
-					<td><form:input path="name"  readonly="readonly" /></td>
+					<td>Tag:</td>
+					<td>${task.tag}<form:hidden path="tag" /></td>
 				</tr>
 				<tr>
 					<td>Title:</td>

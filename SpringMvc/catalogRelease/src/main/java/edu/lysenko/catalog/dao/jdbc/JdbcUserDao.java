@@ -97,7 +97,7 @@ public class JdbcUserDao implements UserDao {
 
 	public User findUserByEmail(String email) {
 		try {
-			return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, BeanPropertyRowMapper.newInstance(User.class), email);
+			return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, userMapper, email);
 		} catch (EmptyResultDataAccessException e) {
 			log.info("No user in db");
 		}
