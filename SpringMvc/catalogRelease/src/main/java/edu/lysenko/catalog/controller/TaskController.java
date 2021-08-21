@@ -21,7 +21,7 @@ public class TaskController {
 
 	private JdbcTaskDao taskDao;
 	private TaskService taskService;
-	private int userId;
+	private static int userId;
 
 	public TaskController(JdbcTaskDao taskDao, TaskService taskService) {
 		this.taskDao = taskDao;
@@ -43,10 +43,10 @@ public class TaskController {
 
 	@GetMapping("/user")
 	public ModelAndView list(@RequestParam("id") int id, ModelAndView model) {
-		this.userId = id;
+		userId = id;
 		List<Integer> taskIds = new ArrayList<>();
 		List<Task> userTasks = new ArrayList<>();
-		for (UsersTasks userIdTaskId : taskDao.getAllTaskIdsByUserId(userId)) {
+		for (UsersTasks userIdTaskId : taskDao.getAllTaskIdsByUserId(id)) {
 			taskIds.add(userIdTaskId.getTaskId());
 		}
 		for (Integer theId : taskIds) {
@@ -70,5 +70,13 @@ public class TaskController {
 	@PostMapping(value = "/updateTask")
 	public String update(Model model, @ModelAttribute("task") Task task) {
 		return taskService.update(task, userId);
+	}
+
+	public static int getUserId() {
+		return userId;
+	}
+
+	public static void setUserId(int userId) {
+		TaskController.userId = userId;
 	}
 }

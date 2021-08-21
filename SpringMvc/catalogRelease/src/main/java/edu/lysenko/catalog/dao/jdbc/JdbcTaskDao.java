@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import edu.lysenko.catalog.dao.TaskDao;
 import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.entity.UsersTasks;
+import edu.lysenko.catalog.service.TaskService;
 
 @Component
 public class JdbcTaskDao implements TaskDao {

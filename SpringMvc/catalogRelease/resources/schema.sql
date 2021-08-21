@@ -10,7 +10,7 @@ CREATE TABLE users(
 		);
 CREATE TABLE tasks(
 		id INT AUTO_INCREMENT PRIMARY KEY,
-		name VARCHAR(50),
+		name VARCHAR(50) UNIQUE,
 		title VARCHAR(50)
 		);
 CREATE TABLE users_tasks (

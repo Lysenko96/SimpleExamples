@@ -13,7 +13,6 @@
 			<tr>
 				<th>id</th>
 				<th>Name</th>
-				<!--  <th>Password</th> -->
 				<th>Title</th>
 				<th>Action</th>
 			</tr>

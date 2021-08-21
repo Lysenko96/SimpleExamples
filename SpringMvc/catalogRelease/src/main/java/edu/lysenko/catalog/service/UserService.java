@@ -10,6 +10,7 @@ import edu.lysenko.catalog.entity.User;
 public class UserService {
 
 	private JdbcUserDao userDao;
+	private static int id;
 
 	public UserService(JdbcUserDao jdbcUserDao) {
 		this.userDao = jdbcUserDao;
@@ -47,11 +48,22 @@ public class UserService {
 
 	public String authorize(User user) {
 		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
+		if (userDb != null) {
+			id = userDb.getId();
+		}
 		if (userDb.getRole().name().equals(Role.USER.name())) {
 			return "redirect:/user?id=" + userDb.getId();
 		} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
 			return "redirect:/admin";
 		}
 		return "redirect:/login";
+	}
+
+	public static int getId() {
+		return id;
+	}
+
+	public static void setId(int id) {
+		UserService.id = id;
 	}
 }
