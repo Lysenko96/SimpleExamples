@@ -15,7 +15,7 @@ public class UserService {
 	public UserService(JdbcUserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+
 	public String add(User user) {
 		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
 		if (user.getRole() != null && !user.getEmail().isEmpty() && !user.getPassword().isEmpty()
@@ -47,14 +47,16 @@ public class UserService {
 	}
 
 	public String authorize(User user) {
-		User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
-		if (userDb != null) {
-			id = userDb.getId();
-		}
-		if (userDb.getRole().name().equals(Role.USER.name())) {
-			return "redirect:/user?id=" + userDb.getId();
-		} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
-			return "redirect:/admin";
+		if (!user.getEmail().isEmpty() && !user.getPassword().isEmpty()) {
+			User userDb = userDao.findUserByEmailPass(user.getEmail(), user.getPassword());
+			if (userDb != null) {
+				id = userDb.getId();
+			}
+			if (userDb.getRole().name().equals(Role.USER.name())) {
+				return "redirect:/user?id=" + userDb.getId();
+			} else if (userDb.getRole().name().equals(Role.ADMIN.name())) {
+				return "redirect:/admin";
+			}
 		}
 		return "redirect:/login";
 	}

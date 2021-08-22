@@ -11,7 +11,7 @@
 	crossorigin="anonymous" />
 </head>
 <body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>
 	<script
@@ -25,7 +25,6 @@
 	Successfully Admin!
 	<div align="center">
 		<h1>User list</h1>
-		<!-- add form search -->
 		<table border="1" cellpadding="10">
 			<tr>
 				<th>id</th>
@@ -42,13 +41,13 @@
 					<!-- link to user page for name with rules admin (edit, delete, add) -->
 					<td>${user.name}</td>
 					<td>${user.surname}</td>
-					<td>${user.role}</td>
+					<td><a href="user?id=${user.id}">${user.role}</a></td>
 					<td><a href="edit?id=${user.id}">Edit</a> <a
 						href="delete?id=${user.id}">Delete</a>
 				</tr>
 			</c:forEach>
 		</table>
+		<a href="/catalog">log out</a>
 	</div>
-	<a href="/catalog">log out</a>
 </body>
 </html>
