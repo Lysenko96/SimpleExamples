@@ -16,6 +16,8 @@ import edu.lysenko.catalog.service.TaskService;
 
 import static java.util.stream.Collectors.toList;
 
+import java.util.ArrayList;
+
 @Controller
 public class TaskController {
 
@@ -43,12 +45,13 @@ public class TaskController {
 	@GetMapping("/user")
 	public ModelAndView list(@RequestParam("id") int id, ModelAndView model) {
 		userId = id;
-		List<Integer> taskIds = taskDao.getAllTaskIdsByUserId(id).stream().map(userIdTaskId -> {
-			return userIdTaskId.getTaskId();
-		}).collect(toList());
-		List<Task> userTasks = taskIds.stream().map(taskId -> {
+		List<Integer> taskIds = taskDao.getAllTaskIdsByUserId(id);
+		System.out.println(taskIds);
+		List<Task> userTasks = new ArrayList<>();
+		userTasks = taskIds.stream().map(taskId -> {
 			return taskDao.getById(taskId);
 		}).collect(toList());
+		System.out.println(userTasks);
 		model.addObject("listTask", userTasks);
 		model.setViewName("user");
 		return model;

@@ -59,6 +59,7 @@ public class UserController {
 
 	@PostMapping(value = "/login")
 	public String login(Model model, @ModelAttribute("user") User user) {
+		System.out.println(user);
 		return userService.authorize(user);
 	}
 

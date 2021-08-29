@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -26,6 +25,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @PropertySource("classpath:config.properties")
 public class WebConfig implements WebMvcConfigurer {
 
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver bean = new InternalResourceViewResolver();
+		bean.setPrefix("/WEB-INF/");
+		bean.setSuffix(".jsp");
+		return bean;
+	}
+
 	@Value("${db.url}")
 	private String url;
 	@Value("${db.user}")
@@ -36,31 +43,24 @@ public class WebConfig implements WebMvcConfigurer {
 	private String driver;
 
 	@Bean
-	public DataSource dataSource() {
+	public void createSchema() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource(url, user, passwd);
 		dataSource.setDriverClassName(driver);
-		return dataSource;
+		DatabasePopulatorUtils.execute(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")), dataSource);
 	}
 
-	@Bean
-	public ResourceDatabasePopulator databasePopulator() {
-		return new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
-	}
+//	@Bean
+//	public ResourceDatabasePopulator databasePopulator() {
+//		return new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
+//	}
 
-	@Bean
-	@Scope(value = "prototype")
-	public JdbcTemplate jdbcTemplate() {
-		DatabasePopulatorUtils.execute(databasePopulator(), dataSource());
-		return new JdbcTemplate(dataSource());
-	}
-
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-		bean.setPrefix("/");
-		bean.setSuffix(".jsp");
-		return bean;
-	}
+//	@Bean
+//	@Scope(value = "prototype")
+//	public JdbcTemplate jdbcTemplate() {
+//		DatabasePopulatorUtils.execute(databasePopulator(), dataSource());
+//		return new JdbcTemplate(dataSource());
+//	}
+//	
 
 	@Bean
 	public PasswordEncoder encoder() {
