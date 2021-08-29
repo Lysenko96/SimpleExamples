@@ -11,13 +11,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("edu.lysenko.catalog")
+@ComponentScan("hibernate")
 @PropertySource("classpath:config.properties")
-public class Provider {
+public class Provider implements WebMvcConfigurer {
 
 	@Value("${db.url}")
 	private String url;

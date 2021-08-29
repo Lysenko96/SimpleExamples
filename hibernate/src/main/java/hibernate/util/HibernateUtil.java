@@ -12,7 +12,7 @@ public class HibernateUtil {
 
 	public static SessionFactory getSessionFactory() {
 		try {
-			registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+			registry = new StandardServiceRegistryBuilder().configure().build();
 
 			MetadataSources sources = new MetadataSources(registry);
 

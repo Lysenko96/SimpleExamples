@@ -3,12 +3,15 @@ package hibernate.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +22,23 @@ import hibernate.util.HibernateUtil;
 
 @Component
 public class UserDaoImpl implements UserDao {
-	
-	//use in hibernate sql
-	
-//	public User findUserByEmailPass(String email, String password) {
-//		User user = null;		
+
+	public User findUserByEmailPass(String email, String password) {
+		Transaction transaction = null;
+		User user = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("from User where email = :email");
+			query.setParameter("email", email);
+			user = (User) query.getResultList().get(0);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		}
+		return user;
 //		try {
 //			user = jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, userMapper, email);
 //			if (encoder.matches(password, user.getPassword())) {
@@ -44,7 +59,7 @@ public class UserDaoImpl implements UserDao {
 //			log.info("No user in db");
 //		}
 //		return null;
-//	}
+	}
 
 	public void deleteFromUsersTasksByUserId(int id, int taskId) {
 		Transaction transaction = null;

@@ -13,8 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.springframework.stereotype.Component;
+
 import hibernate.config.Provider;
 
+@Component
 public class ScriptRunner {
 	private static final Logger log = Logger.getLogger(ScriptRunner.class.getName());
 
