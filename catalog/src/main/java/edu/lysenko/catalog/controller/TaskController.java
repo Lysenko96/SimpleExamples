@@ -11,21 +11,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.lysenko.catalog.dao.jdbc.JdbcTaskDao;
+import edu.lysenko.catalog.dao.jdbc.JdbcUserDao;
 import edu.lysenko.catalog.entity.Task;
+import edu.lysenko.catalog.entity.User;
 import edu.lysenko.catalog.service.TaskService;
 
 import static java.util.stream.Collectors.toList;
+
+import java.util.ArrayList;
 
 @Controller
 public class TaskController {
 
 	private JdbcTaskDao taskDao;
 	private TaskService taskService;
+	private JdbcUserDao userDao;
 	private static int userId;
 
-	public TaskController(JdbcTaskDao taskDao, TaskService taskService) {
+	public TaskController(JdbcTaskDao taskDao, TaskService taskService, JdbcUserDao userDao) {
 		this.taskDao = taskDao;
 		this.taskService = taskService;
+		this.userDao = userDao;
 	}
 
 	@GetMapping(value = "/task")
@@ -43,13 +49,7 @@ public class TaskController {
 	@GetMapping("/user")
 	public ModelAndView list(@RequestParam("id") int id, ModelAndView model) {
 		userId = id;
-		List<Integer> taskIds = taskDao.getAllTaskIdsByUserId(id).stream().map(userIdTaskId -> {
-			return userIdTaskId.getTaskId();
-		}).collect(toList());
-		List<Task> userTasks = taskIds.stream().map(taskId -> {
-			return taskDao.getById(taskId);
-		}).collect(toList());
-		model.addObject("listTask", userTasks);
+		model.addObject("listTask", userDao.getById(id).getTasks());
 		model.setViewName("user");
 		return model;
 	}

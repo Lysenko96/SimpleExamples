@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import edu.lysenko.catalog.dao.jdbc.JdbcTaskDao;
 import edu.lysenko.catalog.dao.jdbc.JdbcUserDao;
+import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.entity.User;
 import edu.lysenko.catalog.service.UserService;
 
@@ -19,10 +21,12 @@ public class UserController {
 
 	private JdbcUserDao userDao;
 	private UserService userService;
+	private JdbcTaskDao taskDao;
 
-	public UserController(JdbcUserDao userDao, UserService userService) {
+	public UserController(JdbcUserDao userDao, UserService userService, JdbcTaskDao taskDao) {
 		this.userDao = userDao;
 		this.userService = userService;
+		this.taskDao = taskDao;
 	}
 
 	@GetMapping(value = "/register")
@@ -52,13 +56,20 @@ public class UserController {
 		return model;
 	}
 
+	//check del
+	
 	@GetMapping(value = "/delete")
 	public String delete(Model model, @ModelAttribute("user") User user) {
+//		User userDb = userDao.findUserByEmail(user.getEmail());
+//		for(Integer index : taskDao.getAllTaskIdsByUserId(userDb.getId())) {
+//			userDb.getTasks().remove(index);
+//		}
 		return userService.delete(user);
 	}
 
 	@PostMapping(value = "/login")
 	public String login(Model model, @ModelAttribute("user") User user) {
+		System.out.println(user);
 		return userService.authorize(user);
 	}
 
