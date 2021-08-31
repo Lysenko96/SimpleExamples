@@ -18,14 +18,16 @@ public class UserService {
 	WebApplicationContext context;
 
 	private JdbcUserDao userDao;
-	private JdbcTaskDao taskDao;
+	TaskService taskService;
 	private static int id;
+	
+	//task service for delete from many to many
 
-	public UserService(JdbcUserDao userDao, JdbcTaskDao taskDao, WebApplicationContext context) {
+	public UserService(JdbcUserDao userDao, WebApplicationContext context, TaskService taskService) {
 		this.context = context;
 		this.context.getBean(WebConfig.class).createSchema();
 		this.userDao = userDao;
-		this.taskDao = taskDao;
+		this.taskService = taskService;
 	}
 
 	public String add(User user) {
@@ -38,13 +40,14 @@ public class UserService {
 		return "redirect:/admin";
 	}
 
-	// check del
+	//-------------------------- here
 	
 	public String delete(User user) {
-		User userDb = userDao.findUserByEmail(user.getEmail());
-		for (Integer index : taskDao.getAllTaskIdsByUserId(userDb.getId())) {
-			userDb.getTasks().remove(index);
-		}
+		User userDb = userDao.getById(user.getId());
+		System.out.println("serv " + userDb.getTasks());
+		System.out.println(userDb.getTasks().get(0));
+		taskService.delete(userDb.getTasks().get(0), user.getId());
+		userDao.deleteById(userDb.getId());
 		return "redirect:/admin";
 	}
 

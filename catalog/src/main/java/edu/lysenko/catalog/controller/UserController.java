@@ -21,12 +21,10 @@ public class UserController {
 
 	private JdbcUserDao userDao;
 	private UserService userService;
-	private JdbcTaskDao taskDao;
 
-	public UserController(JdbcUserDao userDao, UserService userService, JdbcTaskDao taskDao) {
+	public UserController(JdbcUserDao userDao, UserService userService) {
 		this.userDao = userDao;
 		this.userService = userService;
-		this.taskDao = taskDao;
 	}
 
 	@GetMapping(value = "/register")
@@ -56,15 +54,14 @@ public class UserController {
 		return model;
 	}
 
-	//check del
-	
+	// check del
+
 	@GetMapping(value = "/delete")
 	public String delete(Model model, @ModelAttribute("user") User user) {
-//		User userDb = userDao.findUserByEmail(user.getEmail());
-//		for(Integer index : taskDao.getAllTaskIdsByUserId(userDb.getId())) {
-//			userDb.getTasks().remove(index);
-//		}
-		return userService.delete(user);
+		User userDb = userDao.getById(user.getId());
+		userDb.getTasks().clear();
+		userDao.update(userDb);
+		return userService.delete(userDb);
 	}
 
 	@PostMapping(value = "/login")

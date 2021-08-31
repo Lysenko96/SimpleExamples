@@ -108,11 +108,6 @@ public class JdbcTaskDao implements TaskDao {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
-//			List<Task> tasks = new ArrayList<>();
-//			for (Integer index : getAllTaskIdsByUserId(UserService.getId())) {
-//				Task aTask = getById(index);
-//				tasks.add(aTask);
-//			}
 			session.save(task);
 			transaction.commit();
 		} catch (Exception e) {

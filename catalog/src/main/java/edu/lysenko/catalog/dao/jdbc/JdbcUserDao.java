@@ -15,9 +15,11 @@ import org.hibernate.Transaction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import edu.lysenko.catalog.dao.TaskDao;
 import edu.lysenko.catalog.dao.UserDao;
 import edu.lysenko.catalog.entity.Task;
 import edu.lysenko.catalog.entity.User;
+import edu.lysenko.catalog.service.TaskService;
 import edu.lysenko.catalog.util.HibernateUtil;
 
 @Component
@@ -28,21 +30,27 @@ public class JdbcUserDao implements UserDao {
 	public JdbcUserDao(PasswordEncoder encoder) {
 		this.encoder = encoder;
 	}
+	
+	// can get list tasks
 
-	public void deleteFromUsersTasksByUserId(int id, int taskId) {
+	public void deleteFromUsersTasksByUserId(int id) {
 		Transaction transaction = null;
-		Task task = null;
 		User user = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			user = session.get(User.class, id);
-			task = session.get(Task.class, taskId);
-			List<Integer> taskNumberInList = new ArrayList<>();
-			for (Task aTask : user.getTasks()) {
-				taskNumberInList.add(user.getTasks().indexOf(aTask));
-			}
-			int index = user.getTasks().indexOf(task);
-			user.getTasks().remove((int) taskNumberInList.get(index));
+			//System.out.println(user.getTasks());
+//			for(Task task : user.getTasks()) {
+//				taskDao.deleteById(task.getId());
+//			}
+
+//			task = session.get(Task.class, taskId);
+//			List<Integer> taskNumberInList = new ArrayList<>();
+//			for (Task aTask : user.getTasks()) {
+//				taskNumberInList.add(user.getTasks().indexOf(aTask));
+//			}
+//			int index = user.getTasks().indexOf(task);
+//			user.getTasks().remove((int) taskNumberInList.get(index));
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
@@ -153,6 +161,7 @@ public class JdbcUserDao implements UserDao {
 			Query query = session.createQuery("from user where email = :email");
 			query.setParameter("email", email);
 			user = (User) query.getResultList().get(0);
+			System.out.println("db " + user);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {
