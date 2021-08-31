@@ -33,17 +33,17 @@ public class UserService {
 
 	public String update(User user) {
 		User userDb = userDao.findUserByEmail(user.getEmail());
-		if (user.getRole() != null && !user.getPassword().isEmpty() && !user.getEmail().isEmpty()
-				&& !user.getName().isEmpty() && !user.getSurname().isEmpty() && userDb == null) {
+		if (userDb == null && user.getRole() != null && userDao.getById(id).getRole().equals(Role.ADMIN)
+				&& !user.getPassword().isEmpty() && !user.getEmail().isEmpty() && !user.getName().isEmpty()
+				&& !user.getSurname().isEmpty()) {
 			userDao.update(user);
-		} else {
-			return "redirect:/edit?id=" + userDb.getId();
 		}
 		return "redirect:/admin";
+
 	}
 
 	public String delete(User user) {
-		if (userDao.getById(UserService.getId()).getRole().equals(Role.ADMIN)) {
+		if (userDao.getById(id).getRole().equals(Role.ADMIN)) {
 			User userDb = userDao.getById(user.getId());
 			userDao.deleteById(userDb.getId());
 		}
@@ -51,17 +51,17 @@ public class UserService {
 	}
 
 	public String authorize(User user) {
-		User userDb = userDao.findUserByEmail(user.getEmail());
-		userDb.setLastLogin(LocalTime.now());
-		userDao.update(userDb);
+		if (!user.getEmail().isEmpty() && !user.getPassword().isEmpty()) {
+			User userDb = userDao.findUserByEmail(user.getEmail());
+			if (userDb != null) {
+				id = userDb.getId();
+				// User aUserDb = userDao.findUserByEmail(user.getEmail());
+				userDb.setLastLogin(LocalTime.now());
+				userDao.update(userDb);
+			}
+		} else {
+			return "redirect:/login";
+		}
 		return "redirect:/admin";
-	}
-
-	public static int getId() {
-		return id;
-	}
-
-	public static void setId(int id) {
-		UserService.id = id;
 	}
 }

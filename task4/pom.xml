@@ -163,7 +163,7 @@
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>3.0.3</version>
 				<configuration>
-					<appName>webcatalogdb123</appName>
+					<appName>webcatalogdb321</appName>
 				</configuration>
 			</plugin>
 		</plugins>

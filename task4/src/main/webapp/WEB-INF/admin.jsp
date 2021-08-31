@@ -50,7 +50,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="/catalog">log out</a>
+		<a href="/">log out</a>
 	</div>
 </body>
 </html>

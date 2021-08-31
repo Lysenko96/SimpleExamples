@@ -24,10 +24,6 @@
 	Successfully User!
 	<div align="center">
 		<h1>Task list</h1>
-		<form method="get" action="search">
-			<input type="text" name="keyword" /> &nbsp; <input type="submit"
-				value="Search" />
-		</form>
 		<table border="1" cellpadding="19">
 			<tr>
 				<th>id</th>
@@ -45,7 +41,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="/catalog/">log out</a> <a href="/catalog/task">add task</a>
+		<a href="/">log out</a>
 	</div>
 </body>
 </html>
