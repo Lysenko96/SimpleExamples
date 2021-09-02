@@ -57,7 +57,7 @@
 					<%-- <%=request.getParameter("role")%> --%>
 				</tr>
 			</table>
-			<a href="/">to start page</a>
+			<a href="/catalog">to start page</a>
 		</div>
 	</form:form>
 </body>
