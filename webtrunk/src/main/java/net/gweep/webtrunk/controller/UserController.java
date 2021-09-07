@@ -19,12 +19,17 @@ public class UserController {
 	}
 
 	@PostMapping("/save")
-	public @ResponseBody String save(@RequestParam String name, @RequestParam String email) {
+	public String save(@RequestParam String name, @RequestParam String email) {
 		User user = new User();
 		user.setName(name);
 		user.setEmail(email);
 		userRepo.save(user);
-		return "Saved";
+		return "save";
+	}
+
+	@GetMapping("/save")
+	public String saveForm() {
+		return "save";
 	}
 
 	@GetMapping("/all")
