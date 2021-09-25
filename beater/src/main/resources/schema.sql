@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS message;
+CREATE TABLE message(
+		id SERIAL PRIMARY KEY,
+		tag VARCHAR(50),
+		text VARCHAR(35)
+		);
