@@ -31,7 +31,8 @@ public class Student extends Person implements Serializable {
 
 	@Override
 	public Workable change(Workable workable) {
-		System.out.println(this + " change to " + workable);
+		System.out.println(this.getClass().getSimpleName() + " " + this.getName() + " " + this.getSurname()
+				+ " change to " + workable.getClass().getSimpleName());
 		return workable;
 	}
 
