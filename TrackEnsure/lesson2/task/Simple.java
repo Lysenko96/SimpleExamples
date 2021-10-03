@@ -1,6 +1,6 @@
 package te.lesson2.task;
 
-public class Simple extends Film implements Type {
+public class Simple extends Film {
 
 	private int countDay;
 
