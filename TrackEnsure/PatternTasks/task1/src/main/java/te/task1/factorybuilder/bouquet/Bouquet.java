@@ -1,6 +1,5 @@
 package te.task1.factorybuilder.bouquet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -17,12 +16,6 @@ public class Bouquet implements BouquetFactory {
 
 	private List<Flower> flowers;
 	private List<Accessory> accessories;
-	private List<Flower> result = new ArrayList<>();
-
-	public Bouquet(List<Flower> flowers, List<Accessory> accessories) {
-		this.flowers = flowers;
-		this.accessories = accessories;
-	}
 
 	@Override
 	public Flower findByStemLength(int min, int max) {
