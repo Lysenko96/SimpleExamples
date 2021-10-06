@@ -1,7 +1,6 @@
 package te.task1.factorybuilder.flower;
 
 import java.time.LocalDateTime;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +14,8 @@ public class Mimosa extends Flower {
 
 	@Override
 	public String toString() {
-		return "Mimosa [name=" + name + ", price=" + price + ", dateTime=" + dateTime + ", stemLength=" + stemLength
-				+ "]";
+		String formattedDateTime = dateTime.format(FORMATTER);
+		return "Mimosa [name=" + name + ", price=" + price + ", dateTime=" + formattedDateTime + ", stemLength="
+				+ stemLength + "]";
 	}
 }

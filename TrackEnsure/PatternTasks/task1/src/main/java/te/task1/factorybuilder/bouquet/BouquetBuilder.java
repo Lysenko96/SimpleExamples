@@ -3,29 +3,37 @@ package te.task1.factorybuilder.bouquet;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
 import te.task1.factorybuilder.accessory.Accessory;
 import te.task1.factorybuilder.flower.Flower;
-import te.task1.factorybuilderiface.Builder;
 
-public class BouquetBuilder implements Builder {
+@Data
+public class BouquetBuilder {
 
-	private List<Accessory> accessories = new ArrayList<>();
-	private List<Flower> flowers = new ArrayList<>();
+	private static List<Accessory> accessories = new ArrayList<>();
+	private static List<Flower> flowers = new ArrayList<>();
+	private static Builder builder;
 
-	@Override
-	public BouquetBuilder setAccessory(Accessory accessory) {
-		this.accessories.add(accessory);
-		return this;
+	private BouquetBuilder() {
 	}
 
-	@Override
-	public BouquetBuilder setFlower(Flower flower) {
-		this.flowers.add(flower);
-		return this;
-	}
+	public static class Builder {
 
-	public Bouquet getBouquet() {
-		return new Bouquet(flowers, accessories);
-	}
+		private Builder() {
+		}
 
+		public static Builder setAccessory(Accessory accessory) {
+			accessories.add(accessory);
+			return builder;
+		}
+
+		public static Builder setFlower(Flower flower) {
+			flowers.add(flower);
+			return builder;
+		}
+
+		public static Bouquet getBouquet() {
+			return new Bouquet(flowers, accessories);
+		}
+	}
 }

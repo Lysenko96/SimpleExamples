@@ -15,7 +15,8 @@ public class Tulip extends Flower {
 
 	@Override
 	public String toString() {
-		return "Tulip [name=" + name + ", price=" + price + ", dateTime=" + dateTime + ", stemLength=" + stemLength
-				+ "]";
+		String formattedDateTime = dateTime.format(FORMATTER);
+		return "Tulip [name=" + name + ", price=" + price + ", dateTime=" + formattedDateTime + ", stemLength="
+				+ stemLength + "]";
 	}
 }

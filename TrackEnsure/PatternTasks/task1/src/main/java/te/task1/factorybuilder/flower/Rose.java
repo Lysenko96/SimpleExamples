@@ -15,7 +15,8 @@ public class Rose extends Flower {
 
 	@Override
 	public String toString() {
-		return "Rose [name=" + name + ", price=" + price + ", dateTime=" + dateTime + ", stemLength=" + stemLength
-				+ "]";
+		String formattedDateTime = dateTime.format(FORMATTER);
+		return "Rose [name=" + name + ", price=" + price + ", dateTime=" + formattedDateTime + ", stemLength="
+				+ stemLength + "]";
 	}
 }

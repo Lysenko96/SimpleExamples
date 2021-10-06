@@ -19,17 +19,18 @@ public class Bouquet implements BouquetFactory {
 
 	@Override
 	public Flower findByStemLength(int min, int max) {
+		Flower f = new Flower(null, 0, null, 0);
 		return flowers.stream().filter(flower -> flower.getStemLength() >= min && flower.getStemLength() <= max)
-				.findFirst().orElse(null);
+				.findFirst().orElse(f);
 	}
 
 	@Override
 	public int getPrice() {
 		return accessories.stream().map(Accessory::getFlowers).collect(toList()).stream()
 				.map(allFlowers -> flowers.stream().map(Flower::getPrice).collect(toList()).stream()
-						.reduce((a, b) -> a + b).get()
-						+ accessories.stream().map(Accessory::getPrice).findFirst().get())
-				.findFirst().orElse(0);
+						.reduce((all, next) -> all + next).get())
+				.findFirst().orElse(0)
+				+ accessories.stream().map(Accessory::getPrice).reduce((all, next) -> all + next).orElse(0);
 	}
 
 	@Override
@@ -38,4 +39,5 @@ public class Bouquet implements BouquetFactory {
 				.map(dateTime -> flowers.stream().filter(f -> f.getDateTime().equals(dateTime)).findFirst().get())
 				.collect(toList());
 	}
+
 }
