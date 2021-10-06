@@ -25,7 +25,7 @@ public class BouquetBuilder implements Builder {
 	}
 
 	public Bouquet getBouquet() {
-		return new Bouquet(flowers, accessories);
+		return new Bouquet(flowers, accessories, new ArrayList<>());
 	}
 
 }

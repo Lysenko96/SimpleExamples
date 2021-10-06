@@ -1,19 +1,15 @@
 package te.task1.factorybuilder.bouquet;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import te.task1.factorybuilder.accessory.Accessory;
 import te.task1.factorybuilder.flower.Flower;
-import te.task1.factorybuilder.flower.Rose;
 import te.task1.factorybuilderiface.BouquetFactory;
+
+import static java.util.stream.Collectors.toList;
 
 @Data
 @AllArgsConstructor
@@ -21,8 +17,11 @@ public class Bouquet implements BouquetFactory {
 
 	private List<Flower> flowers;
 	private List<Accessory> accessories;
+	private List<Flower> result = new ArrayList<>();
 
-	private Bouquet() {
+	public Bouquet(List<Flower> flowers, List<Accessory> accessories) {
+		this.flowers = flowers;
+		this.accessories = accessories;
 	}
 
 	@Override
@@ -33,8 +32,8 @@ public class Bouquet implements BouquetFactory {
 
 	@Override
 	public int getPrice() {
-		return accessories.stream().map(Accessory::getFlowers).collect(Collectors.toList()).stream()
-				.map(allFlowers -> flowers.stream().map(Flower::getPrice).collect(Collectors.toList()).stream()
+		return accessories.stream().map(Accessory::getFlowers).collect(toList()).stream()
+				.map(allFlowers -> flowers.stream().map(Flower::getPrice).collect(toList()).stream()
 						.reduce((a, b) -> a + b).get()
 						+ accessories.stream().map(Accessory::getPrice).findFirst().get())
 				.findFirst().orElse(0);
@@ -42,19 +41,8 @@ public class Bouquet implements BouquetFactory {
 
 	@Override
 	public List<Flower> sortedByFreshness() {
-		List<LocalDateTime> dateTimes = new ArrayList<>();
-		for (Flower f : flowers) {
-			dateTimes.add(f.getDateTime());
-		}
-		Collections.sort(dateTimes);
-		List<Flower> fl = new ArrayList<>();
-		for (LocalDateTime ldt : dateTimes) {
-			for (Flower f : flowers) {
-				if (f.getDateTime().equals(ldt)) {
-					fl.add(f);
-				}
-			}
-		}
-		return fl;
+		return flowers.stream().map(Flower::getDateTime).collect(toList()).stream().sorted().collect(toList()).stream()
+				.map(dateTime -> flowers.stream().filter(f -> f.getDateTime().equals(dateTime)).findFirst().get())
+				.collect(toList());
 	}
 }
