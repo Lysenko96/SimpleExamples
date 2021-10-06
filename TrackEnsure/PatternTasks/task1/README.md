@@ -1,4 +1,4 @@
-# Abstract factory and builder
+# Builder
 
 Florist.  
 Define a hierarchy of flowers.  
