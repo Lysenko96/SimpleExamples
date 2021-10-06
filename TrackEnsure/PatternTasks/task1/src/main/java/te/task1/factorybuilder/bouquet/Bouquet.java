@@ -1,4 +1,4 @@
-package te.task1.factorybuilder;
+package te.task1.factorybuilder.bouquet;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -7,6 +7,10 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import te.task1.factorybuilder.bouquet.*;
+import te.task1.factorybuilder.accessory.Accessory;
+import te.task1.factorybuilder.flower.Flower;
+import te.task1.factorybuilderiface.BouquetFactory;
 
 @Data
 @AllArgsConstructor

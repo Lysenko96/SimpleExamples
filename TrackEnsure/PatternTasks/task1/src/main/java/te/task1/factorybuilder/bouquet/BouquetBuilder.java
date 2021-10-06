@@ -1,7 +1,11 @@
-package te.task1.factorybuilder;
+package te.task1.factorybuilder.bouquet;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import te.task1.factorybuilder.accessory.Accessory;
+import te.task1.factorybuilder.flower.Flower;
+import te.task1.factorybuilderiface.Builder;
 
 public class BouquetBuilder implements Builder {
 

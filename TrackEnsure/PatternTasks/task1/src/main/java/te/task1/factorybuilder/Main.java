@@ -5,6 +5,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import te.task1.factorybuilder.bouquet.Bouquet;
+import te.task1.factorybuilder.bouquet.BouquetBuilder;
+import te.task1.factorybuilder.flower.Flower;
+import te.task1.factorybuilder.flower.Mimosa;
+import te.task1.factorybuilder.flower.Rose;
+import te.task1.factorybuilder.flower.Tulip;
+import te.task1.factorybuilder.accessory.*;
+import te.task1.factorybuilder.accessory.Package;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -22,7 +31,7 @@ public class Main {
 				.getBouquet();
 		System.out.println(flowersRibbon.sortedByFreshness());
 		new Application(flowersRibbon, 20, 35);
-		Bouquet bouquetPack = new Bouquet(List.of(rose), List.of(new Package(List.of(rose), 15)));
+		Bouquet bouquetPack = new Bouquet(List.of(rose), List.of((new Package(List.of(rose), 15))));
 		Bouquet bouquetRibbon = new Bouquet(List.of(mimosa, tulip), List.of(new Ribbon(List.of(mimosa, tulip), 25)));
 		new Application(bouquetPack, 11, 15);
 		new Application(bouquetRibbon, 4, 10);
