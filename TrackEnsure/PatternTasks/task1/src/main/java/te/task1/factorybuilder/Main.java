@@ -29,7 +29,6 @@ public class Main {
 		Accessory newAccessory = new Ribbon(List.of(aRose, aMimosa), 43);
 		Bouquet flowersRibbon = builder.setFlower(aRose).setFlower(aMimosa).setFlower(tulip).setAccessory(newAccessory)
 				.getBouquet();
-		System.out.println(flowersRibbon.sortedByFreshness());
 		new Application(flowersRibbon, 20, 35);
 		Bouquet bouquetPack = new Bouquet(List.of(rose), List.of((new Package(List.of(rose), 15))));
 		Bouquet bouquetRibbon = new Bouquet(List.of(mimosa, tulip), List.of(new Ribbon(List.of(mimosa, tulip), 25)));

@@ -4,12 +4,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import te.task1.factorybuilder.bouquet.*;
 import te.task1.factorybuilder.accessory.Accessory;
 import te.task1.factorybuilder.flower.Flower;
+import te.task1.factorybuilder.flower.Rose;
 import te.task1.factorybuilderiface.BouquetFactory;
 
 @Data
@@ -24,24 +27,17 @@ public class Bouquet implements BouquetFactory {
 
 	@Override
 	public Flower findByStemLength(int min, int max) {
-		for (Flower flower : flowers) {
-			if (flower.getStemLength() >= min && flower.getStemLength() <= max) {
-				return flower;
-			}
-		}
-		return null;
+		return flowers.stream().filter(flower -> flower.getStemLength() >= min && flower.getStemLength() <= max)
+				.findFirst().orElse(null);
 	}
 
 	@Override
 	public int getPrice() {
-		int price = 0;
-		for (Accessory accessory : accessories) {
-			for (Flower flower : accessory.getFlowers()) {
-				price += flower.getPrice();
-			}
-			price += accessory.getPrice();
-		}
-		return price;
+		return accessories.stream().map(Accessory::getFlowers).collect(Collectors.toList()).stream()
+				.map(allFlowers -> flowers.stream().map(Flower::getPrice).collect(Collectors.toList()).stream()
+						.reduce((a, b) -> a + b).get()
+						+ accessories.stream().map(Accessory::getPrice).findFirst().get())
+				.findFirst().orElse(0);
 	}
 
 	@Override
