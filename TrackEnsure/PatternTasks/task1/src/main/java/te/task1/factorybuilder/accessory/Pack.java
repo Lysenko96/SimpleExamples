@@ -8,14 +8,14 @@ import te.task1.factorybuilder.flower.Flower;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Package extends Accessory {
+public class Pack extends Accessory {
 
-	public Package(List<Flower> flowers, int price) {
+	public Pack(List<Flower> flowers, int price) {
 		super(flowers, price);
 	}
 
 	@Override
 	public String toString() {
-		return "Package [flowers=" + flowers + ", price=" + price + "]";
+		return "Pack [flowers=" + flowers + ", price=" + price + "]";
 	}
 }

@@ -12,14 +12,10 @@ import te.task1.factorybuilder.flower.Mimosa;
 import te.task1.factorybuilder.flower.Rose;
 import te.task1.factorybuilder.flower.Tulip;
 import te.task1.factorybuilder.accessory.*;
-import te.task1.factorybuilder.accessory.Package;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Flower rose = new Rose("Rose", 50, LocalDateTime.of(LocalDate.now(), LocalTime.now()), 5);
-		Flower mimosa = new Mimosa("Mimosa", 80,
-				LocalDateTime.of(LocalDate.now().minusDays(2), LocalTime.now().minusHours(3).minusMinutes(12)), 10);
 		Flower tulip = new Tulip("Tulip", 35,
 				LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.now().minusHours(2).minusMinutes(5)), 12);
 		Flower aRose = new Rose("Rose", 55, LocalDateTime.of(LocalDate.now(), LocalTime.now()), 25);
@@ -31,10 +27,5 @@ public class Main {
 				.setAccessory(newAccessory).getBouquet();
 
 		new Application(flowersRibbon, 20, 35);
-		Bouquet bouquetPack = new Bouquet(List.of(rose), List.of((new Package(List.of(rose), 15))));
-		Bouquet bouquetRibbon = new Bouquet(List.of(mimosa, tulip), List.of(new Ribbon(List.of(mimosa, tulip), 25)));
-		new Application(bouquetPack, 7, 15);
-		new Application(bouquetRibbon, 4, 10);
-
 	}
 }
