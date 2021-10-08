@@ -3,7 +3,7 @@ package gweep.net.allpatterns.creational.factory;
 public class Main {
 
 	public static void main(String[] args) {
-		SupplierFactory factory = createFactoryByTypeSupplier("road");
+		SupplierFactory factory = createFactoryByTypeSupplier("sea");
 		Supplier supplier = factory.create();
 		supplier.supply();
 	}

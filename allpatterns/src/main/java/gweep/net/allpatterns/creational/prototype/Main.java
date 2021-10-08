@@ -11,6 +11,8 @@ public class Main {
 
 		Car clone = factory.getCar();
 
+		clone.setModel("TeslaClone");
+
 		System.out.println(clone);
 	}
 }
