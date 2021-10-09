@@ -27,7 +27,7 @@ class MainTest {
 		List<Directory> expected = new ArrayList<>();
 		expected.add(root);
 		expected.add(subDir);
-		assertEquals(expected, main.traverseInOrder(root, new ArrayList<>(), new ArrayList<>()));
+		assertEquals(expected, main.traverseInOrder(root, new ArrayList<>()));
 		List<File> filesExpected = new ArrayList<>();
 		List<File> filesActual = new ArrayList<>();
 		for (Directory dir : expected) {
@@ -35,7 +35,7 @@ class MainTest {
 				filesExpected.add(f);
 			}
 		}
-		for (Directory dir : main.traverseInOrder(root, new ArrayList<>(), new ArrayList<>())) {
+		for (Directory dir : main.traverseInOrder(root, new ArrayList<>())) {
 			for (File f : dir.getFiles()) {
 				filesActual.add(f);
 			}
