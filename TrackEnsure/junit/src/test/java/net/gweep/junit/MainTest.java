@@ -21,31 +21,33 @@ class MainTest {
 	void setUp() {
 		main = new Main();
 		File file = new File("fileOne", LocalDateTime.now().minusMinutes(77));
-		Directory subDir = new Directory("dirTwo", new Directory(), List.of(),
-				List.of(new File("fileTwo", LocalDateTime.now())));
-		List<File> files = new ArrayList<>();
-		files.add(file);
-		root = new Directory("dirOne", subDir, List.of(), files);
+		File fileSub2 = new File("fileSubdir2", LocalDateTime.now().plusMinutes(44));
+		File fileSub = new File("fileTwo", LocalDateTime.now());
+		Directory subDir2 = new Directory("dirThree", new Directory(), List.of(), List.of(fileSub2));
+		Directory subDir = new Directory("dirTwo", subDir2, List.of(subDir2), List.of(fileSub));
+		root = new Directory("dirOne", subDir, List.of(subDir), List.of(file));
 		expected = new ArrayList<>();
 		expected.add(root);
 		expected.add(subDir);
-		actual = main.traverseInOrder(root, new ArrayList<>());
+		expected.add(subDir2);
 	}
 
 	@Test
 	void traverseInOrderDirTest() {
+		actual = main.traverseInOrder(root, new ArrayList<>());
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	void traverseInOrderFileTest() {
-		List<File> expectedFiles = expected.stream().map(d -> {
+		actual = main.traverseInOrder(root, new ArrayList<>());
+		List<File> expectedFiles = expected.stream().map(dir -> {
 			int count = 0;
-			return d.getFiles().get(count++);
+			return dir.getFiles().get(count++);
 		}).collect(Collectors.toList());
-		List<File> actualFiles = actual.stream().map(d -> {
+		List<File> actualFiles = actual.stream().map(dir -> {
 			int count = 0;
-			return d.getFiles().get(count++);
+			return dir.getFiles().get(count++);
 		}).collect(Collectors.toList());
 		assertEquals(expectedFiles, actualFiles);
 	}

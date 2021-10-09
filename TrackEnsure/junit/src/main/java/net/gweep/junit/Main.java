@@ -7,21 +7,21 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) {
-		Directory root = new Directory("dirOne",
-				new Directory("dirTwo", new Directory(), List.of(), List.of(new File("fileTwo", LocalDateTime.now()))),
-				List.of(), List.of(new File("fileOne", LocalDateTime.now().minusMinutes(77))));
-		new Main().traverseInOrder(root, new ArrayList<>());
+		File file = new File("fileOne", LocalDateTime.now().minusMinutes(77));
+		File fileSub2 = new File("fileSubdir2", LocalDateTime.now().plusMinutes(44));
+		File fileSub = new File("fileTwo", LocalDateTime.now());
+		Directory subDir2 = new Directory("dirThree", new Directory(), List.of(), List.of(fileSub2));
+		Directory subDir = new Directory("dirTwo", subDir2, List.of(subDir2), List.of(fileSub));
+		Directory root = new Directory("dirOne", subDir, List.of(subDir), List.of(file));
+		System.out.println(new Main().traverseInOrder(root, new ArrayList<>()));
 
 	}
 
 	public List<Directory> traverseInOrder(Directory root, List<Directory> dirs) {
 		if (root != null && root.getNext() != null && root.getFiles() != null) {
 			dirs.add(root);
-			System.out.println(root);
-			System.out.println(root.getFiles());
 			traverseInOrder(root.getNext(), dirs);
 		}
 		return dirs;
 	}
-
 }

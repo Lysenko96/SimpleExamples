@@ -18,6 +18,6 @@ public class Directory {
 
 	@Override
 	public String toString() {
-		return "Directory [name=" + name + ", next=" + next + ", directories=" + directories + "]";
+		return "Directory [name=" + name + ", next=" + next + ", directories=" + directories + ", files=" + files + "]";
 	}
 }
