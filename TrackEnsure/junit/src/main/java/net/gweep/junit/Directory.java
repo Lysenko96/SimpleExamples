@@ -13,15 +13,15 @@ public class Directory implements Component {
 
 	private String name;
 	private Directory next;
-	private List<Directory> directories;
+	private List<Component> directories;
 	private List<File> files;
 
-	void addDir(Directory dir) {
-		directories.add(dir);
+	void addComponent(Component component) {
+		directories.add(component);
 	}
 
-	void removeDir(Directory dir) {
-		directories.remove(dir);
+	void removeComponent(Component component) {
+		directories.remove(component);
 	}
 
 	void addFile(File file) {
