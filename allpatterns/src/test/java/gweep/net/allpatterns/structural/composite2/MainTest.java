@@ -1,4 +1,4 @@
-package net.gweep.junit;
+package gweep.net.allpatterns.structural.composite2;
 
 import static org.junit.Assert.assertEquals;
 
