@@ -1,4 +1,4 @@
-package net.gweep.junit;
+package net.gweep.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
