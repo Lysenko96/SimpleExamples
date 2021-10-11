@@ -10,6 +10,9 @@ import te.task1.factorybuilderiface.BouquetFactory;
 
 import static java.util.stream.Collectors.toList;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 @Data
 @AllArgsConstructor
 public class Bouquet implements BouquetFactory {
@@ -27,17 +30,14 @@ public class Bouquet implements BouquetFactory {
 	@Override
 	public int getPrice() {
 		return accessories.stream().map(Accessory::getFlowers).collect(toList()).stream()
-				.map(allFlowers -> flowers.stream().map(Flower::getPrice).collect(toList()).stream()
-						.reduce((all, next) -> all + next).get())
-				.findFirst().orElse(0)
-				+ accessories.stream().map(Accessory::getPrice).reduce((all, next) -> all + next).orElse(0);
+				.map(allFlowers -> flowers.stream().mapToInt(Flower::getPrice).sum()
+						+ accessories.stream().mapToInt(Accessory::getPrice).sum())
+				.findFirst().orElse(0);
 	}
 
 	@Override
 	public List<Flower> sortedByFreshness() {
-		return flowers.stream().map(Flower::getDateTime).collect(toList()).stream().sorted().collect(toList()).stream()
-				.map(dateTime -> flowers.stream().filter(f -> f.getDateTime().equals(dateTime)).findFirst().get())
-				.collect(toList());
+		Collections.sort(flowers, Comparator.comparing(Flower::getDateTime));
+		return flowers;
 	}
-
 }
