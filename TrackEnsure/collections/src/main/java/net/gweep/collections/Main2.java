@@ -3,21 +3,29 @@ package net.gweep.collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class Main2 {
 
+	Map<String, Integer> map = new HashMap<>();
+
 	public static void main(String[] args) {
 		Main2 m2 = new Main2();
-		// m2.run();
-		// m2.runList();
-		m2.runQueue();
+		m2.calcWorld();
+//		m2.run();
+//		System.out.println();
+//		m2.runList();
+//		System.out.println();
+//		m2.runQueue();
 		// set contains map
-		//not change value int set
+		// not change value int set
 		// delete value from set and add new value in set
 		// empty collections that not use null object
 		// unmodifiable that send data in method and it data not changing
@@ -27,17 +35,17 @@ public class Main2 {
 		List<Integer> list = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 3, 2, 5, 9));
 		for (Iterator<Integer> it = list.iterator(); it.hasNext();) {
 			Integer x = it.next();
-			System.out.println(x + " ");
+			System.out.print(x + " ");
 		}
 		System.out.println();
-		//
+		// add arr in toArray(arr) set type elements
 		Integer[] arr = {};
 		arr = list.toArray(arr);
 		int sum = 0;
 		for (Integer i : arr) {
 			if (i != null) {
 				sum += i;
-				System.out.println(i + " ");
+				System.out.print(i + " ");
 			}
 		}
 
@@ -93,4 +101,25 @@ public class Main2 {
 
 		return new HashSet<>();
 	}
+
+	void calcWorld() {
+		Scanner in = new Scanner(System.in);
+		while (true) {
+			String line = in.nextLine();
+			if (line.isEmpty()) {
+				break;
+			}
+			System.out.println(line);
+			int value = 0;
+			if (!map.containsKey(line)) {
+				map.put(line, 1);
+			} else if (map.containsKey(line)) {
+				value = map.get(line) + 1;
+				map.put(line, value);
+			}
+			System.out.println(map);
+		}
+		in.close();
+	}
+
 }
