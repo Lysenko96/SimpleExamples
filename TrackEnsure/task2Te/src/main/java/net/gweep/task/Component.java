@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Component {
 
-	List<Component> show(List<Component> components);
+	List<Component> accumulate(List<Component> components);
 }

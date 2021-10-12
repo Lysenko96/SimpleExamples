@@ -37,10 +37,10 @@ public class Directory implements Component {
 	}
 
 	@Override
-	public List<Component> show(List<Component> components) {
+	public List<Component> accumulate(List<Component> components) {
 		for (Component dir : directories) {
 			components.add(dir);
-			dir.show(components);
+			dir.accumulate(components);
 		}
 		return components;
 	}

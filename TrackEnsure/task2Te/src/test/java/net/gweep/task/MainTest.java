@@ -36,13 +36,13 @@ class MainTest {
 
 	@Test
 	void traverseInOrderDirTest() {
-		actual = root.show(new ArrayList<>());
+		actual = root.accumulate(new ArrayList<>());
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	void traverseInOrderFileTest() {
-		actual = root.show(new ArrayList<>());
+		actual = root.accumulate(new ArrayList<>());
 		List<File> expectedFiles = expected.stream().map(dir -> {
 			int count = 0;
 			return ((Directory) dir).getFiles().get(count++);
