@@ -40,6 +40,7 @@ public class Directory implements Component {
 	public List<Component> accumulate(List<Component> components) {
 		for (Component dir : directories) {
 			components.add(dir);
+			System.out.println(dir);
 			dir.accumulate(components);
 		}
 		return components;

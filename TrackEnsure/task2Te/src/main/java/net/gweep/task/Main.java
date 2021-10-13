@@ -11,6 +11,8 @@ public class Main {
 		DirFactory subDir = new DirFactory(new Directory("dirTwo"));
 		DirFactory subDirTwo = new DirFactory(new Directory("dirThree"));
 		DirFactory subDirNew = new DirFactory(new Directory("dirNew"));
+		DirFactory subDirNewTwo = new DirFactory(new Directory("dirNewTwo"));
+		subDirNew.getDirectory().addComponent(subDirNewTwo.getDirectory());
 		subDir.getDirectory().addComponent(subDirNew.getDirectory());
 		subDir.getDirectory().addComponent(subDirTwo.getDirectory());
 		dir.getDirectory().addComponent(subDir.getDirectory());
