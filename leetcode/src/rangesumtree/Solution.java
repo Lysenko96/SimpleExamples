@@ -22,7 +22,6 @@ class TreeNode {
 	}
 
 }
-
 class Solution {
 	public int rangeSumBST(TreeNode root, int low, int high) {
 		List<Integer> vals = new ArrayList<>();
