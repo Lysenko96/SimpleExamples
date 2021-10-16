@@ -1,11 +1,11 @@
 package net.gweep.task3.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static java.util.stream.Collectors.*;
 
@@ -35,13 +35,16 @@ public class Logic {
 		return cars.stream().sorted(Comparator.comparing(Car::getPrice).reversed()).collect(toList());
 	}
 
-	public Set<Model> getModels(List<Car> cars) {
-		return cars.stream().map(Car::getModel).collect(toSet());
+	public List<Model> getModels() {
+		Model[] arr = Model.values();
+		List<Model> models = new ArrayList<>();
+		Collections.addAll(models, arr);
+		return models;
 	}
 
 	public Map<Model, List<Car>> getModelCars(List<Car> cars) {
-		Map<Model, List<Car>> map = new HashMap<>();
-		for (Model m : getModels(cars)) {
+		Map<Model, List<Car>> map = new EnumMap<>(Model.class);
+		for (Model m : getModels()) {
 			List<Car> newCars = new ArrayList<>();
 			for (Car car : cars) {
 				if (car.getModel().equals(m)) {
