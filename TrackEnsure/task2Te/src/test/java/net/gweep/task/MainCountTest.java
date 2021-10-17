@@ -5,12 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MainTest {
+class MainCountTest {
 
 	private List<Component> expected;
 	private List<Component> actual;
@@ -35,22 +34,11 @@ class MainTest {
 	}
 
 	@Test
-	void traverseInOrderDirTest() {
+	void countAccumulateTest() {
+		System.out.println(root);
 		actual = root.accumulate(new ArrayList<>());
-		assertEquals(expected, actual);
+		actual.add(root);
+		assertEquals(actual.size(), Directory.getCounter());
 	}
 
-	@Test
-	void traverseInOrderFileTest() {
-		actual = root.accumulate(new ArrayList<>());
-		List<File> expectedFiles = expected.stream().map(dir -> {
-			int count = 0;
-			return ((Directory) dir).getFiles().get(count++);
-		}).collect(Collectors.toList());
-		List<File> actualFiles = actual.stream().map(dir -> {
-			int count = 0;
-			return ((Directory) dir).getFiles().get(count++);
-		}).collect(Collectors.toList());
-		assertEquals(expectedFiles, actualFiles);
-	}
 }

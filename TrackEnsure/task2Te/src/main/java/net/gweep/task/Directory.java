@@ -15,6 +15,7 @@ public class Directory implements Component {
 	private String name;
 	private List<Component> directories = new ArrayList<>();
 	private List<File> files = new ArrayList<>();
+	private static int counter;
 
 	public Directory(String name) {
 		this.name = name;
@@ -43,11 +44,20 @@ public class Directory implements Component {
 			System.out.println(dir);
 			dir.accumulate(components);
 		}
+		counter++;
 		return components;
 	}
 
 	@Override
 	public String toString() {
 		return "Directory [name=" + name + ", files=" + files + "]";
+	}
+
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		Directory.counter = counter;
 	}
 }
