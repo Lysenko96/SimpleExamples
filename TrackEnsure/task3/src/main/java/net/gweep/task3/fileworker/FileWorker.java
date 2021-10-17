@@ -1,4 +1,4 @@
-package net.gweep.fileworker;
+package net.gweep.task3.fileworker;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

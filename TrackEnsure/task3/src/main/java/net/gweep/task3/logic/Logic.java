@@ -31,6 +31,7 @@ public class Logic {
 				.collect(toList());
 	}
 
+	// not work
 	public List<Car> getByPriceReduceYearUp(List<Car> cars) {
 		return cars.stream().sorted(Comparator.comparing(Car::getPrice).reversed()).collect(toList());
 	}
