@@ -1,11 +1,11 @@
 package net.gweep.task3.logic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 
@@ -31,16 +31,13 @@ public class Logic {
 				.collect(toList());
 	}
 
-	// not work
 	public List<Car> getByPriceReduceYearUp(List<Car> cars) {
-		return cars.stream().sorted(Comparator.comparing(Car::getPrice).reversed()).collect(toList());
+		return cars.stream().sorted(Comparator.comparing(Car::getPrice).reversed().thenComparing(Car::getYear))
+				.collect(toList());
 	}
 
 	public List<Model> getModels() {
-		Model[] arr = Model.values();
-		List<Model> models = new ArrayList<>();
-		Collections.addAll(models, arr);
-		return models;
+		return Stream.of(Model.values()).collect(toList());
 	}
 
 	public Map<Model, List<Car>> getModelCars(List<Car> cars) {
