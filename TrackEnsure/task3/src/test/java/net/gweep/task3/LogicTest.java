@@ -46,15 +46,14 @@ class LogicTest {
 		assertEquals(expected, logic.getByYearPriceMoThen(cars, 2019, 200000));
 	}
 
-//	@Test
-//	void given_whenGetByPriceReduceYearUp_thenList() {
-//		System.out.println(logic.getByPriceReduceYearUp(cars));
-//		cars = List.of(new Car(1, Model.BMW, 2019, 205000, "AC4251CC"),
-//				new Car(2, Model.TESLA, 2018, 205000, "AA3578AK"));
-//		List<Car> expected = List.of(new Car(2, Model.TESLA, 2018, 205000, "AA3578AK"),
-//				new Car(1, Model.BMW, 2019, 205000, "AC4251CC"));
-//		assertEquals(expected, logic.getByPriceReduceYearUp(cars));
-//	}
+	@Test
+	void given_whenGetByPriceReduceYearUp_thenList() {
+		cars = List.of(new Car(1, Model.BMW, 2019, 205000, "AC4251CC"),
+				new Car(2, Model.TESLA, 2018, 205000, "AA3578AK"));
+		List<Car> expected = List.of(new Car(2, Model.TESLA, 2018, 205000, "AA3578AK"),
+				new Car(1, Model.BMW, 2019, 205000, "AC4251CC"));
+		assertEquals(expected, logic.getByPriceReduceYearUp(cars));
+	}
 
 	@Test
 	void givenModels_whenGetModels_thenList() {
