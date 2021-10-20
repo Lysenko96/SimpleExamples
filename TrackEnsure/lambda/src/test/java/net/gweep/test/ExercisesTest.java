@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -235,13 +236,15 @@ public class ExercisesTest {
 //     {f={3=[foo]}, b={3=[bar, baz], 4=[bazz]}}.
 
 	@Test
-	@Disabled
+	// @Disabled
 	// use without stream after flatMap
 	public void nestedMaps() throws IOException {
-		Map<String, Map<Integer, List<String>>> map = null; /* TODO */
+		Map<String, Map<Integer, List<String>>> map = new HashMap<>(); /* TODO */
 
-		map = reader.lines().flatMap(s -> Stream.of(s.split(REGEXP))).filter(s -> !s.isEmpty())
-				.collect(Collectors.groupingBy(s -> s.substring(0, 1), Collectors.groupingBy(String::length)));
+//		map = reader.lines().flatMap(s -> Stream.of(s.split(REGEXP))).filter(s -> !s.isEmpty())
+//				.collect(Collectors.groupingBy(s -> s.substring(0, 1), Collectors.groupingBy(String::length)));
+
+		map = new Main().nestedMapNew();
 
 		assertEquals("[From, Feed]", map.get("F").get(4).toString());
 		assertEquals("[by, be, by]", map.get("b").get(2).toString());
