@@ -2,6 +2,7 @@ package net.gweep.voting;
 
 import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
+import net.gweep.voting.exception.IncorrectDigitsCountException;
 
 public class Main {
 

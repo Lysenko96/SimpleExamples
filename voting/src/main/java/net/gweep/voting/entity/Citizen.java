@@ -20,7 +20,6 @@ public abstract class Citizen {
 	boolean isSecretService;
 	boolean isQuarantine;
 
-	
 	public boolean checkIdCard(long idCard) {
 		Scanner in = new Scanner(System.in);
 		int counter = 0;
@@ -33,6 +32,8 @@ public abstract class Citizen {
 			}
 			if (counter != 10) {
 				throw new IncorrectDigitsCountException("IncorrectDigitsCountException");
+			} else {
+				this.idCard = idCard;
 			}
 		} catch (IncorrectDigitsCountException e) {
 			while (true) {
@@ -45,8 +46,8 @@ public abstract class Citizen {
 					counter++;
 				}
 				if (counter == 10) {
-					isActual = true;
 					this.idCard = idCard;
+					isActual = true;
 					break;
 				}
 			}
@@ -55,9 +56,9 @@ public abstract class Citizen {
 		}
 		return isActual;
 	}
-	
+
 	public void setIdCard(long idCard) {
-			this.idCard = idCard;
+		checkIdCard(idCard);
 	}
 
 	public long getIdCard() {
