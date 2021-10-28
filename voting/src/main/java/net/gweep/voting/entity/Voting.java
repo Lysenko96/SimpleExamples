@@ -13,6 +13,5 @@ public class Voting {
 
 	private LocalDate date;
 	private List<Party> parties;
-	private VoterRepo voterRepo;
-
+	private List<Citizen> citizens;
 }

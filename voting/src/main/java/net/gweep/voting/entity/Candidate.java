@@ -6,18 +6,23 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Candidate extends Citizen {
 
-	private Party party;
 	private int primaries;
 
-	Candidate(String name, String passNumber, long idCard, int year, PollingStation station, boolean isSecretService,
-			boolean isQuarantine, Party party, int primeries) {
-		super(name, passNumber, idCard, year, station, isSecretService, isQuarantine);
-		this.party = party;
+	public Candidate(String name, String passNumber, long idCard, int year, PollingStation station, Party party,
+			boolean isSecretService, boolean isQuarantine, int primeries) {
+		super(name, passNumber, idCard, year, station, party, isSecretService, isQuarantine);
 		this.primaries = primeries;
 	}
+
+	@Override
+	public String toString() {
+		return "Candidate [primaries=" + primaries + ", name=" + name + ", passNumber=" + passNumber + ", idCard="
+				+ idCard + ", year=" + year + ", station=" + station + ", party=" + party.getName() + ", isSecretService="
+				+ isSecretService + ", isQuarantine=" + isQuarantine + "]";
+	}	
 }

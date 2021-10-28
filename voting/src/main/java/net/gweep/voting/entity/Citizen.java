@@ -10,58 +10,75 @@ import net.gweep.voting.exception.IncorrectDigitsCountException;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Citizen {
+public class Citizen {
 
-	private String name;
-	private String passNumber;
-	private long idCard;
-	private int year;
-	private PollingStation station;
-	boolean isSecretService;
-	boolean isQuarantine;
+	protected String name;
+	protected String passNumber;
+	protected long idCard;
+	protected int year;
+	protected PollingStation station;
+	protected Party party;
+	protected boolean isSecretService;
+	protected boolean isQuarantine;
 
-	public boolean checkIdCard(long idCard) {
+	public void setValidIdCard(long idCard) {
 		Scanner in = new Scanner(System.in);
-		int counter = 0;
-		boolean isActual = false;
-		long temp = idCard;
 		try {
-			while (temp > 0) {
-				temp /= 10;
-				counter++;
-			}
-			if (counter != 10) {
-				throw new IncorrectDigitsCountException("IncorrectDigitsCountException");
-			} else {
-				this.idCard = idCard;
-			}
+			valid(idCard);
 		} catch (IncorrectDigitsCountException e) {
-			while (true) {
-				counter = 0;
-				System.out.print("Enter idCard (10 digits): ");
-				idCard = in.nextLong();
-				temp = idCard;
-				while (temp > 0) {
-					temp /= 10;
-					counter++;
-				}
-				if (counter == 10) {
-					this.idCard = idCard;
-					isActual = true;
-					break;
-				}
-			}
+			recheck(idCard, in);
 		} finally {
 			in.close();
 		}
-		return isActual;
+	}
+
+	public void valid(long idCard) throws IncorrectDigitsCountException {
+		int counter = 0;
+		long temp = idCard;
+		counter = getCounter(temp, counter);
+		if (counter != 10) {
+			throw new IncorrectDigitsCountException("IncorrectDigitsCountException");
+		} else {
+			this.idCard = idCard;
+		}
+	}
+
+	public void recheck(long idCard, Scanner in) {
+		int counter = 0;
+		long temp = idCard;
+		while (true) {
+			counter = 0;
+			System.out.print("Enter idCard (10 digits): ");
+			idCard = in.nextLong();
+			temp = idCard;
+			counter = getCounter(temp, counter);
+			if (counter == 10) {
+				this.idCard = idCard;
+				break;
+			}
+		}
+	}
+
+	public int getCounter(long temp, int counter) {
+		while (temp > 0) {
+			temp /= 10;
+			counter++;
+		}
+		return counter;
 	}
 
 	public void setIdCard(long idCard) {
-		checkIdCard(idCard);
+		setValidIdCard(idCard);
 	}
 
 	public long getIdCard() {
 		return idCard;
+	}
+
+	@Override
+	public String toString() {
+		return "Citizen [name=" + name + ", passNumber=" + passNumber + ", idCard=" + idCard + ", year=" + year
+				+ ", party=" + party.getName() + ", isSecretService=" + isSecretService + ", isQuarantine="
+				+ isQuarantine + "]";
 	}
 }

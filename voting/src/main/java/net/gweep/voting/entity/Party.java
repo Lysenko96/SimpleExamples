@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static java.util.stream.Collectors.*;
+import static java.util.Comparator.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +19,14 @@ public class Party {
 	private Fraction fraction;
 	private LocalDate date;
 	private List<Candidate> candidaties;
+
+	public List<Candidate> sortedByPrimaries(){
+		return candidaties.stream().sorted(comparing(Candidate::getPrimaries).reversed()).collect(toList());
+	}
+
+	@Override
+	public String toString() {
+		return "Party [name=" + name + ", fraction=" + fraction + ", date=" + date + ", candidaties=" + candidaties
+				+ "]";
+	}	
 }
