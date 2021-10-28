@@ -26,10 +26,4 @@ public class PollingStation {
 	public Map<Party, Long> getPartyVoterCounter() {
 		return citizens.stream().collect(Collectors.groupingBy(Citizen::getParty, Collectors.counting()));
 	}
-
-	@Override
-	public String toString() {
-		return "PollingStation [id=" + id + ", address=" + address + ", voterCounter=" + voterCounter + "]";
-	}
-	
 }

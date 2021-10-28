@@ -40,12 +40,12 @@ public class Main {
 		for (Citizen people : citizens) {
 			if (people.isQuarantine()) {
 				people.setStation(stationQuarantine);
-			} 
+			}
 //			else if (people.isSecretService()) {
 //				people.setStation(sercretService);
 //			} 
 			else {
-			people.setStation(station);
+				people.setStation(station);
 			}
 		}
 		Candidate candidate = new Candidate("name", "bk103451", 1122334455, 1994, null, party, false, false, 0);
@@ -54,9 +54,8 @@ public class Main {
 		candidate1.setStation(station);
 		party.setCandidaties(List.of(candidate));
 		party2.setCandidaties(List.of(candidate1));
-		System.out.println(station.getPartyVoterCounter());
-		System.out.println(stationQuarantine.getCitizens());
-		//System.out.println(sercretService.getCitizens());
+		System.out.println(stationQuarantine.getQuarantine());
+		// System.out.println(sercretService.getCitizens());
 		System.out.println(station.getCitizens());
 	}
 }
