@@ -1,20 +1,21 @@
 package net.gweep.voting.entity;
 
-import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper=true)
 public class PollingStrationSercretService extends PollingStation {
-
-	//private List<Citizen> secretService = new ArrayList<>();
 	
 	public PollingStrationSercretService(int id, Address address, List<Citizen> citizens, int voterCounter) {
 		super(id, address, citizens, voterCounter);
-//		citizens.removeIf(citizen -> !citizen.isSecretService());
-//		secretService = citizens;
+	}
+	
+	public List<Citizen> getSercretService() {
+		return citizens.stream().filter(citizen -> citizen.isSecretService).collect(toList());
 	}
 }

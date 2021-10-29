@@ -1,5 +1,6 @@
 package net.gweep.voting.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ public class PollingStation {
 	protected int voterCounter;
 
 	public List<Citizen> getCitizensCanVote() {
-		citizens.removeIf(citizen -> citizen.getYear() < 18);
+		citizens.removeIf(citizen -> (LocalDate.now().getYear() - citizen.getYear()) < 18);
 		return citizens;
 	}
 

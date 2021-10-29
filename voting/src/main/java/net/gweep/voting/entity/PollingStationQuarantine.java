@@ -1,13 +1,14 @@
 package net.gweep.voting.entity;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class PollingStationQuarantine extends PollingStation {
 
 	public PollingStationQuarantine(int id, Address address, List<Citizen> citizens, int voterCounter) {
@@ -15,12 +16,6 @@ public class PollingStationQuarantine extends PollingStation {
 	}
 
 	public List<Citizen> getQuarantine() {
-		List<Citizen> quarantine = new ArrayList<>();
-		for (Citizen citizen : citizens) {
-			if (citizen.isQuarantine) {
-				quarantine.add(citizen);
-			}
-		}
-		return quarantine;
+		return citizens.stream().filter(citizen -> citizen.isQuarantine).collect(toList());
 	}
 }

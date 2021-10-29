@@ -22,11 +22,5 @@ public class Party {
 
 	public List<Candidate> sortedByPrimaries(){
 		return candidaties.stream().sorted(comparing(Candidate::getPrimaries).reversed()).collect(toList());
-	}
-
-	@Override
-	public String toString() {
-		return "Party [name=" + name + ", fraction=" + fraction + ", date=" + date + ", candidaties=" + candidaties
-				+ "]";
 	}	
 }
