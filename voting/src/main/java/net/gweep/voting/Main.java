@@ -1,17 +1,17 @@
 package net.gweep.voting;
 
-//import java.time.LocalDate;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import net.gweep.voting.entity.Address;
-//import net.gweep.voting.entity.Candidate;
-//import net.gweep.voting.entity.Citizen;
-//import net.gweep.voting.entity.Fraction;
-//import net.gweep.voting.entity.Party;
-//import net.gweep.voting.entity.PollingStation;
-//import net.gweep.voting.entity.PollingStationQuarantine;
-//import net.gweep.voting.entity.PollingStrationSercretService;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.gweep.voting.entity.Address;
+import net.gweep.voting.entity.Candidate;
+import net.gweep.voting.entity.Citizen;
+import net.gweep.voting.entity.Fraction;
+import net.gweep.voting.entity.Party;
+import net.gweep.voting.entity.PollingStation;
+import net.gweep.voting.entity.PollingStationQuarantine;
+import net.gweep.voting.entity.PollingStrationSercretService;
 
 public class Main {
 
@@ -19,7 +19,7 @@ public class Main {
 
 //		Citizen citizen11 = new Citizen();
 //		citizen11.setIdCard(123456432l);
-//		System.out.println(citizen11.getIdCard());
+//		System.out.println(citizen11);
 
 		// ================================================
 
@@ -37,7 +37,7 @@ public class Main {
 //				citizens, citizens.size());
 //		PollingStrationSercretService sercretService = new PollingStrationSercretService(3, new Address("street3", 11),
 //				citizens, citizens.size());
-//		for (Citizen people : station.getCitizensCanVote()) {
+//		for (Citizen people : station.getCitizens()) {
 //			if (people.isQuarantine()) {
 //				people.setStation(stationQuarantine);
 //			} else if (people.isSecretService()) {
@@ -52,8 +52,9 @@ public class Main {
 //		candidate1.setStation(station);
 //		party.setCandidaties(List.of(candidate));
 //		party2.setCandidaties(List.of(candidate1));
-//		System.out.println(stationQuarantine.getQuarantine());
-//		System.out.println(sercretService.getSercretService());
+////		System.out.println(stationQuarantine.getQuarantine());
+////		System.out.println(sercretService.getSercretService());
 //		System.out.println(station.getCitizens());
+//		station.checkValidVoteCitizenAge();
 	}
 }

@@ -15,12 +15,14 @@ public class Citizen {
 	protected String name;
 	protected String passNumber;
 	protected long idCard;
-	protected int year;
+	protected int age;
 	protected PollingStation station;
 	protected Party party;
 	protected boolean isSecretService;
 	protected boolean isQuarantine;
 
+	//additional generate unique idCard or delete citizen
+	
 	public void setValidIdCard(long idCard) {
 		Scanner in = new Scanner(System.in);
 		try {
@@ -77,8 +79,8 @@ public class Citizen {
 
 	@Override
 	public String toString() {
-		return "Citizen [name=" + name + ", passNumber=" + passNumber + ", idCard=" + idCard + ", year=" + year
-				+ ", party=" + party.getName() + ", isSecretService=" + isSecretService + ", isQuarantine="
-				+ isQuarantine + "]";
+		return "Citizen [name=" + name + ", passNumber=" + passNumber + ", idCard=" + idCard + ", age=" + age
+				+ ", station=" + station.getClass().getSimpleName() + ", party=" + party.getName() + ", isSecretService=" + isSecretService
+				+ ", isQuarantine=" + isQuarantine + "]";
 	}
 }
