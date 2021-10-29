@@ -1,6 +1,7 @@
 package net.gweep.voting.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -27,32 +28,45 @@ public class PollingStation {
 
 	public List<Citizen> checkValidVoteCitizenAge() {
 		Scanner in = new Scanner(System.in);
+		List<Citizen> validCitizens = new ArrayList<>();
+		List<Citizen> checked = new ArrayList<>();
 		for (Citizen citizen : citizens) {
 			try {
-				if ((LocalDate.now().getYear() - citizen.getAge()) < 18) {
-					throw new IncorrectVoteCitizenAgeException("IncorrectVoteCitizenAgeException");
-				} else {
-					citizen.setAge(citizen.getAge());
-				}
+				checked = valid(citizen, validCitizens);
 			} catch (IncorrectVoteCitizenAgeException e) {
-				while (true) {
-					System.out.print("Enter age >= 18: ");
-					citizen.setAge(in.nextInt());
-					if (citizen.getAge() >= 18) {
-						System.out.println(citizen);
-						break;
-					}
-				}
-
+				checked = recheck(citizen, validCitizens, in);
 			} finally {
 				in.close();
 			}
 		}
-		return null;
+		return checked;
+	}
+
+	List<Citizen> valid(Citizen citizen, List<Citizen> validCitizens) throws IncorrectVoteCitizenAgeException {
+		if ((LocalDate.now().getYear() - citizen.getYear()) < 18) {
+			throw new IncorrectVoteCitizenAgeException("IncorrectVoteCitizenAgeException");
+		} else {
+			citizen.setYear(citizen.getYear());
+			validCitizens.add(citizen);
+		}
+		return validCitizens;
+	}
+
+	List<Citizen> recheck(Citizen citizen, List<Citizen> validCitizens, Scanner in) {
+		while (true) {
+			System.out.print("Enter year that age >= 18: ");
+			citizen.setYear(in.nextInt());
+			if ((LocalDate.now().getYear() - citizen.getYear()) >= 18) {
+				System.out.println(citizen);
+				validCitizens.add(citizen);
+				break;
+			}
+		}
+		return validCitizens;
 	}
 
 	public List<Citizen> getCitizensCanVote() {
-		citizens.removeIf(citizen -> (LocalDate.now().getYear() - citizen.getAge()) < 18);
+		citizens.removeIf(citizen -> (LocalDate.now().getYear() - citizen.getYear()) < 18);
 		return citizens;
 	}
 

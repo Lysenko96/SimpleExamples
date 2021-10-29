@@ -15,7 +15,7 @@ public class Citizen {
 	protected String name;
 	protected String passNumber;
 	protected long idCard;
-	protected int age;
+	protected int year;
 	protected PollingStation station;
 	protected Party party;
 	protected boolean isSecretService;
@@ -79,7 +79,7 @@ public class Citizen {
 
 	@Override
 	public String toString() {
-		return "Citizen [name=" + name + ", passNumber=" + passNumber + ", idCard=" + idCard + ", age=" + age
+		return "Citizen [name=" + name + ", passNumber=" + passNumber + ", idCard=" + idCard + ", age=" + year
 				+ ", station=" + station.getClass().getSimpleName() + ", party=" + party.getName() + ", isSecretService=" + isSecretService
 				+ ", isQuarantine=" + isQuarantine + "]";
 	}

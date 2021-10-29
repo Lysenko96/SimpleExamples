@@ -22,7 +22,7 @@ public class Candidate extends Citizen {
 	@Override
 	public String toString() {
 		return "Candidate [primaries=" + primaries + ", name=" + name + ", passNumber=" + passNumber + ", idCard="
-				+ idCard + ", year=" + age + ", station=" + station + ", party=" + party.getName() + ", isSecretService="
+				+ idCard + ", year=" + year + ", station=" + station + ", party=" + party.getName() + ", isSecretService="
 				+ isSecretService + ", isQuarantine=" + isQuarantine + "]";
 	}	
 }
