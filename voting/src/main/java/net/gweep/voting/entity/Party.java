@@ -20,7 +20,11 @@ public class Party {
 	private LocalDate date;
 	private List<Candidate> candidaties;
 
-	public List<Candidate> sortedByPrimaries(){
+	public List<Candidate> sortedByPrimaries() {
 		return candidaties.stream().sorted(comparing(Candidate::getPrimaries).reversed()).collect(toList());
-	}	
+	}
+
+	public Candidate getTopPartyCandidate() {
+		return sortedByPrimaries().get(0);
+	}
 }

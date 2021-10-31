@@ -15,7 +15,7 @@ import net.gweep.voting.exception.IncorrectVoteCitizenAgeException;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PollingStation {
+public class Station {
 
 	protected int id;
 	protected Address address;
@@ -29,17 +29,16 @@ public class PollingStation {
 	public List<Citizen> checkValidVoteCitizenAge() {
 		Scanner in = new Scanner(System.in);
 		List<Citizen> validCitizens = new ArrayList<>();
-		List<Citizen> checked = new ArrayList<>();
 		for (Citizen citizen : citizens) {
 			try {
-				checked = valid(citizen, validCitizens);
+				validCitizens = valid(citizen, validCitizens);
 			} catch (IncorrectVoteCitizenAgeException e) {
-				checked = recheck(citizen, validCitizens, in);
+				validCitizens = recheck(citizen, validCitizens, in);
 			} finally {
 				in.close();
 			}
 		}
-		return checked;
+		return validCitizens;
 	}
 
 	List<Citizen> valid(Citizen citizen, List<Citizen> validCitizens) throws IncorrectVoteCitizenAgeException {
@@ -72,5 +71,13 @@ public class PollingStation {
 
 	public Map<Party, Long> getPartyVoterCounter() {
 		return citizens.stream().collect(Collectors.groupingBy(Citizen::getParty, Collectors.counting()));
+	}
+
+	public List<Party> getParties() {
+		return citizens.stream().map(Citizen::getParty).collect(Collectors.toList());
+	}
+
+	public Map<Party, Candidate> getMapPartyCandidate() {
+		return getParties().stream().collect(Collectors.toMap(p -> p, Party::getTopPartyCandidate));
 	}
 }

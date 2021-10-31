@@ -8,10 +8,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class PollingStationQuarantine extends PollingStation {
+@EqualsAndHashCode(callSuper = false)
+public class StationQuarantine extends Station {
 
-	public PollingStationQuarantine(int id, Address address, List<Citizen> citizens, int voterCounter) {
+	public StationQuarantine(int id, Address address, List<Citizen> citizens, int voterCounter) {
 		super(id, address, citizens, voterCounter);
 	}
 
