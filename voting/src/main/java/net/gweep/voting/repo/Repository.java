@@ -22,18 +22,20 @@ public class Repository {
 	List<Citizen> citizens = new ArrayList<>();
 	List<Party> parties = new ArrayList<>();
 
-	// if change citizen change voter counter
-
 	public void addStation(Station station) {
 		stations.add(station);
 	}
 
 	public void addCitizen(Citizen citizen) {
-		citizens.add(citizen);
+		List<Citizen> citizensAll = new ArrayList<>(citizens);
+		citizensAll.add(citizen);
+		citizens = citizensAll;
 	}
 
 	public void addParty(Party party) {
-		parties.add(party);
+		List<Party> partiesAll = new ArrayList<>(parties);
+		partiesAll.add(party);
+		parties = partiesAll;
 	}
 
 	public void setPartyCandidate(Citizen citizen, int primaries) {
@@ -72,6 +74,26 @@ public class Repository {
 	public void showCitizens() {
 		System.out.println(citizens);
 	}
-	
-	
+
+	public void showParties() {
+		System.out.println(parties);
+	}
+
+	public void addPartyCandidate(Candidate candidate) {
+		Party party = candidate.getParty();
+		List<Candidate> candidates = new ArrayList<>(party.getCandidaties());
+		candidates.add(candidate);
+		citizens.add(new Citizen(candidate));
+		party.setCandidaties(candidates);
+	}
+
+	public void deletePartyCandidate(long idCard) {
+		Citizen citizen = getCitizenByIdCard(idCard);
+		Party party = citizen.getParty();
+		List<Candidate> candidates = new ArrayList<>(party.getCandidaties());
+		Candidate candidate = candidates.stream().filter(c -> c.getIdCard() == idCard).findFirst()
+				.orElse(new Candidate());
+		candidates.remove(candidate);
+		party.setCandidaties(candidates);
+	}
 }

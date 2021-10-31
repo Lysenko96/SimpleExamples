@@ -20,8 +20,15 @@ public class Citizen {
 	protected Party party;
 	protected boolean isSecretService;
 	protected boolean isQuarantine;
+	protected boolean isVote;
 
 	// additional generate unique idCard or delete citizen
+
+	public Citizen(Candidate candidate) {
+		this(candidate.getName(), candidate.getPassNumber(), candidate.getIdCard(), candidate.getYear(),
+				candidate.getStation(), candidate.getParty(), candidate.isQuarantine(), candidate.isSecretService(),
+				candidate.isVote());
+	}
 
 	public void setValidIdCard(long idCard) {
 		Scanner in = new Scanner(System.in);
@@ -48,6 +55,10 @@ public class Citizen {
 	public void recheck(long idCard, Scanner in) {
 		int counter = 0;
 		long temp = idCard;
+		counter = getCounter(temp, counter);
+		if (counter == 10) {
+			this.idCard = idCard;
+		}
 		while (true) {
 			counter = 0;
 			System.out.print("Enter idCard (10 digits): ");
@@ -81,6 +92,7 @@ public class Citizen {
 	public String toString() {
 		return "Citizen [name=" + name + ", passNumber=" + passNumber + ", idCard=" + idCard + ", year=" + year
 				+ ", station=" + station.getClass().getSimpleName() + ", party=" + party.getName()
-				+ ", isSecretService=" + isSecretService + ", isQuarantine=" + isQuarantine + "]";
+				+ ", isSecretService=" + isSecretService + ", isQuarantine=" + isQuarantine + ", isVote=" + isVote
+				+ "]";
 	}
 }

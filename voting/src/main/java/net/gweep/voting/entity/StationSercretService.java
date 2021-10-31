@@ -9,9 +9,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class StrationSercretService extends Station {
+public class StationSercretService extends Station {
 
-	public StrationSercretService(int id, Address address, List<Citizen> citizens, int voterCounter) {
+	public StationSercretService(int id, Address address, List<Citizen> citizens, int voterCounter) {
 		super(id, address, citizens, voterCounter);
 	}
 
