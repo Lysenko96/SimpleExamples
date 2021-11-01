@@ -177,10 +177,8 @@ public class Menu {
 				writeInFileParties(repo.getParties());
 			} else if (value == 8) {
 				voting.setCitizensByParty();
-				writeInFileVotings(repo.getVotings());
 			} else if (value == 9) {
-				voting.showStationCountVoter();
-				writeInFileVotings(repo.getVotings());
+				writeInFileStrings(voting.showStationCountVoter());
 			} else if (value == 10) {
 				break;
 			}
@@ -227,13 +225,13 @@ public class Menu {
 		}
 	}
 
-	static void writeInFileVotings(List<Voting> votings) {
+	static void writeInFileStrings(List<String> lines) {
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
 			System.out.print("Enter fileName: ");
 			String fileName = in.next();
-			fileWorker.writeVotings(votings, fileName);
+			fileWorker.writeStrings(lines, fileName);
 		}
 	}
 }

@@ -53,7 +53,7 @@ public class FileWorker {
 		}
 	}
 	
-	public void writeVotings(List<Voting> objFile, String output) {
+	public void writeStrings(List<String> objFile, String output) {
 		try (PrintWriter p = new PrintWriter(new FileOutputStream(output, true))) {
 			for (int i = 0; i < objFile.size(); i++) {
 				p.write(objFile.get(i) + System.lineSeparator());
