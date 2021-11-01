@@ -36,8 +36,6 @@ public class Citizen {
 			valid(idCard);
 		} catch (IncorrectDigitsCountException e) {
 			recheck(idCard, in);
-		} finally {
-			in.close();
 		}
 	}
 

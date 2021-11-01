@@ -105,7 +105,7 @@ public class Main {
 		Repository repo = new Repository();
 		repo.setCitizens(citizens);
 		repo.setParties(parties);
-		repo.setStations(List.of(station, stationQuarantine, secretService));
+		repo.setStations(new ArrayList<>(List.of(station, stationQuarantine, secretService)));
 
 //		for (Map.Entry<Party, Candidate> pair : station.getMapPartyCandidate().entrySet()) {
 //			System.out.println(pair.getKey().getName());
@@ -126,7 +126,7 @@ public class Main {
 
 		Menu menu = new Menu();
 
-		menu.show();
+		menu.show(repo);
 
 		// voting.setCitizensByParty();
 

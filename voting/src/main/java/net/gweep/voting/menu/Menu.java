@@ -29,9 +29,9 @@ public class Menu {
 	private static FileWorker fileWorker = new FileWorker();
 	private static Scanner in = new Scanner(System.in);
 
-	public void show() {
-		Repository repo = new Repository();
-		Voting voting = new Voting();
+	public void show(Repository repo) {
+		Voting voting = new Voting(LocalDate.now().plusDays(1), repo.getParties(), repo.getCitizens(),
+				repo.getStations());
 		StringBuilder menu = new StringBuilder("1 - add station").append(lineSeparator()).append("2 - add citizen")
 				.append(lineSeparator()).append("3 - add party").append(lineSeparator())
 				.append("4 - set party candidate").append(lineSeparator()).append("5 - show station")
@@ -71,10 +71,12 @@ public class Menu {
 				for (StationType type : types) {
 					System.out.println(types.indexOf(type) + " - " + type);
 				}
+				System.out.print("Enter stationIndex: ");
 				int stationIndex = in.nextInt();
 				for (Party party : repo.getParties()) {
 					System.out.println(repo.getParties().indexOf(party) + " - " + party.getName());
 				}
+				System.out.print("Enter partyIndex: ");
 				int partyIndex = in.nextInt();
 				List<Boolean> flags = List.of(false, true);
 				StringBuilder flagMenu = new StringBuilder(
@@ -92,12 +94,13 @@ public class Menu {
 				repo.addCitizen(citizen);
 				writeInFileCitizens(repo.getCitizens());
 			} else if (value == 3) {
-				System.out.print("Enter name");
+				System.out.print("Enter name: ");
 				String name = in.next();
 				List<Fraction> fractions = Arrays.asList(Fraction.values());
 				for (Fraction fraction : fractions) {
 					System.out.println(fractions.indexOf(fraction) + " - " + fraction);
 				}
+				System.out.print("Enter fractionIndex: ");
 				int fractionIndex = in.nextInt();
 				System.out.print("Enter year: ");
 				int year = in.nextInt();
@@ -204,7 +207,7 @@ public class Menu {
 		}
 	}
 
-	static void writeInFileParties(List<Party> parties) {
+	void writeInFileParties(List<Party> parties) {
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
