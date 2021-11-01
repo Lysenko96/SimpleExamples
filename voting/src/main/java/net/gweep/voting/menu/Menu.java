@@ -27,11 +27,11 @@ public class Menu {
 	private static StringBuilder writeMenu = new StringBuilder("1 - write in file").append(lineSeparator())
 			.append("2 - not write").append(lineSeparator()).append("Enter: ");
 	private static FileWorker fileWorker = new FileWorker();
+	private static Scanner in = new Scanner(System.in);
 
 	public void show() {
 		Repository repo = new Repository();
 		Voting voting = new Voting();
-		Scanner in = new Scanner(System.in);
 		StringBuilder menu = new StringBuilder("1 - add station").append(lineSeparator()).append("2 - add citizen")
 				.append(lineSeparator()).append("3 - add party").append(lineSeparator())
 				.append("4 - set party candidate").append(lineSeparator()).append("5 - show station")
@@ -42,26 +42,27 @@ public class Menu {
 		int id = 0;
 		while (true) {
 			System.out.println(menu);
+			System.out.print("Enter value: ");
 			value = in.nextInt();
 			if (value == 1) {
 				System.out.print("Enter street: ");
-				String street = in.nextLine();
+				String street = in.next();
 				System.out.print("Enter number: ");
 				int number = in.nextInt();
-				System.out.print("Enter stationType: ");
 				List<StationType> types = Arrays.asList(StationType.values());
 				for (StationType type : types) {
 					System.out.println(types.indexOf(type) + " - " + type);
 				}
+				System.out.print("Enter stationType: ");
 				int stationIndex = in.nextInt();
 				repo.addStation(
 						new Station(++id, new Address(street, number), new ArrayList<>(), 0, types.get(stationIndex)));
 				writeInFileStations(repo.getStations());
 			} else if (value == 2) {
 				System.out.print("Enter name: ");
-				String name = in.nextLine();
+				String name = in.next();
 				System.out.print("Enter passNumber: ");
-				String passNumber = in.nextLine();
+				String passNumber = in.next();
 				System.out.print("Enter idCard: ");
 				long idCard = in.nextLong();
 				System.out.print("Enter year: ");
@@ -92,7 +93,7 @@ public class Menu {
 				writeInFileCitizens(repo.getCitizens());
 			} else if (value == 3) {
 				System.out.print("Enter name");
-				String name = in.nextLine();
+				String name = in.next();
 				List<Fraction> fractions = Arrays.asList(Fraction.values());
 				for (Fraction fraction : fractions) {
 					System.out.println(fractions.indexOf(fraction) + " - " + fraction);
@@ -180,12 +181,10 @@ public class Menu {
 			} else if (value == 10) {
 				break;
 			}
-			in.close();
 		}
 	}
 
 	static void writeInFileStations(List<Station> stations) {
-		Scanner in = new Scanner(System.in);
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
@@ -193,11 +192,9 @@ public class Menu {
 			String fileName = in.next();
 			fileWorker.writeStations(stations, fileName);
 		}
-		in.close();
 	}
 
 	static void writeInFileCitizens(List<Citizen> citizens) {
-		Scanner in = new Scanner(System.in);
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
@@ -205,11 +202,9 @@ public class Menu {
 			String fileName = in.next();
 			fileWorker.writeCitizens(citizens, fileName);
 		}
-		in.close();
 	}
 
 	static void writeInFileParties(List<Party> parties) {
-		Scanner in = new Scanner(System.in);
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
@@ -217,11 +212,9 @@ public class Menu {
 			String fileName = in.next();
 			fileWorker.writeParties(parties, fileName);
 		}
-		in.close();
 	}
 
 	static void writeInFileCandidates(List<Candidate> candidates) {
-		Scanner in = new Scanner(System.in);
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
@@ -229,11 +222,9 @@ public class Menu {
 			String fileName = in.next();
 			fileWorker.writeCandidates(candidates, fileName);
 		}
-		in.close();
 	}
 
 	static void writeInFileVotings(List<Voting> votings) {
-		Scanner in = new Scanner(System.in);
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
@@ -241,6 +232,5 @@ public class Menu {
 			String fileName = in.next();
 			fileWorker.writeVotings(votings, fileName);
 		}
-		in.close();
 	}
 }

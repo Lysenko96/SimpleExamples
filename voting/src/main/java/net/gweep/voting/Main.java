@@ -14,6 +14,7 @@ import net.gweep.voting.entity.Party;
 import net.gweep.voting.entity.Station;
 import net.gweep.voting.entity.StationType;
 import net.gweep.voting.entity.Voting;
+import net.gweep.voting.menu.Menu;
 import net.gweep.voting.repo.Repository;
 
 public class Main {
@@ -122,6 +123,10 @@ public class Main {
 
 		Voting voting = new Voting(LocalDate.now().plusDays(1), repo.getParties(), repo.getCitizens(),
 				repo.getStations());
+
+		Menu menu = new Menu();
+
+		menu.show();
 
 		// voting.setCitizensByParty();
 
