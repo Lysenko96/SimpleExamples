@@ -26,7 +26,8 @@ public class Voting {
 	}
 
 	public void setCitizensByParty() {
-		try (Scanner in = new Scanner(System.in)) {
+		try {
+			Scanner in = new Scanner(System.in);
 			for (Party party : parties) {
 				System.out.println(parties.indexOf(party) + " - " + party.getName());
 			}
@@ -44,7 +45,7 @@ public class Voting {
 
 	public void showStationCountVoter() {
 		for (Station station : stations) {
-			System.out.println(station.getClass().getSimpleName());
+			System.out.println(station.getType());
 			for (Map.Entry<Party, Long> pair : station.getMapPartyVoterCounter().entrySet()) {
 				System.out.println(pair.getKey().getName() + " = " + pair.getValue());
 			}

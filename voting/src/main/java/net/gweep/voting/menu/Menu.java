@@ -127,8 +127,8 @@ public class Menu {
 				repo.addCandidate(candidate);
 				writeInFileCandidates(repo.getCandidates());
 			} else if (value == 5) {
-				System.out.println("1 - show stations" + lineSeparator() + "2 - add citizen by stationId"
-						+ lineSeparator() + "3 - delete citizen by stationId, idCard");
+				System.out.print("1 - show stations" + lineSeparator() + "2 - add citizen by stationId"
+						+ lineSeparator() + "3 - delete citizen by stationId, idCard" + lineSeparator() + "Enter: ");
 				int index = in.nextInt();
 				if (index == 1) {
 					System.out.println(voting.getStations());
@@ -155,8 +155,8 @@ public class Menu {
 				System.out.println(repo.getCitizens());
 				writeInFileCitizens(repo.getCitizens());
 			} else if (value == 7) {
-				System.out.println("1 - show parties" + lineSeparator() + "2 - add party candidate" + lineSeparator()
-						+ "3 - delete party candidate by idCard");
+				System.out.print("1 - show parties" + lineSeparator() + "2 - add party candidate" + lineSeparator()
+						+ "3 - delete party candidate by idCard" + lineSeparator() + "Enter: ");
 				int index = in.nextInt();
 				if (index == 1) {
 					System.out.println(repo.getParties());
