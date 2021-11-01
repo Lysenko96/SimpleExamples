@@ -3,7 +3,8 @@ package net.gweep.voting;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
+//import java.util.stream.Collectors;
 
 import net.gweep.voting.entity.Address;
 import net.gweep.voting.entity.Candidate;
@@ -11,8 +12,7 @@ import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Fraction;
 import net.gweep.voting.entity.Party;
 import net.gweep.voting.entity.Station;
-import net.gweep.voting.entity.StationQuarantine;
-import net.gweep.voting.entity.StationSercretService;
+import net.gweep.voting.entity.StationType;
 import net.gweep.voting.entity.Voting;
 import net.gweep.voting.repo.Repository;
 
@@ -31,10 +31,12 @@ public class Main {
 		Party party2 = new Party("party2", Fraction.LEFT, LocalDate.now().minusDays(3), null);
 		// Party party3 = new Party("party3", Fraction.RIGTH,
 		// LocalDate.now().minusDays(4), null);
-		Citizen citizen = new Citizen("name2", "bk103452", 1122334456, 2005, null, party, false, true, true);
+		Citizen citizen = new Citizen("name2", "bk103452", 1122334456, 2005, new Station(), party, false, true, true);
 		// Citizen citizen2 = new Citizen("name3", "bk103453", 1122334457, 1994, null,
 		// party3, true, false);
-		Citizen citizen3 = new Citizen("name4", "bk103454", 1122334458, 1996, null, party2, true, false, false);
+		Citizen citizen3 = new Citizen("name4", "bk103454", 1122334458, 1996, new Station(), party2, true, false,
+				false);
+
 		citizens.add(citizen);
 		// citizens.add(citizen2);
 		citizens.add(citizen3);
@@ -42,28 +44,61 @@ public class Main {
 		parties.add(party);
 		parties.add(party2);
 		// parties.add(party3);
-		Station station = new Station(1, new Address("street", 9), citizens, citizens.size());
-		StationQuarantine stationQuarantine = new StationQuarantine(2, new Address("street2", 10), citizens,
-				citizens.size());
-		StationSercretService secretService = new StationSercretService(3, new Address("street3", 11), citizens,
-				citizens.size());
+
+		// enter list for every station by condition
+
+		Station station = new Station(1, new Address("street", 9), new ArrayList<>(), 0, StationType.STATION);
+		Station stationQuarantine = new Station(2, new Address("street2", 10), new ArrayList<>(), 0,
+				StationType.QUARANTINE);
+		Station secretService = new Station(3, new Address("street3", 11), new ArrayList<>(), 0,
+				StationType.SECRETSERVICE);
+
+		citizen.setStation(secretService);
+		citizen3.setStation(stationQuarantine);
+		List<Citizen> quarantine = new ArrayList<>();
+		List<Citizen> stationList = new ArrayList<>();
+		List<Citizen> secretServiceList = new ArrayList<>();
 		for (Citizen people : station.getCitizens()) {
 			if (people.isQuarantine()) {
 				people.setStation(stationQuarantine);
+				quarantine.add(people);
+				stationQuarantine.setCitizens(quarantine);
 			} else if (people.isSecretService()) {
 				people.setStation(secretService);
+				secretServiceList.add(people);
+				secretService.setCitizens(secretServiceList);
 			} else {
 				people.setStation(station);
+				stationList.add(people);
+				station.setCitizens(stationList);
 			}
 		}
 		Candidate candidate = new Candidate("name", "bk103451", 1122334455, 1994, null, party, false, false, true, 3);
-		Candidate candidate1 = new Candidate("name1", "bk103459", 1122334459, 1999, null, party2, false, false, true,
-				1);
-		Candidate candidate2 = new Candidate("name2", "bk103460", 1122334460, 1997, null, party, false, false, true, 2);
-		candidate.setStation(station);
-		candidate1.setStation(station);
-		candidate2.setStation(station);
-		// List<Candidate> candidates = List.of(candidate, candidate1);
+		Candidate candidate1 = new Candidate("name1", "bk103459", 1122334459, 1999, null, party2, false, true, true, 1);
+		Candidate candidate2 = new Candidate("name2", "bk103460", 1122334460, 1997, null, party, false, true, true, 2);
+
+		List<Candidate> candidates = List.of(candidate, candidate1, candidate2);
+
+		for (Citizen people : candidates) {
+			if (people.isQuarantine()) {
+				people.setStation(stationQuarantine);
+				quarantine.add(people);
+				stationQuarantine.setCitizens(quarantine);
+			} else if (people.isSecretService()) {
+				people.setStation(secretService);
+				secretServiceList.add(people);
+				secretService.setCitizens(secretServiceList);
+			} else {
+				people.setStation(station);
+				stationList.add(people);
+				station.setCitizens(stationList);
+			}
+		}
+
+		station.setVoterCounter(stationList.size());
+		stationQuarantine.setVoterCounter(quarantine.size());
+		secretService.setVoterCounter(secretServiceList.size());
+
 		party.setCandidaties(List.of(candidate, candidate2));
 		party2.setCandidaties(List.of(candidate1));
 		Repository repo = new Repository();
@@ -78,30 +113,33 @@ public class Main {
 		// System.out.println(station.getMapPartyCandidate());
 		// repo.setPartyCandidate(citizen3, 2);
 
-		repo.addCitizen(new Citizen("name55", "bk103411", 1122334451, 1969, station, party2, true, false, true));
+		repo.addCitizen(new Citizen("name55", "bk103411", 1122334451, 1969, station, null, true, false, true));
 
 		// System.out.println(party.getCandidaties());
 
 		repo.addPartyCandidate(
 				new Candidate("name222", "vz103460", 1122332260, 1937, station, party, false, false, true, 2));
 
-		System.out.println(repo.getCitizens());
+		Voting voting = new Voting(LocalDate.now().plusDays(1), repo.getParties(), repo.getCitizens(),
+				repo.getStations());
 
-		Voting voting = new Voting(LocalDate.now().plusDays(1), repo.getParties(), repo.getCitizens());
+		// voting.setCitizensByParty();
 
-		System.out.println(voting.getVoteCitizens());
+		// System.out.println(repo.getCitizens());
 
-		List<Citizen> actual = new ArrayList<>();
+		// System.out.println(repo.getStations());
 
-		for (Citizen people : voting.getVoteCitizens()) {
-			if (people.isSecretService()) {
-				actual.add(people);
-			}
-		}
+		// System.out.println(voting.getVoteCitizens());
 
-		secretService.setCitizens(actual);
-		
-		System.out.println(secretService.getCitizens());
+//		for (Station st : voting.getStations()) {
+//			System.out.println(st);
+//		}
+
+		// System.out.println(voting.getCitizens());
+
+//		System.out.println(voting.getCitizens());
+
+		// System.out.println(secretService.getCitizens());
 
 		// System.out.println(party.getCandidaties());
 

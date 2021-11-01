@@ -90,9 +90,20 @@ public class Citizen {
 
 	@Override
 	public String toString() {
+		if (station != null && party != null) {
+			return getString(station.getClass().getSimpleName(), party.getName());
+		} else if (party != null) {
+			return getString(null, party.getName());
+		} else if (station != null) {
+			return getString(station.getClass().getSimpleName(), null);
+		} else {
+			return getString(null, null);
+		}
+	}
+
+	public String getString(String station, String party) {
 		return "Citizen [name=" + name + ", passNumber=" + passNumber + ", idCard=" + idCard + ", year=" + year
-				+ ", station=" + station.getClass().getSimpleName() + ", party=" + party.getName()
-				+ ", isSecretService=" + isSecretService + ", isQuarantine=" + isQuarantine + ", isVote=" + isVote
-				+ "]";
+				+ ", station=" + station + ", party=" + party + ", isSecretService=" + isSecretService
+				+ ", isQuarantine=" + isQuarantine + ", isVote=" + isVote + "]";
 	}
 }

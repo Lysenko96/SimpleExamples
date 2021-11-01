@@ -3,7 +3,7 @@ package net.gweep.voting.repo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +12,7 @@ import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Party;
 import net.gweep.voting.entity.Station;
+import net.gweep.voting.entity.Voting;
 
 @Data
 @AllArgsConstructor
@@ -21,9 +22,17 @@ public class Repository {
 	List<Station> stations = new ArrayList<>();
 	List<Citizen> citizens = new ArrayList<>();
 	List<Party> parties = new ArrayList<>();
+	List<Candidate> candidates = new ArrayList<>();
+	List<Voting> votings = new ArrayList<>();
 
 	public void addStation(Station station) {
 		stations.add(station);
+	}
+
+	public void addCandidate(Candidate candidate) {
+		List<Candidate> candidatesAll = new ArrayList<>(candidates);
+		candidatesAll.add(candidate);
+		candidates = candidatesAll;
 	}
 
 	public void addCitizen(Citizen citizen) {
@@ -39,14 +48,14 @@ public class Repository {
 	}
 
 	public void setPartyCandidate(Citizen citizen, int primaries) {
-		List<Candidate> candidates = new ArrayList<>(citizen.getParty().getCandidaties());
+		List<Candidate> candidatesList = new ArrayList<>(citizen.getParty().getCandidaties());
 		citizens.add(citizen);
-		candidates.add(new Candidate(citizen, primaries));
-		citizen.getParty().setCandidaties(candidates);
+		candidatesList.add(new Candidate(citizen, primaries));
+		citizen.getParty().setCandidaties(candidatesList);
 	}
 
 	public Map<Station, List<Citizen>> getMapStationCitizens() {
-		return citizens.stream().collect(Collectors.groupingBy(Citizen::getStation));
+		return citizens.stream().collect(groupingBy(Citizen::getStation));
 	}
 
 	public Station getStationById(int id) {
@@ -64,36 +73,28 @@ public class Repository {
 		return citizens.stream().filter(citizen -> citizen.getIdCard() == idCard).findFirst().orElse(new Citizen());
 	}
 
-	public void deleteCitizenCardByStaionIdByIdCard(int id, long idCard) {
+	public void deleteCitizenByStaionIdByIdCard(int id, long idCard) {
 		List<Citizen> citizensStation = new ArrayList<>(getStationById(id).getCitizens());
 		citizensStation.remove(getCitizenByIdCard(idCard));
 		citizens.remove(getCitizenByIdCard(idCard));
 		getStationById(id).setCitizens(citizensStation);
 	}
 
-	public void showCitizens() {
-		System.out.println(citizens);
-	}
-
-	public void showParties() {
-		System.out.println(parties);
-	}
-
 	public void addPartyCandidate(Candidate candidate) {
 		Party party = candidate.getParty();
-		List<Candidate> candidates = new ArrayList<>(party.getCandidaties());
-		candidates.add(candidate);
+		List<Candidate> candidatesList = new ArrayList<>(party.getCandidaties());
+		candidatesList.add(candidate);
 		citizens.add(new Citizen(candidate));
-		party.setCandidaties(candidates);
+		party.setCandidaties(candidatesList);
 	}
 
 	public void deletePartyCandidate(long idCard) {
 		Citizen citizen = getCitizenByIdCard(idCard);
 		Party party = citizen.getParty();
-		List<Candidate> candidates = new ArrayList<>(party.getCandidaties());
-		Candidate candidate = candidates.stream().filter(c -> c.getIdCard() == idCard).findFirst()
+		List<Candidate> candidatesList = new ArrayList<>(party.getCandidaties());
+		Candidate candidate = candidatesList.stream().filter(c -> c.getIdCard() == idCard).findFirst()
 				.orElse(new Candidate());
-		candidates.remove(candidate);
-		party.setCandidaties(candidates);
+		candidatesList.remove(candidate);
+		party.setCandidaties(candidatesList);
 	}
 }
