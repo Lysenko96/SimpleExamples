@@ -1,0 +1,3 @@
+Ivanov,22,55,Kyiv
+Petrenko,33,54,Nikolaev
+Lysenko,26,53,Keiv
