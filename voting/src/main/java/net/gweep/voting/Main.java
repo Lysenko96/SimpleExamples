@@ -49,7 +49,7 @@ public class Main {
 
 		// enter list for every station by condition
 
-		PollingStation station = new PollingStation(1, new Address("street", 9), new ArrayList<>(), 0, PollingStation.class.getSimpleName());
+		PollingStation station = new PollingStation(1, new Address("street", 9), citizens, 0, PollingStation.class.getSimpleName());
 		PollingStation stationQuarantine = new PollingStation(2, new Address("street2", 10), new ArrayList<>(), 0,
 				PollingStationQuarantine.class.getSimpleName());
 		PollingStation secretService = new PollingStation(3, new Address("street3", 11), new ArrayList<>(), 0,
@@ -60,7 +60,7 @@ public class Main {
 		List<Citizen> quarantine = new ArrayList<>();
 		List<Citizen> stationList = new ArrayList<>();
 		List<Citizen> secretServiceList = new ArrayList<>();
-		for (Citizen people : station.getCitizens()) {
+		for (Citizen people : citizens) {
 			if (people.isQuarantine()) {
 				people.setStation(stationQuarantine);
 				quarantine.add(people);
@@ -125,9 +125,32 @@ public class Main {
 		Voting voting = new Voting(LocalDate.now().plusDays(1), repo.getParties(), repo.getCitizens(),
 				repo.getStations());
 
+
+		for (Citizen people : repo.getCitizens()) {
+			if (people.isQuarantine()) {
+				people.setStation(stationQuarantine);
+				quarantine.add(people);
+				stationQuarantine.setCitizens(quarantine);
+			} else if (people.isSecretService()) {
+				people.setStation(secretService);
+				secretServiceList.add(people);
+				secretService.setCitizens(secretServiceList);
+			} else {
+				people.setStation(station);
+				stationList.add(people);
+				station.setCitizens(stationList);
+			}
+		}
+		
 		Menu menu = new Menu();
 
-		menu.show(repo);
+//		repo.getStations().get(0).setCitizens(citizens);
+//		System.out.println(repo.getStations().get(0));
+//		System.out.println(repo.getStations().get(0).checkValidVoteCitizenAge());
+		 
+		
+		
+	//	menu.show(repo);
 
 		// voting.setCitizensByParty();
 
