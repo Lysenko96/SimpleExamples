@@ -9,10 +9,10 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class PollingStrationSercretService extends PollingStation {
+public class PollingStationSercretService extends PollingStation {
 	
-	public PollingStrationSercretService(int id, Address address, List<Citizen> citizens, int voterCounter) {
-		super(id, address, citizens, voterCounter);
+	public PollingStationSercretService(int id, Address address, List<Citizen> citizens, int voterCounter, String name) {
+		super(id, address, citizens, voterCounter, name);
 	}
 	
 	public List<Citizen> getSercretService() {

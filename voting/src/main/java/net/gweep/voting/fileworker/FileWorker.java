@@ -8,12 +8,12 @@ import java.util.List;
 import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Party;
-import net.gweep.voting.entity.Station;
+import net.gweep.voting.entity.PollingStation;
 import net.gweep.voting.entity.Voting;
 
 public class FileWorker {
 
-	public void writeStations(List<Station> objFile, String output) {
+	public void writeStations(List<PollingStation> objFile, String output) {
 		try (PrintWriter p = new PrintWriter(new FileOutputStream(output, true))) {
 			for (int i = 0; i < objFile.size(); i++) {
 				p.write(objFile.get(i) + System.lineSeparator());

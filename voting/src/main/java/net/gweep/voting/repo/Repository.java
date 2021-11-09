@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Party;
-import net.gweep.voting.entity.Station;
+import net.gweep.voting.entity.PollingStation;
 import net.gweep.voting.entity.Voting;
 
 @Data
@@ -19,13 +19,13 @@ import net.gweep.voting.entity.Voting;
 @NoArgsConstructor
 public class Repository {
 
-	List<Station> stations = new ArrayList<>();
+	List<PollingStation> stations = new ArrayList<>();
 	List<Citizen> citizens = new ArrayList<>();
 	List<Party> parties = new ArrayList<>();
 	List<Candidate> candidates = new ArrayList<>();
 	List<Voting> votings = new ArrayList<>();
 
-	public void addStation(Station station) {
+	public void addStation(PollingStation station) {
 		stations.add(station);
 	}
 
@@ -54,12 +54,12 @@ public class Repository {
 		citizen.getParty().setCandidaties(candidatesList);
 	}
 
-	public Map<Station, List<Citizen>> getMapStationCitizens() {
+	public Map<PollingStation, List<Citizen>> getMapStationCitizens() {
 		return citizens.stream().collect(groupingBy(Citizen::getStation));
 	}
 
-	public Station getStationById(int id) {
-		return stations.stream().filter(station -> station.getId() == id).findFirst().orElse(new Station());
+	public PollingStation getStationById(int id) {
+		return stations.stream().filter(station -> station.getId() == id).findFirst().orElse(new PollingStation());
 	}
 
 	public void addCitizenByStationId(int id, Citizen citizen) {

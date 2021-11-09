@@ -16,8 +16,9 @@ import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Fraction;
 import net.gweep.voting.entity.Party;
-import net.gweep.voting.entity.Station;
-import net.gweep.voting.entity.StationType;
+import net.gweep.voting.entity.PollingStation;
+import net.gweep.voting.entity.PollingStationQuarantine;
+import net.gweep.voting.entity.PollingStationSercretService;
 import net.gweep.voting.entity.Voting;
 import net.gweep.voting.fileworker.FileWorker;
 import net.gweep.voting.repo.Repository;
@@ -49,14 +50,16 @@ public class Menu {
 				String street = in.next();
 				System.out.print("Enter number: ");
 				int number = in.nextInt();
-				List<StationType> types = Arrays.asList(StationType.values());
-				for (StationType type : types) {
+				List<String> types = List.of(PollingStation.class.getSimpleName(),
+						PollingStationQuarantine.class.getSimpleName(),
+						PollingStationSercretService.class.getSimpleName());
+				for (String type : types) {
 					System.out.println(types.indexOf(type) + " - " + type);
 				}
 				System.out.print("Enter stationType: ");
 				int stationIndex = in.nextInt();
-				repo.addStation(
-						new Station(++id, new Address(street, number), new ArrayList<>(), 0, types.get(stationIndex)));
+				repo.addStation(new PollingStation(++id, new Address(street, number), new ArrayList<>(), 0,
+						types.get(stationIndex)));
 				writeInFileStations(repo.getStations());
 			} else if (value == 2) {
 				System.out.print("Enter name: ");
@@ -67,8 +70,10 @@ public class Menu {
 				long idCard = in.nextLong();
 				System.out.print("Enter year: ");
 				int year = in.nextInt();
-				List<StationType> types = Arrays.asList(StationType.values());
-				for (StationType type : types) {
+				List<String> types = List.of(PollingStation.class.getSimpleName(),
+						PollingStationQuarantine.class.getSimpleName(),
+						PollingStationSercretService.class.getSimpleName());
+				for (String type : types) {
 					System.out.println(types.indexOf(type) + " - " + type);
 				}
 				System.out.print("Enter stationIndex: ");
@@ -133,7 +138,7 @@ public class Menu {
 				if (index == 1) {
 					System.out.println(voting.getStations());
 				} else if (index == 2) {
-					System.out.println(repo.getStations().stream().map(Station::getId).collect(toList()));
+					System.out.println(repo.getStations().stream().map(PollingStation::getId).collect(toList()));
 					System.out.print("Enter stationId: ");
 					int stationId = in.nextInt();
 					System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
@@ -142,7 +147,7 @@ public class Menu {
 					Citizen citizen = repo.getCitizenByIdCard(idCard);
 					repo.addCitizenByStationId(stationId, citizen);
 				} else if (index == 3) {
-					System.out.println(repo.getStations().stream().map(Station::getId).collect(toList()));
+					System.out.println(repo.getStations().stream().map(PollingStation::getId).collect(toList()));
 					System.out.print("Enter stationId: ");
 					int stationId = in.nextInt();
 					System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
@@ -185,7 +190,7 @@ public class Menu {
 		}
 	}
 
-	static void writeInFileStations(List<Station> stations) {
+	static void writeInFileStations(List<PollingStation> stations) {
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {

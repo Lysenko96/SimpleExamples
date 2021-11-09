@@ -20,7 +20,7 @@ public class Voting {
 	private LocalDate date;
 	private List<Party> parties;
 	private List<Citizen> citizens;
-	private List<Station> stations;
+	private List<PollingStation> stations;
 
 	public List<Citizen> getVoteCitizens() {
 		return citizens.stream().filter(Citizen::isVote).collect(toList());
@@ -46,9 +46,9 @@ public class Voting {
 
 	public List<String> showStationCountVoter() {
 		List<String> lines = new ArrayList<>();
-		for (Station station : stations) {
-			lines.add(station.getType().name());
-			System.out.println(station.getType());
+		for (PollingStation station : stations) {
+			lines.add(station.getClass().getSimpleName());
+			System.out.println(station.getClass().getSimpleName());
 			for (Map.Entry<Party, Long> pair : station.getMapPartyVoterCounter().entrySet()) {
 				lines.add(pair.getKey().getName() + " = " + pair.getValue());
 				System.out.println(pair.getKey().getName() + " = " + pair.getValue());

@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.gweep.voting.exception.IncorrectVoteCitizenAgeException;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.groupingBy;
+
 
 @Data
 @AllArgsConstructor
@@ -21,6 +27,7 @@ public class PollingStation {
 	protected Address address;
 	protected List<Citizen> citizens;
 	protected int voterCounter;
+	protected String name;
 
 	// additional exception if citizen < 18 catch and choice delete people or set
 	// new age
@@ -70,7 +77,19 @@ public class PollingStation {
 		return citizens;
 	}
 
-	public Map<Party, Long> getPartyVoterCounter() {
-		return citizens.stream().collect(Collectors.groupingBy(Citizen::getParty, Collectors.counting()));
+	public Map<Party, Long> getMapPartyVoterCounter() {
+		return citizens.stream().collect(groupingBy(Citizen::getParty, counting()));
+	}
+
+	public List<Party> getParties() {
+		return citizens.stream().map(Citizen::getParty).collect(toList());
+	}
+
+	public Map<Party, Candidate> getMapPartyCandidate() {
+		return getParties().stream().collect(toMap(p -> p, Party::getTopPartyCandidate));
+	}
+
+	public List<Citizen> getQuarantine(Predicate<Citizen> condition) {
+		return citizens.stream().filter(condition).collect(toList());
 	}
 }
