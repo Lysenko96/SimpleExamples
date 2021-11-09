@@ -86,10 +86,10 @@ public class PollingStation {
 	}
 
 	public Map<Party, Candidate> getMapPartyCandidate() {
-		return getParties().stream().collect(toMap(p -> p, Party::getTopPartyCandidate));
+		return getParties().stream().collect(toMap(party -> party, Party::getTopPartyCandidate));
 	}
 
-	public List<Citizen> getQuarantine(Predicate<Citizen> condition) {
+	public List<Citizen> getActualCitizen(Predicate<Citizen> condition) {
 		return citizens.stream().filter(condition).collect(toList());
 	}
 }

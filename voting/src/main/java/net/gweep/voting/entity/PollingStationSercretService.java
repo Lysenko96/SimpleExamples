@@ -1,7 +1,5 @@
 package net.gweep.voting.entity;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.List;
 
 import lombok.Data;
@@ -16,6 +14,6 @@ public class PollingStationSercretService extends PollingStation {
 	}
 	
 	public List<Citizen> getSercretService() {
-		return citizens.stream().filter(citizen -> citizen.isSecretService).collect(toList());
+		return getActualCitizen(Citizen::isSecretService);
 	}
 }

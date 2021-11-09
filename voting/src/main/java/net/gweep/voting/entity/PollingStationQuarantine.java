@@ -2,8 +2,6 @@ package net.gweep.voting.entity;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.*;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,6 +14,6 @@ public class PollingStationQuarantine extends PollingStation {
 	}
 
 	public List<Citizen> getQuarantine() {
-		return citizens.stream().filter(citizen -> citizen.isQuarantine).collect(toList());
+		return getActualCitizen(Citizen::isQuarantine);
 	}
 }
