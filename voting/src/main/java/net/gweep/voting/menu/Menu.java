@@ -60,7 +60,7 @@ public class Menu {
 				int stationIndex = in.nextInt();
 				repo.addStation(new PollingStation(++id, new Address(street, number), new ArrayList<>(), 0,
 						types.get(stationIndex)));
-				writeInFileStations(repo.getStations());
+				writeInFileObjects(repo.getStations().stream().map(s -> s).collect(toList()));
 			} else if (value == 2) {
 				System.out.print("Enter name: ");
 				String name = in.next();
@@ -97,7 +97,7 @@ public class Menu {
 						flags.get(isVote));
 				citizen.setValidIdCard(idCard);
 				repo.addCitizen(citizen);
-				writeInFileCitizens(repo.getCitizens());
+				writeInFileObjects(repo.getCitizens().stream().map(c -> c).collect(toList()));
 			} else if (value == 3) {
 				System.out.print("Enter name: ");
 				String name = in.next();
@@ -115,7 +115,7 @@ public class Menu {
 				int day = in.nextInt();
 				repo.addParty(new Party(name, fractions.get(fractionIndex), LocalDate.of(year, month, day),
 						new ArrayList<>()));
-				writeInFileParties(repo.getParties());
+				writeInFileObjects(repo.getParties().stream().map(p -> p).collect(toList()));
 			} else if (value == 4) {
 				System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
 				System.out.print("Enter idCard: ");
@@ -130,7 +130,7 @@ public class Menu {
 				Candidate candidate = new Candidate(citizen, primaries);
 				repo.addPartyCandidate(candidate);
 				repo.addCandidate(candidate);
-				writeInFileCandidates(repo.getCandidates());
+				writeInFileObjects(repo.getCandidates().stream().map(c -> c).collect(toList()));
 			} else if (value == 5) {
 				System.out.print("1 - show stations" + lineSeparator() + "2 - add citizen by stationId"
 						+ lineSeparator() + "3 - delete citizen by stationId, idCard" + lineSeparator() + "Enter: ");
@@ -155,10 +155,11 @@ public class Menu {
 					long idCard = in.nextLong();
 					repo.deleteCitizenByStaionIdByIdCard(stationId, idCard);
 				}
-				writeInFileStations(repo.getStations());
+				writeInFileObjects(repo.getStations().stream().map(s -> s).collect(toList()));
+
 			} else if (value == 6) {
 				System.out.println(repo.getCitizens());
-				writeInFileCitizens(repo.getCitizens());
+				writeInFileObjects(repo.getCitizens().stream().map(c -> c).collect(toList()));
 			} else if (value == 7) {
 				System.out.print("1 - show parties" + lineSeparator() + "2 - add party candidate" + lineSeparator()
 						+ "3 - delete party candidate by idCard" + lineSeparator() + "Enter: ");
@@ -179,64 +180,25 @@ public class Menu {
 					long idCard = in.nextLong();
 					repo.deletePartyCandidate(idCard);
 				}
-				writeInFileParties(repo.getParties());
+				writeInFileObjects(repo.getParties().stream().map(p -> p).collect(toList()));
+
 			} else if (value == 8) {
 				voting.setCitizensByParty();
 			} else if (value == 9) {
-				writeInFileStrings(voting.showStationCountVoter());
+				writeInFileObjects(voting.showStationCountVoter().stream().map(s -> s).collect(toList()));
 			} else if (value == 10) {
 				break;
 			}
 		}
 	}
 
-	static void writeInFileStations(List<PollingStation> stations) {
+	static void writeInFileObjects(List<Object> objects) {
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
 			System.out.print("Enter fileName: ");
 			String fileName = in.next();
-			fileWorker.writeStations(stations, fileName);
-		}
-	}
-
-	static void writeInFileCitizens(List<Citizen> citizens) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeCitizens(citizens, fileName);
-		}
-	}
-
-	void writeInFileParties(List<Party> parties) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeParties(parties, fileName);
-		}
-	}
-
-	static void writeInFileCandidates(List<Candidate> candidates) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeCandidates(candidates, fileName);
-		}
-	}
-
-	static void writeInFileStrings(List<String> lines) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeStrings(lines, fileName);
+			fileWorker.writeObjects(objects, fileName);
 		}
 	}
 }
