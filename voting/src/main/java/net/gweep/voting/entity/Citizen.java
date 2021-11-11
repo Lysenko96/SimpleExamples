@@ -16,7 +16,7 @@ public class Citizen {
 	protected String passNumber;
 	protected long idCard;
 	protected int year;
-	protected Station station;
+	protected PollingStation station;
 	protected Party party;
 	protected boolean isSecretService;
 	protected boolean isQuarantine;

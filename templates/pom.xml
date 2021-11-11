@@ -3,5 +3,8 @@
   <groupId>net.gweep</groupId>
   <artifactId>templates</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
+   <properties>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+    </properties>
 </project>

@@ -12,5 +12,9 @@ public class Main {
 		System.out.println();
 		d.flyGeneral();
 		d.quackGeneral();
+		System.out.println();
+		DuckHunter dH = new DuckHunter();
+		dH.fly();
+		dH.quack();
 	}
 }

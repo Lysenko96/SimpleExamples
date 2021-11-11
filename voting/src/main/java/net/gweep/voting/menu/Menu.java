@@ -1,7 +1,5 @@
 package net.gweep.voting.menu;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +9,7 @@ import static java.lang.System.lineSeparator;
 
 import java.time.LocalDate;
 
+<<<<<<< HEAD
 import net.gweep.voting.entity.Address;
 import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
@@ -19,6 +18,8 @@ import net.gweep.voting.entity.Party;
 import net.gweep.voting.entity.QuarantineStation;
 import net.gweep.voting.entity.SecretServiceStation;
 import net.gweep.voting.entity.Station;
+=======
+>>>>>>> f08b87392de270d2d0c52e1d7df8b1f9533a857a
 import net.gweep.voting.entity.Voting;
 import net.gweep.voting.fileworker.FileWorker;
 import net.gweep.voting.repo.Repository;
@@ -31,6 +32,7 @@ public class Menu {
 	private static Scanner in = new Scanner(System.in);
 
 	public void show(Repository repo) {
+		MenuLogic logic = new MenuLogic();
 		Voting voting = new Voting(LocalDate.now().plusDays(1), repo.getParties(), repo.getCitizens(),
 				repo.getStations());
 		StringBuilder menu = new StringBuilder("1 - add station").append(lineSeparator()).append("2 - add citizen")
@@ -46,6 +48,7 @@ public class Menu {
 			System.out.print("Enter value: ");
 			value = in.nextInt();
 			if (value == 1) {
+<<<<<<< HEAD
 				System.out.print("Enter street: ");
 				String street = in.next();
 				System.out.print("Enter number: ");
@@ -98,145 +101,39 @@ public class Menu {
 				citizen.setValidIdCard(idCard);
 				repo.addCitizen(citizen);
 				writeInFileCitizens(repo.getCitizens());
+=======
+				logic.addStationSelect(repo, id);
+			} else if (value == 2) {
+				logic.addCitizenSelect(repo);
+>>>>>>> f08b87392de270d2d0c52e1d7df8b1f9533a857a
 			} else if (value == 3) {
-				System.out.print("Enter name: ");
-				String name = in.next();
-				List<Fraction> fractions = Arrays.asList(Fraction.values());
-				for (Fraction fraction : fractions) {
-					System.out.println(fractions.indexOf(fraction) + " - " + fraction);
-				}
-				System.out.print("Enter fractionIndex: ");
-				int fractionIndex = in.nextInt();
-				System.out.print("Enter year: ");
-				int year = in.nextInt();
-				System.out.print("Enter month (1-12): ");
-				int month = in.nextInt();
-				System.out.print("Enter day: ");
-				int day = in.nextInt();
-				repo.addParty(new Party(name, fractions.get(fractionIndex), LocalDate.of(year, month, day),
-						new ArrayList<>()));
-				writeInFileParties(repo.getParties());
+				logic.addPartySelect(repo);
 			} else if (value == 4) {
-				System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
-				System.out.print("Enter idCard: ");
-				long idCard = in.nextLong();
-				Citizen citizen = repo.getCitizenByIdCard(idCard);
-				System.out.print("Enter primaries: ");
-				int primaries = in.nextInt();
-				if (citizen.getParty() == null) {
-					voting.setCitizensByParty();
-				}
-				repo.setPartyCandidate(citizen, primaries);
-				Candidate candidate = new Candidate(citizen, primaries);
-				repo.addPartyCandidate(candidate);
-				repo.addCandidate(candidate);
-				writeInFileCandidates(repo.getCandidates());
+				logic.setPartyCandidateSelect(repo, voting);
 			} else if (value == 5) {
-				System.out.print("1 - show stations" + lineSeparator() + "2 - add citizen by stationId"
-						+ lineSeparator() + "3 - delete citizen by stationId, idCard" + lineSeparator() + "Enter: ");
-				int index = in.nextInt();
-				if (index == 1) {
-					System.out.println(voting.getStations());
-				} else if (index == 2) {
-					System.out.println(repo.getStations().stream().map(Station::getId).collect(toList()));
-					System.out.print("Enter stationId: ");
-					int stationId = in.nextInt();
-					System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
-					System.out.print("Enter idCard: ");
-					long idCard = in.nextLong();
-					Citizen citizen = repo.getCitizenByIdCard(idCard);
-					repo.addCitizenByStationId(stationId, citizen);
-				} else if (index == 3) {
-					System.out.println(repo.getStations().stream().map(Station::getId).collect(toList()));
-					System.out.print("Enter stationId: ");
-					int stationId = in.nextInt();
-					System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
-					System.out.print("Enter idCard: ");
-					long idCard = in.nextLong();
-					repo.deleteCitizenByStaionIdByIdCard(stationId, idCard);
-				}
-				writeInFileStations(repo.getStations());
+				logic.showStationSelect(repo, voting);
 			} else if (value == 6) {
 				System.out.println(repo.getCitizens());
-				writeInFileCitizens(repo.getCitizens());
+				writeInFileObjects(repo.getCitizens().stream().map(c -> c).collect(toList()));
 			} else if (value == 7) {
-				System.out.print("1 - show parties" + lineSeparator() + "2 - add party candidate" + lineSeparator()
-						+ "3 - delete party candidate by idCard" + lineSeparator() + "Enter: ");
-				int index = in.nextInt();
-				if (index == 1) {
-					System.out.println(repo.getParties());
-				} else if (index == 2) {
-					System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
-					System.out.print("Enter idCard: ");
-					long idCard = in.nextLong();
-					Citizen citizen = repo.getCitizenByIdCard(idCard);
-					System.out.print("Enter primaries: ");
-					int primaries = in.nextInt();
-					repo.addPartyCandidate(new Candidate(citizen, primaries));
-				} else if (index == 3) {
-					System.out.println(repo.getCitizens().stream().map(Citizen::getIdCard).collect(toList()));
-					System.out.print("Enter idCard: ");
-					long idCard = in.nextLong();
-					repo.deletePartyCandidate(idCard);
-				}
-				writeInFileParties(repo.getParties());
+				logic.showPartiesSelect(repo);
 			} else if (value == 8) {
 				voting.setCitizensByParty();
 			} else if (value == 9) {
-				writeInFileStrings(voting.showStationCountVoter());
+				writeInFileObjects(voting.showStationCountVoter().stream().map(s -> s).collect(toList()));
 			} else if (value == 10) {
 				break;
 			}
 		}
 	}
 
-	static void writeInFileStations(List<Station> stations) {
+	static void writeInFileObjects(List<Object> objects) {
 		System.out.print(writeMenu);
 		int writeValue = in.nextInt();
 		if (writeValue == 1) {
 			System.out.print("Enter fileName: ");
 			String fileName = in.next();
-			fileWorker.writeStations(stations, fileName);
-		}
-	}
-
-	static void writeInFileCitizens(List<Citizen> citizens) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeCitizens(citizens, fileName);
-		}
-	}
-
-	void writeInFileParties(List<Party> parties) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeParties(parties, fileName);
-		}
-	}
-
-	static void writeInFileCandidates(List<Candidate> candidates) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeCandidates(candidates, fileName);
-		}
-	}
-
-	static void writeInFileStrings(List<String> lines) {
-		System.out.print(writeMenu);
-		int writeValue = in.nextInt();
-		if (writeValue == 1) {
-			System.out.print("Enter fileName: ");
-			String fileName = in.next();
-			fileWorker.writeStrings(lines, fileName);
+			fileWorker.writeObjects(objects, fileName);
 		}
 	}
 }

@@ -11,8 +11,9 @@ import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Fraction;
 import net.gweep.voting.entity.Party;
-import net.gweep.voting.entity.Station;
-import net.gweep.voting.entity.StationType;
+import net.gweep.voting.entity.PollingStation;
+import net.gweep.voting.entity.PollingStationQuarantine;
+import net.gweep.voting.entity.PollingStationSercretService;
 import net.gweep.voting.entity.Voting;
 import net.gweep.voting.menu.Menu;
 import net.gweep.voting.repo.Repository;
@@ -32,10 +33,10 @@ public class Main {
 		Party party2 = new Party("party2", Fraction.LEFT, LocalDate.now().minusDays(3), null);
 		// Party party3 = new Party("party3", Fraction.RIGTH,
 		// LocalDate.now().minusDays(4), null);
-		Citizen citizen = new Citizen("name2", "bk103452", 1122334456, 2005, new Station(), party, false, true, true);
+		Citizen citizen = new Citizen("name2", "bk103452", 1122334456, 2005, new PollingStation(), party, false, true, true);
 		// Citizen citizen2 = new Citizen("name3", "bk103453", 1122334457, 1994, null,
 		// party3, true, false);
-		Citizen citizen3 = new Citizen("name4", "bk103454", 1122334458, 1996, new Station(), party2, true, false,
+		Citizen citizen3 = new Citizen("name4", "bk103454", 1122334458, 1996, new PollingStation(), party2, true, false,
 				false);
 
 		citizens.add(citizen);
@@ -48,18 +49,18 @@ public class Main {
 
 		// enter list for every station by condition
 
-		Station station = new Station(1, new Address("street", 9), new ArrayList<>(), 0, StationType.STATION);
-		Station stationQuarantine = new Station(2, new Address("street2", 10), new ArrayList<>(), 0,
-				StationType.QUARANTINE);
-		Station secretService = new Station(3, new Address("street3", 11), new ArrayList<>(), 0,
-				StationType.SECRETSERVICE);
+		PollingStation station = new PollingStation(1, new Address("street", 9), citizens, 0, PollingStation.class.getSimpleName());
+		PollingStation stationQuarantine = new PollingStation(2, new Address("street2", 10), new ArrayList<>(), 0,
+				PollingStationQuarantine.class.getSimpleName());
+		PollingStation secretService = new PollingStation(3, new Address("street3", 11), new ArrayList<>(), 0,
+				PollingStationSercretService.class.getSimpleName());
 
 		citizen.setStation(secretService);
 		citizen3.setStation(stationQuarantine);
 		List<Citizen> quarantine = new ArrayList<>();
 		List<Citizen> stationList = new ArrayList<>();
 		List<Citizen> secretServiceList = new ArrayList<>();
-		for (Citizen people : station.getCitizens()) {
+		for (Citizen people : citizens) {
 			if (people.isQuarantine()) {
 				people.setStation(stationQuarantine);
 				quarantine.add(people);
@@ -124,9 +125,32 @@ public class Main {
 		Voting voting = new Voting(LocalDate.now().plusDays(1), repo.getParties(), repo.getCitizens(),
 				repo.getStations());
 
+
+		for (Citizen people : repo.getCitizens()) {
+			if (people.isQuarantine()) {
+				people.setStation(stationQuarantine);
+				quarantine.add(people);
+				stationQuarantine.setCitizens(quarantine);
+			} else if (people.isSecretService()) {
+				people.setStation(secretService);
+				secretServiceList.add(people);
+				secretService.setCitizens(secretServiceList);
+			} else {
+				people.setStation(station);
+				stationList.add(people);
+				station.setCitizens(stationList);
+			}
+		}
+		
 		Menu menu = new Menu();
 
-		menu.show(repo);
+//		repo.getStations().get(0).setCitizens(citizens);
+//		System.out.println(repo.getStations().get(0));
+//		System.out.println(repo.getStations().get(0).checkValidVoteCitizenAge());
+		 
+		
+		
+	//	menu.show(repo);
 
 		// voting.setCitizensByParty();
 

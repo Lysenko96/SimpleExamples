@@ -13,7 +13,7 @@ public class Candidate extends Citizen {
 
 	private int primaries;
 
-	public Candidate(String name, String passNumber, long idCard, int year, Station station, Party party,
+	public Candidate(String name, String passNumber, long idCard, int year, PollingStation station, Party party,
 			boolean isSecretService, boolean isQuarantine, boolean isVote, int primaries) {
 		super(name, passNumber, idCard, year, station, party, isSecretService, isQuarantine, isVote);
 		this.primaries = primaries;
