@@ -16,8 +16,9 @@ import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Fraction;
 import net.gweep.voting.entity.Party;
+import net.gweep.voting.entity.QuarantineStation;
+import net.gweep.voting.entity.SecretServiceStation;
 import net.gweep.voting.entity.Station;
-import net.gweep.voting.entity.StationType;
 import net.gweep.voting.entity.Voting;
 import net.gweep.voting.fileworker.FileWorker;
 import net.gweep.voting.repo.Repository;
@@ -49,8 +50,10 @@ public class Menu {
 				String street = in.next();
 				System.out.print("Enter number: ");
 				int number = in.nextInt();
-				List<StationType> types = Arrays.asList(StationType.values());
-				for (StationType type : types) {
+				List<String> types = List.of(Station.class.getClass().getSimpleName(),
+						QuarantineStation.class.getClass().getSimpleName(),
+						SecretServiceStation.class.getClass().getSimpleName());
+				for (String type : types) {
 					System.out.println(types.indexOf(type) + " - " + type);
 				}
 				System.out.print("Enter stationType: ");
@@ -67,8 +70,10 @@ public class Menu {
 				long idCard = in.nextLong();
 				System.out.print("Enter year: ");
 				int year = in.nextInt();
-				List<StationType> types = Arrays.asList(StationType.values());
-				for (StationType type : types) {
+				List<String> types = List.of(Station.class.getClass().getSimpleName(),
+						QuarantineStation.class.getClass().getSimpleName(),
+						SecretServiceStation.class.getClass().getSimpleName());
+				for (String type : types) {
 					System.out.println(types.indexOf(type) + " - " + type);
 				}
 				System.out.print("Enter stationIndex: ");

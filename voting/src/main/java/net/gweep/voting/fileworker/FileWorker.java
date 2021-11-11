@@ -9,7 +9,6 @@ import net.gweep.voting.entity.Candidate;
 import net.gweep.voting.entity.Citizen;
 import net.gweep.voting.entity.Party;
 import net.gweep.voting.entity.Station;
-import net.gweep.voting.entity.Voting;
 
 public class FileWorker {
 

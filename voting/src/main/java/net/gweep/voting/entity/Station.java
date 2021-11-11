@@ -18,10 +18,7 @@ public class Station {
 	protected Address address;
 	protected List<Citizen> citizens;
 	protected int voterCounter;
-	protected StationType type;
-
-	// additional exception if citizen < 18 catch and choice delete people or set
-	// new age
+	protected String type;
 
 	public List<Citizen> getCitizensCanVote() {
 		citizens.removeIf(citizen -> (LocalDate.now().getYear() - citizen.getYear()) < 18);

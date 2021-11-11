@@ -47,8 +47,8 @@ public class Voting {
 	public List<String> showStationCountVoter() {
 		List<String> lines = new ArrayList<>();
 		for (Station station : stations) {
-			lines.add(station.getType().name());
-			System.out.println(station.getType());
+			lines.add(station.getClass().getSimpleName());
+			System.out.println(station.getClass().getSimpleName());
 			for (Map.Entry<Party, Long> pair : station.getMapPartyVoterCounter().entrySet()) {
 				lines.add(pair.getKey().getName() + " = " + pair.getValue());
 				System.out.println(pair.getKey().getName() + " = " + pair.getValue());

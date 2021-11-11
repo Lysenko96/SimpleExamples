@@ -22,8 +22,6 @@ public class Citizen {
 	protected boolean isQuarantine;
 	protected boolean isVote;
 
-	// additional generate unique idCard or delete citizen
-
 	public Citizen(Candidate candidate) {
 		this(candidate.getName(), candidate.getPassNumber(), candidate.getIdCard(), candidate.getYear(),
 				candidate.getStation(), candidate.getParty(), candidate.isQuarantine(), candidate.isSecretService(),
@@ -89,11 +87,11 @@ public class Citizen {
 	@Override
 	public String toString() {
 		if (station != null && party != null) {
-			return getString(station.getType().name(), party.getName());
+			return getString(station.getClass().getSimpleName(), party.getName());
 		} else if (party != null) {
 			return getString(null, party.getName());
 		} else if (station != null) {
-			return getString(station.getType().name(), null);
+			return getString(station.getClass().getSimpleName(), null);
 		} else {
 			return getString(null, null);
 		}
