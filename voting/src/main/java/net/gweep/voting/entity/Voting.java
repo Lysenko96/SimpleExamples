@@ -46,11 +46,7 @@ public class Voting {
 
 	public List<String> showStationCountVoter() {
 		List<String> lines = new ArrayList<>();
-<<<<<<< HEAD
-		for (Station station : stations) {
-=======
 		for (PollingStation station : stations) {
->>>>>>> f08b87392de270d2d0c52e1d7df8b1f9533a857a
 			lines.add(station.getClass().getSimpleName());
 			System.out.println(station.getClass().getSimpleName());
 			for (Map.Entry<Party, Long> pair : station.getMapPartyVoterCounter().entrySet()) {

@@ -9,17 +9,6 @@ import static java.lang.System.lineSeparator;
 
 import java.time.LocalDate;
 
-<<<<<<< HEAD
-import net.gweep.voting.entity.Address;
-import net.gweep.voting.entity.Candidate;
-import net.gweep.voting.entity.Citizen;
-import net.gweep.voting.entity.Fraction;
-import net.gweep.voting.entity.Party;
-import net.gweep.voting.entity.QuarantineStation;
-import net.gweep.voting.entity.SecretServiceStation;
-import net.gweep.voting.entity.Station;
-=======
->>>>>>> f08b87392de270d2d0c52e1d7df8b1f9533a857a
 import net.gweep.voting.entity.Voting;
 import net.gweep.voting.fileworker.FileWorker;
 import net.gweep.voting.repo.Repository;
@@ -48,64 +37,9 @@ public class Menu {
 			System.out.print("Enter value: ");
 			value = in.nextInt();
 			if (value == 1) {
-<<<<<<< HEAD
-				System.out.print("Enter street: ");
-				String street = in.next();
-				System.out.print("Enter number: ");
-				int number = in.nextInt();
-				List<String> types = List.of(Station.class.getClass().getSimpleName(),
-						QuarantineStation.class.getClass().getSimpleName(),
-						SecretServiceStation.class.getClass().getSimpleName());
-				for (String type : types) {
-					System.out.println(types.indexOf(type) + " - " + type);
-				}
-				System.out.print("Enter stationType: ");
-				int stationIndex = in.nextInt();
-				repo.addStation(
-						new Station(++id, new Address(street, number), new ArrayList<>(), 0, types.get(stationIndex)));
-				writeInFileStations(repo.getStations());
-			} else if (value == 2) {
-				System.out.print("Enter name: ");
-				String name = in.next();
-				System.out.print("Enter passNumber: ");
-				String passNumber = in.next();
-				System.out.print("Enter idCard: ");
-				long idCard = in.nextLong();
-				System.out.print("Enter year: ");
-				int year = in.nextInt();
-				List<String> types = List.of(Station.class.getClass().getSimpleName(),
-						QuarantineStation.class.getClass().getSimpleName(),
-						SecretServiceStation.class.getClass().getSimpleName());
-				for (String type : types) {
-					System.out.println(types.indexOf(type) + " - " + type);
-				}
-				System.out.print("Enter stationIndex: ");
-				int stationIndex = in.nextInt();
-				for (Party party : repo.getParties()) {
-					System.out.println(repo.getParties().indexOf(party) + " - " + party.getName());
-				}
-				System.out.print("Enter partyIndex: ");
-				int partyIndex = in.nextInt();
-				List<Boolean> flags = List.of(false, true);
-				StringBuilder flagMenu = new StringBuilder(
-						"0 - false" + lineSeparator() + "1 - true" + lineSeparator());
-				System.out.print(flagMenu + "Enter isSecretService: ");
-				int isSecretService = in.nextInt();
-				System.out.print(flagMenu + "Enter isQuarantine: ");
-				int isQuarantine = in.nextInt();
-				System.out.print(flagMenu + "Enter isVote: ");
-				int isVote = in.nextInt();
-				Citizen citizen = new Citizen(name, passNumber, idCard, year, repo.getStations().get(stationIndex),
-						repo.getParties().get(partyIndex), flags.get(isSecretService), flags.get(isQuarantine),
-						flags.get(isVote));
-				citizen.setValidIdCard(idCard);
-				repo.addCitizen(citizen);
-				writeInFileCitizens(repo.getCitizens());
-=======
 				logic.addStationSelect(repo, id);
 			} else if (value == 2) {
 				logic.addCitizenSelect(repo);
->>>>>>> f08b87392de270d2d0c52e1d7df8b1f9533a857a
 			} else if (value == 3) {
 				logic.addPartySelect(repo);
 			} else if (value == 4) {
