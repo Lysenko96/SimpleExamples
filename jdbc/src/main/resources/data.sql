@@ -1,0 +1,1 @@
+INSERT INTO Cars (name, speed, price) VALUES ('Tesla', 250, 200000);

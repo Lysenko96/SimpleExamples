@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS Cars;
+CREATE TABLE Cars(
+id SERIAL PRIMARY KEY,
+name VARCHAR(55),
+speed INT,
+price INT);
