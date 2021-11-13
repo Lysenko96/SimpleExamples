@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +58,7 @@ class LogicTest {
 
 	@Test
 	void givenModels_whenGetModels_thenList() {
-		List<Model> expected = List.of(Model.BMW, Model.TESLA, Model.PORSCHE);
+		Set<Model> expected = Set.of(Model.BMW, Model.TESLA, Model.PORSCHE);
 		assertEquals(expected, logic.getModels());
 	}
 

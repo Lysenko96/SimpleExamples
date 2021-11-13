@@ -5,6 +5,7 @@ import static java.lang.System.lineSeparator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import net.gweep.task3.entity.Car;
 import net.gweep.task3.entity.Model;
@@ -29,7 +30,8 @@ public class MenuLogic {
 	private static List<Car> cars = new ArrayList<>();
 	private static FileWorker fileWorker = new FileWorker();
 
-	static void setValueOne(StringBuilder modelMenu, List<Model> models) {
+	static void setValueOne(StringBuilder modelMenu, Set<Model> models) {
+		List<Model> modelsList = new ArrayList<>(models);
 		System.out.print(modelMenu);
 		int model = in.nextInt();
 		System.out.print(yearMenu);
@@ -38,7 +40,7 @@ public class MenuLogic {
 		int price = in.nextInt();
 		System.out.print(numberMenu);
 		String number = in.next();
-		cars.add(new Car(++id, models.get(model - 1), year, price, number));
+		cars.add(new Car(++id, modelsList.get(model - 1), year, price, number));
 	}
 
 	static void setValueTwo() {
@@ -48,21 +50,23 @@ public class MenuLogic {
 		cars.remove(index - 1);
 	}
 
-	static void setValueThree(StringBuilder modelMenu, List<Model> models) {
+	static void setValueThree(StringBuilder modelMenu, Set<Model> models) {
+		List<Model> modelsList = new ArrayList<>(models);
 		System.out.print(modelMenu);
 		int model = in.nextInt();
-		carsToFile = logic.sortModelByYear(cars, models.get(model - 1));
+		carsToFile = logic.sortModelByYear(cars, modelsList.get(model - 1));
 		System.out.println(carsToFile);
 		writeInFile();
 	}
 
-	static void setValueFour(StringBuilder modelMenu, List<Model> models) {
+	static void setValueFour(StringBuilder modelMenu, Set<Model> models) {
+		List<Model> modelsList = new ArrayList<>(models);
 		System.out.print(modelMenu);
 		int model = in.nextInt();
 		System.out.println(cars.stream().map(Car::getYear).collect(toSet()));
 		System.out.print(yearMenu);
 		int year = in.nextInt();
-		carsToFile = logic.exploitModelMoreThen(cars, models.get(model - 1), year);
+		carsToFile = logic.exploitModelMoreThen(cars, modelsList.get(model - 1), year);
 		System.out.println(carsToFile);
 		writeInFile();
 	}

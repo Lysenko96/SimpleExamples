@@ -3,7 +3,7 @@ package net.gweep.task3.logic;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -35,8 +35,8 @@ public class Logic {
 				.collect(toList());
 	}
 
-	public List<Model> getModels() {
-		return Stream.of(Model.values()).collect(toList());
+	public Set<Model> getModels() {
+		return Stream.of(Model.values()).collect(toSet());
 	}
 
 	public Map<Model, List<Car>> getModelCars(List<Car> cars) {

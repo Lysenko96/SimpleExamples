@@ -2,8 +2,10 @@ package net.gweep.task3.menu;
 
 import static java.lang.System.lineSeparator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import net.gweep.task3.entity.Model;
 import net.gweep.task3.logic.Logic;
@@ -20,9 +22,10 @@ public class Menu {
 				.append(lineSeparator()).append("6 - show cars descending order price").append(lineSeparator())
 				.append("7 - show all cars model").append(lineSeparator()).append("8 - show model and cars for it")
 				.append(lineSeparator()).append("0 - exit").append(lineSeparator()).append("Enter value: ");
-		List<Model> models = logic.getModels();
-		StringBuilder modelMenu = new StringBuilder("1 - " + models.get(0)).append(lineSeparator())
-				.append("2 - " + models.get(1)).append(lineSeparator()).append("3 - " + models.get(2))
+		Set<Model> models = logic.getModels();
+		List<Model> modelsList = new ArrayList<>(models);
+		StringBuilder modelMenu = new StringBuilder("1 - " + modelsList.get(0)).append(lineSeparator())
+				.append("2 - " + modelsList.get(1)).append(lineSeparator()).append("3 - " + modelsList.get(2))
 				.append(lineSeparator()).append("Enter model: ");
 		int value = 0;
 		while (true) {
