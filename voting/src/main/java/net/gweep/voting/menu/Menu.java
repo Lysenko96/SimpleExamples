@@ -47,8 +47,7 @@ public class Menu {
 			} else if (value == 5) {
 				logic.showStationSelect(repo, voting);
 			} else if (value == 6) {
-				System.out.println(repo.getCitizens());
-				writeInFileObjects(repo.getCitizens().stream().map(c -> c).collect(toList()));
+				logic.showCitizensSelect(repo);
 			} else if (value == 7) {
 				logic.showPartiesSelect(repo);
 			} else if (value == 8) {

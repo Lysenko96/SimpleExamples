@@ -29,10 +29,6 @@ public class PollingStation {
 	protected int voterCounter;
 	protected String name;
 
-	// additional exception if citizen < 18 catch and choice delete people or set
-	// new age
-	// main to do exception
-
 	public List<Citizen> checkValidVoteCitizenAge() {
 		Scanner in = new Scanner(System.in);
 		List<Citizen> validCitizens = new ArrayList<>();

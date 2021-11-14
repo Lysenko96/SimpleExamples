@@ -1,4 +1,4 @@
-
+﻿
 /*******************************************************************************
    Chinook Database - Version 1.4
    Script: Chinook_PostgreSql.sql
@@ -15814,5 +15814,3 @@ INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES (17, 2095);
 INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES (17, 2096);
 INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES (17, 3290);
 INSERT INTO "PlaylistTrack" ("PlaylistId", "TrackId") VALUES (18, 597);
-
-

@@ -82,6 +82,11 @@ public class MenuLogic {
 		writeInFileObjects(repo.getCitizens().stream().map(c -> c).collect(toList()));
 	}
 
+	void showCitizensSelect(Repository repo) {
+		System.out.println(repo.getCitizens());
+		writeInFileObjects(repo.getCitizens().stream().map(c -> c).collect(toList()));
+	}
+
 	void addPartySelect(Repository repo) {
 		System.out.print("Enter name: ");
 		String name = in.next();
