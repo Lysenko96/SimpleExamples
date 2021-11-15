@@ -1,40 +1,26 @@
 package com.te.eolymp.task1;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Main main = new Main();
 		Scanner in = new Scanner(System.in);
-		String v = in.nextLine();
-		String[] arrS = v.split(" ");
-		Integer[] arr = new Integer[arrS.length];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = Integer.valueOf(arrS[i]);
-		}
-		System.out.print(main.calcMedian(arr));
+		List<Integer> values = Stream.of(in.nextLine().split(" ")).map(Integer::valueOf).collect(toList());
+		System.out.print(main.computeMedian(values));
 		in.close();
 	}
 
-	int calcMedian(Integer[] arr) {
-		List<Integer> numbers = Arrays.asList(arr);
+	int computeMedian(List<Integer> numbers) {
 		int result = -1;
-		for (int i = 0; i < numbers.size(); i++) {
-			int countMore = 0;
-			int countLess = 0;
-			for (int j = 0; j < numbers.size(); j++) {
-				if (i != j && numbers.get(i) > numbers.get(j)) {
-					countMore++;
-				} else if (i != j && numbers.get(i) < numbers.get(j)) {
-					countLess++;
-				}
-			}
-			if (countMore == countLess) {
-				result = numbers.get(i);
-			}
+		List<Integer> unique = numbers.stream().distinct().sorted().collect(toList());
+		if (unique.size() % 2 != 0) {
+			result = unique.get(unique.size() / 2);
 		}
 		return result;
 	}

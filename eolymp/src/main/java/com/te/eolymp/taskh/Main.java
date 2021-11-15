@@ -1,9 +1,9 @@
-package com.te.eolymp.task6;
+package com.te.eolymp.taskh;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
 public class Main {
 
@@ -14,11 +14,8 @@ public class Main {
 		for (int i = 1; i < Integer.valueOf(v); i++) {
 			numbers.add(i);
 		}
-		List<Integer> list = numbers.stream().filter(number -> number % 2 != 0).collect(Collectors.toList());
-		for (int i = 0; i < list.size() - 1; i++) {
-			System.out.print(list.get(i) + " ");
-		}
-		System.out.println(list.get(list.size() - 1));
+		List<Integer> filter = numbers.stream().filter(number -> number % 2 != 0).collect(toList());
+		filter.forEach(x -> System.out.print(x + " "));
 		in.close();
 	}
 }

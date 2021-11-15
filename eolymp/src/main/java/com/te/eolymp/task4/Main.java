@@ -3,21 +3,19 @@ package com.te.eolymp.task4;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		String count = in.nextLine();
 		List<Line> lines = new ArrayList<>();
-		for (int j = 0; j < Integer.valueOf(count); j++) {
-			Double[] arr = new Double[Integer.valueOf(count)];
-			for (int i = 0; i < 2; i++) {
-				arr[i] = Double.valueOf(in.next());
-			}
-			Line line = new Line((arr[0]).intValue(), arr[1]);
-			lines.add(line);
-			in.nextLine();
+		int count = Integer.parseInt(in.nextLine());
+		for (int i = 0; i < count; i++) {
+			List<String> line = Stream.of(in.nextLine().split(" ")).collect(toList());
+			lines.add(new Line(Integer.parseInt(line.get(0)), Double.parseDouble(line.get(1))));
 		}
 
 		System.out.println(lines.stream().filter(line -> line.getPrice() < 50).mapToInt(Line::getCount).sum());
