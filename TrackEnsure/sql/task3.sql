@@ -29,9 +29,20 @@ SELECT COUNT("Customer"."SupportRepId"), "Employee"."FirstName", "Employee"."Las
 
 -- Which sales agent made the most in sales in 2009?
  
-SELECT "Invoice".*, COUNT("Customer"."SupportRepId"), "Employee"."EmployeeId" FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" WHERE "InvoiceDate" BETWEEN '2009-01-01' AND '2009-12-12' GROUP BY "Customer"."SupportRepId", "Invoice"."InvoiceId", "Employee"."EmployeeId" ;
+SELECT DISTINCT "Customer"."SupportRepId", SUM("Invoice"."Total") FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" WHERE "InvoiceDate" BETWEEN '2009-01-01' AND '2009-12-12' GROUP BY "Customer"."SupportRepId", "Invoice"."InvoiceId", "Employee"."EmployeeId";
 
-----------
+-- Which sales agent made the most in sales in 2010?
+
+SELECT DISTINCT "Customer"."SupportRepId", SUM("Invoice"."Total") FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" WHERE "InvoiceDate" BETWEEN '2010-01-01' AND '2010-12-12' GROUP BY "Customer"."SupportRepId", "Invoice"."InvoiceId", "Employee"."EmployeeId";
+
+-- test
+
+SELECT DISTINCT "Customer"."SupportRepId", SUM("Invoice"."Total") FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" WHERE "InvoiceDate" BETWEEN '2010-01-01' AND '2010-12-12' GROUP BY "Customer"."SupportRepId", "Employee"."EmployeeId";
+
+-- Which sales agent made the most in sales over all?
+
+SELECT DISTINCT "Customer"."SupportRepId", SUM("Invoice"."Total")  FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" GROUP BY "Customer"."SupportRepId", "Employee"."EmployeeId";
+
 
 
 
