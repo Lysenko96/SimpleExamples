@@ -14,13 +14,16 @@ SELECT "Playlist"."Name", COUNT("PlaylistTrack"."PlaylistId") FROM "PlaylistTrac
 
 -- Provide a query that shows all the Tracks, but displays no IDs. 
 -- The resultant table should include the Album name, Media type and Genre
-SELECT "Track"."Name", "Album"."Title", "MediaType"."Name", "Genre"."Name" FROM "Track" INNER JOIN "Album" ON "Track"."AlbumId"="Album"."AlbumId" INNER JOIN "MediaType" ON "Track"."MediaTypeId"="MediaType"."MediaTypeId" INNER JOIN "Genre" ON "Track"."GenreId"="Genre"."GenreId";
+SELECT DISTINCT "Track"."Name", "Album"."Title", "MediaType"."Name", "Genre"."Name" FROM "Track" INNER JOIN "Album" ON "Track"."AlbumId"="Album"."AlbumId" INNER JOIN "MediaType" ON "Track"."MediaTypeId"="MediaType"."MediaTypeId" INNER JOIN "Genre" ON "Track"."GenreId"="Genre"."GenreId";
 
 -- Provide a query that shows all Invoices but includes the # of invoice line items
-SELECT * FROM "InvoiceLine" INNER JOIN "Invoice" ON "InvoiceLine"."InvoiceId"="Invoice"."InvoiceId";
+SELECT "InvoiceLine"."InvoiceLineId", "Invoice".* FROM "InvoiceLine" INNER JOIN "Invoice" ON "InvoiceLine"."InvoiceId"="Invoice"."InvoiceId";
 
 -- Provide a query that shows total sales made by each sales agent.
-SELECT COUNT("Customer"."SupportRepId"), "Employee"."FirstName", "Employee"."LastName" FROM "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" GROUP BY "Customer"."SupportRepId", "Employee"."FirstName", "Employee"."LastName";
+--SELECT COUNT("Customer"."SupportRepId"), "Employee"."FirstName", "Employee"."LastName" FROM "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" GROUP BY "Customer"."SupportRepId", "Employee"."FirstName", "Employee"."LastName";
+
+SELECT "Customer"."SupportRepId", COUNT("Customer"."SupportRepId") FROM "Invoice" INNER JOIN "Customer" ON "Invoice"."CustomerId"="Customer"."CustomerId" GROUP BY "Customer"."SupportRepId";
+
 
 -- Which sales agent made the most in sales in 2009?
  
@@ -42,8 +45,9 @@ SELECT MAX(sumTotal) FROM(SELECT "Employee"."EmployeeId", SUM("Invoice"."Total")
 
 -- Which sales agent made the most in sales over all?
 
-SELECT "Customer"."SupportRepId", SUM("Invoice"."Total")  FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" GROUP BY "Customer"."SupportRepId", "Employee"."EmployeeId";
+-- SELECT "Customer"."SupportRepId", SUM("Invoice"."Total")  FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" GROUP BY "Customer"."SupportRepId", "Employee"."EmployeeId";
 
+SELECT "Customer"."SupportRepId", SUM("Invoice"."Total")  FROM "Invoice" INNER JOIN "Customer" ON "Invoice"."CustomerId"="Customer"."CustomerId" GROUP BY "Customer"."SupportRepId";
 
 
 
