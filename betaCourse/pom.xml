@@ -13,7 +13,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<spring.version>5.3.5</spring.version>
-		<security.version>5.3.5.RELEASE</security.version>
+		<security.version>5.3.9.RELEASE</security.version>
 		<mysql.version>8.0.26</mysql.version>
 		<dbunit.version>2.5.3</dbunit.version>
 		<slf4j.version>1.7.31</slf4j.version>
