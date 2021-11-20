@@ -16,7 +16,9 @@ ON "Album"."ArtistId"="Artist"."ArtistId";
 
 
 -- Provide a query that shows the # of invoices per country. HINT: GROUP BY
-SELECT COUNT("InvoiceId"), "BillingCountry" FROM "Invoice" GROUP BY "BillingCountry";
+SELECT COUNT("InvoiceId"), "BillingCountry" 
+FROM "Invoice" 
+GROUP BY "BillingCountry";
 
 -- Provide a query that shows the total number of tracks in each playlist. 
 -- The Playlist name should be included on the resultant table
@@ -50,16 +52,9 @@ SELECT "Invoice".*, COUNT("InvoiceLine"."InvoiceId")
 FROM "InvoiceLine" 
 INNER JOIN "Invoice"
 ON "InvoiceLine"."InvoiceId"="Invoice"."InvoiceId"
-GROUP BY "InvoiceLine"."InvoiceId", "Invoice"."InvoiceId";
+GROUP BY "Invoice"."InvoiceId";
 
 -- Provide a query that shows total sales made by each sales agent.
-
---SELECT COUNT("Customer"."SupportRepId"), "Employee"."FirstName", "Employee"."LastName" 
---FROM "Customer" 
---INNER JOIN "Employee" 
---ON "Customer"."SupportRepId"="Employee"."EmployeeId" 
---GROUP BY "Customer"."SupportRepId", "Employee"."FirstName", "Employee"."LastName";
-
 SELECT SUM("Invoice"."Total")
 FROM "Invoice"
 INNER JOIN "Customer"
@@ -70,9 +65,6 @@ GROUP BY "Employee"."EmployeeId";
 
 
 -- Which sales agent made the most in sales in 2009?
- 
---SELECT DISTINCT "Customer"."SupportRepId", SUM("Invoice"."Total") FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" WHERE "InvoiceDate" BETWEEN '2009-01-01' AND '2009-12-12' GROUP BY "Customer"."SupportRepId", "Invoice"."InvoiceId", "Employee"."EmployeeId";
-
 SELECT "Employee"."EmployeeId", SUM("Invoice"."Total") AS total
 FROM "Invoice"
 INNER JOIN "Customer"
@@ -86,11 +78,6 @@ LIMIT 1;
 
 
 -- Which sales agent made the most in sales in 2010?
-
---SELECT DISTINCT "Customer"."SupportRepId", SUM("Invoice"."Total") FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" WHERE "InvoiceDate" BETWEEN '2010-01-01' AND '2010-12-12' GROUP BY "Customer"."SupportRepId", "Invoice"."InvoiceId", "Employee"."EmployeeId";
-
---SELECT "Customer"."SupportRepId", SUM("Invoice"."Total") FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" WHERE "InvoiceDate" BETWEEN '2009-01-01' AND '2009-12-12' GROUP BY "Customer"."SupportRepId", "Employee"."EmployeeId";
-
 SELECT "Employee"."EmployeeId", SUM("Invoice"."Total") AS total
 FROM "Invoice"
 INNER JOIN "Customer"
@@ -116,7 +103,6 @@ LIMIT 1;
 
 
 -- Which sales agent made the most in sales over all?
-
 SELECT "Employee"."EmployeeId", SUM("Invoice"."Total") AS total
 FROM "Invoice"
 INNER JOIN "Customer"
@@ -126,9 +112,3 @@ ON "Customer"."SupportRepId"="Employee"."EmployeeId"
 GROUP BY "Employee"."EmployeeId"
 ORDER BY total DESC
 LIMIT 1;
-
--- SELECT "Customer"."SupportRepId", SUM("Invoice"."Total")  FROM "Invoice", "Customer" INNER JOIN "Employee" ON "Customer"."SupportRepId"="Employee"."EmployeeId" GROUP BY "Customer"."SupportRepId", "Employee"."EmployeeId";
-
---SELECT "Customer"."SupportRepId", SUM("Invoice"."Total")  
---FROM "Invoice" INNER JOIN "Customer" 
---ON "Invoice"."CustomerId"="Customer"."CustomerId" GROUP BY "Customer"."SupportRepId";
