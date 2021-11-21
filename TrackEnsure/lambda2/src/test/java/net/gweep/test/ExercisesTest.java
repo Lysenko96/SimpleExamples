@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -239,7 +240,31 @@ public class ExercisesTest {
 	public void nestedMaps() throws IOException {
 		Map<String, Map<Integer, List<String>>> map = new HashMap<>(); /* TODO */
 
-		map = new Main().nestedMapNew();
+		// map = new Main().nestedMapNew();
+
+		Map<String, Map<Integer, List<String>>> map1 = new HashMap<>();
+		Map<Integer, List<String>> nMap;
+
+		List<String> strings = reader.lines().flatMap(s -> Stream.of(s.split("\\W+"))).filter(s -> !s.isEmpty())
+				.collect(Collectors.toList());
+
+		List<String> listWords;
+		for (String s : strings) {
+			String letter = s.substring(0, 1);
+			nMap = map1.get(letter);
+			if (nMap == null) {
+				nMap = new HashMap<>();
+			}
+			listWords = nMap.get(s.length());
+			if (listWords == null) {
+				listWords = new ArrayList<>();
+			}
+			listWords.add(s);
+			nMap.put(s.length(), listWords);
+			map1.put(letter, nMap);
+		}
+		map = map1;
+		//System.out.println(map);
 
 		assertEquals("[From, Feed]", map.get("F").get(4).toString());
 		assertEquals("[by, be, by]", map.get("b").get(2).toString());
