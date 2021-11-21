@@ -28,7 +28,7 @@ public class MenuLogic {
 			.append("2 - not write").append(lineSeparator()).append("Enter: ");
 	private static FileWorker fileWorker = new FileWorker();
 
-	void addStationSelect(Repository repo, int id) {
+	public void addStationSelect(Repository repo, int id) {
 		System.out.print("Enter street: ");
 		String street = in.next();
 		System.out.print("Enter number: ");
@@ -41,7 +41,7 @@ public class MenuLogic {
 		System.out.print("Enter stationType: ");
 		int stationIndex = in.nextInt();
 		repo.addStation(
-				new PollingStation(++id, new Address(street, number), new ArrayList<>(), 0, types.get(stationIndex)));
+				new PollingStation(id, new Address(street, number), new ArrayList<>(), 0, types.get(stationIndex)));
 		writeInFileObjects(repo.getStations().stream().map(s -> s).collect(toList()));
 	}
 
