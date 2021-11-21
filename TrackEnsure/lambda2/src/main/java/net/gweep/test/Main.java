@@ -2,7 +2,6 @@ package net.gweep.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class Main {
 					list.add(s);
 				}
 			}
-			// System.out.println(list);
 			List<String> l = new ArrayList<>(list);
 			nMap.put(l.get(0).length(), l);
 		}
@@ -52,7 +50,6 @@ public class Main {
 				map.put(st.substring(0, 1), null);
 			}
 		}
-		// System.out.println(map);
 		return map;
 	}
 
@@ -77,17 +74,15 @@ public class Main {
 				}
 			}
 		}
-		// System.out.println(map);
 		return map;
 	}
 
 	public Map<String, Map<Integer, List<String>>> nestedMapNew() {
 		Map<String, Map<Integer, List<String>>> map = new HashMap<>();
 		Map<Integer, List<String>> nMap = new HashMap<>();
-		BufferedReader reader;
-		try {
-			reader = Files.newBufferedReader(Paths.get("/home/gweep/eclipse-workspace/lambda/SonnetI.txt"),
-					StandardCharsets.UTF_8);
+
+		try (BufferedReader reader = Files
+				.newBufferedReader(Paths.get("/home/gweep/eclipse-workspace/lambda/SonnetI.txt"))) {
 
 			List<String> strings = reader.lines().flatMap(s -> Stream.of(s.split("\\W+"))).filter(s -> !s.isEmpty())
 					.collect(Collectors.toList());
@@ -100,7 +95,6 @@ public class Main {
 
 			map = getMapWorldFirstLetterMapLengthListWorlds(nMap, map);
 
-			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
