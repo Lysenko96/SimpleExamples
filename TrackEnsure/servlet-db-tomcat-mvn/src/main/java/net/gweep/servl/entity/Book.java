@@ -15,7 +15,7 @@ public class Book {
 	private Genre genre;
 	private int pageCount;
 
-	public Book(String name, String author, int pageCount, Genre genre) {
+	public Book(String name, String author, Genre genre, int pageCount) {
 		this.name = name;
 		this.author = author;
 		this.genre = genre;

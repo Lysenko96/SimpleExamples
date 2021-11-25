@@ -12,7 +12,7 @@ public interface BookDao {
 	
 	List<Book> getAll();
 	
-	void update(Book book);
+	boolean update(Book book);
 	
-	void deleteById(int id);
+	boolean deleteById(int id);
 }

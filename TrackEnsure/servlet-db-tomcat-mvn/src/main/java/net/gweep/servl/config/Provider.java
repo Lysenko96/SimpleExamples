@@ -1,6 +1,5 @@
 package net.gweep.servl.config;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,8 +12,8 @@ public class Provider {
 	public Connection connect() {
 		Connection connection = null;
 		Properties properties = new Properties();
-		File file = new File("src/main/resources/config.properties");
-		try (FileReader reader = new FileReader(file.getPath())) {
+		// absolute path for config.properties
+		try (FileReader reader = new FileReader("/home/gweep/Documents/SimpleExamples/TrackEnsure/servlet-db-tomcat-mvn/src/main/resources/config.properties")) {
 			properties.load(reader);
 			String driver = properties.getProperty("db.driver");
 			Class.forName(driver);
@@ -26,10 +25,5 @@ public class Provider {
 			e.printStackTrace();
 		}
 		return connection;
-	}
-
-	public static void main(String[] args) {
-		System.out.println(new Provider().connect());
-
 	}
 }
