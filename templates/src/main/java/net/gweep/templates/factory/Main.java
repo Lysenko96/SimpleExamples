@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		PizzaStore nyStore = new NYPizzaStore();
 		PizzaStore lStore = new LondonPizzaStore();
-		System.out.println(nyStore.orderPizza("clam"));
-		System.out.println(lStore.orderPizza("pepperoni"));
+		System.out.println(nyStore.orderPizza("cheese"));
+		System.out.println(lStore.orderPizza("cheese"));
 	}
 }

@@ -1,6 +1,6 @@
 package net.gweep.templates.factory.store;
 
-import net.gweep.templates.factory.entity.LondonClamPizza;
+import net.gweep.templates.factory.entity.LondonCheesePizza;
 import net.gweep.templates.factory.entity.LondonPepperoniPizza;
 import net.gweep.templates.factory.entity.iface.Pizza;
 
@@ -12,8 +12,8 @@ public class LondonPizzaStore extends PizzaStore{
 		Pizza pizza = null;
 		if (type.equals("pepperoni")) {
 			pizza = new LondonPepperoniPizza();
-		} else if (type.equals("clam")) {
-			pizza = new LondonClamPizza();
+		} else if (type.equals("cheese")) {
+			pizza = new LondonCheesePizza();
 		}
 		return pizza;
 	}

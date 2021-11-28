@@ -2,7 +2,7 @@ package net.gweep.templates.factory.entity;
 
 import net.gweep.templates.factory.entity.iface.Pizza;
 
-public class NYPepperoniPizza implements Pizza{
+public class NYPepperoniPizza extends Pizza{
 
 	@Override
 	public void prepare() {

@@ -1,12 +1,33 @@
 package net.gweep.templates.factory.entity.iface;
 
-public interface Pizza {
+import java.util.ArrayList;
+import java.util.List;
 
-	void prepare();
+public abstract class Pizza {
+
+	protected String name;
+	protected String dough;
+	protected String sauce;
+	protected List<String> toppings = new ArrayList<>();
 	
-	void bake();
+	public void prepare() {
+		System.out.println("Preparing " + name);
+		System.out.println("Tossing dough...");
+		System.out.println("Adding sause...");
+		for(String topping : toppings) {
+			System.out.println(" " + topping);
+		}
+	}
 	
-	void cut();
+	public void bake() {
+		System.out.println("Bake for 25 min at 350");
+	}
 	
-	void box();
+	public void cut() {
+		System.out.println("Cutting the pizza into diagonal slices");
+	}
+	
+	public void box() {
+		System.out.println("Place pizza in offical box");
+	}
 }
