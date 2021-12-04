@@ -1,0 +1,1 @@
+SELECT * FROM "Track" WHERE "AlbumId"=3;
