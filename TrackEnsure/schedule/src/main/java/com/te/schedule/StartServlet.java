@@ -22,6 +22,8 @@ import com.te.schedule.dao.jdbc.JdbcDepartmentDao;
 import com.te.schedule.dao.jdbc.JdbcEmployeeDao;
 import com.te.schedule.entity.Role;
 
+// add tests for jdbc
+
 @WebServlet(urlPatterns = { "/" })
 public class StartServlet extends HttpServlet {
 
