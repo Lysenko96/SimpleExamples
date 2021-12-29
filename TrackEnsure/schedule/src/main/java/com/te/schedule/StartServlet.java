@@ -53,6 +53,8 @@ public class StartServlet extends HttpServlet {
 		process(request, response);
 	}
 
+	// split method process for several methods
+	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Connection connection = JdbcEmployeeDao.getProvider().getConnection();
 		if (connection != null) {
