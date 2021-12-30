@@ -7,13 +7,17 @@ import net.pack.jdbcstyle.provider.Provider;
 
 import static net.pack.jdbcstyle.entity.Sex.*;
 
+import java.sql.SQLException;
+
 public class Main {
 
 	public static void main(String[] args) {
 		Provider provider = new Provider();
-		provider.getConnection();
-//		PersonDao personDao = new JdbcPersonDao(provider);
-//		personDao.add(new Person("name", "surname", FEMALE, "name@email.com", 18, "address", 9379992, "666"));
-		//System.out.println(personDao.getAll());
+//		provider.getConnection();
+		PersonDao personDao = new JdbcPersonDao(provider);
+		// personDao.add(new Person("name", "surname", FEMALE, "name@email.com", 18,
+		// "address", 9379992, "666"));
+		System.out.println(personDao.getAll());
+		provider.getDs().close();
 	}
 }

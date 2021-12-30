@@ -18,7 +18,7 @@ public class JdbcPersonDao implements PersonDao {
 	private Provider provider;
 	private static final String ADD_PERSON = "insert into person (name,surname,sex,email,age,address,phone, \"postCode\" values (?,?,?,?,?,?,?,?)";
 //	private static final String GET_PERSON_BY_ID = "";
-	private static final String GET_ALL_PERSONS = "select * from persondb";
+	private static final String GET_ALL_PERSONS = "select * from person";
 //	private static final String UPDATE_PERSON = "";
 //	private static final String DELETE_PERSON_BY_ID = "";
 
@@ -69,7 +69,7 @@ public class JdbcPersonDao implements PersonDao {
 				int year = rs.getInt("year");
 				String address = rs.getString("address");
 				int phone = rs.getInt("phone");
-				String postCode = rs.getString("\"postCode\"");
+				String postCode = rs.getString("postcode");
 				persons.add(new Person(id, name, surname, sex, email, year, address, phone, postCode));
 			}
 		} catch (SQLException e) {

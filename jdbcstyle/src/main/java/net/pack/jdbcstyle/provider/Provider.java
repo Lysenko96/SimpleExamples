@@ -16,35 +16,27 @@ import net.pack.jdbcstyle.entity.Person;
 
 public class Provider {
 
-	//fixed
-	
+	private HikariDataSource ds;
+
 	public Connection getConnection() {
 		String hikaricpUrl = Provider.class.getClassLoader().getResource("hikaricp.properties").getFile();
 		HikariConfig config = new HikariConfig(hikaricpUrl);
-		Person person = new Person("name", "surname", FEMALE, "name@email.com", 18, "address", 9379992, "666");
-		try (HikariDataSource ds = new HikariDataSource(config);
-				Connection conn = ds.getConnection();
-				PreparedStatement st = conn.prepareStatement(
-						"insert into person (name,surname,sex,email,year,address,phone, \"postCode\") values (?,?,?,?,?,?,?,?)",
-						Statement.RETURN_GENERATED_KEYS)) {
-			st.setString(1, person.getName());
-			st.setString(2, person.getSurname());
-			st.setString(3, person.getSex().name());
-			st.setString(4, person.getEmail());
-			st.setInt(5, person.getYear());
-			st.setString(6, person.getAddress());
-			st.setInt(7, person.getPhone());
-			st.setString(8, person.getPostCode());
-			st.executeUpdate();
-			ResultSet rs = st.getGeneratedKeys();
-			if (rs.next()) {
-				long key = rs.getInt("id");
-				person.setId(key);
-			}
+		try {
+			HikariDataSource ds = new HikariDataSource(config);
+			this.ds = ds;
+			Connection conn = ds.getConnection();
 			return conn;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public HikariDataSource getDs() {
+		return ds;
+	}
+
+	public void setDs(HikariDataSource ds) {
+		this.ds = ds;
 	}
 }
