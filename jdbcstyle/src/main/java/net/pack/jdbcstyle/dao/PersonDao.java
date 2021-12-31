@@ -7,6 +7,8 @@ import net.pack.jdbcstyle.entity.Person;
 public interface PersonDao {
 
 	void add(Person person);
+	
+	void addBatch(List<Person> persons);
 
 	Person getById(long id);
 

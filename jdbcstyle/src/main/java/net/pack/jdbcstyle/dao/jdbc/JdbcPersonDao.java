@@ -16,7 +16,7 @@ import net.pack.jdbcstyle.provider.Provider;
 public class JdbcPersonDao implements PersonDao {
 
 	private Provider provider;
-	private static final String ADD_PERSON = "insert into person (name,surname,sex,email,age,address,phone, \"postCode\" values (?,?,?,?,?,?,?,?)";
+	private static final String ADD_PERSON = "insert into person (name,surname,sex,email,year,address,phone, \"postCode\") values (?,?,?,?,?,?,?,?)";
 //	private static final String GET_PERSON_BY_ID = "";
 	private static final String GET_ALL_PERSONS = "select * from person";
 //	private static final String UPDATE_PERSON = "";
@@ -46,6 +46,38 @@ public class JdbcPersonDao implements PersonDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void addBatch(List<Person> persons) {
+		try (Connection conn = provider.getConnection();) {
+			try (PreparedStatement st = conn.prepareStatement(ADD_PERSON, Statement.RETURN_GENERATED_KEYS)) {
+				conn.setAutoCommit(false);
+				for (Person person : persons) {
+					st.setString(1, person.getName());
+					st.setString(2, person.getSurname());
+					st.setString(3, person.getSex().name());
+					st.setString(4, person.getEmail());
+					st.setInt(5, person.getYear());
+					st.setString(6, person.getAddress());
+					st.setInt(7, person.getPhone());
+					st.setString(8, person.getPostCode());
+					st.addBatch();
+					ResultSet rs = st.getGeneratedKeys();
+					if (rs.next()) {
+						long key = rs.getInt("id");
+						person.setId(key);
+					}
+				}
+				st.executeBatch();
+				conn.commit();
+			} catch (SQLException e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
 		}
 	}
 

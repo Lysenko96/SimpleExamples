@@ -1,31 +1,22 @@
 package net.pack.jdbcstyle.provider;
 
-import static net.pack.jdbcstyle.entity.Sex.FEMALE;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import net.pack.jdbcstyle.dao.jdbc.JdbcPersonDao;
-import net.pack.jdbcstyle.entity.Person;
-
 public class Provider {
 
-	private HikariDataSource ds;
+	private HikariDataSource source;
 
 	public Connection getConnection() {
 		String hikaricpUrl = Provider.class.getClassLoader().getResource("hikaricp.properties").getFile();
 		HikariConfig config = new HikariConfig(hikaricpUrl);
 		try {
-			HikariDataSource ds = new HikariDataSource(config);
-			this.ds = ds;
-			Connection conn = ds.getConnection();
-			return conn;
+			HikariDataSource localSrc = new HikariDataSource(config);
+			this.source = localSrc;
+			return localSrc.getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -33,10 +24,10 @@ public class Provider {
 	}
 
 	public HikariDataSource getDs() {
-		return ds;
+		return source;
 	}
 
-	public void setDs(HikariDataSource ds) {
-		this.ds = ds;
+	public void setDs(HikariDataSource source) {
+		this.source = source;
 	}
 }
