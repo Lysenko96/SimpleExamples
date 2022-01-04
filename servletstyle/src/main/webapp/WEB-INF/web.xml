@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+<!-- 	<servlet>
+		<servlet-name>ServletStyle</servlet-name>
+		<servlet-class>net.pack.servletstyle.ServletStyle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletStyle</servlet-name>
+		<url-pattern>/ServletStyle</url-pattern>
+	</servlet-mapping> -->
+		<!-- <servlet>
+		<servlet-name>indexStyle</servlet-name>
+		<jsp-file>/indexStyle.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletStyle</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping> -->
+</web-app>
