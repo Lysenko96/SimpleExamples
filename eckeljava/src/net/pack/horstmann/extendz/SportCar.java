@@ -1,5 +1,7 @@
 package net.pack.horstmann.extendz;
 
+import java.util.Calendar;
+
 public class SportCar extends Car {
 
     private int countDoor;
@@ -18,11 +20,21 @@ public class SportCar extends Car {
     public SportCar(int speed) {
         super(speed);
       //  this.car = new Car(speed);
+        Calendar calendar;
         countDoor = 2;
+    }
+
+    @Override
+    public SportCar getObj(){
+        return new SportCar();
     }
 
 
     public SportCar() {
         countDoor = 2;
+    }
+
+    public int getCountDoor() {
+        return countDoor;
     }
 }

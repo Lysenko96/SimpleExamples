@@ -10,7 +10,9 @@ public class Main {
 //        System.out.println(car.getSpeed(car));
 //        System.out.println(car1.getSpeed(car1));
         System.out.println(sportCar.getSpeed());
-
+        SportCar[] sportCars = new SportCar[]{new SportCar()};
+        Car[] cars = sportCars;
+        System.out.println(cars[0].getSpeed());
     }
 }
 

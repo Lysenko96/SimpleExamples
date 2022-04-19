@@ -8,6 +8,10 @@ public class Car {
         return speed;
     }
 
+     Object getObj(){
+        return new Object();
+    }
+
 //    public int getSpeed(Car car) {
 //        int result = 0;
 //        if (car instanceof SportCar) {
