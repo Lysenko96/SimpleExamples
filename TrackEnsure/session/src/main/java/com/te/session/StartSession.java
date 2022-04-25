@@ -22,6 +22,7 @@ public class StartSession extends HttpServlet {
 //		writer.append("Served at: ").append(request.getContextPath()).append(System.lineSeparator());
 //		writer.println(request.getParameter("btn"));
 		String btnStr = request.getParameter("btn");
+		request.setAttribute("123", "123");
 		if("clear".equals(btnStr)) {
 			request.getSession().invalidate();
 		} 
