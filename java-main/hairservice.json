@@ -1,0 +1,310 @@
+{
+    "type": "object",
+    "description": "hairService",
+    "title": "HairService",
+    "properties": {
+        "client": {
+            "type": "object",
+            "description": "client",
+            "title": "Client",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "email"
+                },
+                "hairstyle": {
+                    "enum": [
+                        "LONG",
+                        "SHORT",
+                        "MODERN"
+                    ],
+                    "type": "string",
+                    "description": "hairstyle"
+                },
+                "id": {
+                    "type": "integer",
+                    "description": "unique identifier"
+                },
+                "login": {
+                    "type": "string",
+                    "description": "login"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "name"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "password"
+                },
+                "phone": {
+                    "type": "integer",
+                    "description": "phone"
+                },
+                "role": {
+                    "enum": [
+                        "USER",
+                        "ADMIN"
+                    ],
+                    "type": "string",
+                    "description": "role"
+                },
+                "surname": {
+                    "type": "string",
+                    "description": "surname"
+                }
+            },
+            "required": [
+                "email",
+                "hairstyle",
+                "id",
+                "login",
+                "name",
+                "password",
+                "phone",
+                "role",
+                "surname"
+            ]
+        },
+        "id": {
+            "type": "integer",
+            "description": "unique identifier"
+        },
+        "master": {
+            "type": "object",
+            "properties": {
+                "durations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "day": {
+                                "enum": [
+                                    "SUNDAY",
+                                    "MONDAY",
+                                    "TUESDAY",
+                                    "WEDNESDAY",
+                                    "THURSDAY",
+                                    "FRIDAY",
+                                    "SATURDAY"
+                                ],
+                                "type": "string"
+                            },
+                            "fromTime": {
+                                "type": "object",
+                                "properties": {
+                                    "date": {
+                                        "type": "integer"
+                                    },
+                                    "day": {
+                                        "type": "integer"
+                                    },
+                                    "hours": {
+                                        "type": "integer"
+                                    },
+                                    "minutes": {
+                                        "type": "integer"
+                                    },
+                                    "month": {
+                                        "type": "integer"
+                                    },
+                                    "seconds": {
+                                        "type": "integer"
+                                    },
+                                    "time": {
+                                        "type": "integer"
+                                    },
+                                    "timezoneOffset": {
+                                        "type": "integer"
+                                    },
+                                    "year": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "id": {
+                                "type": "integer"
+                            },
+                            "toTime": {
+                                "type": "object",
+                                "properties": {
+                                    "date": {
+                                        "type": "integer"
+                                    },
+                                    "day": {
+                                        "type": "integer"
+                                    },
+                                    "hours": {
+                                        "type": "integer"
+                                    },
+                                    "minutes": {
+                                        "type": "integer"
+                                    },
+                                    "month": {
+                                        "type": "integer"
+                                    },
+                                    "seconds": {
+                                        "type": "integer"
+                                    },
+                                    "time": {
+                                        "type": "integer"
+                                    },
+                                    "timezoneOffset": {
+                                        "type": "integer"
+                                    },
+                                    "year": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "integer"
+                },
+                "photo": {
+                    "type": "object",
+                    "properties": {}
+                },
+                "role": {
+                    "enum": [
+                        "USER",
+                        "ADMIN"
+                    ],
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                }
+            },
+            "photo": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "totalSpace": {
+                        "type": "integer"
+                    },
+                    "isFile": {
+                        "type": "boolean"
+                    },
+                    "isHidden": {
+                        "type": "boolean"
+                    }
+                },
+                "description": "master"
+            },
+            "schedule": {
+                "type": "object",
+                "properties": {
+                    "day": {
+                        "enum": [
+                            "SUNDAY",
+                            "MONDAY",
+                            "TUESDAY",
+                            "WEDNESDAY",
+                            "THURSDAY",
+                            "FRIDAY",
+                            "SATURDAY"
+                        ],
+                        "type": "string"
+                    },
+                    "fromTime": {
+                        "type": "object",
+                        "properties": {
+                            "date": {
+                                "type": "integer"
+                            },
+                            "day": {
+                                "type": "integer"
+                            },
+                            "hours": {
+                                "type": "integer"
+                            },
+                            "minutes": {
+                                "type": "integer"
+                            },
+                            "month": {
+                                "type": "integer"
+                            },
+                            "seconds": {
+                                "type": "integer"
+                            },
+                            "time": {
+                                "type": "integer"
+                            },
+                            "timezoneOffset": {
+                                "type": "integer"
+                            },
+                            "year": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "toTime": {
+                        "type": "object",
+                        "properties": {
+                            "date": {
+                                "type": "integer"
+                            },
+                            "day": {
+                                "type": "integer"
+                            },
+                            "hours": {
+                                "type": "integer"
+                            },
+                            "minutes": {
+                                "type": "integer"
+                            },
+                            "month": {
+                                "type": "integer"
+                            },
+                            "seconds": {
+                                "type": "integer"
+                            },
+                            "time": {
+                                "type": "integer"
+                            },
+                            "timezoneOffset": {
+                                "type": "integer"
+                            },
+                            "year": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "description": "schedule"
+            }
+        },
+        "required": [
+            "client",
+            "id",
+            "master",
+            "schedule"
+        ]
+    }
+}

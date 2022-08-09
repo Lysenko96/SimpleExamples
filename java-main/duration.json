@@ -1,0 +1,96 @@
+{
+    "type": "object",
+    "description": "duration",
+    "title": "Duration",
+    "properties": {
+        "day": {
+            "enum": [
+                "SUNDAY",
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY"
+            ],
+            "type": "string",
+            "description": "day"
+        },
+        "fromTime": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "integer"
+                },
+                "day": {
+                    "type": "integer"
+                },
+                "hours": {
+                    "type": "integer"
+                },
+                "minutes": {
+                    "type": "integer"
+                },
+                "month": {
+                    "type": "integer"
+                },
+                "seconds": {
+                    "type": "integer"
+                },
+                "time": {
+                    "type": "integer"
+                },
+                "timezoneOffset": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "integer"
+                }
+            },
+            "description": "from time"
+        },
+        "id": {
+            "type": "integer",
+            "description": "unique identifier"
+        },
+        "toTime": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "integer"
+                },
+                "day": {
+                    "type": "integer"
+                },
+                "hours": {
+                    "type": "integer"
+                },
+                "minutes": {
+                    "type": "integer"
+                },
+                "month": {
+                    "type": "integer"
+                },
+                "seconds": {
+                    "type": "integer"
+                },
+                "time": {
+                    "type": "integer"
+                },
+                "timezoneOffset": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "integer"
+                }
+            },
+            "description": "to time"
+        }
+    },
+    "required": [
+        "day",
+        "fromTime",
+        "id",
+        "toTime"
+    ]
+}

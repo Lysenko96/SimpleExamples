@@ -1,0 +1,25 @@
+resources:
+@PostMapping, @GetMapping /hairservice/login
+@PostMapping, @GetMapping /hairservice/register
+@GetMapping  /hairservice/admin
+@GetMapping /hairservice/client?id={id}
+@PostMapping,@GetMapping /hairservice/clients
+@GetMapping /hairservice/editClient?id={id}
+@PutMapping /hairservice/updateClient?id={id}
+@GetMapping /hairservice/master?id={id}
+@PostMapping, @GetMapping /hairservice/masters
+@GetMapping /hairservice/editMaster?id={id}
+@PutMapping  /hairservice/updateMaster?id={id}
+@GetMapping /hairservice/duration?id={id}
+@PostMapping, @GetMapping /hairservice/durations
+@GetMapping /hairservice/editDuration?id={id}
+@PutMapping  /hairservice/updateDuration?id={id}
+@GetMapping /hairservice/schedule?id={id}
+@PostMapping, @GetMapping /hairservice/schedules
+@GetMapping /hairservice/editSchedule?id={id}
+@PutMapping  /hairservice/updateSchedule?id={id}
+@GetMapping /hairservice/hairservice?id={id}
+@PostMapping, @GetMapping /hairservice/hairservices
+@GetMapping /hairservice/editHairservice?id={id}
+@PutMapping  /hairservice/updateHairservice?id={id}
+status code for every 200, 404

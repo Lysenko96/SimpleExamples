@@ -1,0 +1,11 @@
+{
+    "id": 1,
+    "photo": "/image.png",
+    "name": "name11",
+    "surname": "surname1",
+    "phone": 1,
+    "email": "mail",
+    "role": "USER",
+    "login": "login",
+    "password": "pass"
+}
