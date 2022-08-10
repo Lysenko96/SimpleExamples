@@ -1,6 +1,6 @@
-package org.example.dao;
+package org.example.springproject.dao;
 
-import org.example.model.Person;
+import org.example.springproject.model.Person;
 
 import java.util.List;
 

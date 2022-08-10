@@ -1,20 +1,18 @@
-package org.example.dao.jdbc;
+package org.example.springproject.dao.jdbc;
 
-import org.example.config.Config;
-import org.example.dao.PersonDao;
-import org.example.model.Person;
+import org.example.springproject.config.Config;
+import org.example.springproject.dao.PersonDao;
+import org.example.springproject.model.Person;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
 import java.util.List;
 
-@Component
 public class JdbcPersonDao implements PersonDao {
 
     private static final String ADD_PERSON = "INSERT INTO person (name, surname, year, login, password, email, phone) VALUES (?,?,?,?,?,?,?)";
