@@ -39,7 +39,7 @@ public class JdbcPersonDao implements PersonDao {
             ps.setString(2, person.getSurname());
             ps.setInt(3, person.getYear());
             ps.setString(4, person.getLogin());
-            ps.setString(5, encoder.encode(person.getPassword()).split("}")[1]);
+            ps.setString(5, encoder.encode(person.getPassword()));
             ps.setString(6, person.getEmail());
             ps.setInt(7, person.getPhone());
             return ps;
@@ -59,7 +59,7 @@ public class JdbcPersonDao implements PersonDao {
 
     @Override
     public void update(Person person) {
-        jdbcTemplate.update(UPDATE_PERSON, person.getName(), person.getSurname(), person.getYear(), person.getLogin(), encoder.encode(person.getPassword()).split("}")[1], person.getEmail(), person.getPhone(), person.getId());
+        jdbcTemplate.update(UPDATE_PERSON, person.getName(), person.getSurname(), person.getYear(), person.getLogin(), encoder.encode(person.getPassword()), person.getEmail(), person.getPhone(), person.getId());
     }
 
     @Override

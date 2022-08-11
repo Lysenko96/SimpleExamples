@@ -11,12 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -56,9 +53,7 @@ public class Config {
     }
 
     @Bean
-    public DelegatingPasswordEncoder passwordEncoder() {
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(BCRYPT, new BCryptPasswordEncoder());
-        return new DelegatingPasswordEncoder(BCRYPT, encoders);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
