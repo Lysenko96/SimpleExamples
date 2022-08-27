@@ -1,23 +1,31 @@
 package info.lysenko.anton.game;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Ship {
 
-    private int[] locationCells;
+    private List<String> locationCells;
     private int numOfHits;
-
+    private String name;
     // no setter for final
-    private final Set<Integer> hits = new HashSet<>();
+    private final Set<String> hits = new HashSet<>();
 
-    public String checkYourself(String guess) {
+    public Ship() {
+    }
+
+    public Ship(String name) {
+        this.name = name;
+    }
+
+    public String checkYourself(String guess, List<String> locationCells) {
         String result = "no hit";
-        for (Integer cell : locationCells) {
-            if (Integer.parseInt(guess) == cell) {
+        for (String cell : locationCells) {
+            if (guess.equals(cell)) {
                 checkNumOfHits(guess, cell);
                 result = checkHitsResult(guess);
-                hits.add(Integer.parseInt(guess));
+                hits.add(guess);
                 System.out.println(hits);
                 break;
             }
@@ -25,11 +33,11 @@ public class Ship {
         return result;
     }
 
-    public void setLocationCells(int[] locationCells) {
+    public void setLocationCells(List<String> locationCells) {
         this.locationCells = locationCells;
     }
 
-    public int[] getLocationCells() {
+    public List<String> getLocationCells() {
         return locationCells;
     }
 
@@ -39,16 +47,17 @@ public class Ship {
 
     private String checkHitsResult(String guess) {
         String result = "hit";
-        if (numOfHits == locationCells.length)
+        if (numOfHits == locationCells.size())
             result = "destroy";
-        else if (hits.contains(Integer.parseInt(guess)))
+        else if (hits.contains(guess))
             result = "repeated hit";
         return result;
     }
 
-    private void checkNumOfHits(String guess, int cell) {
-        if (Integer.parseInt(guess) == cell)
-            if (!hits.contains(Integer.parseInt(guess)))
+    private void checkNumOfHits(String guess, String cell) {
+        if (guess.equals(cell)) {
+            if (!hits.contains(guess))
                 numOfHits++;
+        }
     }
 }
