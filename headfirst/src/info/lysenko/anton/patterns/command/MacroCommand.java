@@ -12,7 +12,6 @@ public class MacroCommand implements Command {
     public void execute() {
         for (Command command : commands) {
                 command.execute();
-
         }
     }
 

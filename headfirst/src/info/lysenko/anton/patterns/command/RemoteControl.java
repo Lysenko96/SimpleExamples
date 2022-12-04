@@ -14,10 +14,10 @@ public class RemoteControl {
 
         Command noCommand = new NoCommand();
         for (int i = 0; i < 7; i++) {
-            onCommands[i] = noCommand;
-            offCommands[i] = noCommand;
+            onCommands[i] = () -> {};
+            offCommands[i] = () -> {};
         }
-        undoCommand = noCommand;
+        undoCommand = () -> {};
     }
 
     public void setCommand(int slot, Command onCommand, Command offCommand) {
