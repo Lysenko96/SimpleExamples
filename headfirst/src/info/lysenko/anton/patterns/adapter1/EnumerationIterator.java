@@ -1,4 +1,4 @@
-package info.lysenko.anton.patterns.adapter2;
+package info.lysenko.anton.patterns.adapter1;
 
 import java.util.Enumeration;
 import java.util.Iterator;

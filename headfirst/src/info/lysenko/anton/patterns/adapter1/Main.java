@@ -1,4 +1,4 @@
-package info.lysenko.anton.patterns.adapter2;
+package info.lysenko.anton.patterns.adapter1;
 
 import java.util.ArrayList;
 import java.util.List;
