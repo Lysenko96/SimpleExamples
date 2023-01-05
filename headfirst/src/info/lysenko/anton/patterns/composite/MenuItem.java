@@ -1,5 +1,7 @@
 package info.lysenko.anton.patterns.composite;
 
+import java.util.Iterator;
+
 public class MenuItem extends MenuComponent {
 
     private String name;
@@ -52,6 +54,11 @@ public class MenuItem extends MenuComponent {
 
     public void print(){
         System.out.println(this);
+    }
+
+    @Override
+    public Iterator<MenuComponent> createIterator() {
+        return new NullIterator();
     }
 
     @Override

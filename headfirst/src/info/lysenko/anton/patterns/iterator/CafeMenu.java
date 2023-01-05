@@ -3,6 +3,7 @@ package info.lysenko.anton.patterns.iterator;
 import java.util.HashMap;
 import java.util.Iterator;
 
+
 public class CafeMenu implements Menu<MenuItem>{
 
     HashMap<String, MenuItem> menuItems = new HashMap<>();

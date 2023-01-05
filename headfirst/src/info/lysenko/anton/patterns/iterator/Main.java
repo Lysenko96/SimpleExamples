@@ -6,8 +6,8 @@ import java.util.*;
 
 public class Main {
 
-    MenuItem[] menuItems;
-    List<MenuItem> menuItemList;
+    public MenuItem[] menuItems;
+    public List<MenuItem> menuItemList;
 
     public static void main(String[] args) {
 //        Set<Long> set = Collections.singleton(5L);

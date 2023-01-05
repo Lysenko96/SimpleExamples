@@ -7,8 +7,11 @@ import java.util.List;
 public class Menu extends MenuComponent{
 
     private List<MenuComponent> menuComponents = new ArrayList<>();
+    private Iterator<MenuComponent> iterator = null;
     private String name;
     private String description;
+    // if not exists exception in Waitress
+    private boolean isVegetarian = false;
 
     public Menu(String name, String description) {
         this.name = name;
@@ -41,6 +44,15 @@ public class Menu extends MenuComponent{
         this.description = description;
     }
 
+    @Override
+    public boolean isVegetarian() {
+        return isVegetarian;
+    }
+
+    public void setVegetarian(boolean vegetarian) {
+        isVegetarian = vegetarian;
+    }
+
     public void print(){
         System.out.println(this);
 
@@ -49,6 +61,14 @@ public class Menu extends MenuComponent{
             MenuComponent menuComponent = iterator.next();
             menuComponent.print();
         }
+    }
+
+    @Override
+    public Iterator<MenuComponent> createIterator(){
+        if(iterator == null) {
+            iterator = new CompositeIterator(menuComponents.iterator());
+        }
+        return iterator;
     }
 
     @Override
