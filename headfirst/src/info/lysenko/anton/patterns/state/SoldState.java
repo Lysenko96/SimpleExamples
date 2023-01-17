@@ -35,4 +35,9 @@ public class SoldState implements State{
                 mainState.setState(mainState.getNoQuarterState());
             }
     }
+
+    @Override
+    public void refill() {
+
+    }
 }

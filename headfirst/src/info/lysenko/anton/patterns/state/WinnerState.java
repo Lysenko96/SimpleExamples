@@ -31,6 +31,7 @@ public class WinnerState implements State {
             mainState.setState(mainState.getWinnerState());
         } else {
             mainState.setState(mainState.getSoldState());
+            //mainState.refill(2);
         }
     }
 
@@ -50,4 +51,10 @@ public class WinnerState implements State {
 //        }
         System.out.println("No gumballs dispensed");
     }
+
+    @Override
+    public void refill() {
+
+    }
+
 }

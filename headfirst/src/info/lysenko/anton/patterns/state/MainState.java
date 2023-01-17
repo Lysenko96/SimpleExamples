@@ -11,30 +11,35 @@ public class MainState {
     private State soldOutState;
     private State winnerState;
     private int count;
+    private String location;
 
-    public MainState(int count) {
+    public MainState(String location, int count) {
+        this.location = location;
         this.count = count;
         noQuarterState = new NoQuarterState(this);
         hasQuarterState = new HasQuarterState(this);
         soldState = new SoldState(this);
         soldOutState = new SoldOutState(this);
         winnerState = new WinnerState(this);
-        if(count > 0){
+        if (count > 0) {
             state = noQuarterState;
         } else {
             state = soldOutState;
+            //refill(2);
         }
     }
 
     public static void main(String[] args) {
-        MainState mainState = new MainState(3);
-       // int value = new Random().nextInt(10);
+        MainState mainState = new MainState("location",3);
+        // int value = new Random().nextInt(10);
 
 //        if(value == 2 && mainState.getCount() > 2){
 //            mainState.setState(new WinnerState(mainState));
 //        }
 
         System.out.println(mainState);
+        Monitor monitor = new Monitor(mainState);
+        monitor.report();
 
         mainState.insertQuarter();
         mainState.turnCrank();
@@ -62,19 +67,32 @@ public class MainState {
 
     }
 
-    void insertQuarter(){
+    void insertQuarter() {
         state.insertQuarter();
     }
 
-    void ejectQuarter(){
+    void ejectQuarter() {
         state.ejectQuarter();
     }
 
-    void turnCrank(){
+    void turnCrank() {
         state.turnCrank();
         state.dispense();
     }
 
+    void refill(int count) {
+        this.count += count;
+        System.out.println("Refilled, count is: " + this.count);
+        state.refill();
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public State getNoQuarterState() {
         return noQuarterState;
@@ -136,6 +154,7 @@ public class MainState {
     public String toString() {
         return "MainState{" +
                 "count=" + count +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

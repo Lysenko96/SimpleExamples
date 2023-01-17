@@ -28,4 +28,9 @@ public class NoQuarterState implements State {
     public void dispense() {
         System.out.println("Need to pay");
     }
+
+    @Override
+    public void refill() {
+
+    }
 }
