@@ -1,5 +1,6 @@
 package info.lysenko.anton.patterns.template;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,9 @@ import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println(new BigDecimal(2).compareTo(new BigDecimal("2")) == 0 );
+        List<String> list = new ArrayList<>();
+        list.contains("");
         Coffee coffee = new Coffee();
         Tea tea = new Tea();
         tea.prepareRecipe();
