@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Entity {
 
-    private int id;
+    private long id;
     private String name;
     private Set<String> phones;
     private File file;
@@ -13,22 +13,24 @@ public class Entity {
     public Entity() {
     }
 
-    public Entity(String name) {
-        this.name = name;
-    }
-
-    public Entity(int id, String name, Set<String> phones, File file) {
+    public Entity(long id, String name, Set<String> phones, File file) {
         this.id = id;
         this.name = name;
         this.phones = phones;
         this.file = file;
     }
 
-    public int getId() {
+    public Entity(String name, Set<String> phones, File file) {
+        this.name = name;
+        this.phones = phones;
+        this.file = file;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
