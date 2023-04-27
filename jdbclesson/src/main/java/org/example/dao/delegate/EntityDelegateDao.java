@@ -9,17 +9,17 @@ public class EntityDelegateDao extends DelegateBase {
     public Long addEntity(Entity entity) throws Exception {
         DaoFactory daoFactory = getDaoFactory();
         try {
-            super.startTransaction();
+            super.startTransaction(daoFactory);
             EntityDao dao = daoFactory.getEntityDao();
             Long id = dao.add(entity);
-            super.commitTransaction();
+            super.commitTransaction(daoFactory);
             return id;
         } catch (Exception e){
             e.printStackTrace();
-            super.rollbackTransaction();
+            super.rollbackTransaction(daoFactory);
             throw new Exception(); // if comment need return
         } finally {
-            super.finalizeDaoFactory();
+            super.finalizeDaoFactory(daoFactory);
         }
     }
 }

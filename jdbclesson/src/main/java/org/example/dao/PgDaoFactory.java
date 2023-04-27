@@ -1,19 +1,29 @@
 package org.example.dao;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.example.dao.delegate.jdbc.PgEntityDao;
 import org.example.provider.Provider;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class PgDaoFactory extends DaoFactory {
 
+    public static final String JDBC_URL = "jdbc:postgresql://127.0.0.1:5432/postgres";
+    public static final String JDBC_USER = "postgres";
+    public static final String JDBC_PASSWORD = "postgresTE!";
+
     private Connection connection;
-    private volatile boolean inTransaction = false;
+    private HikariDataSource dataSource;
+    private static volatile boolean inTransaction = false;
 
     public PgDaoFactory() {
         getConnectionFromPool();
+        //setDriverManagerConnection();
     }
 
     public void startTransaction() throws Exception {
@@ -68,14 +78,39 @@ public class PgDaoFactory extends DaoFactory {
     }
 
     private void getConnectionFromPool() {
-        Connection con = null;
         try {
-            Provider provider = new Provider();
-            provider.setHikariPoolConnection();
-            DataSource dataSource = provider.getSource();
-            con = dataSource.getConnection();
-            con.setAutoCommit(false);
-            setConnection(con);
+            setHikariPoolConnection();
+            Connection conn = getConnection();
+            //System.out.println(conn);
+            conn.setAutoCommit(false);
+            setConnection(conn);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setHikariPoolConnection() {
+        String hikariCpUrl = Objects.requireNonNull(Provider.class.getClassLoader().getResource("hikaricp.properties")).getFile();
+        HikariConfig config = new HikariConfig(hikariCpUrl);
+        try {
+            HikariDataSource dataSource = new HikariDataSource(config);
+            setDataSource(dataSource);
+            Connection conn = dataSource.getConnection();
+            setConnection(conn);
+            //System.out.println(conn);
+            //getSource().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDriverManagerConnection() {
+        try {
+            Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+            System.out.println(conn);
+            conn.setAutoCommit(false);
+            setConnection(conn);
+            //conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -83,7 +118,7 @@ public class PgDaoFactory extends DaoFactory {
 
     @Override
     public EntityDao getEntityDao() {
-        return new PgEntityDao();
+        return new PgEntityDao(this);
     }
 
     public Connection getConnection() {
@@ -92,5 +127,13 @@ public class PgDaoFactory extends DaoFactory {
 
     public void setConnection(Connection connection) {
         this.connection = connection;
+    }
+
+    public HikariDataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(HikariDataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

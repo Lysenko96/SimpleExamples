@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS contacts;
-CREATE TABLE contacts
+DROP TABLE IF EXISTS entity;
+CREATE TABLE entity
 (
     id     serial PRIMARY KEY,
     name   VARCHAR(100),
