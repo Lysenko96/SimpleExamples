@@ -12,8 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        List<Dish> menu = Arrays.asList(new Dish(2000, false, "dish1"), new Dish(200, true, "dish3"), new Dish(1200, true, "dish2"));
-//
+        List<Dish> menu = Arrays.asList(new Dish(1000, false, "dish1"),
+                new Dish(200, true, "dish3"), new Dish(1200, true, "dish2"));
+
 //        List<Dish> menu2 = new ArrayList<>();
 //
 //        System.out.println(menu.stream()
@@ -42,20 +43,21 @@ public class Main {
 //        System.out.println(menu.stream().filter(Dish::isVegetarian).findAny().get());
 //        System.out.println(menu.stream().filter(Dish::isVegetarian).findAny().isPresent());
 //        System.out.println(menu.stream().filter(d -> d.getCalories() > 5000).findAny().orElseGet(() -> new Dish()));
-//        //System.out.println(menu.stream().filter(d -> d.getCalories() > 5000).findAny().orElseThrow(() -> new RuntimeException()));
-//
-////        List<Integer> someNumbers1 = new ArrayList<>(Arrays.asList(2));
-////        someNumbers1.add(1);
-////        System.out.println(someNumbers1);
-////        List<Integer> someNumbers2 = Arrays.asList(2);
-////        someNumbers2.add(1);
-////        System.out.println(someNumbers2);
-//
+//        try {
+//            System.out.println(menu.stream().filter(d -> d.getCalories() > 5000).findAny().orElseThrow(() -> new IOException()));
+//        } catch (IOException e) {}
+//        List<Integer> someNumbers1 = new ArrayList<>(Arrays.asList(2));
+//        someNumbers1.add(1);
+//        System.out.println(someNumbers1);
+//        List<Integer> someNumbers2 = Arrays.asList(2);
+//        someNumbers2.add(1);
+//        System.out.println(someNumbers2);
+
 //        List<Integer> someNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
-//        List<Integer> numbers = Arrays.asList(1, 2, 6, 3, 4);
+        List<Integer> numbers = Arrays.asList(1, 2, 3,7,7,7,2);
 //        Optional<Integer> firstSquareDivisibleByThree =
 //                someNumbers.stream()
-//                        //.parallel()
+//                        .parallel()
 //                        .map(n -> n * n)
 //                        .filter(n -> n % 3 == 0)
 //                        .findAny();
@@ -63,7 +65,8 @@ public class Main {
 //        System.out.println(firstSquareDivisibleByThree);
 //
 //        int product = numbers.stream().reduce(1, (a, b) -> a * b);
-//        int sum = numbers.stream().reduce(1, Integer::sum);
+//        //System.out.println(numbers);
+//        int sum = numbers.stream().reduce(0, Integer::sum);
 //        System.out.println(product);
 //        System.out.println(sum);
 //
@@ -72,12 +75,12 @@ public class Main {
 //
 //        System.out.println(numbers.stream().count());
 //
-//        System.out.println(numbers.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+ //       System.out.println(numbers.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
 //
-//        System.out.println(numbers.stream().collect(Collectors.toMap(Function.identity(), iterate -> 1, Math::addExact)));
+//        System.out.println(numbers.stream().collect(Collectors.toMap(Function.identity(), iterate -> 2, Math::addExact)));
 //
-//        int calories = menu.stream().mapToInt(Dish::getCalories).sum();
-//        System.out.println(calories);
+   //     int calories = menu.stream().mapToInt(Dish::getCalories).sum();
+     //   System.out.println(calories);
 //
 //
 //        Stream<String> stream = Stream.of("Java", "Spring");
@@ -86,13 +89,13 @@ public class Main {
 //        int[] arr = {2,3,4,5,6};
 //        int sumArr = Arrays.stream(arr).sum();
 //        System.out.println(sumArr);
-//
+
 //        long uniqueWords = 0;
 //        try(Stream<String> lines = Files.lines(Paths.get("data.txt"))){
-//            uniqueWords = lines.flatMap(line -> Arrays.stream(line.split("")))
+//            uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" ")))
 //                    .distinct()
 //                    .filter(w -> {
-//                        System.out.println(w);
+//                        System.out.print(w + " ");
 //                        return true;
 //                    })
 //                    .count();
@@ -110,7 +113,7 @@ public class Main {
 //                .limit(5)
 //                .forEach(System.out::println);
 //
-//        String shortMenu = menu.stream().map(Dish::getName).collect(Collectors.joining(","));
+//        String shortMenu = menu.stream().map(Dish::getName).collect(Collectors.joining(",", "x","y"));
 //        System.out.println(shortMenu);
 //
 //        int totalCalories = menu.stream().collect(Collectors.summingInt(Dish::getCalories));
