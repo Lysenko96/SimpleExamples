@@ -1,6 +1,7 @@
 package org.example.entity;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Set;
 
 public class Entity {
@@ -64,4 +65,15 @@ public class Entity {
     public byte[] getBlob() {return blob;}
 
     public void setBlob(byte[] blob) { this.blob = blob; }
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phones=" + phones +
+                ", file=" + file +
+                ", blob=" + Arrays.toString(blob) +
+                '}';
+    }
 }
