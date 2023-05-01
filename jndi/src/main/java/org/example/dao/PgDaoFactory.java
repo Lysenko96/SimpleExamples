@@ -1,29 +1,27 @@
 package org.example.dao;
 
-import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.example.dao.delegate.jdbc.PgEntityDao;
-import org.example.provider.Provider;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Objects;
 
 public class PgDaoFactory extends DaoFactory {
 
-//    public static final String JDBC_URL = "jdbc:postgresql://127.0.0.1:5432/postgres";
-//    public static final String JDBC_USER = "postgres";
-//    public static final String JDBC_PASSWORD = "postgres";
-
+    private String DATASOURCE_JNDI_NAME = "java:/comp/env/jdbc/postgres";
     private Connection connection;
     private HikariDataSource dataSource;
     private static volatile boolean inTransaction = false;
 
+    private static final int MAX_POOL_SIZE = 10;
+
     public PgDaoFactory() {
-        getConnectionFromPool();
-        //setDriverManagerConnection();
+        setupConnections();
+        getConnectionFromPool(MAX_POOL_SIZE);
     }
 
     public void startTransaction() throws Exception {
@@ -77,44 +75,24 @@ public class PgDaoFactory extends DaoFactory {
         }
     }
 
-    private void getConnectionFromPool() {
+    public void setupConnections() {
+        Context context = null;
         try {
-            setHikariPoolConnection();
-            Connection conn = getConnection();
-            //System.out.println(conn);
+            context = new InitialContext();
+            DataSource source = (DataSource) context.lookup(DATASOURCE_JNDI_NAME);
+            Connection conn = source.getConnection();
             conn.setAutoCommit(false);
             setConnection(conn);
-        } catch (SQLException e) {
+        } catch (NamingException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void setHikariPoolConnection() {
-        String hikariCpUrl = Objects.requireNonNull(Provider.class.getClassLoader().getResource("hikaricp.properties")).getFile();
-        HikariConfig config = new HikariConfig(hikariCpUrl);
-        try {
-            HikariDataSource dataSource = new HikariDataSource(config);
-            setDataSource(dataSource);
-            Connection conn = dataSource.getConnection();
-            setConnection(conn);
-            //System.out.println(conn);
-            //getSource().close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void getConnectionFromPool(int maxPoolSize){
+        setConnection(ConnectionPoolBroker.INSTANCE.getConnection(maxPoolSize));
+        setDataSource(ConnectionPoolBroker.INSTANCE.getDataSource());
     }
 
-//    public void setDriverManagerConnection() {
-//        try {
-//            Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-//            System.out.println(conn);
-//            conn.setAutoCommit(false);
-//            setConnection(conn);
-//            //conn.close();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Override
     public EntityDao getEntityDao() {
