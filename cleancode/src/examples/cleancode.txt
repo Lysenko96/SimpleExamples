@@ -1,0 +1,6 @@
+don't use short name for parameter and for method name
+use most specific exception
+add message to exception and object exception
+create custom exception if needed
+always close resource
+don't use empty catch
