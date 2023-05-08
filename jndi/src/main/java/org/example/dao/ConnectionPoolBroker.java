@@ -11,16 +11,18 @@ public enum ConnectionPoolBroker {
 
     INSTANCE;
 
+    //private static final int MAX_POOL_SIZE = 7;
     private HikariDataSource dataSource;
     private Connection connection;
 
-
-    public void initializeDataSource(int maxPoolSize) {
+    public void initializeDataSource() {
         String hikariCpUrl = Objects.requireNonNull(ConnectionPoolBroker.class.getClassLoader().getResource("hikaricp.properties")).getFile();
         HikariConfig config = new HikariConfig(hikariCpUrl);
-        config.setMaximumPoolSize(maxPoolSize);
+        //config.setMaximumPoolSize(maxPoolSize);
+        System.out.println(config.getMaximumPoolSize());
         try {
             HikariDataSource dataSource = new HikariDataSource(config);
+            System.out.println(dataSource.getMaximumPoolSize() + " setupHikari");
             setDataSource(dataSource);
             Connection conn = dataSource.getConnection();
             conn.setAutoCommit(false);
@@ -31,8 +33,8 @@ public enum ConnectionPoolBroker {
         }
     }
 
-    public Connection getConnection(int maxPoolSize){
-        initializeDataSource(maxPoolSize);
+    public Connection getConnection(){
+        initializeDataSource();
         return connection;
     }
 
