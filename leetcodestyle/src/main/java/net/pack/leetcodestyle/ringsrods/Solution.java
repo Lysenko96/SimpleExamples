@@ -1,6 +1,7 @@
 package net.pack.leetcodestyle.ringsrods;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +32,7 @@ public class Solution {
                     uniqueL.add(ring.getColor());
                 }
             }
-            if(uniqueL.containsAll(List.of("R", "G", "B"))){
+            if(uniqueL.containsAll(Arrays.asList("R", "G", "B"))){
                 count++;
             }
         }
