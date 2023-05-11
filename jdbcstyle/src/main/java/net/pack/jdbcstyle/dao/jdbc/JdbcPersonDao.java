@@ -1,10 +1,6 @@
 package net.pack.jdbcstyle.dao.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +27,10 @@ public class JdbcPersonDao implements PersonDao {
 	@Override
 	public void add(Person person) {
 		try (Connection conn = provider.getConnection();
+
 				PreparedStatement st = conn.prepareStatement(ADD_PERSON, Statement.RETURN_GENERATED_KEYS)) {
+			DatabaseMetaData databaseMetaData = conn.getMetaData();
+			System.out.println(conn.getTransactionIsolation());
 			st.setString(1, person.getName());
 			st.setString(2, person.getSurname());
 			st.setString(3, person.getSex().name());
@@ -40,7 +39,7 @@ public class JdbcPersonDao implements PersonDao {
 			st.setString(6, person.getAddress());
 			st.setInt(7, person.getPhone());
 			st.setString(8, person.getPostCode());
-			st.executeUpdate();
+			st.execute();
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
 				long key = rs.getInt("id");
@@ -54,26 +53,28 @@ public class JdbcPersonDao implements PersonDao {
 	@Override
 	public void addBatch(List<Person> persons) {
 		try (Connection conn = provider.getConnection();) {
-			//try (PreparedStatement st = conn.prepareStatement(ADD_PERSON, Statement.RETURN_GENERATED_KEYS)) {
-			try (Statement st = conn.createStatement()) {
+			try (PreparedStatement st = conn.prepareStatement(ADD_PERSON, Statement.RETURN_GENERATED_KEYS)) {
+			//try (Statement st = conn.createStatement()) {
 				conn.setAutoCommit(false);
-				//for (Person person : persons) {
-//					st.setString(1, person.getName());
-//					st.setString(2, person.getSurname());
-//					st.setString(3, person.getSex().name());
-//					st.setString(4, person.getEmail());
-//					st.setInt(5, person.getYear());
-//					st.setString(6, person.getAddress());
-//					st.setInt(7, person.getPhone());
-//					st.setString(8, person.getPostCode());
-					st.addBatch(ADD_PERSON_STATEMENT);
-				    st.addBatch(ADD_PERSON_TEST_STATEMENT);
-				//ResultSet rs = st.getGeneratedKeys();
-//					if (rs.next()) {
-//						long key = rs.getInt("id");
-//						person.setId(key);
-//					}
-				//}
+				for (Person person : persons) {
+					st.setString(1, person.getName());
+					st.setString(2, person.getSurname());
+					st.setString(3, person.getSex().name());
+					st.setString(4, person.getEmail());
+					st.setInt(5, person.getYear());
+					st.setString(6, person.getAddress());
+					st.setInt(7, person.getPhone());
+					st.setString(8, person.getPostCode());
+//					st.addBatch(ADD_PERSON_STATEMENT);
+//				    st.addBatch(ADD_PERSON_TEST_STATEMENT);
+					st.addBatch();
+				ResultSet rs = st.getGeneratedKeys();
+					if (rs.next()) {
+						long key = rs.getInt("id");
+						person.setId(key);
+					}
+				}
+
 				st.executeBatch();
 				conn.commit();
 			} catch (SQLException e) {
@@ -94,20 +95,20 @@ public class JdbcPersonDao implements PersonDao {
 	public List<Person> getAll() {
 		List<Person> persons = new ArrayList<>();
 		try (Connection conn = provider.getConnection();
-				PreparedStatement st = conn.prepareStatement(GET_ALL_PERSONS)) {
-			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				long id = rs.getInt("id");
-				String name = rs.getString("name");
-				String surname = rs.getString("surname");
-				Sex sex = Sex.valueOf(rs.getString("sex"));
-				String email = rs.getString("email");
-				int year = rs.getInt("year");
-				String address = rs.getString("address");
-				int phone = rs.getInt("phone");
-				String postCode = rs.getString("postcode");
-				persons.add(new Person(id, name, surname, sex, email, year, address, phone, postCode));
-			}
+				Statement st = conn.createStatement()) {
+			st.execute(GET_ALL_PERSONS);
+//			while (rs.next()) {
+//				long id = rs.getInt("id");
+//				String name = rs.getString("name");
+//				String surname = rs.getString("surname");
+//				Sex sex = Sex.valueOf(rs.getString("sex"));
+//				String email = rs.getString("email");
+//				int year = rs.getInt("year");
+//				String address = rs.getString("address");
+//				int phone = rs.getInt("phone");
+//				String postCode = rs.getString("postcode");
+//				persons.add(new Person(id, name, surname, sex, email, year, address, phone, postCode));
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

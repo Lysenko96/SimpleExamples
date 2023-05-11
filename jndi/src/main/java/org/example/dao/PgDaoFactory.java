@@ -17,11 +17,11 @@ public class PgDaoFactory extends DaoFactory {
     private HikariDataSource dataSource;
     private static volatile boolean inTransaction = false;
 
-    private static final int MAX_POOL_SIZE = 10;
+
 
     public PgDaoFactory() {
-        setupConnections();
-        getConnectionFromPool(MAX_POOL_SIZE);
+        //setupConnections();
+        getConnectionFromPool();
     }
 
     public void startTransaction() throws Exception {
@@ -88,8 +88,8 @@ public class PgDaoFactory extends DaoFactory {
         }
     }
 
-    public void getConnectionFromPool(int maxPoolSize){
-        setConnection(ConnectionPoolBroker.INSTANCE.getConnection(maxPoolSize));
+    public void getConnectionFromPool(){
+        setConnection(ConnectionPoolBroker.INSTANCE.getConnection());
         setDataSource(ConnectionPoolBroker.INSTANCE.getDataSource());
     }
 

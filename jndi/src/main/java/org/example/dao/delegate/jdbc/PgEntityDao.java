@@ -18,10 +18,10 @@ import java.util.List;
 
 public class PgEntityDao extends BaseDao implements EntityDao {
 
-    public static final String PATH_FILE = "/home/user/IdeaProjects/jndi/src/main/resources/file.txt";
-    public static final String PATH_FILE_NEXT = "/home/user/IdeaProjects/jndi/src/main/resources/file_next.txt";
-    public static final String PATH_FILE_UPDATE = "/home/user/IdeaProjects/jndi/src/main/resources/file_update.txt";
-    public static final String PATH_FILE_FROM_DB = "/home/user/IdeaProjects/jndi/src/main/resources/file_from_db_";
+    public static final String PATH_FILE = "/home/user/Documents/SimpleExamples/jndi/src/main/resources/file.txt";
+    public static final String PATH_FILE_NEXT = "/home/user/Documents/SimpleExamples/jndi/src/main/resources/file_next.txt";
+    public static final String PATH_FILE_UPDATE = "/home/user/Documents/SimpleExamples/jndi/src/main/resources/file_update.txt";
+    public static final String PATH_FILE_FROM_DB = "/home/user/Documents/SimpleExamples/jndi/src/main/resources/file_from_db_";
     public static final String TXT = ".txt";
     private static final String ADD_ENTITY = "INSERT INTO entity (name, phones, file, blob) values (?,?,?,?)";
     private static final String GET_ALL_ENTITIES = "SELECT * FROM entity";
@@ -79,6 +79,7 @@ public class PgEntityDao extends BaseDao implements EntityDao {
             Connection conn = pgDaoFactory.getConnection();
             ps = conn.prepareStatement(GET_ALL_ENTITIES);
             rs = ps.executeQuery();
+            System.out.println(rs.getMetaData().getColumnCount());
             while (rs.next()) {
                 Entity entity = new Entity();
                 entity.setId(rs.getLong("id"));
@@ -94,7 +95,12 @@ public class PgEntityDao extends BaseDao implements EntityDao {
                 }
                 is.close();
                 os.close();
-                entity.setFile(new File(PATH_FILE_FROM_DB + index + TXT));
+                File file = new File(PATH_FILE_FROM_DB + index + TXT);
+                if(file.exists())
+                    entity.setFile(file);
+                else
+                    entity.setFile(null);
+
                 Blob blob = rs.getBlob("blob");
                 entity.setBlob(blob.getBytes(1, (int) blob.length()));
                 index++;
@@ -133,7 +139,12 @@ public class PgEntityDao extends BaseDao implements EntityDao {
                 }
                 is.close();
                 os.close();
-                entity.setFile(new File(PATH_FILE_FROM_DB + index + TXT));
+                File file = new File(PATH_FILE_FROM_DB + index + TXT);
+                if(file.exists())
+                    entity.setFile(file);
+                else
+                    entity.setFile(null);
+
                 Blob blob = rs.getBlob("blob");
                 entity.setBlob(blob.getBytes(1, (int) blob.length()));
                 index++;
