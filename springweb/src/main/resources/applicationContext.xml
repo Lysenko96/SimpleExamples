@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dog"  class="org.gweep.springweb.entity.Dog"></bean>
+    <bean id="dogWithParam"  class="org.gweep.springweb.entity.Dog"><property name="name" value="doggy"></property>
+    <property name="age" value="4"></property></bean>
+    <bean id="cat" class="org.gweep.springweb.entity.Cat"></bean>
+    <bean id="personPetDog" class="org.gweep.springweb.entity.Person"><constructor-arg ref="dog"></constructor-arg></bean>
+    <bean id="personPetCat" class="org.gweep.springweb.entity.Person"><constructor-arg ref="cat"></constructor-arg></bean>
+    <bean id="person" class="org.gweep.springweb.entity.Person"></bean>
+    <bean id="personSetterPetDog" class="org.gweep.springweb.entity.Person"><property name="pet" ref="dog"></property></bean>
+</beans>
