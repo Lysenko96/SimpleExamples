@@ -1,7 +1,9 @@
 package org.gweep.springweb.entity;
 
 import org.gweep.springweb.iface.Pet;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Cat implements Pet {
 
     public Cat() {

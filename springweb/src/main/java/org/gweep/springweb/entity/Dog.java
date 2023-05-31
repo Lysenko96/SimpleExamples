@@ -1,7 +1,9 @@
 package org.gweep.springweb.entity;
 
 import org.gweep.springweb.iface.Pet;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Dog implements Pet {
 
     private String name;
@@ -38,5 +40,27 @@ public class Dog implements Pet {
     @Override
     public void say(){
         System.out.println("Bow-wow");
+    }
+    public String bye(){
+        return "Bye...";
+    }
+
+    // access different public private protected
+    public int init(){
+        System.out.println("Hello bean!");
+        return 5;
+    }
+
+    public void destroy() {
+        System.out.println("Bye bye!");
+    }
+
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

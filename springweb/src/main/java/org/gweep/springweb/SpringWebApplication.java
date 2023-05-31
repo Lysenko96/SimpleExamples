@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
@@ -23,34 +24,47 @@ public class SpringWebApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringWebApplication.class, args);
         SpringWebApplication webApplication = new SpringWebApplication();
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        //Pet dog = context.getBean("dog", Pet.class);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext( "applicationContext2.xml","applicationContext3.xml");
+        //Dog dog = context.getBean("dog", Dog.class);
        // Pet cat = context.getBean("cat", Pet.class);
 //        List<Pet> pets = new ArrayList<>(Arrays.asList(dog, cat));
 //        webApplication.say(pets);
-       // Person person = context.getBean("person", Person.class);
+        Person person = context.getBean("person", Person.class);
         // hardcode dependency
 //        person.setPet(cat);
-//        person.callPet();
+        person.callAllPet();
         // dependency injection (first created all object in container after use it)
        // Person personPetDog = context.getBean("personPetDog", Person.class);
-        Person personPetCat = context.getBean("personPetCat", Person.class);
+        //Person personPetCat = context.getBean("personPetCat", Person.class);
         //Person personSetterPetDog = context.getBean("personSetterPetDog", Person.class);
        // personPetDog.callPet();
-        personPetCat.callPet();
+       // personPetCat.callPet();
        // personSetterPetDog.callPet();
 
-//        Pet dog = context.getBean("dogWithParam", Pet.class);
-//        System.out.println(((Dog)dog).getName());
-//        System.out.println(((Dog)dog).getAge());
+//        Dog dog = context.getBean("dogWithParam", Dog.class);
+//        Dog dog2 = context.getBean("dogWithParam", Dog.class);
+//        int value = dog.init();
+//        System.out.println(value);
+        //Pet dog2 = context.getBean("dogWithParam", Dog.class);
+        //((Dog)dog).bye();
+
+//        Pet dog3 = context.getBean("dogWithParamSingle", Pet.class);
+//        Pet dog4 = context.getBean("dogWithParamSingle", Pet.class);
+
+//        ((Dog)dog).setName("Teddy");
+        //System.out.println(dog);
+//        System.out.println(dog2);
+//        ((Dog)dog3).setName("Teddy123");
+//        System.out.println(dog3);
+//        System.out.println(dog4);
 
         context.close();
     }
 
-    public void say(List<Pet> pets){
-        for(Pet pet : pets) {
-            pet.say();
-        }
-    }
+//    public void say(List<Pet> pets){
+//        for(Pet pet : pets) {
+//            pet.say();
+//        }
+//    }
 
 }
