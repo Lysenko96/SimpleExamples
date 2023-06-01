@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class Person {
 
 
@@ -18,22 +18,30 @@ public class Person {
         System.out.println("Created person");
     }
 
-    //@Autowired
-    public Person(@Qualifier(value = "cat")Pet pet) {
+    public Person(Pet pet) {
+        System.out.println("Created person pet");
         this.pet = pet;
     }
 
-    @Autowired // @Autowired cannot have more than one constructor
-    public Person(@Qualifier(value = "cat")Pet pet, @Qualifier(value = "dog")Pet pet2) {
-        this.pet = pet;
-        this.pet2 = pet2;
-    }
+    //@Autowired
+//    public Person(@Qualifier("cat")Pet pet) {
+//        System.out.println("cat @Autowired");
+//        this.pet = pet;
+//    }
+//
+    //@Autowired // @Autowired cannot have more than one constructor
+    // @Qualifier cannot use pre constructor
+//    public Person(@Qualifier("cat")Pet pet, @Qualifier("dog")Pet pet2) {
+//        System.out.println("cat-dog @Autowired");
+//        this.pet = pet;
+//        this.pet2 = pet2;
+//    }
 
     public Pet getPet() {
         return pet;
     }
     //@Autowired // can use any method not only setter
-    public void setPet(@Qualifier(value = "dog")Pet pet) {
+    public void setPet(@Qualifier("dog")Pet pet) {
         System.out.println("Set pet");
         this.pet = pet;
     }

@@ -7,7 +7,8 @@
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="org.gweep.springweb.*"></context:component-scan>
-
+<!--    <context:component-scan base-package="org.gweep.springweb.*"></context:component-scan>-->
+<!--    <bean id="dog"  class="org.gweep.springweb.entity.Dog"></bean>-->
+<!--    <bean id="cat" class="org.gweep.springweb.entity.Cat"></bean>-->
 
 </beans>
