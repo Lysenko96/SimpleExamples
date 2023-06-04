@@ -1,9 +1,11 @@
 package org.gweep.springweb.entity;
 
 import org.gweep.springweb.iface.Pet;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
+//@Scope("prototype")
 public class Cat implements Pet {
 
     public Cat() {

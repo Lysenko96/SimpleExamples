@@ -1,12 +1,21 @@
 package org.gweep.springweb.entity;
 
 import org.gweep.springweb.iface.Pet;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+//@Component
+//@Scope("singleton") // default scope
+//@Scope("prototype")
 public class Dog implements Pet {
 
+    @Value("${dog.name}")
     private String name;
+    @Value("${dog.age}")
     private int age;
 
     public Dog() {
@@ -46,11 +55,13 @@ public class Dog implements Pet {
     }
 
     // access different public private protected
+    //@PostConstruct
     public int init(){
         System.out.println("Hello bean!");
         return 5;
     }
 
+    //@PreDestroy
     public void destroy() {
         System.out.println("Bye bye!");
     }
