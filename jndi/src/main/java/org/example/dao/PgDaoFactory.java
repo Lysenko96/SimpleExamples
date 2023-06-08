@@ -12,7 +12,7 @@ import java.util.Enumeration;
 public class PgDaoFactory extends DaoFactory {
 
     private String DATASOURCE_JNDI_NAME = "java:/comp/env/jdbc/postgres";
-    private String DATASOURCE_JNDI_NAME_HIKARI = "hikari";
+    private String DATASOURCE_JNDI_NAME_HIKARI = "hikari/test";
     private Connection connection;
     private HikariDataSource dataSource;
     private static volatile boolean inTransaction = false;
@@ -81,18 +81,20 @@ public class PgDaoFactory extends DaoFactory {
         Context context = null;
         try {
             context = new InitialContext();
-           // DataSource source = (DataSource) context.lookup(DATASOURCE_JNDI_NAME);
-            Name objectName = new CompositeName(DATASOURCE_JNDI_NAME_HIKARI);
-            Enumeration<String> elements = objectName.getAll();
+            DataSource source = (DataSource) context.lookup(DATASOURCE_JNDI_NAME);
+            Name objectName = new CompositeName(DATASOURCE_JNDI_NAME);
+            Name objectName1 = new CompositeName(DATASOURCE_JNDI_NAME_HIKARI);
+//            context.createSubcontext("test");
+            Enumeration<String> elements = objectName1.getAll();
             while(elements.hasMoreElements()) {
                 System.out.println(elements.nextElement());
             }
             getConnectionFromPool();
             //System.out.println(dataSource);
 
-            if(!isBind) context.bind(DATASOURCE_JNDI_NAME_HIKARI, dataSource);
+            if(!isBind) context.bind(objectName1, dataSource);
 
-            HikariDataSource hikariDataSource = (HikariDataSource) context.lookup(DATASOURCE_JNDI_NAME_HIKARI);
+            HikariDataSource hikariDataSource = (HikariDataSource) context.lookup(objectName1);
             Connection conn = hikariDataSource.getConnection();
             System.out.println("getMaximumPoolSize: " + hikariDataSource.getHikariConfigMXBean().getMaximumPoolSize());
             conn.setAutoCommit(false);
