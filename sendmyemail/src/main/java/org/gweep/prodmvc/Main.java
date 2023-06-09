@@ -37,9 +37,9 @@ public class Main {
         Session session = Session.getDefaultInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                //return new PasswordAuthentication(emailAddressTo, "emzviudnvjlnyvmz");
-                return new PasswordAuthentication(emailAddressTo, "nbbedifaetenazbw");
-                //return new PasswordAuthentication(emailAddressTo, "mawrbilhksvprmmx");
+                //return new PasswordAuthentication(emailAddressTo, "emzviudnvjlnyvmzzxc");
+                return new PasswordAuthentication(emailAddressTo, "nbbedifaetenazbwzxc");
+                //return new PasswordAuthentication(emailAddressTo, "mawrbilhksvprmmxzxc");
             }
         });
 
