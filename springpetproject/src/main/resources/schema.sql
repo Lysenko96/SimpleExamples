@@ -1,6 +1,6 @@
-drop table if exists person;
+DROP TABLE IF EXISTS person;
 
-create table person(
+CREATE TABLE person(
     id SERIAL PRIMARY KEY,
     firstname VARCHAR(32),
     lastname VARCHAR(32),
@@ -11,4 +11,14 @@ create table person(
     address VARCHAR(32),
     phone VARCHAR(32),
     role VARCHAR(32)
-)
+);
+
+DROP TABLE IF EXISTS task;
+
+CREATE TABLE task(
+  id SERIAL PRIMARY KEY,
+  person_id BIGINT,
+  name VARCHAR(64),
+  description VARCHAR(256),
+  status VARCHAR(32)
+);
