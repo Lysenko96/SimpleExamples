@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,8 +21,9 @@ public class Person {
     private String address;
     private String phone;
     private Role role;
+    private List<Task> tasks;
 
-    public Person(String firstname, String lastname, String login, String password, int year, String email, String address, String phone, Role role) {
+    public Person(String firstname, String lastname, String login, String password, int year, String email, String address, String phone, Role role, List<Task> tasks) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
@@ -30,5 +33,6 @@ public class Person {
         this.address = address;
         this.phone = phone;
         this.role = role;
+        this.tasks = tasks;
     }
 }
