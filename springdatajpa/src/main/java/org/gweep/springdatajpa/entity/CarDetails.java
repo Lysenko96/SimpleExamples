@@ -3,7 +3,8 @@ package org.gweep.springdatajpa.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+
+@jakarta.persistence.Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,32 +12,22 @@ import lombok.*;
 public class CarDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "car_id")
-    private long carId;
     private String description;
-    // link to Car from CarDetails (two-way communication)
-    @OneToOne
-    @JoinColumn(name = "id")
+    // link to CarDetails from Car (two-way communication)
+    @OneToOne(mappedBy = "carDetails")
     private Car car;
 
-    public CarDetails(long carId, String description) {
-        this.carId = carId;
+    public CarDetails(String description, Car car) {
         this.description = description;
-    }
-
-    public CarDetails(long id, long carId, String description) {
-        this.id = id;
-        this.carId = carId;
-        this.description = description;
+        this.car = car;
     }
 
     @Override
     public String toString() {
         return "CarDetails{" +
                 "id=" + id +
-                ", carId=" + carId +
                 ", description='" + description + '\'' +
                 '}';
     }

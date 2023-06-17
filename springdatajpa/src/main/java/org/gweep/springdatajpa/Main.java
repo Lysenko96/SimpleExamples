@@ -14,18 +14,29 @@ public class Main {
         Session session = sessionFactory.getCurrentSession();
 
         session.beginTransaction();
-//        CarDetails carDetails = new CarDetails(1L, "SCC Tautara");
-//        Car car = new Car("SCC", "Tautara", 502.233, carDetails);
-//        Car car2 = new Car("SCC2", "Tautara2", 493.233, carDetails);
-//        System.out.println(car);
-//        session.persist(car);
-//        session.persist(car2);
-//        System.out.println(car);
-//        session.merge(new Car(1L, "SCC1", "Tautara1", 502.23555, carDetails));
+        CarDetails carDetails = new CarDetails("SCC Tautara", null);
+        CarDetails carDetails2 = new CarDetails("SCC Tautara2", null);
+        session.persist(carDetails);
+        session.persist(carDetails2);
+        Car car = new Car("SCC", "Tautara", 502.233, carDetails);
+        Car car2 = new Car("SCC2", "Tautara2", 493.233, carDetails2);
+        System.out.println(car);
+        session.persist(car);
+        carDetails.setCar(car);
+        //carDetails2.setCar(car2);
+        //session.merge(new Car(1L, "SCC1", "Tautara1", 502.23555, carDetails));
+        session.persist(car2);
+        carDetails2.setCar(car2);
+        System.out.println(car);
+        //session.merge(new Car(1L, "SCC1", "Tautara1", 502.23555, carDetails));
         Car carDb = session.get(Car.class, 1L);
+        Car carDb2 = session.get(Car.class, 2L);
         System.out.println(carDb);
         System.out.println(carDb.getCarDetails());
         System.out.println(carDb.getCarDetails().getCar());
+        System.out.println(carDb2);
+        System.out.println(carDb2.getCarDetails());
+        System.out.println(carDb2.getCarDetails().getCar());
 //        System.out.println("hql: " + session.createQuery("FROM  Car where id=2", Car.class).getSingleResult()); // set class name, not table name in sql query
 //        System.out.println("hql wildcard: " + session.createQuery("FROM  Car where id= :id", Car.class).setParameter("id", 2).getSingleResult());
 //        System.out.println("get: " + carDb);
@@ -36,6 +47,7 @@ public class Main {
 
 
         sessionFactory.close();
+
     }
 
 }

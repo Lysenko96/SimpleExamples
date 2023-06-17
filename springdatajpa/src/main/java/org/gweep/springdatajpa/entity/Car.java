@@ -1,8 +1,8 @@
 package org.gweep.springdatajpa.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
+
 
 @Entity
 @Data
@@ -18,7 +18,7 @@ public class Car {
     private double speed;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "details_id")
     private CarDetails carDetails;
 
     public Car(String name, String model, double speed, CarDetails carDetails) {
