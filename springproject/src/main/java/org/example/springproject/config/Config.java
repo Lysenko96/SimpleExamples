@@ -2,12 +2,15 @@ package org.example.springproject.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.example.springproject.dao.jdbc.mapper.PersonMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +20,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("classpath:application.properties")
+@ComponentScan("org.example.springproject")
 public class Config {
 
     @Value("${db.url}")
@@ -28,7 +32,7 @@ public class Config {
     @Value("${db.maxPoolSize}")
     private int maxPoolSize;
 
-    private static final String BCRYPT = "bcrypt";
+    //private static final String BCRYPT = "bcrypt";
 
 
     @Bean
@@ -52,6 +56,8 @@ public class Config {
         return new JdbcTemplate(dataSource);
     }
 
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
 //        Map<String, PasswordEncoder> encoders = new HashMap<>();
@@ -59,4 +65,9 @@ public class Config {
 //        return new DelegatingPasswordEncoder(BCRYPT, encoders);
         return new BCryptPasswordEncoder();
     }
+
+//    @Bean
+//    public PersonMapper personMapper(){
+//        return new PersonMapper();
+//    }
 }

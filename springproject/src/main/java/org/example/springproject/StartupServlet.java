@@ -3,11 +3,14 @@ package org.example.springproject;
 import org.example.springproject.config.Config;
 import org.example.springproject.dao.PersonDao;
 import org.example.springproject.dao.jdbc.JdbcPersonDao;
+import org.example.springproject.dao.jdbc.mapper.PersonMapper;
 import org.example.springproject.model.Person;
+import org.example.springproject.service.PersonService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -17,20 +20,32 @@ public class StartupServlet  {
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-        System.out.println(context);
-        Config config = context.getBean("config", Config.class);
-        System.out.println(config);
-        DataSource ds = config.dataSource();
+//        System.out.println(context);
+//        Config config = context.getBean("config", Config.class);
+//        System.out.println(config);
+//        DataSource ds = config.dataSource();
+       // PasswordEncoder passwordEncoder = context.getBean("passwordEncoder", PasswordEncoder.class);
 //        System.out.println(ds);
 //        Connection conn = ds.getConnection();
 //        System.out.println(conn);
 //        conn.close();
 //        System.out.println(conn);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
+        //JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
 //        System.out.println(jdbcTemplate);
-        PersonDao personDao = new JdbcPersonDao(jdbcTemplate, context);
-        Person person = new Person("name", "surname", 1991, "login", "anton1234", "mail.gmail.com", 911, 4);
-        personDao.add(person);
+        //PersonMapper personMapper = context.getBean("personMapper", PersonMapper.class);
+        //PersonDao personDao = new JdbcPersonDao(jdbcTemplate, passwordEncoder, personMapper);
+        //PersonDao personDao = context.getBean("jdbcPersonDao", JdbcPersonDao.class);
+        PersonService personService = context.getBean("personService", PersonService.class);
+        Person person = new Person("name", "surname", 1991, "login", "anton1234", "mail.gmail.com", 911, 0);
+        System.out.println(person);
+        personService.add(person);
+        System.out.println(person);
+       System.out.println(personService.getAll());
+//        person = new Person(1L,"name", "surname", 1991, "login", "anton12345", "mail.gmail.com", 911, 1);
+//        personDao.update(person);
+//        Person personDb = personDao.getById(1L);
+//        System.out.println(personDb);
+//        System.out.println(passwordEncoder.matches(person.getPassword(), personDb.getPassword()));
 //        personDao.add(person);
 //        //person = personDao.getById(1);
 //        System.out.println(person);
@@ -38,7 +53,7 @@ public class StartupServlet  {
 //        personDao.update(person);
 //        person = personDao.getById(1);
 //        System.out.println(person);
-        System.out.println(personDao.getAll());
+
 //        personDao.deleteById(person.getId());
 //        System.out.println(personDao.getAll());
     }

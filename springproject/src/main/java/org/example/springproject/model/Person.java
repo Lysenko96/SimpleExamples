@@ -19,15 +19,6 @@ public class Person {
     private int phone;
     private Integer sum;
 
-    public Person(String name, String surname, int year, String login, String password, String email, int phone) {
-        this.name = name;
-        this.surname = surname;
-        this.year = year;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-    }
 
     public Person(String name, String surname, int year, String login, String password, String email, int phone, Integer sum) {
         this.name = name;

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class JdbcTaskDao implements TaskDao {
 
-    private static final String ADD_TASK = "INSERT INTO task (firstname, lastname, login, password, year, email, address, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String ADD_TASK = "INSERT INTO task (name, description, status) VALUES (?, ?, ?)";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -24,19 +24,13 @@ public class JdbcTaskDao implements TaskDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(conn -> {
             PreparedStatement ps = conn.prepareStatement(ADD_TASK, new String[]{"id"});
-            ps.setString(1, person.getFirstname());
-            ps.setString(2, person.getLastname());
-            ps.setString(3, person.getLogin());
-            ps.setString(4, person.getPassword());
-            ps.setInt(5, person.getYear());
-            ps.setString(6, person.getEmail());
-            ps.setString(7, person.getAddress());
-            ps.setString(8, person.getPhone());
-            ps.setString(9, person.getRole().name());
+            ps.setString(1, task.getName());
+            ps.setString(2, task.getDescription());
+            ps.setString(3, task.getStatus().name());
             return ps;
         }, keyHolder);
         Number number = keyHolder.getKey();
-        if (number != null) person.setId(number.longValue());
+        if (number != null) task.setId(number.longValue());
     }
 
     @Override
