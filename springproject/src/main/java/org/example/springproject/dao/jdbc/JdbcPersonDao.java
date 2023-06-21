@@ -9,14 +9,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Objects;
 
 public class JdbcPersonDao implements PersonDao {
 
-    private static final String ADD_PERSON = "INSERT INTO person (name, surname, year, login, password, email, phone) VALUES (?,?,?,?,?,?,?)";
-    private static final String GET_ALL_PERSONS = "SELECT * FROM person";
+    private static final String ADD_PERSON = "INSERT INTO person (name, surname, year, login, password, email, phone, sum) VALUES (?,?,?,?,?,?,?,?)";
+    private static final String GET_ALL_PERSONS = "SELECT *, sum(person) FROM person GROUP BY person.id";
+    //private static final String GET_ALL_PERSONS = "SELECT * FROM person";
     private static final String GET_PERSON_BY_ID = "SELECT * FROM person WHERE id=?";
     private static final String UPDATE_PERSON = "UPDATE person SET name=?, surname=?, year=?, login=?, password=?, email=?, phone=? WHERE id=?";
     private static final String DELETE_PERSON_BY_ID = "DELETE FROM person WHERE id=?";
@@ -42,9 +45,10 @@ public class JdbcPersonDao implements PersonDao {
             ps.setString(5, encoder.encode(person.getPassword()));
             ps.setString(6, person.getEmail());
             ps.setInt(7, person.getPhone());
+            ps.setInt(8, person.getSum() != null ? person.getSum() : 0);
             return ps;
         }, keyHolder);
-        person.setId(keyHolder.getKey().longValue());
+        person.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
     }
 
     @Override
@@ -65,5 +69,13 @@ public class JdbcPersonDao implements PersonDao {
     @Override
     public void deleteById(long id) {
         jdbcTemplate.update(DELETE_PERSON_BY_ID, id);
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 }

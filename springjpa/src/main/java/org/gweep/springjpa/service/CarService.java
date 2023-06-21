@@ -2,7 +2,6 @@ package org.gweep.springjpa.service;
 
 import org.gweep.springjpa.entity.Car;
 import org.gweep.springjpa.repository.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

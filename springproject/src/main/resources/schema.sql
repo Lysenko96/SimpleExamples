@@ -9,5 +9,6 @@ create table person
     login    varchar(32),
     password varchar(128),
     email    varchar(32),
-    phone    integer
+    phone    integer,
+    sum      integer
 );
