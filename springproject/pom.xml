@@ -7,7 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>springproject</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>springproject</name>
+    <name>SpringProject</name>
     <packaging>war</packaging>
 
     <properties>
@@ -20,7 +20,7 @@
         <HikariCP.version>5.0.1</HikariCP.version>
         <slf4j.version>1.7.36</slf4j.version>
         <spring-security-core.version>5.7.2</spring-security-core.version>
-        <spring.version>5.3.22</spring.version>
+        <spring-webmvc.version>5.3.22</spring-webmvc.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <junit.version>5.8.1</junit.version>
     </properties>
@@ -28,14 +28,10 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -43,6 +39,17 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-webmvc</artifactId>-->
+<!--            <version>${spring-webmvc.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-test</artifactId>-->
+<!--            <version>${spring-webmvc.version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
@@ -79,6 +86,7 @@
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
+
 
     </dependencies>
 
