@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication // spring boot run context inside or why create two beans instead one?
 public class SpringWebApplication {
 
     public static void main(String[] args) {
