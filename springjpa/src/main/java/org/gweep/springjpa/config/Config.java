@@ -1,6 +1,5 @@
 package org.gweep.springjpa.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Objects;
 import java.util.Properties;
 
 
@@ -26,11 +26,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class Config {
 
-    @Autowired
     private Environment env;
 
-    public Config() {
+    public Config(Environment env) {
         super();
+        this.env = env;
     }
 
     @Bean("entityManagerFactory")
@@ -40,34 +40,26 @@ public class Config {
         entityManagerFactory.setPackagesToScan("org.gweep.springjpa.*");
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
-        entityManagerFactory.setJpaProperties(additionalProperties());
+        entityManagerFactory.setJpaProperties(properties());
         return entityManagerFactory;
     }
 
-    final Properties additionalProperties() {
-        final Properties hibernateProperties = new Properties();
+     private Properties properties() {
+        Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", env.getProperty("hibernate.cache.use_second_level_cache"));
-        hibernateProperties.setProperty("hibernate.cache.use_query_cache", env.getProperty("hibernate.cache.use_query_cache"));
         hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         return hibernateProperties;
     }
 
     @Bean
     public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.user"));
-        dataSource.setPassword(env.getProperty("jdbc.password"));
-        return dataSource;
+        return new DriverManagerDataSource(Objects.requireNonNull(env.getProperty("jdbc.url")),
+                Objects.requireNonNull(env.getProperty("jdbc.user")), Objects.requireNonNull(env.getProperty("jdbc.password")));
     }
 
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
-        final JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
-        return transactionManager;
+        return new JpaTransactionManager(emf);
     }
 
 }

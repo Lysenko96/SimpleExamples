@@ -13,6 +13,9 @@ public class Main {
         CarService carService = (CarService) context.getBean("carService");
         carService.save(new Car("model", "name", 223.334));
 
+        System.out.println(carService.findAllByModel("model"));
+        System.out.println(carService.findAllByNameAndSpeedAfter("name", 223.334));
+
         context.close();
     }
 }
