@@ -48,6 +48,8 @@ public class Config {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+//        hibernateProperties.setProperty("logging.level.org.springframework.transaction.interceptor", env.getProperty("logging.level.org.springframework.transaction.interceptor"));
+//        hibernateProperties.setProperty("logging.level.com.zaxxer.hikari.pool.HikariPool", env.getProperty("logging.level.com.zaxxer.hikari.pool.HikariPool"));
         return hibernateProperties;
     }
 
