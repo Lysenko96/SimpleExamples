@@ -1,21 +1,21 @@
 package org.gweep.springjpa.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.repository.Modifying;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
+//@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,10 +27,13 @@ public class Car {
     private String model;
     private String name;
     private double speed;
-    @CreationTimestamp
-    private LocalDateTime createDate;
-    @UpdateTimestamp
-    private LocalDateTime updateDate;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "cars")
+    private Set<Driver> drivers = new HashSet<>();
+//    @CreationTimestamp
+//    private LocalDateTime createDate;
+//
+//    @UpdateTimestamp
+//    private LocalDateTime updateDate;
 
     public Car(String model, String name, double speed) {
         this.model = model;
@@ -43,5 +46,15 @@ public class Car {
         this.model = model;
         this.name = name;
         this.speed = speed;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", name='" + name + '\'' +
+                ", speed=" + speed +
+                '}';
     }
 }

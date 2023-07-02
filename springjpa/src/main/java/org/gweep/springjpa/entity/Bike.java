@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Bike {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String model;
     private String name;

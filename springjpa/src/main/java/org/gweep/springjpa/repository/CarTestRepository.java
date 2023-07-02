@@ -7,9 +7,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-//@Repository
-//public abstract class CarTestRepository implements JpaRepository<Car, Long> {
-public class CarTestRepository {
+@Repository
+public abstract class CarTestRepository implements JpaRepository<Car, Long> {
+//public class CarTestRepository {
     //@Autowired
     private DataSource dataSource;
    // @Autowired
