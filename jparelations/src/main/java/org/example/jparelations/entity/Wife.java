@@ -19,12 +19,18 @@ public class Wife extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String job;
-    @OneToOne(mappedBy = "wife")
+    @OneToOne(mappedBy = "wife",  cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Husband husband;
 
     public Wife(String firstName, String lastName, String phone, String email, long id, String job, Husband husband) {
         super(firstName, lastName, phone, email);
         this.id = id;
+        this.job = job;
+        this.husband = husband;
+    }
+
+    public Wife(String firstName, String lastName, String phone, String email, String job, Husband husband) {
+        super(firstName, lastName, phone, email);
         this.job = job;
         this.husband = husband;
     }

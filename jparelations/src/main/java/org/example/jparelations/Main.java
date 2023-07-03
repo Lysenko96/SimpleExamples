@@ -13,19 +13,21 @@ public class Main {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         PersonService personService = context.getBean("personService", PersonService.class);
 
-        Wife wife = new Wife("namewife", "surnamewife", "234252", "email3", "job3");
-        Husband husband = new Husband("name", "surname", "234251", "email", "job", wife);
+        Husband husband = new Husband("name", "surname", "234251", "email", "job");
+        Wife wife = new Wife("namewife", "surnamewife", "234252", "email3", "job3", husband);
 
 
-        //personService.saveWife(wife);
+        personService.saveWife(wife);
         personService.saveHusband(husband);
 
-        Husband husbandDb = personService.getHusbandById(1L);
-        System.out.println(husbandDb);
-        System.out.println(husbandDb.getWife());
-        System.out.println(husbandDb.getWife().getHusband());
-
+      //  Husband husbandDb = personService.getHusbandById(1L);
         personService.deleteHusbandById(1L);
+//        System.out.println(husbandDb);
+//        System.out.println(husbandDb.getWife());
+//        System.out.println(husbandDb.getWife().getHusband());
+
+        //personService.deleteHusbandById(1L);
+        //personService.deleteWifeById(1L);
 
 
     }

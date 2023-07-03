@@ -28,7 +28,7 @@ public class PersonService {
         husbandRepository.save(husband);
     }
 
-    public Wife getWifeById(long id){
+    public Wife findWifeById(long id){
         return wifeRepository.findById(id).orElse(null);
     }
 
@@ -37,9 +37,11 @@ public class PersonService {
     }
 
     public void deleteHusbandById(long id) {
-        Husband husband = getHusbandById(id);
-        husband.getWife().setHusband(null);
         husbandRepository.deleteById(id);
+    }
+
+    public void deleteWifeById(long id){
+        wifeRepository.deleteById(id);
     }
 
 }

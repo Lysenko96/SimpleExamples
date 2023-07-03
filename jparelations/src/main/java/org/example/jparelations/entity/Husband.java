@@ -32,4 +32,9 @@ public class Husband extends Person  {
         this.job = job;
         this.wife = wife;
     }
+
+    public Husband(String firstName, String lastName, String phone, String email, String job) {
+        super(firstName, lastName, phone, email);
+        this.job = job;
+    }
 }
