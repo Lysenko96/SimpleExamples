@@ -2,8 +2,11 @@ package org.example.jparelations.service;
 
 
 import org.example.jparelations.entity.Husband;
+import org.example.jparelations.entity.Teacher;
 import org.example.jparelations.entity.Wife;
 import org.example.jparelations.repository.HusbandRepository;
+import org.example.jparelations.repository.StudentRepository;
+import org.example.jparelations.repository.TeacherRepository;
 import org.example.jparelations.repository.WifeRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +18,14 @@ public class PersonService {
 
     private HusbandRepository husbandRepository;
     private WifeRepository wifeRepository;
+    private StudentRepository studentRepository;
+    private TeacherRepository teacherRepository;
 
-    public PersonService(WifeRepository wifeRepository, HusbandRepository husbandRepository) {
+    public PersonService(HusbandRepository husbandRepository, WifeRepository wifeRepository, StudentRepository studentRepository, TeacherRepository teacherRepository) {
         this.husbandRepository = husbandRepository;
         this.wifeRepository = wifeRepository;
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     public void saveWife(Wife wife){
@@ -42,6 +49,10 @@ public class PersonService {
 
     public void deleteWifeById(long id){
         wifeRepository.deleteById(id);
+    }
+
+    public void saveTeacher(Teacher teacher) {
+        teacherRepository.save(teacher);
     }
 
 }
