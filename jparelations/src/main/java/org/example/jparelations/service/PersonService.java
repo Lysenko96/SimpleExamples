@@ -2,6 +2,7 @@ package org.example.jparelations.service;
 
 
 import org.example.jparelations.entity.Husband;
+import org.example.jparelations.entity.Student;
 import org.example.jparelations.entity.Teacher;
 import org.example.jparelations.entity.Wife;
 import org.example.jparelations.repository.HusbandRepository;
@@ -9,9 +10,6 @@ import org.example.jparelations.repository.StudentRepository;
 import org.example.jparelations.repository.TeacherRepository;
 import org.example.jparelations.repository.WifeRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -53,6 +51,12 @@ public class PersonService {
 
     public void saveTeacher(Teacher teacher) {
         teacherRepository.save(teacher);
+    }
+
+    public Teacher findTeacherById(long id) { return teacherRepository.findById(id).orElse(null); }
+
+    public void saveStudent(Student student) {
+        studentRepository.save(student);
     }
 
 }
