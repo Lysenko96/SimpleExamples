@@ -33,7 +33,12 @@ public class Main {
         Teacher teacher2 = new Teacher("name2", "lastname2", "22351", "email1@gmail.com", "programming", students2);
 
         personService.saveTeacher(teacher);
-        personService.saveTeacher(teacher2);
+        //personService.saveStudent(student);
+        //personService.saveTeacher(teacher2);
+
+        System.out.println(teacher.getStudents());
+        Teacher teacherDb = personService.findTeacherById(1L);
+        System.out.println(teacherDb.getStudents().get(0).getTeacher());
 
         //  Husband husbandDb = personService.getHusbandById(1L);
         //personService.deleteHusbandById(1L);
