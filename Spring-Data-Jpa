@@ -1,0 +1,31 @@
+springdatajpa - hibernate
+springjpa - jpa
+springpetproject - mvc
+springweb - spring core
+springproject - jdbc
+======================
+
+
+
+
+=======================
+oneToOne (jparelations)
+1) если добавить к 1 к 1 ещё сущность ошибка
+2) удаление каскадное и удаление отдельных сущностей
+3) каскады и их типы (пример с CascadeType.PERSIST)
+
+oneToMany (jparelations)
+1) будет работать без ManyToOne
+2) используем fetch EAGER и варинат с fetch LAZY
+
+manyToMany (jdbcmanytomany, springjpa)
+1) пример с jdbc manyToMany
+2) можно реализовать 2 способами внедрить в конструктор список и таблица смапится или через метод самому внести объекты в список маппинга
+3) обратная связь manyToMany для двух таблиц
+4) mapped - получить объекты по обратной связи
+
+hibernate (springdatajpa)
+1) достаточно засетить в сущность данные и при коммите они подтянуться без сохранения сущности
+2) кеш сессии при чтении данных с бд
+3) если не засетить объект в объект то не сможешь увидить обратную свзять oneToOne
+
