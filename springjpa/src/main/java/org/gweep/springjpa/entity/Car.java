@@ -8,9 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @Getter
@@ -28,7 +26,12 @@ public class Car {
     private String name;
     private double speed;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "cars")
-    private Set<Driver> drivers = new HashSet<>();
+    //@ManyToMany(fetch = FetchType.EAGER) // if not mapped not link to drivers from car
+    //@ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name="driver_used",
+//            joinColumns = @JoinColumn(name = "car_id"),
+//            inverseJoinColumns = @JoinColumn(name = "driver_id"))
+    private List<Driver> drivers = new ArrayList<>();
 //    @CreationTimestamp
 //    private LocalDateTime createDate;
 //

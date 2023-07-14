@@ -16,7 +16,7 @@ public class Husband extends Person  {
     private long id;
     private String job;
     @OneToOne( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) // deleted husband but not deleted wife
-    //@OneToOne(cascade = CascadeType.ALL) // deleted all
+   // @OneToOne(cascade = CascadeType.ALL) // deleted all
     @JoinColumn(name = "wife_id")
     private Wife wife;
 

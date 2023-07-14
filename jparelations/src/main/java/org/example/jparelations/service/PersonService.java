@@ -11,6 +11,9 @@ import org.example.jparelations.repository.TeacherRepository;
 import org.example.jparelations.repository.WifeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PersonService {
 
@@ -37,23 +40,42 @@ public class PersonService {
         return wifeRepository.findById(id).orElse(null);
     }
 
-    public Husband getHusbandById(long id){
+    public Husband findHusbandById(long id){
         return husbandRepository.findById(id).orElse(null);
     }
 
-    public void deleteHusbandById(long id) {
-        husbandRepository.deleteById(id);
+    public void deleteHusband(Husband husband) {
+       husbandRepository.delete(husband);
     }
 
-    public void deleteWifeById(long id){
-        wifeRepository.deleteById(id);
+    public void deleteWife(Wife wife){
+        Wife wifeDb = findWifeById(wife.getId());
+        Husband husband = findHusbandById(wifeDb.getHusband().getId());
+        husband.setWife(null);
+        saveHusband(husband);
+        wifeRepository.delete(wife);
     }
 
     public void saveTeacher(Teacher teacher) {
         teacherRepository.save(teacher);
     }
 
-    public Teacher findTeacherById(long id) { return teacherRepository.findById(id).orElse(null); }
+    public Teacher findTeacherById(long id) {
+        // get list in session before commit transaction
+//        Teacher teacher = teacherRepository.findById(id).orElse(null);
+//        if (teacher != null ) {
+//            teacher.setStudents(findAllStudentsByTeacherId(teacher.getId()));
+//            for(Student student : teacher.getStudents()) student.setTeacher(teacher);
+//            //System.out.println(teacher);
+//        }
+//        return teacher;
+        return teacherRepository.findById(id).orElse(null);
+    }
+
+    public List<Student> findAllStudentsByTeacherId(long id){
+        return studentRepository.findAllByTeacherId(id);
+    }
+
 
     public void saveStudent(Student student) {
         studentRepository.save(student);

@@ -20,6 +20,7 @@ public class Wife extends Person {
     private long id;
     private String job;
     @OneToOne(mappedBy = "wife",  cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+   // @OneToOne(mappedBy = "wife",  cascade = CascadeType.ALL)
     private Husband husband;
 
     public Wife(String firstName, String lastName, String phone, String email, long id, String job, Husband husband) {

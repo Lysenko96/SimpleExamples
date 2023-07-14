@@ -17,6 +17,7 @@ public class Teacher extends Person {
     private long id;
     private String subject;
 
+   // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
     List<Student> students;

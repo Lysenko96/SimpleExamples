@@ -3,7 +3,9 @@ package org.gweep.springjpa.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -24,7 +26,8 @@ public class Driver {
     @JoinTable(name="car_used",
     joinColumns = @JoinColumn(name = "driver_id"),
     inverseJoinColumns = @JoinColumn(name = "car_id"))
-    private Set<Car> cars = new HashSet<>();
+    //private List<Car> cars = new ArrayList<>();
+    private List<Car> cars;
     public Driver(long id, String name, String surname) {
         this.id = id;
         this.name = name;
@@ -34,6 +37,12 @@ public class Driver {
     public Driver(String name, String surname) {
         this.name = name;
         this.surname = surname;
+    }
+
+    public Driver(String name, String surname, List<Car> cars) {
+        this.name = name;
+        this.surname = surname;
+        this.cars = cars;
     }
 
     public void useCar(Car car){

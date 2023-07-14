@@ -9,6 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -25,14 +26,23 @@ public class Main {
         //System.out.println(car);
         carService.save(car);
         carService.save(car2);
-        Driver driver = new Driver( "name", "surname");
+        Driver driver = new Driver( "name", "surname", Arrays.asList(car, car2));
+       // Driver driver = new Driver( "name", "surname");
         Driver driver2 = new Driver( "name2", "surname2");
         carService.saveDriver(driver);
         carService.saveDriver(driver2);
 
-        carService.driverUseCar(driver.getId(), car.getId());
-        carService.driverUseCar(driver.getId(), car2.getId());
-        carService.driverUseCar(driver2.getId(), car.getId());
+        // if mapped link driver_used cars
+//        car.setDrivers(Arrays.asList(driver));
+//        car2.setDrivers(Arrays.asList(driver));
+//        carService.save(car);
+//        carService.save(car2);
+
+
+
+//        carService.driverUseCar(driver.getId(), car.getId());
+//        carService.driverUseCar(driver.getId(), car2.getId());
+//        carService.driverUseCar(driver2.getId(), car.getId());
 
         System.out.println(carService.findDriverById(driver.getId()));
         System.out.println(carService.findById(car.getId()).getDrivers());
