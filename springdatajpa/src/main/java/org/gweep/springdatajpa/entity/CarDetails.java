@@ -1,14 +1,21 @@
 package org.gweep.springdatajpa.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
-@jakarta.persistence.Entity
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "car_details")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CarDetails {
 
     @Id
