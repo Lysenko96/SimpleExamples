@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
 
-    @Modifying
     @Query(value = "update  car set updatedate=now() where id = ?1", nativeQuery = true)
     long updateById(long id);
 

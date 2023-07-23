@@ -26,7 +26,7 @@ public class Main {
         //System.out.println(car);
         carService.save(car);
         carService.save(car2);
-        Driver driver = new Driver( "name", "surname", Arrays.asList(car, car2));
+        Driver driver = new Driver( "name", "surname");
        // Driver driver = new Driver( "name", "surname");
         Driver driver2 = new Driver( "name2", "surname2");
         carService.saveDriver(driver);
@@ -40,9 +40,9 @@ public class Main {
 
 
 
-//        carService.driverUseCar(driver.getId(), car.getId());
-//        carService.driverUseCar(driver.getId(), car2.getId());
-//        carService.driverUseCar(driver2.getId(), car.getId());
+        carService.driverUseCar(driver.getId(), car.getId());
+        carService.driverUseCar(driver.getId(), car2.getId());
+        carService.driverUseCar(driver2.getId(), car.getId());
 
         System.out.println(carService.findDriverById(driver.getId()));
         System.out.println(carService.findById(car.getId()).getDrivers());

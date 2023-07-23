@@ -36,6 +36,10 @@ public class PersonService {
         husbandRepository.save(husband);
     }
 
+    public void deleteTeacher(Teacher teacher) {
+        teacherRepository.deleteById(teacher.getId());
+    }
+
     public Wife findWifeById(long id){
         return wifeRepository.findById(id).orElse(null);
     }
@@ -62,14 +66,15 @@ public class PersonService {
 
     public Teacher findTeacherById(long id) {
         // get list in session before commit transaction
-//        Teacher teacher = teacherRepository.findById(id).orElse(null);
-//        if (teacher != null ) {
-//            teacher.setStudents(findAllStudentsByTeacherId(teacher.getId()));
-//            for(Student student : teacher.getStudents()) student.setTeacher(teacher);
-//            //System.out.println(teacher);
-//        }
-//        return teacher;
-        return teacherRepository.findById(id).orElse(null);
+        Teacher teacher = teacherRepository.findById(id).orElse(null);
+        if (teacher != null ) {
+//            teacher.setStudents(new ArrayList<>());
+            teacher.setStudents(findAllStudentsByTeacherId(teacher.getId()));
+            for(Student student : teacher.getStudents()) student.setTeacher(teacher);
+          //  System.out.println(teacher);
+        }
+        return teacher;
+      //  return teacherRepository.findById(id).orElse(null);
     }
 
     public List<Student> findAllStudentsByTeacherId(long id){

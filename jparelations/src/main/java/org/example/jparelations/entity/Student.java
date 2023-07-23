@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,9 +23,20 @@ public class Student extends Person {
     @ManyToOne(cascade = CascadeType.ALL)
     private Teacher teacher;
 
+    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "subject_id")
+    List<Subject> subjects;
+
     public Student(String firstName, String lastName, String phone, String email, String specialization) {
         super(firstName, lastName, phone, email);
         this.specialization = specialization;
+    }
+
+    public Student(String firstName, String lastName, String phone, String email, String specialization, List<Subject> subjects) {
+        super(firstName, lastName, phone, email);
+        this.specialization = specialization;
+        this.subjects = subjects;
     }
 
     public Student(String firstName, String lastName, String phone, String email, String specialization, Teacher teacher) {
