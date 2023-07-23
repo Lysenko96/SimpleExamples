@@ -35,7 +35,6 @@ public class Car {
                 ", name='" + name + '\'' +
                 ", model='" + model + '\'' +
                 ", speed=" + speed +
-                ", carDetails=" + carDetails +
                 '}';
     }
 }

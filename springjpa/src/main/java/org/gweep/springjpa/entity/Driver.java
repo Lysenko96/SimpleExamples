@@ -26,8 +26,8 @@ public class Driver {
     @JoinTable(name="car_used",
     joinColumns = @JoinColumn(name = "driver_id"),
     inverseJoinColumns = @JoinColumn(name = "car_id"))
-    //private List<Car> cars = new ArrayList<>();
-    private List<Car> cars;
+    private List<Car> cars = new ArrayList<>();
+   // private List<Car> cars;
     public Driver(long id, String name, String surname) {
         this.id = id;
         this.name = name;
