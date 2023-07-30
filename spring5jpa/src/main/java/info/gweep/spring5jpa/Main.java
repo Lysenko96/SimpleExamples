@@ -14,6 +14,7 @@ public class Main {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JpaConfig.class);
         EntityJpaService jpaService = context.getBean("entityJpaService", EntityJpaService.class);
         System.out.println(jpaService.getEntityManagerFactory());
+        System.out.println(jpaService.getEntityManager());
         EntityManagerFactory em = context.getBean("entityManagerFactory", EntityManagerFactory.class);
         System.out.println(em);
     }
