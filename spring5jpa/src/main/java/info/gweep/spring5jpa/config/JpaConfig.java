@@ -3,6 +3,8 @@ package info.gweep.spring5jpa.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,7 +19,7 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("info.gweep.spring5jpa")
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 public class JpaConfig {
 
     @Bean
