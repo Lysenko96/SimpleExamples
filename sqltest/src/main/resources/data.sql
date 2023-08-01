@@ -28,3 +28,5 @@ insert into singer_instrument(singer_id, instrument_id)
 values (1, 'Piano');
 insert into singer_instrument(singer_id, instrument_id)
 values (2, 'Guitar');
+insert into track(id, counter)
+values (1, 1);

@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS singer_instrument;
 DROP TABLE IF EXISTS album;
 DROP TABLE IF EXISTS singer;
 DROP TABLE IF EXISTS instrument;
+DROP TABLE IF EXISTS track;
 
 CREATE TABLE singer
 (
@@ -11,6 +12,12 @@ CREATE TABLE singer
     birth_date DATE,
     version    INT         NOT NULL DEFAULT 0,
     UNIQUE (first_name, last_name)
+);
+
+CREATE TABLE track
+(
+    id         SERIAL PRIMARY KEY,
+    counter    INT         NOT NULL DEFAULT 0
 );
 
 
