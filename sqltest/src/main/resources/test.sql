@@ -1,4 +1,6 @@
 select * from singer inner join singer_instrument si on singer.id = si.singer_id;
+select * from album natural join singer_instrument si;--where singer_id=2;
+select * from album natural join singer s;--where singer_id=2;
 select * from singer left outer join singer_instrument si on singer.id = si.singer_id;
 select * from singer left join singer_instrument si on singer.id = si.singer_id;
 select * from singer left join singer_instrument si on singer.id = si.singer_id where si.singer_id is null;
@@ -7,10 +9,32 @@ select * from album right join singer s on album.singer_id = s.id where album.si
 select * from album full outer join singer s on album.singer_id = s.id;
 select * from album full join singer s on album.singer_id = s.id;
 select * from instrument i cross join singer_instrument si;
+-- upper, lower, substring, reverse, ltrim, rtrim, left, right
+select left(title, 2) as title_little from album;
 select max(release_date), singer_id from album group by singer_id;
 select max(release_date), singer_id from album group by singer_id having count(release_date) > 1;
 alter table album add column track_counter int ;--default 0;
 alter table album drop column track_counter;
+alter table album add column description varchar(20);
+update album set description =
+    case
+        --when title  = 'Music'
+        --then 'Music123'
+        when counter_track is null
+        then 1
+    end where description is null;
+
+select * from album where counter_track = (select counter from track where id = 1);
+
+select * from album where exists (select null); -- return true if null
+
+select * from singer where exists (select counter from track);
+select * from singer where not exists (select counter from track);
+
+select  singer_id, sum(counter_track) from album group by singer_id order by sum(counter_track);
+
+
+alter table album rename column track_counter to counter_track;
 alter table album add column track_id int;
 alter table album add constraint fk_track_id foreign key (track_id) references track(id);
 alter table album drop constraint fk_track_id;
