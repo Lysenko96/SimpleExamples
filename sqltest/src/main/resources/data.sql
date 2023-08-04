@@ -2,8 +2,8 @@ insert into singer (first_name, last_name, birth_date)
 values ('John', 'Mayer', '1977-10-16');
 insert into singer (first_name, last_name, birth_date)
 values ('Eric', 'Clapton', '1945-03-30');
-insert into singer (first_name, last_name, birth_date)
-values ('John', 'Butler', '1975-04-01');
+-- insert into singer (first_name, last_name, birth_date)
+-- values ('John', 'Butler', '1975-04-01');
 insert into album (singer_id, title, release_date)
 values (1, 'The Search For Everything', '2017-01-20');
 insert into album (singer_id, title, release_date)
@@ -14,6 +14,8 @@ insert into album (title, release_date)
 values ('Music', '1999-09-16');
 insert into instrument (instrument_id)
 values ('Guitar');
+-- insert into instrument (instrument_id)
+-- values ('Guitar2');
 insert into instrument (instrument_id)
 values ('Piano');
 insert into instrument (instrument_id)

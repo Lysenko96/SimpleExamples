@@ -7,8 +7,8 @@ DROP TABLE IF EXISTS track;
 CREATE TABLE singer
 (
     id         SERIAL PRIMARY KEY,
-    first_name VARCHAR(60) NOT NULL,
-    last_name  VARCHAR(40) NOT NULL,
+    first_name  VARCHAR(60) NOT NULL, --UNIQUE,
+    last_name  VARCHAR(40) NOT NULL, --UNIQUE,
     birth_date DATE,
     version    INT         NOT NULL DEFAULT 0,
     UNIQUE (first_name, last_name)
@@ -27,7 +27,7 @@ CREATE TABLE album
     singer_id    INT          , --NOT NULL,
     title        VARCHAR(100) NOT NULL,
     release_date DATE,
-    version      INT          NOT NULL DEFAULT 0,
+    version      INT ,         --NOT NULL DEFAULT 0,
     UNIQUE (singer_id, title),
     CONSTRAINT fk_album_singer FOREIGN KEY (singer_id)
         REFERENCES singer (ID)
@@ -35,9 +35,10 @@ CREATE TABLE album
 
 CREATE TABLE instrument
 (
-    instrument_id VARCHAR(20) NOT NULL,
+    instrument_id VARCHAR(20) CHECK (instrument_id in ('Guitar', 'Guitar1','Piano','Voice','Drums','Synthesizer')) NOT NULL,
     PRIMARY KEY (instrument_id)
 );
+
 
 CREATE TABLE singer_instrument
 (
