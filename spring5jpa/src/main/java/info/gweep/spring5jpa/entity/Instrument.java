@@ -16,12 +16,18 @@ public class Instrument implements Serializable {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "instrument_id")
-    private Long instrumentId;
+    private String instrumentId;
 
     @ManyToMany
     @JoinTable(name = "singer_instrument",
             joinColumns = @JoinColumn(name = "instrument_id"),
             inverseJoinColumns = @JoinColumn(name = "singer_id"))
-    private Set<Singer> singer = new HashSet<>();
+    private Set<Singer> singers = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return "Instrument{" +
+                "instrumentId='" + instrumentId + '\'' +
+                '}';
+    }
 }

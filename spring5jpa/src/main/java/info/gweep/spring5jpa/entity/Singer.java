@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,11 +18,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Singer.FIND_ALL", query = "SELECT s FROM Singer s"),
-        //@NamedQuery(name = "Singer.FIND_BY_ID", query = "SELECT DISTINCT s FROM Singer s LEFT JOIN FETCH s.albums a LEFT JOIN FETCH s.instruments i WHERE s.id = :id"),
-        @NamedQuery(name = "Singer.FIND_BY_ID", query = "SELECT DISTINCT s FROM Singer s WHERE s.id = :id"),
-        //@NamedQuery(name = "Singer.FIND_ALL_WITH_ALBUM", query = "SELECT DISTINCT s FROM Singer s LEFT JOIN FETCH s.albums a LEFT JOIN FETCH s.instruments i")
-        @NamedQuery(name = "Singer.FIND_ALL_WITH_ALBUM", query = "SELECT DISTINCT s FROM Singer s")
+        @NamedQuery(name = "Singer.FIND_ALL", query = "SELECT DISTINCT s FROM Singer s LEFT JOIN FETCH s.albums a LEFT JOIN FETCH s.instruments i"),
+        @NamedQuery(name = "Singer.FIND_BY_ID", query = "SELECT DISTINCT s FROM Singer s LEFT JOIN FETCH s.albums a LEFT JOIN FETCH s.instruments i WHERE s.id = :id"),
+        // @NamedQuery(name = "Singer.FIND_BY_ID", query = "SELECT DISTINCT s FROM Singer s WHERE s.id = :id"), // by 1
+        @NamedQuery(name = "Singer.FIND_ALL_WITH_ALBUM", query = "SELECT DISTINCT s FROM Singer s LEFT JOIN FETCH s.albums a LEFT JOIN FETCH s.instruments i")
+        //@NamedQuery(name = "Singer.FIND_ALL_WITH_ALBUM", query = "SELECT DISTINCT s FROM Singer s") // by 2
 })
 @SqlResultSetMapping(name = "singerResult", entities = @EntityResult(entityClass = Singer.class))
 public class Singer implements Serializable {
@@ -39,13 +40,16 @@ public class Singer implements Serializable {
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //  @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) // fetch = FetchType.EAGER by 1,2
     private Set<Album> albums = new HashSet<>();
 
-    @ManyToMany
+
+    //@ManyToMany(fetch = FetchType.EAGER) //
+    @ManyToMany() //
     @JoinTable(name = "singer_instrument",
-    joinColumns = @JoinColumn(name = "singer_id"),
-    inverseJoinColumns = @JoinColumn(name = "instrument_id"))
+            joinColumns = @JoinColumn(name = "singer_id"),
+            inverseJoinColumns = @JoinColumn(name = "instrument_id"))
     private Set<Instrument> instruments = new HashSet<>();
 
     public Singer(String firstName, String lastName) {
@@ -62,6 +66,7 @@ public class Singer implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", birthDate=" + birthDate +
                 ", albums=" + albums +
+                ", instruments=" + instruments +
                 '}';
     }
 }

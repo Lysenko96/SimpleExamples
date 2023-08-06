@@ -1,13 +1,13 @@
 package info.gweep.spring5jpa.service;
 
+import info.gweep.spring5jpa.entity.Album;
+import info.gweep.spring5jpa.entity.Instrument;
 import info.gweep.spring5jpa.entity.Singer;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +17,9 @@ import java.util.List;
 @Transactional
 public class SingerServiceImpl implements SingerService {
 
-    private static final String ALL_SINGER_NATIVE_QUERY = "SELECT * FROM singer";
+    private static final String ALL_SINGER = "SELECT * FROM singer";
+    private static final String ALL_SINGER_ALBUMS_BY_SINGER_ID = "SELECT * FROM album WHERE singer_id = :singer_id";
+    private static final String ALL_SINGER_INSTRUMENTS_BY_SINGER_ID = "SELECT * FROM singer_instrument WHERE singer_id = :singer_id";
 
     @PersistenceContext
     private EntityManager em;
@@ -60,9 +62,15 @@ public class SingerServiceImpl implements SingerService {
         em.remove(findById(singer.getId()));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional//(readOnly = true)
     @Override
     public List<Singer> findAllByNativeQuery() {
-        return em.createNativeQuery(ALL_SINGER_NATIVE_QUERY, Singer.class).getResultList();
+        List<Singer> singers = em.createNativeQuery(ALL_SINGER, Singer.class).getResultList();
+        // for fetch = FetchType.LAZY and orphanRemoval = false
+        for(Singer singer : singers){
+            singer.setAlbums(new HashSet<>(em.createNativeQuery(ALL_SINGER_ALBUMS_BY_SINGER_ID, Album.class).setParameter("singer_id", singer.getId()).getResultList()));
+            singer.setInstruments(new HashSet<>(em.createNativeQuery(ALL_SINGER_INSTRUMENTS_BY_SINGER_ID, Instrument.class).setParameter("singer_id", singer.getId()).getResultList()));
+        }
+        return singers;
     }
 }
