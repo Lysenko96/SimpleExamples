@@ -39,7 +39,7 @@ public class Singer implements Serializable {
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Album> albums = new HashSet<>();
 
     @ManyToMany

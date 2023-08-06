@@ -1,12 +1,17 @@
 package info.gweep.spring5jpa.config;
 
+import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -22,13 +27,35 @@ import java.util.Properties;
 @EnableTransactionManagement(proxyTargetClass = true)
 public class JpaConfig {
 
+    private static final String H2_JDBC_URL_TEMPLATE = "jdbc:h2:tcp://localhost/~/test";
+    @Value("classpath:schema.sql")
+    private Resource schema;
+    @Value("classpath:data.sql")
+    private Resource data;
+
+
     @Bean
     public DataSource dataSource() {
-        EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
-        return dbBuilder.setType(EmbeddedDatabaseType.H2)
-                .addScripts("classpath:/schema.sql")
-                .addScripts("classpath:/data.sql")
-                .build();
+//        EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
+//        return dbBuilder.setType(EmbeddedDatabaseType.H2)
+//                .addScripts("classpath:/schema.sql")
+//                .addScripts("classpath:/data.sql")
+//                .build();
+        // String jdbcUrl = String.format(H2_JDBC_URL_TEMPLATE, System.getProperty("user.dir"));
+        JdbcDataSource ds = new JdbcDataSource();
+        ds.setURL(H2_JDBC_URL_TEMPLATE);
+        ds.setUser("sa");
+        ds.setPassword("");
+        databasePopulator().execute(ds);
+        return ds;
+    }
+
+    @Bean
+    public ResourceDatabasePopulator databasePopulator() {
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.addScript(schema);
+        populator.addScript(data);
+        return populator;
     }
 
     public Properties hibernateProperties() {
@@ -55,7 +82,7 @@ public class JpaConfig {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(){
+    public PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager(entityManagerFactory());
     }
 }

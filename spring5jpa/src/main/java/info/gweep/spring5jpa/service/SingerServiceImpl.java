@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service("jpaSingerService")
 @Repository
-//@Transactional
+@Transactional
 public class SingerServiceImpl implements SingerService {
 
     private static final String ALL_SINGER_NATIVE_QUERY = "SELECT * FROM singer";
@@ -23,19 +23,19 @@ public class SingerServiceImpl implements SingerService {
     private EntityManager em;
 
 
-    //@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     @Override
     public List<Singer> findAll() {
         return em.createNamedQuery("Singer.FIND_ALL", Singer.class).getResultList();
     }
 
-    //@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     @Override
     public List<Singer> findAllWithAlbum() {
         return em.createNamedQuery("Singer.FIND_ALL_WITH_ALBUM", Singer.class).getResultList();
     }
 
-    //@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     @Override
     public Singer findById(Long id) {
         return em.createNamedQuery("Singer.FIND_BY_ID", Singer.class)
@@ -43,20 +43,24 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Transactional
-    //@Modifying
     @Override
     public Singer save(Singer singer) {
-        em.persist(singer);
+        if(singer.getId() == null) {
+            em.persist(singer);
+        } else {
+            em.merge(singer);
+        }
         return em.find(Singer.class, singer.getId());
     }
 
     @Transactional
     @Override
     public void delete(Singer singer) {
+        em.merge(singer);
         em.remove(findById(singer.getId()));
     }
 
-    //@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     @Override
     public List<Singer> findAllByNativeQuery() {
         return em.createNativeQuery(ALL_SINGER_NATIVE_QUERY, Singer.class).getResultList();
