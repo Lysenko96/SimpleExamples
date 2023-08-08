@@ -1,13 +1,13 @@
 package info.gweep.spring5jpa.config;
 
 import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.*;
 import org.springframework.core.io.Resource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -24,7 +24,9 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("info.gweep.spring5jpa")
+@EnableJpaRepositories("info.gweep.spring5jpa.repository")
 @EnableTransactionManagement(proxyTargetClass = true)
+@EnableJpaAuditing(auditorAwareRef = "auditorAwareBean")
 public class JpaConfig {
 
     private static final String H2_JDBC_URL_TEMPLATE = "jdbc:h2:tcp://localhost/~/test";
@@ -41,13 +43,15 @@ public class JpaConfig {
 //                .addScripts("classpath:/schema.sql")
 //                .addScripts("classpath:/data.sql")
 //                .build();
-        // String jdbcUrl = String.format(H2_JDBC_URL_TEMPLATE, System.getProperty("user.dir"));
+         String jdbcUrl = String.format(H2_JDBC_URL_TEMPLATE, System.getProperty("user.dir"));
+
         JdbcDataSource ds = new JdbcDataSource();
         ds.setURL(H2_JDBC_URL_TEMPLATE);
         ds.setUser("sa");
         ds.setPassword("");
         databasePopulator().execute(ds);
         return ds;
+
     }
 
     @Bean
@@ -67,6 +71,7 @@ public class JpaConfig {
         hibernateProp.put("hibernate.max_fetch_depth", 3);
         hibernateProp.put("hibernate.jdbc.batch_size", 10);
         hibernateProp.put("hibernate.jdbc.fetch_size", 50);
+
         return hibernateProp;
     }
 
