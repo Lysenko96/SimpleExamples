@@ -3,6 +3,7 @@ package info.gweep.spring5jpa.service;
 import info.gweep.spring5jpa.entity.Album;
 import info.gweep.spring5jpa.entity.Instrument;
 import info.gweep.spring5jpa.entity.Singer;
+import info.gweep.spring5jpa.repository.SingerRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,11 +25,30 @@ public class SingerServiceImpl implements SingerService {
     @PersistenceContext
     private EntityManager em;
 
+    private SingerRepository singerRepository;
+
+    public SingerServiceImpl(SingerRepository singerRepository) {
+        this.singerRepository = singerRepository;
+    }
 
     @Transactional(readOnly = true)
     @Override
     public List<Singer> findAll() {
         return em.createNamedQuery("Singer.FIND_ALL", Singer.class).getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Singer> findAllJpa() {
+        return singerRepository.findAll();
+    }
+    @Transactional(readOnly = true)
+    public List<Singer> findByFirstName(String firstName){
+        return singerRepository.findByFirstName(firstName);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Singer> findByFirstNameAndLastName(String firstName, String lastName){
+        return singerRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 
     @Transactional(readOnly = true)

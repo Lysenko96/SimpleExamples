@@ -14,10 +14,23 @@
   <dependencies>
 
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <version>5.3.29</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
       <version>2.7.12</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>5.3.27</version>
+    </dependency>
+
 
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -31,12 +44,6 @@
       <artifactId>javax.persistence-api</artifactId>
       <version>2.2</version>
     </dependency>
-
-<!--    <dependency>-->
-<!--      <groupId>jakarta.persistence</groupId>-->
-<!--      <artifactId>jakarta.persistence-api</artifactId>-->
-<!--      <version>3.1.0</version>-->
-<!--    </dependency>-->
 
 
     <dependency>
@@ -52,7 +59,6 @@
 <!--      <scope>test</scope>-->
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -60,15 +66,7 @@
       <scope>provided</scope>
     </dependency>
 
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-
-  </dependencies>
+</dependencies>
   <build>
     <finalName>spring5jpa</finalName>
   </build>
