@@ -2,10 +2,7 @@ package info.gweep.springtx.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -13,6 +10,7 @@ import javax.persistence.Id;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQuery(name = "Car.COUNT_ALL", query = "select count(c) from Car c")
 public class Car {
 
     @Id
