@@ -1,18 +1,16 @@
 package info.gweep.spring5jpa.config;
 
-import org.h2.jdbcx.JdbcDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -30,6 +28,7 @@ import java.util.Properties;
 public class JpaConfig {
 
     private static final String H2_JDBC_URL_TEMPLATE = "jdbc:h2:tcp://localhost/~/test";
+    private static final String POSTGRES_JDBC_URL_TEMPLATE = "jdbc:postgresql://localhost:5432/postgres";
     @Value("classpath:schema.sql")
     private Resource schema;
     @Value("classpath:data.sql")
@@ -43,12 +42,13 @@ public class JpaConfig {
 //                .addScripts("classpath:/schema.sql")
 //                .addScripts("classpath:/data.sql")
 //                .build();
-         String jdbcUrl = String.format(H2_JDBC_URL_TEMPLATE, System.getProperty("user.dir"));
+         //String jdbcUrl = String.format(H2_JDBC_URL_TEMPLATE, System.getProperty("user.dir"));
 
-        JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL(H2_JDBC_URL_TEMPLATE);
-        ds.setUser("sa");
-        ds.setPassword("");
+       // JdbcDataSource ds = new JdbcDataSource();
+        //ds.setURL(H2_JDBC_URL_TEMPLATE);
+        //ds.setUser("sa");
+        //ds.setPassword("");
+        DriverManagerDataSource ds = new DriverManagerDataSource(POSTGRES_JDBC_URL_TEMPLATE, "postgres", "postgresTE!");
         databasePopulator().execute(ds);
         return ds;
 
@@ -64,15 +64,23 @@ public class JpaConfig {
 
     public Properties hibernateProperties() {
         Properties hibernateProp = new Properties();
-        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+//        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        hibernateProp.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        hibernateProp.put("hibernate.hbm2ddl.auto", "create");
         hibernateProp.put("hibernate.format_sql", true);
         hibernateProp.put("hibernate.use_sql_comments", true);
         hibernateProp.put("hibernate.show_ sql", true);
-        hibernateProp.put("hibernate.max_fetch_depth", 3);
-        hibernateProp.put("hibernate.jdbc.batch_size", 10);
-        hibernateProp.put("hibernate.jdbc.fetch_size", 50);
+        hibernateProp.put("hibernate.current_session_context_class", "thread");
+//        hibernateProp.put("hibernate.max_fetch_depth", 3);
+//        hibernateProp.put("hibernate.jdbc.batch_size", 10);
+//        hibernateProp.put("hibernate.jdbc.fetch_size", 50);
 
         return hibernateProp;
+    }
+
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter(){
+        return new HibernateJpaVendorAdapter();
     }
 
     @Bean
@@ -82,6 +90,7 @@ public class JpaConfig {
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setJpaProperties(hibernateProperties());
+        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
         factoryBean.afterPropertiesSet();
         return factoryBean.getNativeEntityManagerFactory();
     }
