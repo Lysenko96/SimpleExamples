@@ -29,7 +29,7 @@ public class Main {
         SingerAuditServiceImpl singerAuditService = context.getBean("singerAuditService", SingerAuditServiceImpl.class);
 //        System.out.println(jpaSingerService);
 //
-//        System.out.println(jpaSingerService.findAllWithAlbum());
+        System.out.println(jpaSingerService.findAllWithAlbum());
 //        System.out.println(jpaSingerService.findAllByNativeQuery());
 //        System.out.println(jpaSingerService.findById(1L));
 //        System.out.println(jpaSingerService.save(new Singer("firstName", "lastName")));
