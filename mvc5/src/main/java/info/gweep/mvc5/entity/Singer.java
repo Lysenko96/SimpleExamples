@@ -1,8 +1,11 @@
 package info.gweep.mvc5.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -12,6 +15,9 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
+@NoArgsConstructor
+//@Component
+//@Scope("prototype")
 public class Singer {
 
     @Id
@@ -22,7 +28,7 @@ public class Singer {
     private int version;
 
     @Column(name = "first_name")
-    public String firstName;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
@@ -34,8 +40,14 @@ public class Singer {
     private String description;
 
     @Basic(fetch = FetchType.LAZY)
-    @Lob
-    private Byte photo;
+    //@Lob
+    private Byte[] photo;
+
+    public Singer(String firstName, String lastName, Date birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    }
 
     @Transient
     public String getBirthDateString(){

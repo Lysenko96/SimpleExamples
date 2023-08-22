@@ -1,7 +1,9 @@
 package info.gweep.mvc5.config;
 
+import info.gweep.mvc5.entity.Singer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.Resource;
@@ -21,6 +23,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:database.properties")
 @EnableJpaRepositories("info.gweep.mvc5.repository")
+//@ComponentScan("info.gweep.mvc5")
 @EnableTransactionManagement
 public class Config {
 
@@ -72,7 +75,6 @@ public class Config {
         dataSource.setDriverClassName(driver);
         return dataSource;
     }
-
 
     private Properties additionalProperties() {
         Properties hibernateProperties = new Properties();
