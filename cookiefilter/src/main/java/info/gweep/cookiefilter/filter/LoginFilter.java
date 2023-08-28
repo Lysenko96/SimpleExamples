@@ -23,7 +23,7 @@ public class LoginFilter implements Filter {
         if(isAuth){
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            httpServletResponse.sendRedirect("index");
+            httpServletResponse.sendRedirect("error");
         }
     }
 }
