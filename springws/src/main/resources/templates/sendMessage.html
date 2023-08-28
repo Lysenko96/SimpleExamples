@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Socket</title>
+    <script>
+        var ws = new WebSocket("ws://127.0.0.1:8080/sendMessage")
+
+        ws.onopen = function (){
+            action("open connection")
+        }
+
+        ws.onmessage = function (event){
+            action(event.data)
+        }
+
+        function action(message){
+            var output = document.getElementById("store");
+            var result = document.createElement("result");
+            result.appendChild(document.createTextNode(message));
+            output.appendChild(result);
+        }
+
+        function sendMessage(){
+            var message = document.getElementById("message").value;
+            action("send: " + message);
+
+            if (isOpen(ws))
+                ws.send(message);
+        }
+
+        function isOpen(ws) { return ws.readyState === ws.OPEN }
+
+        ws.onerror = function (event){
+
+        }
+
+        ws.onclose = function (event){
+            ws.close();
+        }
+    </script>
+</head>
+<body>
+<div>
+    <label for="message">Message for send</label>
+    <div><textarea id="message"></textarea></div>
+    <button id="sendMessage" onclick="sendMessage()">send</button>
+</div>
+<div>
+    <br>Messages:
+<div id="store">
+</div>
+</div>
+</body>
+</html>
