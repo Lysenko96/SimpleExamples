@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Load File</title>
+</head>
+<body>
+<p th:text="${message}"></p>
+<form th:action="@{/file}" method="post" enctype="multipart/form-data">
+    description: <input type="text" name="description">
+    image: <input type="file" name="file">
+    <input type="submit" value="load file">
+</form>
+</body>
+</html>
