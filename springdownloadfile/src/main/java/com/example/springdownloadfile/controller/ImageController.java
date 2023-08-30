@@ -3,6 +3,7 @@ package com.example.springdownloadfile.controller;
 import com.example.springdownloadfile.entity.File;
 import com.example.springdownloadfile.repository.FileRepo;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.io.InputStream;
 
 @Controller
 @RequestMapping("/file")
+@Slf4j
 public class ImageController {
 
     private FileRepo imageRepo;
@@ -35,6 +37,7 @@ public class ImageController {
             Byte[] imageBytes = new Byte[file.getBytes().length];
             for (int i = 0; i < imageBytes.length; i++) imageBytes[i] = file.getBytes()[i];
             imageRepo.save(new File(description, imageBytes));
+            log.info(new File(description, imageBytes).toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
