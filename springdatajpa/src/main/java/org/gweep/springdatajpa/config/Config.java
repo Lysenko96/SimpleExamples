@@ -37,6 +37,14 @@ public class Config {
     private String dialect;
     @Value("${hibernate.current_session_context_class}")
     private String currentSessionContextClass;
+    @Value("${hibernate.format_sql}")
+    private String formatSql;
+    @Value("${hibernate.cache.use_second_level_cache}")
+    private String secondLevelCache;
+    @Value("${hibernate.cache.use_query_cache}")
+    private String queryCache;
+    @Value("${hibernate.cache.region.factory_class}")
+    private String factoryClass;
 
     @Bean
     public DataSource dataSource(){
@@ -62,6 +70,10 @@ public class Config {
         hibernateProperties.setProperty("hibernate.show_sql", showSql);
         hibernateProperties.setProperty("hibernate.dialect", dialect);
         hibernateProperties.setProperty("hibernate.current_session_context_class", currentSessionContextClass);
+        hibernateProperties.setProperty("hibernate.format_sql", formatSql);
+        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", secondLevelCache);
+        hibernateProperties.setProperty("hibernate.cache.use_query_cache", queryCache);
+        hibernateProperties.setProperty("hibernate.cache.region.factory_class", factoryClass);
         return hibernateProperties;
     }
 

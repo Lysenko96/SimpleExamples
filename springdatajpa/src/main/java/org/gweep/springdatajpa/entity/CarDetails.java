@@ -1,6 +1,8 @@
 package org.gweep.springdatajpa.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "car_details")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CarDetails {
 
     @Id
@@ -17,12 +21,12 @@ public class CarDetails {
     private long id;
     private String description;
     // link to CarDetails from Car (two-way communication)
-    @OneToOne(mappedBy = "carDetails")
-    private Car car;
+//    @OneToOne(mappedBy = "carDetails")
+//    private Car car;
 
     public CarDetails(String description, Car car) {
         this.description = description;
-        this.car = car;
+       // this.car = car;
     }
 
     @Override

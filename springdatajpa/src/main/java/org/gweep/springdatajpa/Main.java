@@ -1,5 +1,6 @@
 package org.gweep.springdatajpa;
 
+import net.sf.ehcache.CacheManager;
 import org.gweep.springdatajpa.config.Config;
 import org.gweep.springdatajpa.entity.Car;
 import org.gweep.springdatajpa.entity.CarDetails;
@@ -13,11 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        SessionFactory sessionFactory = new Configuration().
-                addAnnotatedClass(Car.class).
-                addAnnotatedClass(CarDetails.class).
-                buildSessionFactory();
-        System.out.println(sessionFactory);
+//        SessionFactory sessionFactory = new Configuration().
+//                addAnnotatedClass(Car.class).
+//                addAnnotatedClass(CarDetails.class).
+//                buildSessionFactory();
+        //System.out.println(sessionFactory);
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         SessionFactory sessionFactory1 = context.getBean("sessionFactory", SessionFactory.class);
@@ -29,10 +30,10 @@ public class Main {
         CarDetails carDetails = new CarDetails("SCC Tautara", null);
         session.persist(carDetails);
         Car car = new Car("SCC", "Tautara", 502.233, carDetails);
-        session.persist(car);
-        session.getTransaction().commit();
+//        session.persist(car);
+//        session.getTransaction().commit();
 
-        session.close();
+        //session.close();
 
 //        Session session = sessionFactory.getCurrentSession();
 //
@@ -44,14 +45,11 @@ public class Main {
 //        Car car = new Car("SCC", "Tautara", 502.233, carDetails);
 //        Car car2 = new Car("SCC2", "Tautara2", 493.233, carDetails2);
 //        System.out.println(car);
-<<<<<<< HEAD
         session.persist(car);
         System.out.println("CacheManager: " + CacheManager.ALL_CACHE_MANAGERS.get(0).getCache("car"));
 //        CacheManager.ALL_CACHE_MANAGERS.remove(CacheManager.ALL_CACHE_MANAGERS.get(0));
 //        System.out.println("size: " + CacheManager.ALL_CACHE_MANAGERS.size());
-=======
 //        session.persist(car);
->>>>>>> 2a2b57caae49f08a6a94db07a217f6b4be346230
 //        carDetails.setCar(car);
 //        //carDetails2.setCar(car2);
 //        //session.merge(new Car(1L, "SCC1", "Tautara1", 502.23555, carDetails));
@@ -73,12 +71,12 @@ public class Main {
 ////        System.out.println(session.createQuery("FROM Car", Car.class).getResultList());
 ////        session.remove(carDb);
 ////        System.out.println(session.createQuery("FROM Car", Car.class).getResultList());
-<<<<<<< HEAD
         session.getTransaction().commit();
+        session.close();
         //int size = CacheManager.ALL_CACHE_MANAGERS.get(0);
 
         System.out.println("###############");
-        Session session2 = sessionFactory.getCurrentSession();
+        Session session2 = sessionFactory1.getCurrentSession();
         session2.beginTransaction();
         //Car carDbOne = session2.get(Car.class, 1L);
         Car carDbOne = session2.get(Car.class, 1L);
@@ -87,7 +85,7 @@ public class Main {
         System.out.println(carDbTwo);
         session2.getTransaction().commit();
 
-        Session session3 = sessionFactory.getCurrentSession();
+        Session session3 = sessionFactory1.getCurrentSession();
 
         session3.beginTransaction();
         Car carDbThree = session3.get(Car.class, 1L);
@@ -97,8 +95,7 @@ public class Main {
 //        car1.setSpeed(443.4);
         session3.getTransaction().commit();
         System.out.println("###############");
-        sessionFactory.close();
-=======
+        sessionFactory1.close();
 //        session.getTransaction().commit();
 
 //        Session session3 = sessionFactory.getCurrentSession();
@@ -110,7 +107,6 @@ public class Main {
 //        session3.getTransaction().commit();
 //
 //        sessionFactory.close();
->>>>>>> 2a2b57caae49f08a6a94db07a217f6b4be346230
 
     }
 
