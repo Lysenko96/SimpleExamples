@@ -1,5 +1,7 @@
-package com.example.schedulespringboot;
+package com.example.schedulespringboot.task;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,11 @@ public class CronScheduler {
     private static int j;
     private static int k;
 
+    private TaskExecutor taskExecutor;
+
+    public CronScheduler(@Qualifier(value = "taskExecutor") TaskExecutor taskExecutor) {
+        this.taskExecutor = taskExecutor;
+    }
 
     // fixedDelay wait while thread sleep end and run again
     @Scheduled(timeUnit = TimeUnit.SECONDS, fixedDelayString = "${schedule.fixed-delay}")
@@ -49,4 +56,12 @@ public class CronScheduler {
         System.out.println("run Three increment : " + ++k);
 
     }
+    @Scheduled(timeUnit = TimeUnit.SECONDS, fixedDelay = 5)
+    public void executeTask(){
+        for(int i = 0; i < 5; i++){
+            taskExecutor.execute(()-> System.out.println(Thread.currentThread().getName()));
+        }
+    }
+
+
 }
