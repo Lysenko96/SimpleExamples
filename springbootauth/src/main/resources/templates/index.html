@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+Index
+
+<p th:text="${user}"></p>
+
+<a th:href="@{/login}">login page</a>
+<a th:href="@{/registration}">registration page</a>
+<a th:href="@{/for_user}">user page</a>
+<a th:href="@{/for_admin}">admin page</a>
+
+<!--<form th:if="${user != 'anonymous'}">-->
+<!--<form th:action="@{/logout}" method="post">-->
+<form th:action="@{/logout}">
+    <input type="submit" value="logout">
+</form>
+</body>
+</html>
