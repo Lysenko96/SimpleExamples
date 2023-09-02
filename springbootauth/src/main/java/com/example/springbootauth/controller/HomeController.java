@@ -16,11 +16,6 @@ import java.util.Collections;
 @RequestMapping("/")
 public class HomeController {
 
-    @Value("${admin.password}")
-    private String password;
-    @Value("${admin.username}")
-    private String username;
-
     @GetMapping
     public String index(@AuthenticationPrincipal User user, Model model){
         if (user != null) {
