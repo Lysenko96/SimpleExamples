@@ -1,0 +1,8 @@
+curl -d '{"speed":"225.6", "model":"bmw"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api
+curl -X DELETE http://localhost:8080/api/delete/1
+curl -d '{"id":"1", "speed":"186.8", "model":"nissan"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/api/update
+#PUT update current field other equals null or 0 in the next curl speed = 0.0 after update request body
+curl -d '{"id":"1", "model":"nissan"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/api/update
+#PATCH update only current field don't equals other field null or 0 in the next curl speed update and model don't set null
+curl -d '{"id":"1", "speed":"305.8"}' -H "Content-Type: application/json" -X PATCH http://localhost:8080/api/patch/1
+curl -d '{"model":"auto"}' -H "Content-Type: application/json" -X PATCH http://localhost:8080/api/patch/1
