@@ -1,13 +1,20 @@
 package com.example.demo;
 
+import com.example.demo.entity.Car;
 import com.example.demo.service.Sound;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
+
+import java.util.Arrays;
 
 @SpringBootApplication
+@ImportResource("classpath:root-config.xml")
 public class DemoApplication {
 
     private static Sound sound; // @Qualifier
@@ -26,12 +33,22 @@ public class DemoApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
-        Sound mySound = context.getBean("catSound", Sound.class);
-        System.out.println(mySound.sound());
-        System.out.println(sound.sound());
-        Sound mySound2 = context.getBean("fishSound", Sound.class);
-        System.out.println(mySound2.sound());
-        System.out.println(sound2.sound());
+        Car car = context.getBean("myCar", Car.class);
+        Car car2 = context.getBean("car", Car.class);
+        System.out.println(car);
+        System.out.println(car2);
+        //        Sound mySound = context.getBean("catSound", Sound.class);
+//        System.out.println(mySound.sound());
+//        System.out.println(sound.sound());
+//        Sound mySound2 = context.getBean("fishSound", Sound.class);
+//        System.out.println(mySound2.sound());
+//        System.out.println(sound2.sound());
     }
+//    @Bean
+//    CommandLineRunner commandLineRunner(ApplicationContext context){
+//        return args -> {
+//            Arrays.stream(context.getBeanDefinitionNames()).sorted().forEach(System.out::println);
+//        };
+//    }
 
 }
