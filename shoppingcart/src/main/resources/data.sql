@@ -1,0 +1,1 @@
+insert into product (category, image, name, price) values ('category', 'image', 'name', '$99');

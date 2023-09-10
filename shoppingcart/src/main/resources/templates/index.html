@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+Index
+
+<p th:text="${user}"></p>
+
+<a th:href="@{/login}">login page</a>
+<a th:href="@{/registration}">registration page</a>
+<a th:href="@{/for_user}">user page</a>
+<a th:href="@{/for_admin}">admin page</a>
+
+<table>
+    <thead>
+    <tr>
+        <th> Name </th>
+        <th> Category </th>
+        <th> Image </th>
+        <th> Price </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${products.isEmpty()}">
+        <td colspan="2"> No Products Available </td>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td><span th:text="${product.name}"> Name </span></td>
+        <td><span th:text="${product.category}"> Category </span></td>
+        <td><span th:text="${product.image}"> Image </span></td>
+        <td><span th:text="${product.price}"> Price </span></td>
+        <td><a th:href="@{/cart}">add to cart page</a></td>
+        <td><a th:href="@{/order}">buy page</a></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!--<form th:if="${user != 'anonymous'}">-->
+<!--<form th:action="@{/logout}" method="post">-->
+<form th:action="@{/logout}">
+    <input type="submit" value="logout">
+</form>
+</body>
+</html>
