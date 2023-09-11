@@ -6,5 +6,32 @@
 </head>
 <body>
 Cart
+<div>Total price  $<span th:text="${cart.quantity} * ${cart.price}"> </span><a href="#"> Check Out</a></div>
+<table>
+    <thead>
+    <tr>
+        <th> Name </th>
+        <th> Category </th>
+        <th> Price </th>
+        <th> Buy now </th>
+        <th> Cancel </th>
+    </tr>
+    </thead>
+    <tbody>
+
+<tr>
+        <td><span th:text="${cart.name}"> Name </span></td>
+        <td><span th:text="${cart.category}"> Category </span></td>
+        <td>$<span th:text="${cart.price}"> Price </span></td>
+    <td><form th:action="@{'/cart/' + ${cart.id}}" method="post">
+        quantity: <input type="text" name="quantity"/>
+        <input type="submit" value="buy">
+    </form></td>
+        <!--            <td><span th:text="${cart.quantity}"> Price </span></td>-->
+<!--        <td><a th:href="@{/cart}"></a></td>-->
+<!--        <td><a th:href="@{/order}">buy page</a></td>-->
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

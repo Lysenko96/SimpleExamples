@@ -1,13 +1,19 @@
 package com.example.shoppingcart.controller;
 
+import com.example.shoppingcart.entity.Cart;
+import com.example.shoppingcart.entity.Product;
 import com.example.shoppingcart.entity.User;
 import com.example.shoppingcart.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -41,9 +47,17 @@ public class HomeController {
         return "order";
     }
 
-    @GetMapping("/cart")
+    @RequestMapping(value = ("/cart/{id}"), method = {RequestMethod.GET, RequestMethod.POST})
     @PreAuthorize(value = "hasAuthority('USER') or hasAuthority('ADMIN')")
-    public String cart(){
+    public String cart(@PathVariable Long id, Model model, HttpServletRequest request){
+        Product product = productService.findById(id);
+        String quantityStr = request.getParameter("quantity");
+        Integer quantity;
+        if (quantityStr == null) quantity = 1;
+        else quantity = Integer.parseInt(quantityStr);
+        Cart cart = new Cart(product.getId(), product.getName(), product.getCategory(), product.getPrice(), product.getImage(),quantity);
+        model.addAttribute("cart", cart);
+        System.out.println(cart.getQuantity());
         return "cart";
     }
 
