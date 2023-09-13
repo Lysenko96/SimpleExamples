@@ -3,6 +3,7 @@ package com.example.shoppingcart.controller;
 import com.example.shoppingcart.entity.Cart;
 import com.example.shoppingcart.entity.Product;
 import com.example.shoppingcart.entity.User;
+import com.example.shoppingcart.service.CartService;
 import com.example.shoppingcart.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -12,17 +13,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
     private ProductService productService;
+    private CartService cartService;
+    private Set<Cart> carts = new HashSet<>();
 
-    public HomeController(ProductService productService) {
+    public HomeController(ProductService productService, CartService cartService) {
         this.productService = productService;
+        this.cartService = cartService;
     }
 
     @GetMapping
@@ -50,14 +53,18 @@ public class HomeController {
     @RequestMapping(value = ("/cart/{id}"), method = {RequestMethod.GET, RequestMethod.POST})
     @PreAuthorize(value = "hasAuthority('USER') or hasAuthority('ADMIN')")
     public String cart(@PathVariable Long id, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        //Set<Cart> cartList = (HashSet<Cart>) session.getAttribute("carts");
+        List<Product> products = productService.findAll();
         Product product = productService.findById(id);
         String quantityStr = request.getParameter("quantity");
-        Integer quantity;
-        if (quantityStr == null) quantity = 1;
-        else quantity = Integer.parseInt(quantityStr);
-        Cart cart = new Cart(product.getId(), product.getName(), product.getCategory(), product.getPrice(), product.getImage(),quantity);
-        model.addAttribute("cart", cart);
-        System.out.println(cart.getQuantity());
+        int quantity = cartService.calculateQuantity(quantityStr);
+        if(quantity == 0) carts = cartService.clearCarts(carts, null, product);
+        carts = cartService.saveCarts(carts, new HashSet<>(), product, session, quantity);
+        carts = cartService.filterCarts(carts, products);
+        model.addAttribute("carts", carts);
+        double total = carts.stream().mapToDouble(Cart::getTotalPrice).sum();
+        model.addAttribute("total", total);
         return "cart";
     }
 

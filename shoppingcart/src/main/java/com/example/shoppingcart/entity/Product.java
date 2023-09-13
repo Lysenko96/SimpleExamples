@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.function.Function;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,6 +21,7 @@ public class Product {
     private Long id;
     private String name;
     private String category;
-    private String price;
+    private Double price;
     private String image;
+
 }
