@@ -1,0 +1,78 @@
+package com.example.restdemotask.service;
+
+import com.example.restdemotask.entity.User;
+import com.example.restdemotask.exception.AgeValidationException;
+import com.example.restdemotask.exception.DateRangeValidationException;
+import com.example.restdemotask.repository.UserDao;
+import com.example.restdemotask.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class UserService  { //implements UserDao {
+
+
+    @Value("${validation.age}")
+    private int age;
+    private UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+
+    public User save(User user) {
+        if (LocalDate.now().minusYears(age).isAfter(user.getBirthDate())) {
+            return userRepository.save(user);
+        } else {
+            throw new AgeValidationException();
+        }
+    }
+
+
+    public User getById(Long id) {
+        return userRepository.getById(id);
+    }
+
+
+    public List<User> getAll() {
+        return userRepository.getAll();
+    }
+
+    public List<User> getAllByBirthDateRange(String from, String to) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
+        List<User> users = new ArrayList<>();
+
+        if(from == null && to == null) users = userRepository.getAll();
+
+        if (from != null && to == null)
+            users = userRepository.getAll().stream().filter(u -> u.getBirthDate().isAfter(LocalDate.parse(from, formatter))).collect(Collectors.toList());
+
+        if (to != null && from == null)
+            users = userRepository.getAll().stream().filter(u -> u.getBirthDate().isBefore(LocalDate.parse(to, formatter))).collect(Collectors.toList());
+
+        if (from != null && to != null) {
+            LocalDate dateFrom = LocalDate.parse(from, formatter);
+            LocalDate dateTo = LocalDate.parse(to, formatter);
+            if (dateFrom.isAfter(dateTo)) throw new DateRangeValidationException();
+            users = userRepository.getAll().stream().filter(u -> u.getBirthDate().isAfter(dateFrom) && u.getBirthDate().isBefore(dateTo)).collect(Collectors.toList());
+        }
+        return users;
+    }
+
+
+    public User update(User user) {
+        return  userRepository.update(user);
+    }
+
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+}
