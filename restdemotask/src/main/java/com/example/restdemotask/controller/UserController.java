@@ -25,10 +25,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllByBirthDateRange(HttpServletRequest request){
-        String fromStr = request.getParameter("from");
-        String toStr = request.getParameter("to");
-        return ResponseEntity.ok(userService.getAllByBirthDateRange(fromStr, toStr));
+    public ResponseEntity<List<User>> getAllByBirthDateRange( @RequestParam(required = false) String from, @RequestParam(required = false) String to){
+        return ResponseEntity.ok(userService.getAllByBirthDateRange(from, to));
     }
 
     @PutMapping("/update")
@@ -38,24 +36,14 @@ public class UserController {
 
     @PatchMapping(path = "/patch/{id}", consumes = "application/json")
     public ResponseEntity<User> patchUser(@PathVariable Long id, @RequestBody User user) {
-        User result = null;
-        User userMemory = userService.getById(id);
-        if (userMemory != null) {
-            userMemory.setFirstName(user.getFirstName() != null ? user.getFirstName() : userMemory.getFirstName());
-            userMemory.setLastName(user.getLastName() != null ? user.getLastName() : userMemory.getLastName());
-            userMemory.setEmail(user.getEmail() != null ? user.getEmail() : userMemory.getEmail());
-            userMemory.setBirthDate(user.getBirthDate() != null ? user.getBirthDate() : userMemory.getBirthDate());
-            userMemory.setAddress(user.getAddress() != null ? user.getAddress() : userMemory.getAddress());
-            userMemory.setPhone(user.getPhone() != null ? user.getPhone() : userMemory.getPhone());
-            result = userService.update(userMemory);
-        }
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(userService.updatePatch(user, id));
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
         userService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

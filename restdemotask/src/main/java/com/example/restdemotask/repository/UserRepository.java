@@ -1,6 +1,7 @@
 package com.example.restdemotask.repository;
 
 import com.example.restdemotask.entity.User;
+import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 @Repository
 public class UserRepository implements UserDao {
 
-    List<User> users;
+    public static List<User> users;
 
     public UserRepository() {
         users = new ArrayList<>();

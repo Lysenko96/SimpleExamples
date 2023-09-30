@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService  { //implements UserDao {
+public class UserService  {
 
 
     @Value("${validation.age}")
@@ -69,6 +69,21 @@ public class UserService  { //implements UserDao {
 
     public User update(User user) {
         return  userRepository.update(user);
+    }
+
+    public User updatePatch(User user, Long id) {
+        User result = null;
+        User userMemory = getById(id);
+        if (userMemory != null) {
+            userMemory.setFirstName(user.getFirstName() != null ? user.getFirstName() : userMemory.getFirstName());
+            userMemory.setLastName(user.getLastName() != null ? user.getLastName() : userMemory.getLastName());
+            userMemory.setEmail(user.getEmail() != null ? user.getEmail() : userMemory.getEmail());
+            userMemory.setBirthDate(user.getBirthDate() != null ? user.getBirthDate() : userMemory.getBirthDate());
+            userMemory.setAddress(user.getAddress() != null ? user.getAddress() : userMemory.getAddress());
+            userMemory.setPhone(user.getPhone() != null ? user.getPhone() : userMemory.getPhone());
+            result = update(userMemory);
+        }
+        return result;
     }
 
 
