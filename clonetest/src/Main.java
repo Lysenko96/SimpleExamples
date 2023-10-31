@@ -74,7 +74,7 @@ class A implements Cloneable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
        // return super.clone(); // change and clone by link B b
-        return new A(new A(getA(), getS(), new B(getB().getD()))); // don't change clone by link B b
+        return new A(new A(getA(), getS(), new B(getB()))); // don't change clone by link B b
     }
 
     @Override
