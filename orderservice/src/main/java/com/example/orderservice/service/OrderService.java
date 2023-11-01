@@ -6,6 +6,7 @@ import com.example.orderservice.model.OrderLineItem;
 import com.example.orderservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,15 @@ public class OrderService {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
 
-//        order.setOrderLineItemList(orderRequest.getOrderLineItemDtoList()
-//                .stream()
-//                .map(orderLineItemDto -> new OrderLineItem(orderLineItemDto.getId(), orderLineItemDto.getSkuCode(), orderLineItemDto.getPrice(), orderLineItemDto.getQuantity()))
-//                .collect(Collectors.toList()));
+        order.setOrderLineItemList(orderRequest.getOrderLineItemDtoList()
+                .stream()
+                .map(orderLineItemDto -> new OrderLineItem(orderLineItemDto.getId(), orderLineItemDto.getSkuCode(), orderLineItemDto.getPrice(), orderLineItemDto.getQuantity()))
+                .collect(Collectors.toList()));
 
         orderRepository.save(order);
+    }
+
+    public List<Order> findAllOrders(){
+        return orderRepository.findAll();
     }
 }

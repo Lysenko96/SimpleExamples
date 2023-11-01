@@ -23,6 +23,6 @@ public class Order {
     private Long id;
     @Column(name = "order_number")
     private String orderNumber;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<OrderLineItem> orderLineItemList;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<OrderLineItem> orderLineItemList;
 }
