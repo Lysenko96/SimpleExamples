@@ -1,5 +1,7 @@
 package com.example.springrabbitmq.config;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONObject;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -51,8 +53,10 @@ public class RabbitMQConfig {
     @Scheduled(timeUnit = TimeUnit.SECONDS, fixedRate = 3)
     public void produce(){
         Long currentTime = new Date().getTime();
-        System.out.println(currentTime);
-        rabbitTemplate.convertAndSend(exchange, routingKey, currentTime);
+        System.out.println("produce: " + "{" + currentTime + "}");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("currentTime", currentTime);
+        rabbitTemplate.convertAndSend(exchange, routingKey, String.valueOf(currentTime));
     }
 
 //    @Scheduled(timeUnit = TimeUnit.SECONDS, fixedRate = 3)
