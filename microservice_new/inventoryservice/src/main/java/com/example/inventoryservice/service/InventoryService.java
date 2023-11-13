@@ -1,8 +1,12 @@
 package com.example.inventoryservice.service;
 
+import com.example.inventoryservice.dto.InventoryResponse;
 import com.example.inventoryservice.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InventoryService {
@@ -14,7 +18,9 @@ public class InventoryService {
     }
 
     @Transactional(readOnly = true)
-    public boolean isInStock(String skuCode) {
-        return inventoryRepository.findBySkuCode(skuCode).isPresent();
+    public List<InventoryResponse> isInStock(List<String> skuCodes) {
+        return inventoryRepository.findBySkuCodeIn(skuCodes).stream()
+                .map(inventory -> new InventoryResponse(inventory.getSkuCode(), inventory.getQuantity() > 0))
+                .collect(Collectors.toList());
     }
 }
