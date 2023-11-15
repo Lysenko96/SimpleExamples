@@ -20,12 +20,14 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private OrderRepository orderRepository;
-    private WebClient webClient;
+    private WebClient.Builder webClientBuilder;
+    //private WebClient webClient;
 
 
-    public OrderService(OrderRepository orderRepository, WebClient webClient) {
+    public OrderService(OrderRepository orderRepository, WebClient.Builder webClientBuilder) {
         this.orderRepository = orderRepository;
-        this.webClient = webClient;
+        //this.webClient = webClient;
+        this.webClientBuilder = webClientBuilder;
     }
 
     public void makeOrder(OrderRequest orderRequest) {
@@ -42,8 +44,11 @@ public class OrderService {
                 .toList();
 
         //Call inventory service and make order if product is in stock
-        InventoryResponse[] inventoryResponsesArray = webClient.get()
+        InventoryResponse[] inventoryResponsesArray = webClientBuilder
+                //.baseUrl("http://inventory_service")
+                .build().get()
                 .uri("http://localhost:8083/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
+                //.uri("/api/inventory",uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)
                 .block(); // block indicates synch request between product and order
