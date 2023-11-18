@@ -23,6 +23,7 @@ public class TaskController {
     }
 
     @GetMapping("/{tag}")
+    //@RequestMapping(method = {RequestMethod.GET, RequestMethod.PUT}, value = "/{tag}")
     public Mono<Task> findTaskByTag(@PathVariable("tag") String tag){
         return taskRepository.findTaskByTag(tag);
     }
@@ -40,4 +41,6 @@ public class TaskController {
                 .then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK)))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    // add put method and check from demoWebClient
 }

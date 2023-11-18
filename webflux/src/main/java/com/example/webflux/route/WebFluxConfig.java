@@ -15,11 +15,11 @@ import static org.springframework.web.reactive.function.server.ServerResponse.no
 import static org.springframework.web.reactive.function.server.ServerResponse.notFound;
 
 @Configuration
-public class RouterConfig {
+public class WebFluxConfig {
 
     private TaskRepository taskRepository;
 
-    public RouterConfig(TaskRepository taskRepository) {
+    public WebFluxConfig(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
