@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -40,6 +41,8 @@ public class EntityManagerConfig {
     @Value("${spring.datasource.password}")
     private String password;
 
+    public DataSource dataSource;
+
     @Bean("customTransactionManager")
     public PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager(entityManagerFactory());
@@ -53,6 +56,7 @@ public class EntityManagerConfig {
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setJpaProperties(setHibernateProperties());
         factoryBean.afterPropertiesSet();
+        this.dataSource = factoryBean.getDataSource();
         return factoryBean.getNativeEntityManagerFactory();
     }
 
