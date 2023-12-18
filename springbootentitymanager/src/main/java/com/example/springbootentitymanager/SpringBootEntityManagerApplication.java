@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.metamodel.EntityType;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -52,7 +53,10 @@ public class SpringBootEntityManagerApplication {
         Optional<Author> authorResult = authorService.findById(author2.getId());
         authorResult.ifPresent(author1 -> log.info(String.valueOf(author1)));
         EntityManagerCustomBookRepository entityManagerCustomBookRepository = context.getBean(EntityManagerCustomBookRepository.class);
+
         EntityManager em = entityManagerCustomBookRepository.getEntityManager();
+        em.unwrap(Session.class).setFetchBatchSize(10); // set em batch size for insert, update, delete
+
         Optional<Book> bookResult = bookService.findById(em, myBook2);
         bookResult.ifPresent(book -> log.info(String.valueOf(book.getAuthor())));
 
