@@ -16,12 +16,26 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "this_name", nullable = false)
+    @Column(name = "this_name", nullable = false, unique = true)
     private String name;
-    private String author;
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "author_id")
+    private Author author;
 
-    public Book(String name, String author) {
+    public Book(String name) {
+        this.name = name;
+    }
+
+    public Book(String name, Author author) {
         this.name = name;
         this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

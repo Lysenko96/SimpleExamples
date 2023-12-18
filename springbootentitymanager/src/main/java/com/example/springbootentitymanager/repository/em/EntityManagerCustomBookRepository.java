@@ -5,22 +5,29 @@ import com.example.springbootentitymanager.repository.CustomBookRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
+import lombok.Getter;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
+@Getter
 @Repository
 public class EntityManagerCustomBookRepository implements CustomBookRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public Optional<Book> findBookById(Long id) {
+        Book book = entityManager.find(Book.class, id);
+        Optional<Book> result;
+        if(book != null) result = Optional.of(book);
+        else result = Optional.empty();
+        return result;
+    }
 
     @Override
     public List<Book> findAllByAuthors(Set<String> authors) {
