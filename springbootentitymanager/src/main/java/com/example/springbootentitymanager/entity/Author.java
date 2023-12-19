@@ -17,6 +17,8 @@ public class Author {
     private Long id;
     @Column(nullable = false)
     private String name;
+    @Column(name = "birth_date_year")
+    private String birthDateYear;
     @OneToOne(mappedBy = "author")
     //@JoinColumn(name = "book_id")
     private Book book;

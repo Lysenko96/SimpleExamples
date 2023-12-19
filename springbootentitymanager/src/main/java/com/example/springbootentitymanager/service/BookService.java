@@ -4,6 +4,7 @@ import com.example.springbootentitymanager.entity.Book;
 import com.example.springbootentitymanager.repository.BookRepository;
 import com.example.springbootentitymanager.repository.CustomBookRepository;
 import jakarta.persistence.EntityManager;
+import org.hibernate.Session;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ public class BookService {
     }
 
     public Optional<Book> findById(EntityManager em, Book book){
+        em.unwrap(Session.class).setFetchBatchSize(10);
         System.out.println("#################### AUTHOR NO BOOK: " +book.getAuthor());
        // Book bookRef = em.getReference(Book.class, book.getId()); // not call in db
         //System.out.println(bookRef);

@@ -18,6 +18,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.*;
@@ -28,25 +30,28 @@ import java.util.function.Predicate;
 @Slf4j
 public class SpringBootEntityManagerApplication {
 
+
     public static void main(String[] args) {
-       ConfigurableApplicationContext context = SpringApplication.run(SpringBootEntityManagerApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(SpringBootEntityManagerApplication.class, args);
         DataSource dataSource = context.getBean("dataSource", DataSource.class);
         EntityManagerConfig config = context.getBean(EntityManagerConfig.class);
         System.out.println(config.dataSource == dataSource); // if use @Component instead @Configuration result false else true
-        BookService bookService = context.getBean("bookService",BookService.class);
+        BookService bookService = context.getBean("bookService", BookService.class);
         AuthorService authorService = context.getBean("authorService", AuthorService.class);
         Book myBook = new Book("Think in Java");
         Book myBook3 = new Book("Think in Java");
         bookService.save(myBook);
         bookService.delete(myBook);
-       // bookService.save(myBook3); // error (unique book name) because insert has more priority by delete
+        // bookService.save(myBook3); // error (unique book name) because insert has more priority by delete
         Author author = new Author("Bruce Eckel", myBook);
+        author.setBirthDateYear("1977");
         Author author2 = new Author("Cay S. Horstmann");
+        author2.setBirthDateYear("1966");
         authorService.save(author);
         myBook.setAuthor(author);
         bookService.save(myBook);
-        myBook.setAuthor(null); // remove author from my_author if orphanRemoval = true
-        bookService.save(myBook);
+        //myBook.setAuthor(null); // remove author from my_author if orphanRemoval = true
+        //bookService.save(myBook);
         //authorService.save(author2); // error if use cascade = CascadeType.PERSIST
         Book myBook2 = new Book("Java Core", author2);
         bookService.save(myBook2);
@@ -55,11 +60,9 @@ public class SpringBootEntityManagerApplication {
         EntityManagerCustomBookRepository entityManagerCustomBookRepository = context.getBean(EntityManagerCustomBookRepository.class);
 
         EntityManager em = entityManagerCustomBookRepository.getEntityManager();
-        em.unwrap(Session.class).setFetchBatchSize(10); // set em batch size for insert, update, delete
 
         Optional<Book> bookResult = bookService.findById(em, myBook2);
         bookResult.ifPresent(book -> log.info(String.valueOf(book.getAuthor())));
-
     }
 
 //    @Bean
