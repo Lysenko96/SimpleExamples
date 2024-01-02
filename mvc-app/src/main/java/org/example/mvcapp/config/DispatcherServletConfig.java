@@ -1,5 +1,6 @@
 package org.example.mvcapp.config;
 
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class DispatcherServletConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
