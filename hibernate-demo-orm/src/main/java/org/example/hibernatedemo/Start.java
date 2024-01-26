@@ -4,16 +4,15 @@ import org.example.hibernatedemo.entity.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.annotations.QueryHints;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -25,20 +24,42 @@ public class Start {
         Properties properties = new Properties();
 
         load(properties);
-        Person newPerson = new Person();
-        newPerson.setFirstName("Anton");
-        newPerson.setLastName("Lysenko");
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence", properties);
+//        Person newPerson = new Person();
+//        newPerson.setFirstName("Anton");
+//        newPerson.setLastName("Lysenko");
+//        newPerson.setEmail("lysenko@gmail3.com");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence", properties);
 //        System.out.println(emf);
 
 //
-//        EntityManager em0 = emf.createEntityManager();
-//        EntityTransaction tx = em0.getTransaction();
-//        tx.begin();
+        EntityManager em0 = emf.createEntityManager();
+        //em0.unwrap(Session.class).setDefaultReadOnly(true); // off "dirty checking" update orm on find example entity
+        em0.setFlushMode(FlushModeType.AUTO); // default
+        EntityTransaction tx = em0.getTransaction();
+        tx.begin();
+        // em0.persist(newPerson);
+        // Person person = em0.find(Person.class, 1L);
+        //em0.remove(person);
 //        em0.persist(newPerson);
-//        tx.commit();
-//        Person person = em0.find(Person.class, 1L);
-//        em0.close();
+//        em0.remove(newPerson);
+//        em0.persist(newPerson);
+//        person.setLastName("Alexenko"); // dirty checking
+
+        Person newPerson = new Person();
+        newPerson.setFirstName("Anton12");
+        newPerson.setLastName("Lysenko412");
+        newPerson.setEmail("lysenko@gmail412.com");
+        em0.persist(newPerson);
+
+        // changes sent to the DB
+       // em0.flush();
+
+        em0.createQuery("SELECT p FROM Person p", Person.class)
+                .getResultStream()
+                .forEach(System.out::println);
+
+        tx.commit();
+        em0.close();
 //
 //        EntityManager em1 = emf.createEntityManager();
 //        EntityTransaction tx1 = em1.getTransaction();
@@ -48,7 +69,7 @@ public class Start {
 //        tx1.commit();
 //        em1.close();
 
-        Person person;
+        //Person person;
         try (SessionFactory sessionFactory = getSessionFactory(config, properties)) {
 
 //            EntityManager em1 = sessionFactory.createEntityManager();
@@ -59,7 +80,7 @@ public class Start {
 //            tx1.commit();
 //            em1.close();
 
-           // doInSession(sessionFactory, em -> em.persist(newPerson));
+            // doInSession(sessionFactory, em -> em.persist(newPerson));
 
 //            Person person = doInSessionReturning(sessionFactory, em -> em.find(Person.class, 1L));
 //            System.out.println(person);
@@ -74,11 +95,11 @@ public class Start {
 //                System.out.println(samePerson==person1);
 //                em.remove(person1);
 //            });
-            doInSession(sessionFactory, em -> {
-                //Person mergedPerson1 = em.merge(newPerson);
-                em.persist(newPerson);
-            });
-            person = doInSessionReturning(sessionFactory, em -> em.find(Person.class, 1L));
+//            doInSession(sessionFactory, em -> {
+//                Person mergedPerson1 = em.merge(newPerson);
+//                em.persist(mergedPerson1);
+//            });
+//            person = doInSessionReturning(sessionFactory, em -> em.find(Person.class, 1L));
 //            Person person = doInSessionReturning(sessionFactory, em -> em.find(Person.class, 1L));
 //            doInSession(sessionFactory, em ->  em.remove(person));
 
