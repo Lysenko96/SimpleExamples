@@ -6,6 +6,7 @@ import org.example.hibernaterelations.entity.Person;
 import javax.persistence.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -98,15 +99,11 @@ public class StartDemoHibernate {
         });
     }
 
-    public static Person saveNewPersonWithNewNote(EntityManagerFactory emf) {
+    public static Person saveNewPersonWithNewNote(Person person, List<Note> notes, EntityManagerFactory emf) {
         return doInSessionReturning(emf, em -> {
-            Person person = new Person();
-            person.setFirstName("Oksana");
-            person.setLastName("best");
-            person.setEmail("bestoksanamail@gmail.com");
 
-            Note note = new Note("study processing...");
-            person.addNote(note);
+            for (Note note : notes)
+                person.addNote(note);
 
             em.persist(person);
 
