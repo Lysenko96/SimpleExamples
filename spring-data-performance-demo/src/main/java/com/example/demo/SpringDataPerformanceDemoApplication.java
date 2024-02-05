@@ -11,8 +11,8 @@ public class SpringDataPerformanceDemoApplication {
     public static void main(String[] args) {
 
         ConfigurableApplicationContext context = SpringApplication.run(SpringDataPerformanceDemoApplication.class, args);
-        Provider provider = context.getBean(Provider.class);
-        provider.getFromDatabaseJdbc();
+       // Provider provider = context.getBean(Provider.class);
+        //provider.getFromDatabaseJdbc();
     }
 
 }

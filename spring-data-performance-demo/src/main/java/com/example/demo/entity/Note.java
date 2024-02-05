@@ -20,7 +20,7 @@ public class Note {
 
     @ToString.Exclude
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "person_id") //foreignKey = @ForeignKey(name = "pk_person_note")
     private Person person;
 

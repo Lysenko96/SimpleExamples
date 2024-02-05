@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,7 +37,9 @@ public class Person {
     @Setter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     List<Note> notes = new ArrayList<>();
+    @JsonManagedReference
     @Setter(AccessLevel.PRIVATE)
+    @BatchSize(size = 2) // working faster when spring.jpa.open-in-view=true get multiple fetch
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     List<Reminder> reminders = new ArrayList<>();
 

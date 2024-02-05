@@ -34,7 +34,7 @@ public class Reminder {
 
     @ToString.Exclude
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "person_id", foreignKey = @ForeignKey(name = "pk_person_reminder"))
     private Person person;
 

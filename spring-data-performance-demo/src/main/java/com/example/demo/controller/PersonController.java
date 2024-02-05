@@ -44,7 +44,9 @@ public class PersonController {
 
     @GetMapping("/{startId}/{endId}")
     public List<Person> getPersons(@PathVariable Long startId, @PathVariable Long endId) {
-        List<Person> persons = personRepository.findAllByIdGreaterThanEqualAndIdLessThanAndNotes(startId, endId);
-        return !persons.isEmpty() ? personRepository.findAllByIdGreaterThanEqualAndIdLessThanAAndReminders(startId, endId) : persons;
+//        List<Person> persons = personRepository.findAllByIdGreaterThanEqualAndIdLessThanAndNotes(startId, endId);
+//        return !persons.isEmpty() ? personRepository.findAllByIdGreaterThanEqualAndIdLessThanNotesAndReminders(startId, endId) : persons;
+
+        return personRepository.findAllByRangeFetchNotesAndReminders(startId, endId);
     }
 }
