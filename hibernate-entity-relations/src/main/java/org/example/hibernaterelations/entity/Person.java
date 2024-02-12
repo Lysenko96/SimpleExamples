@@ -32,7 +32,7 @@ public class Person {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // fetch = FetchType.EAGER
     List<Note> notes = new ArrayList<>();
 
     public void addNote(Note note) {
