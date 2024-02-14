@@ -1,6 +1,7 @@
+
 spring:
   application:
-    name: persons
+    name: persons # app name need equals name config file persons.yml
   profiles:
     active: dev
   cloud:
@@ -12,4 +13,5 @@ spring:
 #    service-url: http://localhost:8761/eureka
 #  instance:
 #    prefer-ip-address: true
-
+server:
+  port: 8081
