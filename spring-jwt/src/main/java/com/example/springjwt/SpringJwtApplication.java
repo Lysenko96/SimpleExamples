@@ -31,14 +31,4 @@ public class SpringJwtApplication {
         SpringApplication.run(SpringJwtApplication.class, args);
     }
 
-//    @Bean
-//    public CommandLineRunner commandLineRunner() {
-//        return args -> {
-//            Role admin = roleRepository.save(new Role("ROLE_ADMIN"));
-//            Role user = roleRepository.save(new Role("ROLE_USER"));
-//            userService.createNewUser(new RegistrationUserDto("admin", "admin","admin", "adm@gmail.com",  List.of(admin)));
-//            userService.createNewUser(new RegistrationUserDto("user", "user","user", "usr@gmail.com", List.of(user)));
-//        };
-//    }
-
 }
