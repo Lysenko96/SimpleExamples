@@ -1,5 +1,6 @@
 package com.example.springjwt.util;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -9,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
 import java.util.Date;
@@ -38,7 +40,23 @@ public class JwtTokenUtil {
                 .subject(userDetails.getUsername())
                 .issuedAt(issuedDate)
                 .expiration(expiredDate)
-                .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret)))
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes()), Jwts.SIG.HS256)
                 .compact();
+    }
+
+    public String getUsername(String token) {
+        return getAllClaimsFromToken(token).getSubject();
+    }
+
+    public List<String> getRoles(String token) {
+        return getAllClaimsFromToken(token).get("roles", List.class);
+    }
+
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }
