@@ -10,12 +10,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -50,9 +52,10 @@ public class MainController {
     }
 
     @GetMapping("/resetCache")
+    @Scheduled(fixedDelay = 5, timeUnit = TimeUnit.MINUTES)
     @CacheEvict(cacheNames = {"getSalesAndTrafficByAsin", "getSalesAndTrafficByDate"})
-    public String resetCache(){
-        return "Reset cache";
+    public void resetCache(){
+        log.debug("Reset cache");
     }
 
     @GetMapping("/admin")
