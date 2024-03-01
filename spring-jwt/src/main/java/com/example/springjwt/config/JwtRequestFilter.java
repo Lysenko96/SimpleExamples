@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
     public JwtRequestFilter(JwtTokenUtil jwtTokenUtil) {
         this.jwtTokenUtil = jwtTokenUtil;

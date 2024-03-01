@@ -21,16 +21,6 @@ import java.util.stream.Collectors;
 @EnableCaching
 @EnableScheduling
 public class SpringJwtApplication {
-
-    private UserService userService;
-    private RoleRepository roleRepository;
-
-
-    public SpringJwtApplication(UserService userService, RoleRepository roleRepository) {
-        this.userService = userService;
-        this.roleRepository = roleRepository;
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(SpringJwtApplication.class, args);
     }
