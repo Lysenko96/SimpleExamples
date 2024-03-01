@@ -1,16 +1,25 @@
 package com.example.springjwt.service;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.BulkWriteOptions;
 import com.mongodb.client.model.InsertOneModel;
+import com.mongodb.util.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.BsonArray;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,9 +27,12 @@ import java.util.List;
 
 @Service
 @Slf4j
+@PropertySource("classpath:application.yaml")
 public class MainService {
 
     private final MongoTemplate mongoTemplate;
+    @Value("${path_to_json}")
+    private String PATH_TO_JSON;
 
     public MainService(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
@@ -64,19 +76,18 @@ public class MainService {
     }
 
     public void uploadTestReport() {
-        // in process
-//        List<InsertOneModel<Document>> docs = new ArrayList<>();
-//        MongoCollection<Document> collection = mongoTemplate.getCollection("test_report");
-//        try (BufferedReader br = new BufferedReader(new FileReader("/home/user/Documents/SimpleExamples/spring-jwt/src/main/resources/test_report.json"))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                docs.add(new InsertOneModel<>(Document.parse(line)));
-//                collection.bulkWrite(docs, new BulkWriteOptions().ordered(false));
-//                docs.clear();
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        collection.bulkWrite(docs, new BulkWriteOptions().ordered(false));
+        BufferedReader reader;
+        String lines;
+        try {
+            reader = new BufferedReader(new FileReader(PATH_TO_JSON));
+            StringBuilder json = new StringBuilder();
+            while ((lines = reader.readLine()) != null) {
+                json.append(lines);
+            }
+            DBObject dbObject = BasicDBObject.parse(json.toString());
+            mongoTemplate.insert(dbObject, "test_report");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

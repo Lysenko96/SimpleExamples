@@ -22,3 +22,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
+
+path_to_json:
+  /home/user/Documents/SimpleExamples/spring-jwt/src/main/resources/test_report.json
