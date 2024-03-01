@@ -28,6 +28,7 @@ import java.util.List;
 @Service
 @Slf4j
 @PropertySource("classpath:application.yaml")
+@Transactional
 public class MainService {
 
     private final MongoTemplate mongoTemplate;
@@ -43,7 +44,6 @@ public class MainService {
         DistinctIterable<Document> findIterable = mongoTemplate.getCollection("test_report")
                 .distinct("salesAndTrafficByAsin", Document.class);
         for (Document doc : findIterable) documents.add(doc);
-        for (Document doc : findIterable) log.info(doc.getString("parentAsin"));
         return documents;
     }
 
