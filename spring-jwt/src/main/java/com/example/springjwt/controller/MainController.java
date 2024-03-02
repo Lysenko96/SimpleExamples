@@ -67,8 +67,11 @@ public class MainController {
     }
 
     @GetMapping("/upload")
+    @Scheduled(fixedDelay = 5, timeUnit = TimeUnit.SECONDS)
+    @PostConstruct
     public void uploadTestReport() {
         mainService.uploadTestReport();
+        log.info("Upload collection");
     }
 
     @GetMapping("/info")

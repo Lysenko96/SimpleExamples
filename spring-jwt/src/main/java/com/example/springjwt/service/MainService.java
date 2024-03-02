@@ -85,6 +85,7 @@ public class MainService {
                 json.append(lines);
             }
             DBObject dbObject = BasicDBObject.parse(json.toString());
+            mongoTemplate.dropCollection("test_report");
             mongoTemplate.insert(dbObject, "test_report");
         } catch (IOException e) {
             throw new RuntimeException(e);
