@@ -25,3 +25,9 @@ spring:
 
 path_to_json:
   /home/user/Documents/SimpleExamples/spring-jwt/src/main/resources/test_report.json
+
+fieldName1: salesAndTrafficByAsin
+fieldName2: salesAndTrafficByDate
+key1: parentAsin
+key2: date
+collectionName: test_report

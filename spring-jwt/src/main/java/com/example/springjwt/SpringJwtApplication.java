@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
-@EnableCaching
+//@EnableCaching
 @EnableScheduling
 @EnableTransactionManagement
 public class SpringJwtApplication {

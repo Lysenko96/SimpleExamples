@@ -24,6 +24,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Slf4j
@@ -35,43 +37,64 @@ public class MainService {
     @Value("${path_to_json}")
     private String PATH_TO_JSON;
 
+    @Value("${fieldName1}")
+    private String fieldName1;
+    @Value("${fieldName2}")
+    private String fieldName2;
+    @Value("${key1}")
+    private String key1;
+    @Value("${key2}")
+    private String key2;
+    @Value("${collectionName}")
+    private String collectionName;
+
+    private Map<String, List<Document>> cache = new ConcurrentHashMap<>();
+
     public MainService(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
     public List<Document> getSalesAndTrafficByAsin() {
+        if (cache.containsKey(fieldName1)) return cache.get(fieldName1);
         List<Document> documents = new ArrayList<>();
-        DistinctIterable<Document> findIterable = mongoTemplate.getCollection("test_report")
-                .distinct("salesAndTrafficByAsin", Document.class);
+        DistinctIterable<Document> findIterable = mongoTemplate.getCollection(collectionName)
+                .distinct(fieldName1, Document.class);
         for (Document doc : findIterable) documents.add(doc);
+        cache.put(fieldName1, documents);
         return documents;
     }
 
     public Document getSalesAndTrafficByAsinParent(String parentAsin) {
+        if (cache.containsKey(key1)) return cache.get(key1).get(0);
         Document document = new Document();
-        DistinctIterable<Document> findIterable = mongoTemplate.getCollection("test_report")
-                .distinct("salesAndTrafficByAsin", Document.class);
+        DistinctIterable<Document> findIterable = mongoTemplate.getCollection(collectionName)
+                .distinct(fieldName1, Document.class);
         for (Document doc : findIterable) {
-            if (doc.getString("parentAsin").equals(parentAsin)) document = doc;
+            if (doc.getString(key1).equals(parentAsin)) document = doc;
         }
+        cache.put(key1, List.of(document));
         return document;
     }
 
     public Document getSalesAndTrafficByDateForDate(String date) {
+        if (cache.containsKey(key2)) return cache.get(key2).get(0);
         Document document = new Document();
-        DistinctIterable<Document> findIterable = mongoTemplate.getCollection("test_report")
-                .distinct("salesAndTrafficByDate", Document.class);
+        DistinctIterable<Document> findIterable = mongoTemplate.getCollection(collectionName)
+                .distinct(fieldName2, Document.class);
         for (Document doc : findIterable) {
-            if (doc.getString("date").equals(date)) document = doc;
+            if (doc.getString(key2).equals(date)) document = doc;
         }
+        cache.put(key2, List.of(document));
         return document;
     }
 
     public List<Document> getSalesAndTrafficByDate() {
+        if (cache.containsKey(fieldName2)) return cache.get(fieldName2);
         List<Document> documents = new ArrayList<>();
-        DistinctIterable<Document> findIterable = mongoTemplate.getCollection("test_report")
-                .distinct("salesAndTrafficByDate", Document.class);
+        DistinctIterable<Document> findIterable = mongoTemplate.getCollection(collectionName)
+                .distinct(fieldName2, Document.class);
         for (Document doc : findIterable) documents.add(doc);
+        cache.put(fieldName2, documents);
         return documents;
     }
 
@@ -85,10 +108,14 @@ public class MainService {
                 json.append(lines);
             }
             DBObject dbObject = BasicDBObject.parse(json.toString());
-            mongoTemplate.dropCollection("test_report");
-            mongoTemplate.insert(dbObject, "test_report");
+            mongoTemplate.dropCollection(collectionName);
+            mongoTemplate.insert(dbObject, collectionName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void resetCache() {
+        cache = new ConcurrentHashMap<>();
     }
 }

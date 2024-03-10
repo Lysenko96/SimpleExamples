@@ -4,15 +4,20 @@ import com.example.springjwt.service.MainService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.print.Doc;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -26,25 +31,25 @@ public class MainController {
     }
 
     @GetMapping("/salesAndTrafficByAsin")
-    @Cacheable("getSalesAndTrafficByAsin")
+//    @Cacheable(value = "getSalesAndTrafficByAsin")
     public List<Document> getSalesAndTrafficByAsin(){
         return mainService.getSalesAndTrafficByAsin();
     }
 
     @GetMapping("/salesAndTrafficByAsin/{parentAsin}")
-    @Cacheable("getSalesAndTrafficByAsinParent")
+//    @Cacheable("getSalesAndTrafficByAsinParent")
     public Document getSalesAndTrafficByAsinParent(@PathVariable("parentAsin") String parentAsin){
         return mainService.getSalesAndTrafficByAsinParent(parentAsin);
     }
 
     @GetMapping("/salesAndTrafficByDate/{date}")
-    @Cacheable("getSalesAndTrafficByDateForDate")
+//    @Cacheable("getSalesAndTrafficByDateForDate")
     public Document getSalesAndTrafficByDateForDate(@PathVariable("date") String date){
         return mainService.getSalesAndTrafficByDateForDate(date);
     }
 
     @GetMapping("/salesAndTrafficByDate")
-    @Cacheable("getSalesAndTrafficByDate")
+//    @Cacheable("getSalesAndTrafficByDate")
     public List<Document> getSalesAndTrafficByDate() {
         return mainService.getSalesAndTrafficByDate();
     }
@@ -52,12 +57,13 @@ public class MainController {
     @GetMapping("/resetCache")
     @Scheduled(fixedDelay = 5, timeUnit = TimeUnit.MINUTES)
     @PostConstruct
-    @CacheEvict(cacheNames = {
-            "getSalesAndTrafficByAsin",
-            "getSalesAndTrafficByDate",
-            "getSalesAndTrafficByAsinParent", 
-            "getSalesAndTrafficByDateForDate"})
+//    @CacheEvict(cacheNames = {
+//            "getSalesAndTrafficByAsin",
+//            "getSalesAndTrafficByDate",
+//            "getSalesAndTrafficByAsinParent",
+//            "getSalesAndTrafficByDateForDate"})
     public void resetCache(){
+        mainService.resetCache();
         log.info("Reset cache");
     }
 
