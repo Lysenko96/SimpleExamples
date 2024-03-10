@@ -1,4 +1,4 @@
-#Test Task for Java Developer
+# Test Task for Java Developer
 The project contains a Spring Boot RESTful API that updates statistics in a MongoDB database and caches responses.
 
 Key features implemented:
