@@ -14,8 +14,8 @@ import net.lys.jdbc.entity.Car;
 
 public class JdbcCarDao implements CarDao {
 
-	private static final String ADD_CAR = "INSERT INTO Cars (name, speed, price) VALUES (?,?,?)";
-	private static final String GET_CAR = "SELECT * FROM Cars WHERE id = ?";
+	private static final String ADD_CAR = "INSERT INTO " + "\"Cars\"" + "(name, speed, price) VALUES (?,?,?)";
+	private static final String GET_CAR = "SELECT * FROM "+ "\"Cars\"" + " WHERE id = ?";
 	private static final String GET_ALL_CAR = "SELECT * FROM Cars";
 	private static final String UPDATE_CAR = "UPDATE Cars SET name=?, speed=?, price=? WHERE id=?";
 	private static final String DELETE_CAR = "DELETE FROM Cars WHERE id=?";
@@ -29,11 +29,11 @@ public class JdbcCarDao implements CarDao {
 	@Override
 	public void add(Car car) {
 		try (Connection connection = provider.getConnection();
-				PreparedStatement statement = connection.prepareStatement(ADD_CAR);) {
-			statement.setString(1, car.getName());
-			statement.setInt(2, car.getSpeed());
-			statement.setInt(3, car.getPrice());
-			statement.executeUpdate();
+				PreparedStatement statement = connection.prepareStatement("");) {
+//			statement.setString(1, car.getName());
+//			statement.setInt(2, car.getSpeed());
+//			statement.setInt(3, car.getPrice());
+			System.out.println(statement.executeUpdate());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

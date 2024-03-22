@@ -9,10 +9,10 @@ public class Main {
 	public static void main(String[] args) {
 		Provider provider = new Provider();
 		JdbcCarDao carDao = new JdbcCarDao(provider);
-		System.out.println(carDao.getAll());
-		System.out.println(carDao.getById(1));
-	//	 carDao.add(new Car("Bmw", 235, 210000));
+//		System.out.println(carDao.getAll());
 		// System.out.println(carDao.getAll());
+		carDao.add(new Car("Bmw", 235, 210000));
+		System.out.println(carDao.getById(1));
 //		carDao.update(new Car(1, "Lamba", 270, 300000));
 //		System.out.println(carDao.getAll());
 //		carDao.deleteById(2);
