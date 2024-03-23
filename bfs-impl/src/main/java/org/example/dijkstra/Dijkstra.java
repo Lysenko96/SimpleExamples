@@ -80,17 +80,9 @@ public class Dijkstra {
                 if (!settledNodes.contains(adjacentNode)) {
                     // to set the shortest path to adjacentNode
                     calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
-//                    sb.append(System.lineSeparator()).append("From: ").append(adjacentNode.getName());
-//                    List<String> path = reversed.stream().map(n -> (!n.getName().equals(source.getName()) ? System.lineSeparator() + n.getName() : "") +
-//                            (n.getDistance() != 0 ? " total distance:" + (adjacentNode.getDistance() - n.getDistance()) : "")).toList();
-//                    if (!path.isEmpty()) {
-//                        for (String partPath : path) sb.append(partPath);
-//                    }
-//                    sb.append(" ").append("total distance to: ").append(source.getName()).append(" ").append(adjacentNode.getDistance());
                     unsettledNodes.add(adjacentNode);
                 }
             }
-//            System.out.println(sb);
             // add visited current node
             settledNodes.add(currentNode);
         }
