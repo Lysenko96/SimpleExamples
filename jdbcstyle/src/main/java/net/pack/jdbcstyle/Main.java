@@ -22,7 +22,7 @@ public class Main {
 				new Person("name2", "surname2", FEMALE, "name2@email.com", 2000, "address2", 9379993, "777"),
 				new Person("name3", "surname3", MALE, "name3@email.com", 1998, "address3", 9379994, "555"));
 		//personDao.addBatch(persons);
-		personDao.add(persons.get(0));
+		personDao.addBatch(persons);
 		//System.out.println(personDao.getAll());
 		provider.getDs().close();
 	}

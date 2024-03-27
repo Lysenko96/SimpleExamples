@@ -2,6 +2,7 @@ package net.pack.jdbcstyle.dao.jdbc;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.pack.jdbcstyle.dao.PersonDao;
@@ -75,7 +76,7 @@ public class JdbcPersonDao implements PersonDao {
 					}
 				}
 
-				st.executeBatch();
+				System.out.println(Arrays.toString(st.executeBatch()));
 				conn.commit();
 			} catch (SQLException e) {
 				conn.rollback();

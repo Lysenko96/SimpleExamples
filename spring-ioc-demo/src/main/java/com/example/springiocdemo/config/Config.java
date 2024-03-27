@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan("com.example.springiocdemo")
-@EnableWebMvc
+//@EnableWebMvc
 public class Config {
 
     @Bean
