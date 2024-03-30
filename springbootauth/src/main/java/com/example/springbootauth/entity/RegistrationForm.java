@@ -12,9 +12,10 @@ public class RegistrationForm {
     private String password;
     private String email;
     private String phone;
-    private Set<Role> roles;
+//    private Set<Role> roles;
 
     public User getUser(){
-        return new User(username, password, email ,phone, Collections.singleton(Role.USER));
+        return new User(username, password, email ,phone//,  Collections.singleton(Role.USER)
+        );
     }
 }

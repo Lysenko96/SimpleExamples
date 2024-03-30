@@ -1,6 +1,6 @@
 package com.example.springbootauth.service;
 
-import com.example.springbootauth.entity.Role;
+//import com.example.springbootauth.entity.Role;
 import com.example.springbootauth.entity.User;
 import com.example.springbootauth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +28,11 @@ public class UserService implements UserDetailsService {
     }
 
     public void save(User user){
-        if(user.getUsername().equalsIgnoreCase(username) && user.getPassword().equals(password)) user.setRoles(Collections.singleton(Role.ADMIN));
+        if(user.getUsername().equalsIgnoreCase(username) && user.getPassword().equals(password))// user.setRoles(Collections.singleton(Role.ADMIN))
+                ;
 
-        User encodedUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getEmail(), user.getPhone(), user.getRoles());
+        User encodedUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getEmail(), user.getPhone()//, user.getRoles()
+        );
 
         userRepository.save(encodedUser);
     }

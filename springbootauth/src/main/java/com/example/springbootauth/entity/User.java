@@ -28,23 +28,26 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String phone;
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "role", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role_name")
-    private Set<Role> roles = new HashSet<>();
+//    @Enumerated(EnumType.STRING)
+//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "role", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "role_name")
+//    private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String password, String email, String phone, Set<Role> roles) {
+    public User(String username, String password, String email, String phone//, Set<Role> roles
+    ) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.roles = roles;
+//        this.roles = roles;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+    public Collection<? extends GrantedAuthority>
+    getAuthorities() {
+        return null;
+                //roles;
     }
 
     @Override
