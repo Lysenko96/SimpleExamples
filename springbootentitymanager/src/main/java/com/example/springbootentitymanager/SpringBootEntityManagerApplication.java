@@ -33,36 +33,36 @@ public class SpringBootEntityManagerApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootEntityManagerApplication.class, args);
-        DataSource dataSource = context.getBean("dataSource", DataSource.class);
-        EntityManagerConfig config = context.getBean(EntityManagerConfig.class);
-        System.out.println(config.dataSource == dataSource); // if use @Component instead @Configuration result false else true
-        BookService bookService = context.getBean("bookService", BookService.class);
-        AuthorService authorService = context.getBean("authorService", AuthorService.class);
-        Book myBook = new Book("Think in Java");
-        Book myBook3 = new Book("Think in Java");
-        bookService.save(myBook);
-        bookService.delete(myBook);
-        // bookService.save(myBook3); // error (unique book name) because insert has more priority by delete
-        Author author = new Author("Bruce Eckel", myBook);
-        author.setBirthDateYear("1977");
-        Author author2 = new Author("Cay S. Horstmann");
-        author2.setBirthDateYear("1966");
-        authorService.save(author);
-        myBook.setAuthor(author);
-        bookService.save(myBook);
-        //myBook.setAuthor(null); // remove author from my_author if orphanRemoval = true
-        //bookService.save(myBook);
-        //authorService.save(author2); // error if use cascade = CascadeType.PERSIST
-        Book myBook2 = new Book("Java Core", author2);
-        bookService.save(myBook2);
-        Optional<Author> authorResult = authorService.findById(author2.getId());
-        authorResult.ifPresent(author1 -> log.info(String.valueOf(author1)));
-        EntityManagerCustomBookRepository entityManagerCustomBookRepository = context.getBean(EntityManagerCustomBookRepository.class);
-
-        EntityManager em = entityManagerCustomBookRepository.getEntityManager();
-
-        Optional<Book> bookResult = bookService.findById(em, myBook2);
-        bookResult.ifPresent(book -> log.info(String.valueOf(book.getAuthor())));
+//        DataSource dataSource = context.getBean("dataSource", DataSource.class);
+//        EntityManagerConfig config = context.getBean(EntityManagerConfig.class);
+//        System.out.println(config.dataSource == dataSource); // if use @Component instead @Configuration result false else true
+//        BookService bookService = context.getBean("bookService", BookService.class);
+//        AuthorService authorService = context.getBean("authorService", AuthorService.class);
+//        Book myBook = new Book("Think in Java");
+//        Book myBook3 = new Book("Think in Java");
+//        bookService.save(myBook);
+//        bookService.delete(myBook);
+//        // bookService.save(myBook3); // error (unique book name) because insert has more priority by delete
+//        Author author = new Author("Bruce Eckel", myBook);
+//        author.setBirthDateYear("1977");
+//        Author author2 = new Author("Cay S. Horstmann");
+//        author2.setBirthDateYear("1966");
+//        authorService.save(author);
+//        myBook.setAuthor(author);
+//        bookService.save(myBook);
+//        //myBook.setAuthor(null); // remove author from my_author if orphanRemoval = true
+//        //bookService.save(myBook);
+//        //authorService.save(author2); // error if use cascade = CascadeType.PERSIST
+//        Book myBook2 = new Book("Java Core", author2);
+//        bookService.save(myBook2);
+//        Optional<Author> authorResult = authorService.findById(author2.getId());
+//        authorResult.ifPresent(author1 -> log.info(String.valueOf(author1)));
+//        EntityManagerCustomBookRepository entityManagerCustomBookRepository = context.getBean(EntityManagerCustomBookRepository.class);
+//
+//        EntityManager em = entityManagerCustomBookRepository.getEntityManager();
+//
+//        Optional<Book> bookResult = bookService.findById(em, myBook2);
+//        bookResult.ifPresent(book -> log.info(String.valueOf(book.getAuthor())));
     }
 
 //    @Bean
