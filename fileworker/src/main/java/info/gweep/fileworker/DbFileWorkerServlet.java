@@ -6,6 +6,7 @@ import info.gweep.fileworker.provider.Provider;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import java.io.OutputStream;
 import static info.gweep.fileworker.dao.jdbc.JdbcEntityDao.BUFFER_SIZE;
 
 @WebServlet("/downloadFileServlet")
+@MultipartConfig(maxFileSize=16777216, maxRequestSize=16777216, fileSizeThreshold=0)
 public class DbFileWorkerServlet extends HttpServlet {
     public static final String PATH_FILE = "/home/user/Documents/Spd/fileworker/src/main/resources/config.properties";
     @Override
