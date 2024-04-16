@@ -24,7 +24,7 @@ public class ChatClientEndpoint {
         }
     }
 
-//    @OnMessage
+//        @OnMessage
 //    public String onMessage(String message, Session session) {
 //        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 //        try {
@@ -37,9 +37,10 @@ public class ChatClientEndpoint {
 //    }
     @OnMessage
     public String onMessage(String msg) {
-        System.out.println (msg + "32523523");
-        return msg + "32523523";
+        System.out.println (msg);
+        return msg;
     }
+
 
     @OnClose
     public void onClose(Session session, CloseReason closeReason) {
