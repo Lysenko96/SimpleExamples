@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.*;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -47,95 +49,106 @@ public class StartupApplication implements Serializable {
 //            throw new RuntimeException(e);
 //        }
         Pipe p;
-//        RandomAccessFile aFile = null;
-//        try {
-//            aFile = new RandomAccessFile("/home/user/nio-data.txt", "rw");
-//            FileChannel inChannel = aFile.getChannel();
-//
-////create buffer with capacity of 48 bytes
-//            ByteBuffer buf = ByteBuffer.allocate(48);
-//
-//            int bytesRead = inChannel.read(buf); //read into buffer.
-//            while (bytesRead != -1) {
-//
-//                buf.flip();  //make buffer ready for read
-//
-//                while (buf.hasRemaining()) {
-//                    System.out.print((char) buf.get()); // read 1 byte at a time
-//                }
-//
-//                buf.clear(); //make buffer ready for writing
-//                bytesRead = inChannel.read(buf);
-//            }
-//            aFile.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-      new StartupApplication().selector();
-      Map m = new HashMap(16);
-      new ArrayList<>(16);
-      ArrayList a;
-      LinkedList l;
-        Instant i;
-        Duration d;
+        RandomAccessFile aFile = null;
+        try {
+            aFile = new RandomAccessFile("/home/user/nio-data.txt", "rw");
+            FileChannel inChannel = aFile.getChannel();
+
+//create buffer with capacity of 48 bytes
+            ByteBuffer buf = ByteBuffer.allocate(48);
+
+            ByteBuffer buffer = buf.asReadOnlyBuffer();
+            System.out.println(buffer.isReadOnly());
+
+            int bytesRead = inChannel.read(buf); //read into buffer.
+            while (bytesRead != -1) {
+
+                buf.flip();  //make buffer ready for read
+
+                while (buf.hasRemaining()) {
+                    System.out.print((char) buf.get()); // read 1 byte at a time
+                }
+
+                buf.clear(); //make buffer ready for writing
+                bytesRead = inChannel.read(buf);
+            }
+            aFile.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//      new StartupApplication().selector();
+//      Map m = new HashMap(16);
+//      new ArrayList<>(16);
+//      ArrayList a;
+//      LinkedList l;
+//        Instant i;
+//        Duration d;
     }
 
     void selector() throws IOException {
-//        Selector selector = Selector.open();
-//        RandomAccessFile aFile = new RandomAccessFile("/home/user/nio-data.txt", "rw");
+        Selector selector = Selector.open();
+        RandomAccessFile aFile = new RandomAccessFile("/home/user/nio-data.txt", "rw");
 //        ServerSocketChannel channel = ServerSocketChannel.open();
+        Pipe.SourceChannel channel =  Pipe.open().source();
 //        channel.bind(new InetSocketAddress("localhost", 5454));
-//        channel.configureBlocking(false);
-//        SelectionKey key = channel.register(selector, SelectionKey.OP_ACCEPT);
-//        ByteBuffer buffer = ByteBuffer.allocate(256);
+        channel.configureBlocking(false);
+        System.out.println(channel.validOps());
+        SelectionKey key = channel.register(selector, SelectionKey.OP_READ);
+        ByteBuffer buffer = ByteBuffer.allocate(256);
 //        channel.configureBlocking(false);
 
 //        SelectionKey key1 = channel.register(selector, SelectionKey.OP_READ);
 
 
-//        while(true) {
-//            int readyChannels = selector.selectNow();
-//
-//            if(readyChannels == 0) System.out.println("zero");;
+        while(true) {
+//            int readyChannels = key.readyOps();
+//            System.out.println(readyChannels);
+//            System.exit(0);
+
+//            if(readyChannels == 0) System.out.println("zero");
 
 
-//            Set<SelectionKey> selectedKeys = selector.selectedKeys();
+//            Set<SelectionKey> selectedKeys = selector.keys();
+
+//            System.out.println(selectedKeys);
+//            System.exit(0);
 
 //            Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
 
 //            while(keyIterator.hasNext()) {
 
 //                SelectionKey key = keyIterator.next();
-//
-//                if(key.isAcceptable()) {
-//                    // a connection was accepted by a ServerSocketChannel.
-//                    System.out.println("acceptable");
-//                    key.attach(null);
-//                } else if (key.isConnectable()) {
-//                    // a connection was established with a remote server.
-//                    System.out.println("connection");
-//                } else if (key.isReadable()) {
-//                    // a channel is ready for reading
-//                    System.out.println("reading");
-//                } else if (key.isWritable()) {
-//                    // a channel is ready for writing
-//                    System.out.println("writing");
-//                }
+//                 key = keyIterator.next();
+
+                if(key.isAcceptable()) {
+                    // a connection was accepted by a ServerSocketChannel.
+                    System.out.println("acceptable");
+                    key.attach(null);
+                } else if (key.isConnectable()) {
+                    // a connection was established with a remote server.
+                    System.out.println("connection");
+                } else if (key.isReadable()) {
+                    // a channel is ready for reading
+                    System.out.println("reading");
+                } else if (key.isWritable()) {
+                    // a channel is ready for writing
+                    System.out.println("writing");
+                }
 
 //                keyIterator.remove();
 //            }
-//        }
-        try {
-            throw new IOException();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            System.out.println("finally");
         }
+//        try {
+//            throw new IOException();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            System.out.println("finally");
+//        }
     }
-    Function f;
-    PriorityQueue p;
-    Deque dq;
+//    Function f;
+//    PriorityQueue p;
+//    Deque dq;
 }
 
 class A {

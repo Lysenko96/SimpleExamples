@@ -9,6 +9,8 @@ public class ChatServer {
         try {
             server.start();
             System.out.println("--- server is running");
+//            Thread.sleep(5000L);
+//            server.stop();
             while(true){}
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.example.springiocdemo.websocket;
 
 import org.glassfish.tyrus.client.ClientManager;
+import org.glassfish.tyrus.core.AnnotatedEndpoint;
 
 import javax.websocket.*;
 import java.io.BufferedReader;
@@ -12,16 +13,11 @@ import java.net.URISyntaxException;
 @ClientEndpoint
 public class ChatClientEndpoint {
 
-    private static Session session;
+//    private static Session session;
     @OnOpen
     public void onOpen(Session session) {
-        ChatClientEndpoint.session = session;
+//        ChatClientEndpoint.session = session;
         System.out.println ("--- Connected " + session.getId());
-        try {
-            session.getBasicRemote().sendText("start");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 //        @OnMessage
@@ -53,14 +49,24 @@ public class ChatClientEndpoint {
         try {
             URI uri = new URI("ws://localhost:8025/folder/app");
             ChatClientEndpoint chatClientEndpoint = new ChatClientEndpoint();
-            client.connectToServer(chatClientEndpoint.getClass(), uri);
-            Thread.sleep(5000L);
+            Session session1 = client.connectToServer(chatClientEndpoint.getClass(), uri);
+            Thread.sleep(1500L);
             CloseReason closeReason = new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "NORMAL_CLOSURE");
-            chatClientEndpoint.onClose(session, closeReason);
+//            chatClientEndpoint.onClose(session1, closeReason);
+            for(int i = 0; i < 5; i ++) {
+                session1.getBasicRemote().sendText("start");
+                chatClientEndpoint.onMessage("start");
+            }
+
+            for(MessageHandler messageHandler : session1.getMessageHandlers()) {
+                System.out.println(messageHandler);
+            }
+
+            session1.close();
 //            while(true) {}
         } catch (DeploymentException | URISyntaxException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | IOException e) {
             throw new RuntimeException(e);
         }
     }
