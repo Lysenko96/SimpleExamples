@@ -47,7 +47,7 @@ public class ChatClientEndpoint {
     public static void main(String[] args) {
         ClientManager client = ClientManager.createClient();
         try {
-            URI uri = new URI("ws://localhost:8025/folder/app");
+            URI uri = new URI("wss://localhost:8025/folder/app");
             ChatClientEndpoint chatClientEndpoint = new ChatClientEndpoint();
             Session session1 = client.connectToServer(chatClientEndpoint.getClass(), uri);
             Thread.sleep(1500L);
