@@ -12,7 +12,7 @@ import java.util.Enumeration;
 public class PgDaoFactory extends DaoFactory {
 
     private String DATASOURCE_JNDI_NAME = "java:/comp/env/jdbc/postgres";
-    private String DATASOURCE_JNDI_NAME_HIKARI = "hikari/test";
+    private String DATASOURCE_JNDI_NAME_HIKARI = "hikari";
     private Connection connection;
     private HikariDataSource dataSource;
     private static volatile boolean inTransaction = false;
@@ -84,19 +84,27 @@ public class PgDaoFactory extends DaoFactory {
             DataSource source = (DataSource) context.lookup(DATASOURCE_JNDI_NAME);
             Name objectName = new CompositeName(DATASOURCE_JNDI_NAME);
             Name objectName1 = new CompositeName(DATASOURCE_JNDI_NAME_HIKARI);
+//            objectName1.add(0,"test");
 //            context.createSubcontext("test");
-            Enumeration<String> elements = objectName1.getAll();
-            while(elements.hasMoreElements()) {
-                System.out.println(elements.nextElement());
-            }
+//            Enumeration<String> elements = objectName1.getAll();
+//            while(elements.hasMoreElements()) {
+//                System.out.println(elements.nextElement());
+//            }
             getConnectionFromPool();
             //System.out.println(dataSource);
 
-            if(!isBind) context.bind(objectName1, dataSource);
+            if(!isBind)
+                context.bind(objectName1, dataSource);
 
-            HikariDataSource hikariDataSource = (HikariDataSource) context.lookup(objectName1);
-            Connection conn = hikariDataSource.getConnection();
-            System.out.println("getMaximumPoolSize: " + hikariDataSource.getHikariConfigMXBean().getMaximumPoolSize());
+           HikariDataSource hikariDataSource = (HikariDataSource) context.lookup(objectName1);
+//            Connection conn = hikariDataSource.getConnection();
+//            System.out.println("getMaximumPoolSize: " + hikariDataSource.getHikariConfigMXBean().getMaximumPoolSize());
+            context.unbind(DATASOURCE_JNDI_NAME_HIKARI);
+//            context.lookup(DATASOURCE_JNDI_NAME_HIKARI); // not found
+            DataSource dataSource1 = (DataSource) context.lookup(DATASOURCE_JNDI_NAME);
+            System.out.println(dataSource1);
+            Connection conn = dataSource1.getConnection();
+            System.out.println(conn);
             conn.setAutoCommit(false);
             setConnection(conn);
             isBind = true;

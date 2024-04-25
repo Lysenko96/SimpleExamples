@@ -22,4 +22,5 @@ public class ChatServerEndpoint {
         System.out.println("--- Session: " + session.getId());
         System.out.println("--- Closing because: " + closeReason);
     }
+
 }

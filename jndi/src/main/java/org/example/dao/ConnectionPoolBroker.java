@@ -19,7 +19,7 @@ public enum ConnectionPoolBroker {
         String hikariCpUrl = Objects.requireNonNull(ConnectionPoolBroker.class.getClassLoader().getResource("hikaricp.properties")).getFile();
         HikariConfig config = new HikariConfig(hikariCpUrl);
         config.setMaximumPoolSize(MAX_POOL_SIZE);
-        System.out.println(config.getMaximumPoolSize());
+//        System.out.println(config.getMaximumPoolSize());
         try {
             HikariDataSource dataSource = new HikariDataSource(config);
            // System.out.println(dataSource.getMaximumPoolSize() + " setupHikari");

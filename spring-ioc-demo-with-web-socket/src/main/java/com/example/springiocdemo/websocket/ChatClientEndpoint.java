@@ -32,8 +32,7 @@ public class ChatClientEndpoint {
 //        }
 //    }
     @OnMessage
-    public String onMessage(String msg) {
-        System.out.println (msg);
+    public String onMessage(String msg, Session session) {
         return msg;
     }
 
@@ -49,25 +48,27 @@ public class ChatClientEndpoint {
         try {
             URI uri = new URI("wss://localhost:8025/folder/app");
             ChatClientEndpoint chatClientEndpoint = new ChatClientEndpoint();
-            Session session1 = client.connectToServer(chatClientEndpoint.getClass(), uri);
-            Thread.sleep(1500L);
-            CloseReason closeReason = new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "NORMAL_CLOSURE");
+            Session session1 = client.connectToServer(ChatClientEndpoint.class, uri);
+//            Thread.sleep(1500L);
+//            CloseReason closeReason = new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "NORMAL_CLOSURE");
 //            chatClientEndpoint.onClose(session1, closeReason);
-            for(int i = 0; i < 5; i ++) {
-                session1.getBasicRemote().sendText("start");
-                chatClientEndpoint.onMessage("start");
-            }
+            String message = "message";
+            session1.getBasicRemote().sendText(message);
+            System.out.println(message);
+//            System.out.println(session1.isSecure()); // false
+//                chatClientEndpoint.onMessage("start");
 
             for(MessageHandler messageHandler : session1.getMessageHandlers()) {
                 System.out.println(messageHandler);
             }
 
-            session1.close();
+//            session1.close();
 //            while(true) {}
         } catch (DeploymentException | URISyntaxException e) {
             e.printStackTrace();
-        } catch (InterruptedException | IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }

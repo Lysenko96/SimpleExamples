@@ -46,7 +46,7 @@
       driverClassName="org.postgresql.Driver" 
       url="jdbc:postgresql://localhost:5432/postgres" 
       username="postgres" 
-      password="postgresTE!" 
+      password="postgres"
       
       maxActive="2" 
       maxIdle="20" 
