@@ -11,22 +11,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static info.gweep.fileworker.dao.jdbc.JdbcEntityDao.BUFFER_SIZE;
 
 @WebServlet("/downloadFileServlet")
 @MultipartConfig(maxFileSize=16777216, maxRequestSize=16777216, fileSizeThreshold=0)
 public class DbFileWorkerServlet extends HttpServlet {
-    public static final String PATH_FILE = "/home/user/Documents/Spd/fileworker/src/main/resources/config.properties";
+    public static final String PATH_FILE = "/home/user/Documents/SimpleExamples/fileworker/src/main/resources/config.properties";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Provider provider = new Provider();
         JdbcEntityDao jdbcEntityDao = new JdbcEntityDao(provider);
-        //jdbcEntityDao.add(new Entity("entity1", new HashSet<>(Arrays.asList("099-342-43", "034-632-44")), new File(PATH_FILE), Files.readAllBytes(Paths.get(PATH_FILE))));
+        jdbcEntityDao.add(new Entity("entity1", new HashSet<>(Arrays.asList("099-342-43", "034-632-44")), new File(PATH_FILE), Files.readAllBytes(Paths.get(PATH_FILE))));
         Entity entity = jdbcEntityDao.getById(1L);
         String fileName = entity.getFile().getName();
         ServletContext context = getServletContext();

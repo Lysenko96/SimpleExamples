@@ -23,7 +23,7 @@ public class JdbcEntityDao implements EntityDao {
     public static final int BUFFER_SIZE = 4096;
     private static long index = 0;
 
-    public static final String PATH_FILE_FROM_DB = "/home/user/Documents/Spd/fileworker/src/main/resources/file_from_db_";
+    public static final String PATH_FILE_FROM_DB = "/home/user/Documents/SimpleExamples/fileworker/src/main/resources/file_from_db_";
 
     public JdbcEntityDao(Provider provider) {
         this.provider = provider;
