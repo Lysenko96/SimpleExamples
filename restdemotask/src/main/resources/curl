@@ -1,9 +1,9 @@
-curl -d '{"email":"email", "firstName":"name", "lastName":"last", "birthDate":"2000-01-01"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api
+curl -d '{"email":"email@gmail.com", "firstName":"name", "lastName":"last", "birthDate":"2000-01-01"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api
 curl -X DELETE http://localhost:8080/api/delete/1
-curl -d '{"uniqueId":"1", "email":"email", "firstName":"name1", "lastName":"last1", "birthDate":"2000-01-01"}'  -H "Content-Type: application/json" -X PUT http://localhost:8080/api/update
+curl -d '{"uniqueId":"1", "email":"email@gmail.com", "firstName":"name1", "lastName":"last1", "birthDate":"2000-01-01"}'  -H "Content-Type: application/json" -X PUT http://localhost:8080/api/update
 #PUT update current field other equals null or 0 in the next curl speed = 0.0 after update request body
 #PATCH update only current field don't equals other field null or 0 in the next curl speed update and model don't set null
-curl -d '{"email":"email5435"}' -H "Content-Type: application/json" -X PATCH http://localhost:8080/api/patch/1
+curl -d '{"email":"email12@gmail.com"}' -H "Content-Type: application/json" -X PATCH http://localhost:8080/api/patch/1
 #GET
 curl -H "Content-Type: application/json"  http://localhost:8080/api
 curl -H "Content-Type: application/json"  'http://localhost:8080/api?from=1990-01-01&to=1995-01-01'

@@ -1,18 +1,18 @@
 package com.example.restdemotask.repository;
 
-import com.example.restdemotask.entity.User;
+import com.example.restdemotask.entity.Users;
 
 import java.util.List;
 
 public interface UserDao {
 
-    User save(User user);
+    Users save(Users user);
 
-    User getById(Long id);
+    Users getById(Long id);
 
-    List<User> getAll();
+    List<Users> getAll();
 
-    User update(User user);
+    Users update(Users user);
 
     void deleteById(Long id);
 }
