@@ -46,22 +46,23 @@ DELETE - удаляет указанный ресурс (idempotent)
 доступ к private внешнего сlass и внешний доступ к private вложеного
 
 
-abstract class если имеет хоть 1 abstract метод
+abstract class если имеет хоть 1 abstract метод или просто abstract class без абстрактных методов
 нельзя создать экземпляр, только анонимный класс(реализует abstract и interface методы)
 
 
 interface - контракт описывающий обязательные методы
 
 
-enum (public, default), enum вложенный (private, default, protected, public)
+enum - перечислиния
+(public, default), enum вложенный (private, default, protected, public)
 enum может содержать переменные, конструкторы, методы, нельзя наследоваться (extends)
 в бд значение enum может представлен в виде цифр(ordinal) и строк(name)
 
 
-records - можно создать конструктор через вызов канонического
+records - записи
+можно создать конструктор через вызов канонического и переопределить логику
 переменные при создании в конструкторе final
 переменные в record static 
-можно создать канонический конструктор и переопределить логику
 не может быть abstract, extends
 
 
@@ -91,15 +92,15 @@ Throwable
 Exception                                     Error
 unchecked          checked                    unchecked
 RuntimeException   IOException, SQLException  StackOverflowError
-checked - обязательно нужно обрабатывать try - catch - (optional указывать) finnaly (выполняется всегда) (IOException)
-unchecked - не обязательно нужно обрабатывать (RuntimeException)
+checked - обязательно нужно обрабатывать try - catch - (optional указывать) finnaly (выполняется всегда)
+unchecked - не обязательно нужно обрабатывать
 
 
 Lambda expressions
 описывает реализацию принятого входного парамтера @FunctionalInterface
 @FunctionalInterface - имеет только 1 нереализованный метод
 может содержать static и default методы вместе с 1 нереализованным методом
-Funtion T -> R
+Function T -> R
 Predicate boolean
 Consumer T -> ()
 Supplier () -> R
@@ -158,15 +159,16 @@ Process - не могут использовать общую память, ка
 Thread - могут использовать общую память, использует ресурсы Process
 extends Thread @Override run
 implements Runnable @Override run
-implements Callable ExecutorService -> submit(Callable<T> task), invokeAll(Collection<Callable> tasks) -> Future<T> -> get()
+implements Callable @Override call
+ExecutorService -> submit(Callable<T> task), invokeAll(Collection<Callable> tasks) -> Future<T> -> get()
 
 
 Date - представляет конкретный момент времени с точностью до миллисекунды
 Calendar - предоставляет методы для преобразования определенного момента времени, таких полей как YEAR, MONTH, DAY_OF_MONTH, HOUR, а также для управления полями календаря, например для получения даты до/после.
 TimeZone - представляет собой смещение часового пояса, а также рассчитывает переход на летнее время, получение по String, ZoneId (time-zone ID)
 Формирование дат
-SimpleDateFormat - класс для форматирования и анализа дат с учетом локали. Позволяет форматировать (дата → текст), парсинга (текст → дата) и нормализацию по паттерну.
-DateTimeFormatter - входной параметр в форматировании, и парсинге
+SimpleDateFormat(not synchronized) - класс для форматирования и анализа дат с учетом локали. Позволяет форматировать (дата → текст), парсинга (текст → дата) и нормализацию по паттерну.
+DateTimeFormatter(thread-safe) - входной параметр в форматировании, и парсинге
 
 
 JDBC (Java Database Connectivity) - cтандарт взаимодействия java приложений с СУБД. Позволяет получить соединение с бд по url. При загрузке библиотеки СУБД реализуется interface Driver и регистрируется в java приложении. DriverManager выбирает подходящую реализацию interface Driver и возвращает по нему Сonnection
