@@ -1,5 +1,6 @@
 package org.example.kpactask.dao.jdbc;
 
+import lombok.RequiredArgsConstructor;
 import org.example.kpactask.dao.KPacDao;
 import org.example.kpactask.entity.KPac;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class JdbcKPacDao implements KPacDao {
 
     private static final String ADD_K_PAC = "INSERT INTO k_pac (title, description, createdAt) VALUES (?,?,?)";
@@ -23,21 +25,17 @@ public class JdbcKPacDao implements KPacDao {
     private final JdbcTemplate jdbcTemplate;
     private final BeanPropertyRowMapper<KPac> rowMapper = new BeanPropertyRowMapper<>(KPac.class);
 
-    public JdbcKPacDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
     @Override
     public void add(KPac kPac) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement statement = connection.prepareStatement(ADD_K_PAC, new String[] { "id" });
+            PreparedStatement statement = connection.prepareStatement(ADD_K_PAC, new String[] { "k_pac_id" });
             statement.setString(1, kPac.getTitle());
             statement.setString(2, kPac.getDescription());
             statement.setDate(3, kPac.getCreatedAt());
             return statement;
         }, keyHolder);
-        kPac.setId(keyHolder.getKey() != null ? keyHolder.getKey().longValue() : null);
+        kPac.setK_pac_id(keyHolder.getKey() != null ? keyHolder.getKey().longValue() : null);
     }
 
     @Override
@@ -52,8 +50,8 @@ public class JdbcKPacDao implements KPacDao {
 
     @Override
     public Long update(KPac kPac) {
-        jdbcTemplate.update(UPDATE_K_PAC, kPac.getTitle(), kPac.getDescription(), kPac.getCreatedAt(), kPac.getId());
-        return kPac.getId();
+        jdbcTemplate.update(UPDATE_K_PAC, kPac.getTitle(), kPac.getDescription(), kPac.getCreatedAt(), kPac.getK_pac_id());
+        return kPac.getK_pac_id();
     }
 
     @Override

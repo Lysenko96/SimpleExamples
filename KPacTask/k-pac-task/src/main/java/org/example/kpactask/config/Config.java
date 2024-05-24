@@ -12,13 +12,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.spring5.ISpringTemplateEngine;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import javax.sql.DataSource;
 
@@ -59,43 +52,19 @@ public class Config implements WebMvcConfigurer
 
     @Bean
     public ViewResolver viewResolver() {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        resolver.setCharacterEncoding("UTF-8");
-        return resolver;
-    }
-
-    @Bean
-    public ISpringTemplateEngine templateEngine() {
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setEnableSpringELCompiler(true);
-        engine.setTemplateResolver(templateResolver());
-        return engine;
-    }
-
-    private ITemplateResolver templateResolver() {
-        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setPrefix("/WEB-INF/templates/");
-        resolver.setTemplateMode(TemplateMode.HTML);
-        return resolver;
-    }
-
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/static/");
+//        resolver.setPrefix("/WEB-INF/static/");
+        resolver.setPrefix("");
 //        resolver.setSuffix(".html");
-//        return resolver;
-//    }
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/WEB-INF/views/**")
-//                .addResourceLocations("/views/");
-//    }
+        resolver.setSuffix("");
+        return resolver;
+    }
 
-//    @Bean
-//    public JdbcKPacDao jdbcKPacDao(JdbcTemplate jdbcTemplate) {
-//        return new JdbcKPacDao(jdbcTemplate);
-//    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("/WEB-INF/static/");
+    }
+
 }

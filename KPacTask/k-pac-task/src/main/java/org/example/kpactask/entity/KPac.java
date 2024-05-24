@@ -11,7 +11,7 @@ import java.sql.Date;
 @Data
 public class KPac {
 
-    private Long id;
+    private Long k_pac_id;
     private String title;
     private String description;
     private Date createdAt;

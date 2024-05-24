@@ -1,15 +1,19 @@
 package org.example.kpactask.dao.jdbc;
 
+import lombok.RequiredArgsConstructor;
 import org.example.kpactask.dao.KPacSetDao;
 import org.example.kpactask.entity.KPacSet;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.util.List;
 
+@Component
+@RequiredArgsConstructor
 public class JdbcKPacSetDao implements KPacSetDao {
 
     private static final String ADD_K_PAC_SET = "INSERT INTO k_pac_set (title) VALUES (?)";
@@ -20,10 +24,6 @@ public class JdbcKPacSetDao implements KPacSetDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final BeanPropertyRowMapper<KPacSet> rowMapper = new BeanPropertyRowMapper<>(KPacSet.class);
-
-    public JdbcKPacSetDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public void add(KPacSet kPacSet) {
