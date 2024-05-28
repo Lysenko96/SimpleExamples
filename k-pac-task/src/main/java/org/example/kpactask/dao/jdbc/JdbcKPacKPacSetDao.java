@@ -2,10 +2,7 @@ package org.example.kpactask.dao.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import org.example.kpactask.entity.KPacKPacSet;
-import org.example.kpactask.entity.KPacSet;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;

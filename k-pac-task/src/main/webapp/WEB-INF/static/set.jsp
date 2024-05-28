@@ -27,6 +27,6 @@
         </table>
     </c:forEach>
 </div>
-<div align="center"><a href="${pageContext.request.contextPath}/">Main page</a></div>
+<div align="center"><a href="${pageContext.request.contextPath}/sets">Main page</a></div>
 </body>
 </html>
