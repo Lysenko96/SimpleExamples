@@ -15,10 +15,12 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
 
-    @Override
-    @GetMapping("/persons/all")
+//    @Override
+//    @GetMapping("/persons/all")
+//    List<Person> findAll();
+
     @Query("SELECT DISTINCT p FROM Person p JOIN FETCH p.notes")
-    List<Person> findAll();
+    List<Person> findAllFetch();
 
     @GetMapping("/persons/fetch/")
     @Query("SELECT DISTINCT p FROM Person p JOIN FETCH p.notes WHERE p.lastName = :lastName")

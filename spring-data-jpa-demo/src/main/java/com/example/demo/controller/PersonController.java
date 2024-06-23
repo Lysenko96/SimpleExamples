@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Note;
 import com.example.demo.entity.Person;
 import com.example.demo.repository.PersonRepository;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/persons")
+@Transactional
 public class PersonController {
 
     private final PersonRepository personRepository;
@@ -31,9 +33,20 @@ public class PersonController {
         }
     }
 
+    @JsonIgnoreProperties(value = {"notes"})
     @GetMapping("/all")
     public List<Person> getAll() {
-        return personRepository.findAll();
+        List<Person> persons = personRepository.findAll();
+        for (Person person : persons) {
+            person.setNotes(null);  // without don't work json error
+        }
+        return persons;
+    }
+
+
+    @GetMapping("/fetch/all")
+    public List<Person> getAllFetch() {
+        return personRepository.findAllFetch();
     }
 
     //spring.jpa.open-in-view=true don't work
