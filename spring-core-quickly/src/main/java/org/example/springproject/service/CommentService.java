@@ -3,6 +3,9 @@ package org.example.springproject.service;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.example.springproject.annotation.ToLog;
+import org.example.springproject.annotation.ToLogAfterReturning;
 import org.example.springproject.entity.Comment;
 import org.example.springproject.proxy.CommentNotificationProxy;
 import org.example.springproject.repository.CommentRepository;
@@ -40,6 +43,7 @@ public class CommentService {
         this.commentNotificationProxy = commentNotificationProxy;
     }
 
+
     public String publish(Comment comment) {
 //        log.info("Publish comment: " + comment);
         commentRepository = context.getBean(CommentRepository.class);
@@ -47,5 +51,17 @@ public class CommentService {
         comment.setId(id);
         commentNotificationProxy.send(comment);
         return "SUCCESS";
+    }
+
+    @ToLog
+    public String delete(Comment comment) {
+        log.info("Deleting comment: " + comment);
+        return "DELETE";
+    }
+
+    @ToLogAfterReturning
+    public String edit(Comment comment) {
+        log.info("Editing comment: " + comment);
+        return "EDIT";
     }
 }

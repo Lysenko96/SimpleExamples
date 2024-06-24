@@ -28,8 +28,13 @@ public class Main {
 //        System.out.println(commentService3 == commentService2); // true
 //        System.out.println(userService.getCommentRepository() == commentService2.getCommentRepository());
 //        commentService2.publish(new Comment("author2", "comment2"));
-        String value = commentService3.publish(new Comment("author3", "comment3"));
-        log.info(value);
+        Comment comment = new Comment("author3", "comment3");
+//        String value = commentService3.publish(comment);
+//        log.info(value);
+        String value1 = commentService3.delete(comment);
+        log.info(value1);
+//        String value2 = commentService3.edit(comment);
+//        log.info(value2);
         //        System.out.println(commentService3.getCommentRepository() == commentService2.getCommentRepository());
     }
 }

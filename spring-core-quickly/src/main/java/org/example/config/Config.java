@@ -1,6 +1,7 @@
 package org.example.config;
 
 import org.example.aspect.LoggingAspect;
+import org.example.aspect.SecurityAspect;
 import org.example.springproject.proxy.CommentNotificationProxy;
 import org.example.springproject.proxy.push.CommentPushNotificationProxy;
 import org.springframework.context.annotation.*;
@@ -25,6 +26,11 @@ public class Config {
     @Bean
     public LoggingAspect loggingAspect() {
         return new LoggingAspect();
+    }
+
+    @Bean
+    public SecurityAspect securityAspect(){
+        return new SecurityAspect();
     }
 
     @Bean("push")
