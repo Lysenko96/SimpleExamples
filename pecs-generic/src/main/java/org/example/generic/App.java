@@ -1,4 +1,4 @@
-package org.example;
+package org.example.generic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +21,7 @@ public class App {
     }
 
     public void someMethodAddChild(List<? super Class3> list) {
+        list.add(new Class3());
         list.add(new Class4());
     }
 
