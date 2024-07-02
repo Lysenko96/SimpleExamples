@@ -23,6 +23,8 @@ public class DelegateList implements Cloneable, Serializable {
 class Test {
     public static void main(String[] args) throws CloneNotSupportedException {
         DelegateList d = new DelegateList();
+        d.add("1");
+        System.out.println(d.list);
         d.clone();
     }
 
