@@ -22,25 +22,25 @@ public class CustomApacheHttpClient {
 
     public static void main(String[] args) throws IOException {
 
-//        HttpGet request = new HttpGet("https://google.com");
-//
-//        try (CloseableHttpClient httpClient = HttpClients.createDefault();
-//             CloseableHttpResponse response = httpClient.execute(request)) {
-//
-//            // Get HttpResponse Status
-//            System.out.println(response.getProtocolVersion());              // HTTP/1.1
-//            System.out.println(response.getStatusLine().getStatusCode());   // 200
-//            System.out.println(response.getStatusLine().getReasonPhrase()); // OK
-//            System.out.println(response.getStatusLine().toString());        // HTTP/1.1 200 OK
-//
-//            HttpEntity entity = response.getEntity();
-//            if (entity != null) {
-//                // return it as a String
-//                String result = EntityUtils.toString(entity);
-//                System.out.println(result);
-//            }
-//
-//        }
+        HttpGet request = new HttpGet("https://google.com");
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+             CloseableHttpResponse response = httpClient.execute(request)) {
+
+            // Get HttpResponse Status
+            System.out.println(response.getProtocolVersion());              // HTTP/1.1
+            System.out.println(response.getStatusLine().getStatusCode());   // 200
+            System.out.println(response.getStatusLine().getReasonPhrase()); // OK
+            System.out.println(response.getStatusLine().toString());        // HTTP/1.1 200 OK
+
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                // return it as a String
+                String result = EntityUtils.toString(entity);
+                System.out.println(result);
+            }
+
+        }
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost("https://reqres.in/api/users");
 //            MultipartEntityBuilder builder = MultipartEntityBuilder.create();

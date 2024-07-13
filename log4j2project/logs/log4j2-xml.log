@@ -1,0 +1,6 @@
+2024-07-13 18:08:11,874 INFO o.e.l.Log4j2Example [main] Hello Info!
+2024-07-13 18:08:11,876 DEBUG o.e.l.Log4j2Example [main] Hello Debug!
+2024-07-13 18:08:11,877 ERROR o.e.l.Log4j2Example [main] Hello Error!
+2024-07-13 18:08:17,675 INFO o.e.l.Log4j2Example [main] Hello Info!
+2024-07-13 18:08:17,678 DEBUG o.e.l.Log4j2Example [main] Hello Debug!
+2024-07-13 18:08:17,678 ERROR o.e.l.Log4j2Example [main] Hello Error!

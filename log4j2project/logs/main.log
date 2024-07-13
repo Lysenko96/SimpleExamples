@@ -1,0 +1,3 @@
+13.07.2024 17:25:34 INFO  Log4j2Example : Hello Info!
+13.07.2024 17:25:34 DEBUG Log4j2Example : Hello Debug!
+13.07.2024 17:25:34 ERROR Log4j2Example : Hello Error!
