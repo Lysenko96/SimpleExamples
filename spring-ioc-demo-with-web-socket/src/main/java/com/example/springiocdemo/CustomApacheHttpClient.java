@@ -12,6 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,7 @@ public class CustomApacheHttpClient {
 
     public static void main(String[] args) throws IOException {
 
-        HttpGet request = new HttpGet("https://google.com");
+        HttpGet request = new HttpGet("https://reqres.in/api/users");
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
              CloseableHttpResponse response = httpClient.execute(request)) {
@@ -41,19 +42,23 @@ public class CustomApacheHttpClient {
             }
 
         }
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpPost httpPost = new HttpPost("https://reqres.in/api/users");
-//            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        HttpPost httpPost = new HttpPost("https://reqres.in/api/users");
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+             CloseableHttpResponse response = httpClient.execute(httpPost)) {
+
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             String json = """
                     {
-                        "name": "anton",
-                        "job": "lazy"
-                    }""";
+                    "name": "anton",
+                    "job": "lazy"
+                    }
+                    """;
 //            builder.addTextBody("json", json, ContentType.APPLICATION_JSON);
-//            HttpEntity multipart = builder.build();
-            httpPost.setHeader("content-type", "application/json");
-            httpPost.setEntity(new StringEntity(json));
-            CloseableHttpResponse response = httpClient.execute(httpPost);
+            builder.addBinaryBody("json", new File("src/main/webapp/1.txt"), ContentType.APPLICATION_JSON, json);
+            HttpEntity multipart = builder.build();
+//            httpPost.setHeader("content-type", "application/json");
+//            httpPost.setEntity(new StringEntity(json));
+           httpPost.setEntity(multipart);
             int statusCode = response.getStatusLine().getStatusCode();
             System.out.println(statusCode);
             InputStream is = response.getEntity().getContent();
@@ -64,6 +69,6 @@ public class CustomApacheHttpClient {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
+    } 
 
 }

@@ -9,12 +9,22 @@
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
+        <RollingFile name="RollingFile" filePattern="logs/app-%d{yyyy-MM-dd_HH-mm}-%i.log.gz" append="false">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd_HH-mm-ss} [%-6p] %c.%M(%F:%L) – %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+<!--                <TimeBasedTriggeringPolicy interval="10"/>-->
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+        </RollingFile>
     </Appenders>
     <Loggers>
     <!-- avoid duplicated logs with additivity=false -->
         <Root level="DEBUG">
             <AppenderRef ref="fileLog"/>
             <AppenderRef ref="console"/>
+            <AppenderRef ref="RollingFile"/>
         </Root>
     </Loggers>
 </Configuration>

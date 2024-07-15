@@ -1,0 +1,3 @@
+[INFO] 2024-07-15 06:26:11,620 org.example.log4j.Log4jExample main - Hello Info!
+[DEBUG] 2024-07-15 06:26:11,622 org.example.log4j.Log4jExample main - Hello Debug!
+[ERROR] 2024-07-15 06:26:11,622 org.example.log4j.Log4jExample main - Hello Error!

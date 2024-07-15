@@ -1,0 +1,9 @@
+[INFO] 2024-07-15 06:25:14,892 org.example.log4j.Log4jExample main - Hello Info!
+[DEBUG] 2024-07-15 06:25:14,894 org.example.log4j.Log4jExample main - Hello Debug!
+[ERROR] 2024-07-15 06:25:14,894 org.example.log4j.Log4jExample main - Hello Error!
+[INFO] 2024-07-15 06:25:30,202 org.example.log4j.Log4jExample main - Hello Info!
+[DEBUG] 2024-07-15 06:25:30,204 org.example.log4j.Log4jExample main - Hello Debug!
+[ERROR] 2024-07-15 06:25:30,204 org.example.log4j.Log4jExample main - Hello Error!
+[INFO] 2024-07-15 06:25:32,060 org.example.log4j.Log4jExample main - Hello Info!
+[DEBUG] 2024-07-15 06:25:32,062 org.example.log4j.Log4jExample main - Hello Debug!
+[ERROR] 2024-07-15 06:25:32,062 org.example.log4j.Log4jExample main - Hello Error!

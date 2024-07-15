@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
+import org.apache.logging.log4j.core.config.json.JsonConfiguration;
 import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
 
 import java.io.IOException;
@@ -19,11 +20,12 @@ public class Log4j2Example {
 
         // xml appender file don't work with log4j2.properties
 
-//        XmlConfiguration configuration =
-//                new XmlConfiguration(
-//                        LoggerContext.getContext(),
-//                        new ConfigurationSource(Files.newInputStream(Paths.get("src/main/resources/log4j2.xml"))));
-//        configuration.start();
+//        XmlConfiguration
+        JsonConfiguration configuration =
+                new JsonConfiguration(
+                        LoggerContext.getContext(),
+                        new ConfigurationSource(Files.newInputStream(Paths.get("src/main/resources/log4j2.json"))));
+        configuration.start();
 
         logger.info("Hello Info!");
         logger.debug("Hello Debug!");
