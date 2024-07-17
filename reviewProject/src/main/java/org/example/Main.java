@@ -4,6 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.postgresql.Driver;
 
+import java.io.FileReader;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -18,6 +22,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class Main {
 
+    FileReader r2;
+    Reader r1;
+    Files s1;
+    Path p;
     static Random r = new Random();
 
     static boolean isPrime(int n) {

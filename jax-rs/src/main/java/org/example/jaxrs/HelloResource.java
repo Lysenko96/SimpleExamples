@@ -1,20 +1,15 @@
 package org.example.jaxrs;
 
-import jakarta.activation.MimeType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.ejb.LocalBean;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.MessageBodyReader;
-import jakarta.ws.rs.ext.MessageBodyWriter;
-import jersey.repackaged.org.objectweb.asm.Type;
-import org.glassfish.jersey.message.internal.FormProvider;
-import org.glassfish.jersey.message.internal.ReaderProvider;
-
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 
 @Path("/main")
+//@LocalBean
 public class HelloResource {
     @GET
     @Path ("/1")
@@ -52,5 +47,16 @@ public class HelloResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public String four(String msg) {
         return msg;
+    }
+
+    @POST
+    @Path("/5")
+    // http://localhost:8080/api/main/5
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String five(String json) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(json, Message.class);
+        System.out.println(message);
+        return "Done";
     }
 }
