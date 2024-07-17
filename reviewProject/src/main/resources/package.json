@@ -1,0 +1,9 @@
+{
+  "name": "trackensure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  }
+}
