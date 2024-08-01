@@ -14,7 +14,7 @@ public interface PersonDao {
 
 	List<Person> getAll();
 
-	void update(Person person);
+	void insertWithResultSet();
 
 	void deleteById(long id);
 }

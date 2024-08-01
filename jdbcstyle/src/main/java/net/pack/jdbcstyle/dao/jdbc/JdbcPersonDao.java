@@ -118,8 +118,22 @@ public class JdbcPersonDao implements PersonDao {
     }
 
     @Override
-    public void update(Person person) {
-
+    public void insertWithResultSet() {
+        try (Connection conn = provider.getConnection();
+             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+            ResultSet rs = st.executeQuery("SELECT * FROM person");
+            rs.moveToInsertRow();
+            rs.updateLong("id", 79L);
+            rs.updateString("name", "John");
+            rs.insertRow();
+            rs.moveToCurrentRow();
+            rs = st.executeQuery("SELECT * FROM person WHERE name = 'John'");
+            while (rs.next()) {
+                System.out.println(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

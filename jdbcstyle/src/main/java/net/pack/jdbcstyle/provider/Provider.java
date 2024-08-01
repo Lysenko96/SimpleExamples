@@ -22,7 +22,8 @@ public class Provider {
 			this.source = localSrc;
 			System.out.println(source.getTransactionIsolation());
 //			return localSrc.getConnection();
-			return DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", config.getDataSourceProperties().getProperty("user"), config.getDataSourceProperties().getProperty("password"));
+//			return DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", config.getDataSourceProperties().getProperty("user"), config.getDataSourceProperties().getProperty("password"));
+			return DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
