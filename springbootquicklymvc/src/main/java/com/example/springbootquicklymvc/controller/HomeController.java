@@ -10,10 +10,16 @@ import org.springframework.web.bind.annotation.*;
 //@RestController
 public class HomeController {
 
-    @RequestMapping("/home")
-    public String home(Model page) {
-        page.addAttribute("username", "tony");
+    @RequestMapping("/home/{id}/{text}")
+    public String home(@RequestParam(required = false) String color,
+                       @RequestParam("name") String theName,
+                       @PathVariable("id") Long myId,
+                       @PathVariable String text, Model page) {
+        page.addAttribute("id", myId);
+        page.addAttribute("text", text);
+        page.addAttribute("username", theName);
         page.addAttribute("age", "28");
+        page.addAttribute("color", color);
         return "home.html";
     }
 
