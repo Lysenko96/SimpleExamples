@@ -26,8 +26,14 @@ public class ProductController {
         return "products.html";
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public void addProduct(@RequestBody Product product) {
+    @PostMapping
+//            (produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addProduct(
+//            @ModelAttribute
+            Product product, Model model) {
         productService.addProduct(product);
+        List<Product> products = productService.getProducts();
+        model.addAttribute("products", products);
+        return "products.html";
     }
 }
