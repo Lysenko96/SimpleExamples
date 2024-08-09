@@ -14,12 +14,20 @@ public class LoginService {
     private String username;
     @Value("${spring.password}")
     private String password;
+    private final LoggedUserManagementService loggedUserManagementService;
 
-    public String validateUser(User user) {
-        String message = "Login failed";
+    public LoginService(LoggedUserManagementService loggedUserManagementService) {
+        this.loggedUserManagementService = loggedUserManagementService;
+    }
+
+    public boolean validateUser(User user) {
+        boolean loggedIn = false;
         if (user != null && user.getUsername() != null
                 && user.getUsername().equals(username) && user.getPassword() != null
-                && user.getPassword().equals(password)) message = "Login successful";
-        return message;
+                && user.getPassword().equals(password)) {
+            loggedIn = true;
+            loggedUserManagementService.setUsername(username);
+        }
+        return loggedIn;
     }
 }
