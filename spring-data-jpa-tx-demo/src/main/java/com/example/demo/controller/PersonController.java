@@ -1,19 +1,15 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.dto.PersonDto;
 import com.example.demo.entity.Note;
 import com.example.demo.entity.Person;
 import com.example.demo.service.PersonService;
-import com.example.demo.util.RequestMetaInfo;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/persons")
