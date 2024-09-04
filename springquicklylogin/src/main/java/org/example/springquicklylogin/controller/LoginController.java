@@ -1,6 +1,5 @@
 package org.example.springquicklylogin.controller;
 
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.example.springquicklylogin.model.User;
@@ -9,7 +8,9 @@ import org.example.springquicklylogin.service.LoginCountService;
 import org.example.springquicklylogin.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
