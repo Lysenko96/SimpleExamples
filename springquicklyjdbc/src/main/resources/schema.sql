@@ -1,6 +1,8 @@
+DROP TABLE IF EXISTS purchase;
+
 CREATE TABLE IF NOT EXISTS purchase
 (
     id    INT AUTO_INCREMENT PRIMARY KEY,
-    name  VARCHAR(50) NOT NULL,
-    price DOUBLE      NOT NULL
+    name  VARCHAR(50)  NOT NULL,
+    price VARCHAR(255) NOT NULL
 );

@@ -1,11 +1,15 @@
 package com.lysenko.springquicklyjdbc.repository;
 
 import com.lysenko.springquicklyjdbc.model.Purchase;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
@@ -13,6 +17,13 @@ import java.util.List;
 public class PurchaseRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final DatabasePopulator populator;
+    private final DataSource dataSource;
+
+    @PostConstruct
+    public void init() {
+        DatabasePopulatorUtils.execute(populator, dataSource);
+    }
 
     public void save(Purchase purchase) {
         String sql = "INSERT INTO purchase (name, price) VALUES (?, ?)";
