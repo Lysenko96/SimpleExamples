@@ -1,12 +1,12 @@
 package com.lysenko.springquicklyjdbc.repository;
 
 import com.lysenko.springquicklyjdbc.model.Purchase;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,8 +20,20 @@ public class PurchaseRepository {
         jdbcTemplate.update(sql, purchase.getName(), purchase.getPrice());
     }
 
-    @PostConstruct
-    public void init() {
-        save(new Purchase("spring quickly", new BigDecimal("1.1")));
+    public List<Purchase> findAll() {
+        String sql = "SELECT * FROM purchase";
+
+        RowMapper<Purchase> rowMapper = (rs, rowNum) -> {
+            Purchase purchase = new Purchase();
+            purchase.setId(rs.getInt("id"));
+            purchase.setName(rs.getString("name"));
+            purchase.setPrice(rs.getBigDecimal("price"));
+
+            return purchase;
+        };
+
+        return jdbcTemplate.query(sql, rowMapper);
     }
+
+
 }
