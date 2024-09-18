@@ -1,0 +1,30 @@
+package com.lysenko.springquicklytransaction.controller;
+
+import com.lysenko.springquicklytransaction.dto.TransferRequest;
+import com.lysenko.springquicklytransaction.model.Account;
+import com.lysenko.springquicklytransaction.service.TransferService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+public class AccountController {
+
+    private final TransferService transferService;
+
+    @PostMapping("/transfer")
+    public void transfer(@RequestBody TransferRequest transferRequest) {
+        transferService.transfer(transferRequest.getFromAccountId(),
+                transferRequest.getToAccountId(), transferRequest.getAmount());
+    }
+
+    @GetMapping("/accounts")
+    public List<Account> findAllAccounts() {
+        return transferService.findAllAccounts();
+    }
+}
