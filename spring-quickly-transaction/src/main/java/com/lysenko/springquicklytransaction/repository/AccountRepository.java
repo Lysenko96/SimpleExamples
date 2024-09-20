@@ -2,7 +2,6 @@ package com.lysenko.springquicklytransaction.repository;
 
 import com.lysenko.springquicklytransaction.model.Account;
 import com.lysenko.springquicklytransaction.repository.mapper.AccountRowMapper;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

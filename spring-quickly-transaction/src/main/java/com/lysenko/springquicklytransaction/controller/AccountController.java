@@ -4,10 +4,7 @@ import com.lysenko.springquicklytransaction.dto.TransferRequest;
 import com.lysenko.springquicklytransaction.model.Account;
 import com.lysenko.springquicklytransaction.service.TransferService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +21,9 @@ public class AccountController {
     }
 
     @GetMapping("/accounts")
-    public List<Account> findAllAccounts() {
-        return transferService.findAllAccounts();
+    public List<Account> findAllAccounts(@RequestParam(required = false) String name) {
+
+        return name == null ? transferService.findAllAccounts() :
+                transferService.findByName(name);
     }
 }
