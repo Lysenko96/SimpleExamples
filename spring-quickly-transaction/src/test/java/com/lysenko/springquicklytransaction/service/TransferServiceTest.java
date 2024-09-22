@@ -10,8 +10,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
@@ -42,6 +44,19 @@ class TransferServiceTest {
 
         verify(accountRepository).changeBalance(1L, new BigDecimal(900));
         verify(accountRepository).changeBalance(2L, new BigDecimal(1100));
+    }
+
+    @Test
+    void testTransferWithException() {
+        Account sender = new Account(1L, "Tony", new BigDecimal(1000));
+
+        when(accountRepository.findById(1L)).thenReturn(Optional.of(sender));
+
+        when(accountRepository.findById(2L)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> transferService.transfer(sender.getId(), 2L, new BigDecimal(100)));
+
+        verify(accountRepository, never()).changeBalance(anyLong(), any());
     }
 
 }
