@@ -1,0 +1,2834 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: provider api
+    url: 'http://localhost/api/v1/'
+info:
+  version: 1.0.0
+  title: provider-api
+  description: The API for the provider project
+paths:
+  /export/cash-register-report:
+    get:
+      tags:
+        - cash-register-report
+      description: returns all CashRegisterReports
+      operationId: getAllCashRegisterReport
+      responses:
+        '200':
+          description: All the CashRegisterReport
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_cash_register_report'
+                example:
+                  - id_shop: 9999
+                    id_cash_register_report: 38
+                    id_workplace: 29
+                    id_user: 2
+                    report_time: '2024-08-14T14:31:16.31Z'
+                    report_sum: 2.11
+                    sum_ready_money: 2.12
+                    sum_ready_credit: 2.13
+                    date_change: '2024-08-14T14:31:14.37Z'
+                    number_cash_register: '4000612769'
+                    number_report: 334
+                    suma: 2.14
+                    sumb: 4.25
+                    sum:
+                      - 1.01
+                      - 2.34
+        '404':
+          description: All the CashRegisterReport
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/cash-register-report1
+                    
+                    
+  /export/range/cash-register-report:
+    get:
+      parameters:
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-14T13:34:28Z
+          name: dateFrom
+          example: 2024-07-14T13:34:28Z
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-15T13:34:28Z
+          name: dateTo
+          example: 2024-07-15T13:34:28Z
+      tags:
+        - range-cash-register-report
+      description: returns all CashRegisterReports ByReportTime
+      operationId: getAllCashRegisterReportByRange
+      responses:
+        '200':
+          description: All the CashRegisterReport
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_cash_register_report'
+                example:
+                  - id_shop: 9999
+                    id_cash_register_report: 38
+                    id_workplace: 29
+                    id_user: 2
+                    report_time: '2024-08-14T14:31:16.31Z'
+                    report_sum: 2.11
+                    sum_ready_money: 2.12
+                    sum_ready_credit: 2.13
+                    date_change: '2024-08-14T14:31:14.37Z'
+                    number_cash_register: '4000612769'
+                    number_report: 334
+                    suma: 2.14
+                    sumb: 4.25
+                    sum:
+                      - 1.01
+                      - 2.34
+        '404':
+          description: All the CashRegisterReport
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/range/cash-register-report1
+                    
+                   
+  /export/range/check:
+    get:
+      parameters:
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-01
+          name: dateFrom
+          example: 2024-07-01
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-15
+          name: dateTo
+          example: 2024-07-15
+      tags:
+        - range-check
+      description: returns all Checks ByDateOperation
+      operationId: getAllChecksByRange
+      responses:
+        '200':
+          description: All the Checks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_check'
+                example:
+                  - id_shop: 9999
+                    id_workplace: 90
+                    id_check: 1
+                    id_user: 2
+                    id_cash_register_report: 2
+                    id_client: 800000014
+                    date_operation: '2024-07-10T21:00:00.000+00:00'
+                    time_open: '2024-07-11T15:32:17Z'
+                    time_close: '2024-07-11T15:31:04Z'
+                    zet_number: 88
+                    check_number: 1
+                    sum: 26.42
+                    discount_sum: 0
+                    roundsum: -0.02
+                    number_cash_register: СП802000001
+                    description: description
+                    dtype: 0
+                    type_vat: 0
+                    memo: '{"verificationPhone":false,"fullSum":26.42,"roundDiscount":0.02,"cardNumber":"7770000000173"}'
+                    id_order: 1
+        '404':
+          description: All the Check
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/range/check1
+                    
+  /export/check:
+    get:
+      tags:
+        - check
+      description: returns all Checks
+      operationId: getAllCheck
+      responses:
+        '200':
+          description: All the Check
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_check'
+                example:
+                  - id_shop: 9999
+                    id_workplace: 90
+                    id_check: 1
+                    id_user: 2
+                    id_cash_register_report: 2
+                    id_client: 800000014
+                    date_operation: '2024-07-10T21:00:00.000+00:00'
+                    time_open: '2024-07-11T15:32:17Z'
+                    time_close: '2024-07-11T15:31:04Z'
+                    zet_number: 88
+                    check_number: 1
+                    sum: 26.42
+                    discount_sum: 0
+                    roundsum: -0.02
+                    number_cash_register: СП802000001
+                    description: description
+                    dtype: 0
+                    type_vat: 0
+                    memo: '{"verificationPhone":false,"fullSum":26.42,"roundDiscount":0.02,"cardNumber":"7770000000173"}'
+                    id_order: 1
+        '404':
+          description: All the Checks
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/check1
+                    
+                    
+           
+                    
+  /export/client:
+    get:
+      tags:
+        - client
+      description: returns all client
+      operationId: getAllClient
+      responses:
+        '200':
+          description: All the client
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_client'
+                example:
+                  - id_shop: 9999
+                    id_client: 5
+                    id_discount: [1, 2]
+                    full_name: fullname
+                    active: true
+                    discount: 0.0000
+                    sum: [2.00, 3.00]
+                    dtype: 0
+                    description: desc
+                    date_begin: 2024-10-11
+                    date_end: 2024-10-11
+                    time_begin: 08:31:40 +00:00
+                    time_end: 08:31:40 +00:00
+                    date_birth: 2024-10-11
+                    date_reg: 2024-10-11
+                    day_week: 0
+                    cardnumber: [12414]
+        '404':
+          description: All the client
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/client1
+                    
+  /export/audit-action:
+    get:
+      tags:
+        - audit-action
+      description: returns all AuditAction
+      operationId: getAllAuditAction
+      responses:
+        '200':
+          description: All the AuditAction
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_audit_action'
+                example:
+                  - id_shop: 9999
+                    id_audit_action: 1
+                    id_event: 31
+                    id_workplace: 90
+                    id_user: 2
+                    id_article: null
+                    id_measure: null
+                    id_client: null
+                    fragment_number: 1
+                    check_number: null
+                    quantity: null
+                    price_sale: null
+                    date_event: 2024-07-11 15:08:39.720000 +00:00
+                    status_transfer: 0
+                    input_data: null
+                    exported: 0
+                    memo: null
+        '404':
+          description: All the AuditAction
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/audit-action1
+                    
+                    
+                    
+                    
+  /export/range/audit-action:
+    get:
+      parameters:
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-14T13:34:28Z
+          name: dateFrom
+          example: 2024-07-14T13:34:28Z
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-14T13:34:28Z
+          name: dateTo
+          example: 2024-07-14T13:34:28Z
+      tags:
+        - range-audit-action
+      description: returns all AuditAction ByDateEvent
+      operationId: getAllAuditActionByRange
+      responses:
+        '200':
+          description: All the AuditAction
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_audit_action'
+                example:
+                  - id_shop: 9999
+                    id_audit_action: 1
+                    id_event: 31
+                    id_workplace: 90
+                    id_user: 2
+                    id_article: null
+                    id_measure: null
+                    id_client: null
+                    fragment_number: 1
+                    check_number: null
+                    quantity: null
+                    price_sale: null
+                    date_event: 2024-07-11 15:08:39.720000 +00:00
+                    status_transfer: 0
+                    input_data: null
+                    exported: 0
+                    memo: null
+        '404':
+          description: All the AuditAction
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/range/audit-action1
+                    
+  /export/paydiscount:
+    get:
+      tags:
+        - paydiscount
+      description: returns all Paydiscount
+      operationId: getAllPaydiscount
+      responses:
+        '200':
+          description: All the Paydiscount
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_paydiscount'
+                example:
+                  - id_paydiscount: 2
+                    id_kassa: 1
+                    dtype: 1
+                    check_number: 1
+                    check_pos: null
+                    summa: 1.00
+                    percent: 1.00
+        '404':
+          description: All the Paydiscount
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/paydiscount1
+                    
+  /export/check-articles:
+    get:
+      tags:
+        - check-articles
+      description: returns all CheckArticles
+      operationId: getAllCheckArticles
+      responses:
+        '200':
+          description: All the CheckArticles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_check_articles'
+                example:
+                  - id_shop: 9999
+                    id_workplace: 90
+                    id_check: 1
+                    pos: 0
+                    id_measure: 1
+                    id_article: 28732
+                    id_barcode: 28132
+                    id_check_return: 1
+                    id_workplace_return: 1
+                    id_discount:
+                      - 55
+                      - 22
+                    id_action_coupon:
+                      - 55
+                      - 22
+                    article: '281325'
+                    barcode: '281325'
+                    quantity: 1
+                    quantity_ret: null
+                    clean_price: 17.5
+                    price: 17.5
+                    sum: 17.5
+                    sum_ret: 0
+                    discount_sum: 0
+                    vat: 0.2
+                    vat_group: '1'
+                    type_article: 0
+                    dtype: 0
+                    time_add: '2024-07-11T15:31:13.530Z'
+                    time_open: '2024-07-11T15:32:17.000Z'
+                    uktzed: '1234567890'
+                    excise: ASDF565657
+        '404':
+          description: All the CheckArticles
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/check-articles1
+                    
+                    
+                    
+  /export/range/check-articles:
+    get:
+      parameters:
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-14T13:34:28Z
+          name: dateFrom
+          example: 2024-07-14T13:34:28Z
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-15T13:34:28Z
+          name: dateTo
+          example: 2024-07-15T13:34:28Z
+      tags:
+        - range-check-articles
+      description: returns all CheckArticles ByDateOperation
+      operationId: getAllCheckArticlesByRange
+      responses:
+        '200':
+          description: All the CheckArticles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_check_articles'
+                example:
+                  - id_shop: 9999
+                    id_workplace: 90
+                    id_check: 1
+                    pos: 0
+                    id_measure: 1
+                    id_article: 28732
+                    id_barcode: 28132
+                    id_check_return: 1
+                    id_workplace_return: 1
+                    id_discount:
+                      - 55
+                      - 22
+                    id_action_coupon:
+                      - 55
+                      - 22
+                    article: '281325'
+                    barcode: '281325'
+                    quantity: 1
+                    quantity_ret: null
+                    clean_price: 17.5
+                    price: 17.5
+                    sum: 17.5
+                    sum_ret: 0
+                    discount_sum: 0
+                    vat: 0.2
+                    vat_group: '1'
+                    type_article: 0
+                    dtype: 0
+                    time_add: '2024-07-11T15:31:13.530Z'
+                    time_open: '2024-07-11T15:32:17.000Z'
+                    uktzed: '1234567890'
+                    excise: ASDF565657
+        '404':
+          description: All the CheckArticles
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/range/check-articles1
+                    
+  /export/check-pay:
+    get:
+      tags:
+        - check-pay
+      description: returns all CheckPays
+      operationId: getAllCheckPay
+      responses:
+        '200':
+          description: All the CheckPay
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_check_pay'
+                example:
+                  - id_shop: 9999
+                    id_workplace: 90
+                    id_check: 1
+                    pos: 1
+                    id_currency: 1
+                    id_bank: 0
+                    dtype: 3
+                    sum: 2
+                    sum_ret: 1
+                    slip_number: '0'
+                    receive_money: 2
+                    description: description
+                    rrn: '424753860629'
+                    sum_national: 2
+                    receive_money_national: 2
+        '404':
+          description: All the CheckPay
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/check-pay1
+  /export/cash-operation:
+    get:
+      tags:
+        - cash-operation
+      description: returns all CashOperations
+      operationId: getAllCashOperation
+      responses:
+        '200':
+          description: All the CashOperation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_cash_operation'
+                example:
+                  - id_shop: 9999
+                    id_operation: 1
+                    id_workplace: 90
+                    id_user: 2
+                    date_operation: '2024-07-15 13:41:24.000000 +00:00'
+                    dtype: 1
+                    sum: 100
+                    number_cash_register: 'СП802000001'
+        '404':
+          description: All the CashOperation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/cash-operation1
+                    
+                    
+                    
+  /export/range/cash-operation:
+    get:
+      parameters:
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-14T13:34:28Z
+          name: dateFrom
+          example: 2024-07-14T13:34:28Z
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-15T13:34:28Z
+          name: dateTo
+          example: 2024-07-15T13:34:28Z
+      tags:
+        - range-cash-operation
+      description: returns all CashOperations By Range
+      operationId: getAllCashOperationByRange
+      responses:
+        '200':
+          description: All the CashOperation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_cash_operation'
+                example:
+                  - id_shop: 9999
+                    id_operation: 1
+                    id_workplace: 90
+                    id_user: 2
+                    date_operation: '2024-07-15 13:41:24.000000 +00:00'
+                    dtype: 1
+                    sum: 100
+                    number_cash_register: 'СП802000001'
+        '404':
+          description: All the CashOperation
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/range/cash-operation1
+                    
+  /export/shift-work:
+    get:
+      tags:
+        - shift-work
+      description: returns all ShiftWorks
+      operationId: getAllShiftWork
+      responses:
+        '200':
+          description: All the ShiftWork
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_shift_work'
+                example:
+                  - id_shop: 9999
+                    id_shift: 1
+                    id_workplace: 1
+                    id_user: 1
+                    date_shift: '2024-09-28 21:27:53.930294 +00:00'
+                    type_action: 'U'
+        '404':
+          description: All the ShiftWork
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/shift-work1
+                    
+                    
+                    
+  /export/range/shift-work:
+    get:
+      parameters:
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-14T13:34:28Z
+          name: dateFrom
+          example: 2024-07-14T13:34:28Z
+        - in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 2024-07-15T13:34:28Z
+          name: dateTo
+          example: 2024-07-14T13:34:28Z
+      tags:
+        - range-shift-work
+      description: returns all ShiftWorks ByDateShift
+      operationId: getAllShiftWorkByRange
+      responses:
+        '200':
+          description: All the ShiftWork
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/t_shift_work'
+                example:
+                  - id_shop: 9999
+                    id_shift: 1
+                    id_workplace: 1
+                    id_user: 1
+                    date_shift: '2024-09-28 21:27:53.930294 +00:00'
+                    type_action: 'E'
+        '404':
+          description: All the ShiftWork
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/export/shift-work1
+                    
+                    
+  /import/array/articles-group:
+    post:
+      tags:
+        - array-articles-group
+      summary: Add multiple ArticlesGroup
+      requestBody:
+        description: List of ArticlesGroup
+        required: true
+        content:
+          application/json:
+            schema:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/t_articles_group'
+            example:
+              - id_shop: 9999
+                id_articles_group: 154
+                id_parent_group: 0
+                name: Товар
+                sign_activity: true
+      responses:
+        '200':
+          description: All the ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/array/articles-group1
+          
+                    
+  /import/articles-group:
+    post:
+      tags:
+        - articles-group
+      summary: Add ArticlesGroup
+      requestBody:
+        description: ArticlesGroup
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                    example: 9999
+                  id_articles_group:
+                    type: integer
+                    format: int32
+                    example: 154
+                  id_parent_group:
+                    type: integer
+                    format: int32
+                    example: 0
+                  name:
+                    type: string
+                    maxLength: 128
+                    description: not null
+                    example: 'Товар'
+                  sign_activity:
+                    type: boolean
+                    description: default true
+                    example: true
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/articles-group1
+                    
+  /import/ban-article:
+    post:
+      tags:
+        - ban-article
+      summary: Add BanArticle
+      requestBody:
+        description: BanArticle
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_workplace:
+                    type: integer
+                    format: int32
+                    description: not null
+                    example: 0
+                  id_param:
+                    type: integer
+                    format: int32
+                    description: not null
+                    example: 6061
+                  dtype:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                    example: 0
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null
+                    example: 9999
+                  action:
+                    type: string
+                    maxLength: 1
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+                    
+                    
+  /import/currency:
+    post:
+      tags:
+        - currency
+      summary: Add currency
+      requestBody:
+        description: currency
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null
+                    example: 9999
+                  id_currency:
+                    type: integer
+                    format: int16
+                    description: not null
+                    example: 9999
+                  name:
+                    type: string
+                    maxLength: 32
+                    description: not null
+                    example: 'name'
+                  sname:
+                    type: string
+                    maxLength: 16
+                    description: not null
+                    example: 'sname'
+                  symbol:
+                    type: string
+                    maxLength: 16
+                    description: not null
+                    example: 'symbol'
+                  exchange:
+                    type: number
+                    description: not null, numeric(12, 4)
+                    example: 11.2
+                  digits:
+                    type: integer
+                    format: int16
+                    description: not null
+                    example: 11
+                  isbase:
+                    type: boolean
+                    description: not null
+                    example: false
+                  isnational:
+                    type: boolean
+                    description: not null
+                    example: false
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+            
+  /import/discount:
+    post:
+      tags:
+        - discount
+      summary: Add discount
+      requestBody:
+        description: discount
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                    example: 9999
+                  id_discount:
+                    type: integer
+                    format: int32
+                    example: 9999
+                  id_parent_discount:
+                    type: integer
+                    format: int32
+                    example: 9999
+                  date_begin:
+                    type: string
+                    format: date
+                    example: 2024-10-10
+                  date_end:
+                    type: string
+                    format: date
+                    example: 2024-10-10
+                  time_begin:
+                    type: string
+                    format: date-time
+                    example: 11:21:00 +00:00
+                    description: time with time zone
+                  time_end:
+                    type: string
+                    format: date-time
+                    example: 11:21:00 +00:00
+                    description: time with time zone
+                  description:
+                    type: string
+                    maxLength: 500
+                    example: 'symbol'
+                  name:
+                    type: string
+                    maxLength: 128
+                    description: not null
+                    example: 'symbol'
+                  dtype:
+                    type: integer
+                    format: int16
+                    example: 9999
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+                    
+  /import/discount-item:
+    post:
+      tags:
+        - discount-item
+      summary: Add discount-item
+      requestBody:
+        description: discount-item
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                    example: 9999
+                  id_discount_item:
+                    type: integer
+                    format: int32
+                    example: 9999
+                  id_discount:
+                    type: integer
+                    format: int32
+                    example: 9999
+                    description: not null
+                  id_item:
+                    type: integer
+                    format: int32
+                    example: 9999
+                    description: not null
+                  id_value:
+                    type: integer
+                    format: int32
+                    example: 9999
+                    description: not null
+                  dtype:
+                    type: integer
+                    format: int16
+                    example: 9999
+                    description: not null
+                  quantity:
+                    type: number
+                    example: 11.200000
+                    description: not null, numeric(12, 6)
+                  price:
+                    type: number
+                    example: 2.20
+                    description: not null, numeric(12, 6)
+                  memo:
+                    type: string
+                    maxLength: 200
+                    example: "memo"
+                    
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+
+  /import/invoice-articles:
+    post:
+      tags:
+        - invoice-articles
+      summary: Add invoice-articles
+      requestBody:
+        description: invoice-articles
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                    example: 9999
+                  invoice_guid:
+                    type: string
+                    maxLength: 200
+                    description: not null, uuid
+                    example: "8f525ba3-0301-4df8-93b9-ec408c2bd189"
+                  article:
+                    type: string
+                    maxLength: 32
+                    example: "article"
+                  quantity:
+                    type: number
+                    example: 8.200
+                    description: not null, numeric(10, 3)
+                  measure:
+                    type: string
+                    maxLength: 32
+                    example: "measure"
+                    
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+              
+  /import/invoice:
+    post:
+      tags:
+        - invoice-articles
+      summary: Add invoice-articles
+      requestBody:
+        description: invoice-articles
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                    example: 9999
+                  guid:
+                    type: string
+                    maxLength: 200
+                    description: not null, uuid
+                    example: "8f525ba3-0301-4df8-93b9-ec408c2bd189"
+                  date:
+                    type: string
+                    format: date
+                    example: 2024-10-14
+                  number:
+                    type: integer
+                    format: int32
+                    example: 11
+                  comments:
+                    type: string
+                    example: "text"
+                    
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+                    
+  /import/variable:
+    post:
+      tags:
+        - variable
+      summary: Add variable
+      requestBody:
+        description: variable
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                    example: 9999
+                  vgroup:
+                    type: integer
+                    format: int16
+                    description: not null
+                    example: 9999
+                  name:
+                    type: string
+                    maxLength: 32
+                    description: not null
+                    example: "name"
+                  value:
+                    type: string
+                    maxLength: 128
+                    description: not null
+                    example: "value"
+                    
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+                    
+  /import/client:
+    post:
+      tags:
+        - client
+      summary: Add client
+      requestBody:
+        description: client
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  id_shop:
+                    type: integer
+                    format: int16
+                    description: not null, default 0
+                  id_client:
+                    type: integer
+                    format: int32
+                  id_discount:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
+                  full_name:
+                    type: string
+                    maxLength: 70
+                    description: not null
+                  active:
+                    type: boolean
+                    description: not null, default true
+                  discount:
+                    type: number
+                    description: not null, numeric(6,4), default 0
+                  sum:
+                    type: array
+                    items:
+                      type: number
+                      description: numeric(9, 2)[]
+                  dtype:
+                    type: integer
+                    format: int16
+                    description: not null
+                  description:
+                    type: string
+                    maxLength: 500
+                  date_begin:
+                    type: string
+                    format: date
+                  date_end:
+                    type: string
+                    format: date
+                  time_begin:
+                    type: string
+                    format: date-time
+                    description: time with time zone
+                  time_end:
+                    type: string
+                    format: date-time
+                    description: time with time zone
+                  date_birth:
+                    type: string
+                    format: date
+                  date_reg:
+                    type: string
+                    format: date
+                    description: not null
+                  day_week:
+                    type: integer
+                    format: int16
+                    description: not null
+                  cardnumber:
+                    type: array
+                    items:
+                      type: string
+                      description: varchar(30)[]
+      responses:
+        '200':
+          description: ArticlesGroup
+        '404':
+          description: All the ArticlesGroup
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/ban-article1
+                    
+                    
+  /import/array/article:
+    post:
+      tags:
+        - array-article
+      summary: Add multiple Article
+      requestBody:
+        description: List of Article
+        required: true
+        content:
+          application/json:
+            schema:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/t_article'
+            example:
+              - id_shop: 9999
+                id_article: 11184
+                id_articles_group: 154
+                id_maker: 0
+                id_department: 1
+                name: "Ікра лососева Шаланда 230г скляна банка"
+                sname: "ІкраЛососеваШаланда230"
+                dtype: 0
+                vat_group: "1"
+                sale_in_tara: false
+                active: true
+                fiscal: true
+                local: true
+                article: "10011183"
+                memo: "161827;3557;58;244;1331;7791;7227;7391;7418;"
+                printer: 0
+                article_before_str: null
+                article_after_str: null
+                uktzed: null
+                is_excise: 0
+      responses:
+        '200':
+          description: All the Article
+        '404':
+          description: All the Article
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/array/article1
+                    
+                    
+  /import/article:
+    post:
+      tags:
+        - article
+      summary: Add Article
+      requestBody:
+        description: Article
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_shop:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                id_article:
+                  type: integer
+                  format: int32
+                id_articles_group:
+                  type: integer
+                  format: int32
+                  description: not null
+                id_maker:
+                  type: integer
+                  format: int32
+                  description: not null
+                id_department:
+                  type: integer
+                  format: int32
+                  description: not null
+                name:
+                  type: string
+                  maxLength: 256
+                  description: not null
+                sname:
+                  type: string
+                  maxLength: 64
+                  description: not null
+                dtype:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                vat_group:
+                  type: string
+                  maxLength: 2
+                  description: not null
+                sale_in_tara:
+                  type: boolean
+                  description: not null, default false
+                active:
+                  type: boolean
+                  description: not null, default true
+                fiscal:
+                  type: boolean
+                  description: not null, default false
+                local:
+                  type: boolean
+                  description: not null, default true
+                article:
+                  type: string
+                  maxLength: 32
+                  description: not null
+                memo:
+                  type: string
+                  maxLength: 256
+                  description: not null
+                printer:
+                  type: integer
+                  format: int32
+                  description: not null, default 0
+                article_before_str:
+                  type: string
+                  maxLength: 256
+                article_after_str:
+                  type: string
+                  maxLength: 256
+                uktzed:
+                  type: string
+                  maxLength: 20
+                is_excise:
+                  type: integer
+                  format: int32
+                  description: not null, default 0
+      responses:
+        '200':
+          description: All the Article
+        '404':
+          description: All the Article
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/article1
+                    
+  /import/array/measure:
+    post:
+      tags:
+        - array-measure
+      summary: Add multiple Measure
+      requestBody:
+        description: List of Measure
+        required: true
+        content:
+          application/json:
+            schema:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/t_measure'
+            example:
+              - id_shop: 9999
+                id_measure: 1
+                name: "ШТ."
+                sname: "ШТ."
+                active: true
+                description: null
+                digits: 0
+                enabled_divisional: null
+      responses:
+        '200':
+          description: All the Article
+        '404':
+          description: All the Article
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/array/measure1
+                    
+                    
+  /import/measure:
+    post:
+      tags:
+        - measure
+      summary: Add  measure
+      requestBody:
+        description:  measure
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_shop:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                id_measure:
+                  type: integer
+                  format: int32
+                name:
+                  type: string
+                  maxLength: 64
+                  description: not null
+                sname:
+                  type: string
+                  maxLength: 16
+                  description: not null
+                active:
+                  type: boolean
+                  description: not null, default true
+                description:
+                  type: string
+                  maxLength: 256
+                digits:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                enabled_divisional:
+                  type: array
+                  items:
+                    type: number
+                    description: numeric(4, 3)[]
+      responses:
+        '200':
+          description: All the measure
+        '404':
+          description: All the measure
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/measure1
+                    
+  /import/array/barcode:
+    post:
+      tags:
+        - array-barcode
+      summary: Add multiple barcode
+      requestBody:
+        description: List of barcode
+        required: true
+        content:
+          application/json:
+            schema:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/t_barcode'
+            example:
+              - id_shop: 9999
+                id_barcode: 65533
+                id_article: 57437
+                id_measure: 1
+                barcode: "4607014970051"
+                sign_find_barcode: 1
+                price: [95.68, 95.68, 95.68, 0.00, 0.00, 0.01]
+                dtype: 0
+                add_field: [0.00, 0.00, 0.00, 0.00, 0.00]
+      responses:
+        '200':
+          description: All the Barcode
+        '404':
+          description: All the Barcode
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/array/barcode1
+                    
+                    
+  /import/barcode:
+    post:
+      tags:
+        - barcode
+      summary: Add barcode
+      requestBody:
+        description: barcode
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_shop:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                id_barcode:
+                  type: integer
+                  format: int32
+                id_article:
+                  type: integer
+                  format: int32
+                  description: not null
+                id_measure:
+                  type: integer
+                  format: int32
+                  description: not null
+                barcode:
+                  type: string
+                  maxLength: 30
+                  description: not null
+                sign_find_barcode:
+                  type: integer
+                  format: int16
+                  description: not null, default 1
+                price:
+                  type: array
+                  items:
+                    type: number
+                    description: not null, numeric(9, 2)[]
+                dtype:
+                  type: integer
+                  format: int16
+                add_field:
+                  type: array
+                  items:
+                    type: number
+                    description: numeric(9, 2)[]
+      responses:
+        '200':
+          description: All the barcode
+        '404':
+          description: All the barcode
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/barcode1
+                    
+             
+  /import/array/profile:
+    post:
+      tags:
+        - array-profile
+      summary: Add multiple profile
+      requestBody:
+        description: List of profile
+        required: true
+        content:
+          application/json:
+            schema:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/t_profile'
+            example:
+              - id_shop: 9999
+                id_profile: 0
+                name: "OPERATOR"
+      responses:
+        '200':
+          description: All the profile
+        '404':
+          description: All the profile
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/array/profile1
+                    
+                 
+  /import/profile:
+    post:
+      tags:
+        - profile
+      summary: Add multiple profile
+      requestBody:
+        description: List of profile
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_shop:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                id_profile:
+                  type: integer
+                  format: int32
+                name:
+                  type: string
+                  maxLength: 100
+                  description: not null
+      responses:
+        '200':
+          description: All the profile
+        '404':
+          description: All the profile
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/profile1
+                    
+      
+  /import/array/user:
+    post:
+      tags:
+        - array-user
+      summary: Add multiple user
+      requestBody:
+        description: List of user
+        required: true
+        content:
+          application/json:
+            schema:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/t_user'
+            example:
+              - id_shop: 0
+                id_user: 5,
+                id_profile: 1
+                login: "4"
+                pswd: "HURoEdgqo17GGpEZ5xIXp0"
+                dtype: 0
+                active: true
+                full_name: "Boss_Kassir"
+                date_begin: "2024-09-27"
+                date_end: "2024-09-27"
+                cardnumber: "5550000000012"
+      responses:
+        '200':
+          description: All the user
+        '404':
+          description: All the user
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/array/user1
+                    
+                    
+                    
+                 
+  /import/user:
+    post:
+      tags:
+        - user
+      summary: Add  user
+      requestBody:
+        description:  user
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_shop:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                id_user:
+                  type: integer
+                  format: int32
+                id_profile:
+                  type: integer
+                  format: int32
+                  description: not null
+                login:
+                  type: string
+                  maxLength: 30
+                  description: not null
+                pswd:
+                  type: string
+                  maxLength: 128
+                  description: not null
+                dtype:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                active:
+                  type: boolean
+                  description: not null, default true
+                full_name:
+                  type: string
+                  maxLength: 300
+                  description: not null
+                date_begin:
+                  type: string
+                  format: date
+                date_end:
+                  type: string
+                  format: date
+                cardnumber:
+                  type: string
+                  maxLength: 32
+      responses:
+        '200':
+          description: All the user
+        '404':
+          description: All the user
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/user1
+                    
+                    
+                    
+      
+  /import/array/profile-events:
+    post:
+      tags:
+        - array-profile-events
+      summary: Add multiple profile-events
+      requestBody:
+        description: List of profile-events
+        required: true
+        content:
+          application/json:
+            schema:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/t_profile_events'
+            example:
+              - id_shop: 9999
+                id_profile: 2
+                id_event: 42
+      responses:
+        '200':
+          description: All the profile-events
+        '404':
+          description: All the profile-events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/array/profile-events1
+                    
+                    
+                    
+                    
+                    
+                 
+  /import/profile-events:
+    post:
+      tags:
+        - profile-events
+      summary: Add  profile-events
+      requestBody:
+        description:  profile-events
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_shop:
+                  type: integer
+                  format: int16
+                  description: not null, default 0
+                id_profile:
+                  type: integer
+                  format: int32
+                  description: not null
+                id_event:
+                  type: integer
+                  description: not null
+                  format: int32
+      responses:
+        '200':
+          description: All the profile-events
+        '404':
+          description: All the profile-events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/error'
+                example:
+                  - timestamp: '2024-10-04T13:21:26.971+00:00'
+                    status: 404
+                    error: Not Found
+                    path: /api/v1/import/profile-events1
+components:
+  schemas:
+    t_cash_register_report:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_cash_register_report:
+          type: integer
+          format: int32
+        id_workplace:
+          type: integer
+          format: int32
+          description: not null
+        id_user:
+          type: integer
+          format: int32
+          description: not null
+        report_time:
+          type: string
+          format: date-time
+          description: not null, with timezone
+        report_sum:
+          type: number
+          description: not null, numeric(15,2)
+        sum_ready_money:
+          type: number
+          description: not null, numeric(15,2), default 0
+        sum_ready_credit:
+          type: number
+          description: not null, numeric(15,2), default 0
+        date_change:
+          type: string
+          format: date-time
+          description: not null, with timezone, default now()
+        number_cash_register:
+          type: string
+          maxLength: 20
+          description: not null
+        number_report:
+          type: integer
+          format: int32
+          description: not null
+        suma:
+          type: number
+          description: numeric(15,2)
+        sumb:
+          type: number
+          description: numeric(15,2)
+        sum:
+          type: array
+          items:
+            type: number
+            description: numeric(9, 2)
+    t_check:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_workplace:
+          type: integer
+          format: int32
+          description: not null
+        id_check:
+          type: integer
+          format: int32
+        id_user:
+          type: integer
+          format: int32
+          description: not null
+        id_cash_register_report:
+          type: integer
+          format: int32
+          description: not null
+        id_client:
+          type: integer
+          format: int32
+        date_operation:
+          type: string
+          format: date
+          description: not null, default now()
+        time_open:
+          type: string
+          format: date-time
+          description: not null, with timezone'
+        time_close:
+          type: string
+          format: date-time
+          description: not null, with timezone
+        zet_number:
+          type: integer
+          format: int32
+          description: not null
+        check_number:
+          type: integer
+          format: int32
+          description: not null
+        sum:
+          type: number
+          description: not null, numeric(9,2)
+        discount_sum:
+          type: number
+          description: not null, numeric(9,2)
+        roundsum:
+          type: number
+          description: numeric(10,2)
+        number_cash_register:
+          type: string
+          maxLength: 20
+          description: not null
+        description:
+          type: string
+          maxLength: 250
+        dtype:
+          type: integer
+          format: int16
+          description: not null
+        type_vat:
+          type: integer
+          format: int16
+          description: not null
+        memo:
+          type: string
+        id_order:
+          type: integer
+          format: int32
+    t_check_articles:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_workplace:
+          type: integer
+          format: int32
+          description: not null
+        id_check:
+          type: integer
+          format: int32
+          description: not null
+        pos:
+          type: integer
+          format: int32
+          description: not null
+        id_measure:
+          type: integer
+          format: int32
+          description: not null
+        id_article:
+          type: integer
+          format: int32
+          description: not null
+        id_barcode:
+          type: integer
+          format: int32
+          description: not null
+        id_check_return:
+          type: integer
+          format: int32
+        id_workplace_return:
+          type: integer
+          format: int32
+        id_discount:
+          type: array
+          items:
+            type: integer
+            format: int32
+        id_action_coupon:
+          type: array
+          items:
+            type: integer
+            format: int32
+        article:
+          type: string
+          maxLength: 32
+          description: not null
+        barcode:
+          type: string
+          maxLength: 30
+        quantity:
+          type: number
+          description: not null, numeric(10, 3)
+        quantity_ret:
+          type: number
+          description: numeric(10, 3)
+        clean_price:
+          type: number
+          description: not null, numeric(9, 2)
+        price:
+          type: number
+          description: not null, numeric(9, 2)
+        sum:
+          type: number
+          description: not null, numeric(9, 2)
+        sum_ret:
+          type: number
+          description: not null, numeric(9, 2)
+        discount_sum:
+          type: number
+          description: not null, numeric(9, 2)
+        vat:
+          type: number
+          description: not null, numeric(5, 4)
+        vat_group:
+          type: string
+          maxLength: 1
+          description: not null
+        type_article:
+          type: integer
+          format: int16
+          description: not null
+        dtype:
+          type: integer
+          format: int16
+        time_add:
+          type: string
+          format: date-time
+          description: not null, with timezone
+        time_open:
+          type: string
+          format: date-time
+          description: not null, with timezone
+        uktzed:
+          type: string
+          maxLength: 20
+        excise:
+          type: string
+    t_check_pay:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_workplace:
+          type: integer
+          format: int32
+          description: not null
+        id_check:
+          type: integer
+          format: int32
+          description: not null
+        pos:
+          type: integer
+          format: int32
+          description: not null
+        id_currency:
+          type: integer
+          format: int32
+          description: not null
+        id_bank:
+          type: integer
+          format: int32
+        dtype:
+          type: integer
+          format: int16
+          description: not null
+        sum:
+          type: number
+          description: not null, numeric(10, 2)
+        sum_ret:
+          type: number
+          description: numeric(10, 2)
+        slip_number:
+          type: string
+          maxLength: 30
+        receive_money:
+          type: number
+          description: numeric(10, 2)
+        description:
+          type: string
+          maxLength: 250
+        rrn:
+          type: string
+          maxLength: 20
+        sum_national:
+          type: number
+          description: numeric(10, 2)
+        receive_money_national:
+          type: number
+          description: numeric(10, 2)
+    t_cash_operation:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_operation:
+          type: integer
+          format: int32
+        id_workplace:
+          type: integer
+          format: int32
+          description: not null
+        id_user:
+          type: integer
+          format: int32
+          description: not null
+        date_operation:
+          type: string
+          format: date-time
+          description: not null, with timezone, default now()
+        dtype:
+          type: integer
+          format: int16
+          description: not null
+        sum:
+          type: number
+          description: not null, numeric(15, 2)
+        number_cash_register:
+          type: string
+          maxLength: 20
+          description: not null
+    t_shift_work:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_shift:
+          type: integer
+          format: int32
+        id_workplace:
+          type: integer
+          format: int32
+          description: not null
+        id_user:
+          type: integer
+          format: int32
+          description: not null
+        date_shift:
+          type: string
+          format: date-time
+          description: not null, with timezone, default now()
+        type_action:
+          type: string
+          maxLength: 1
+          description: not null, char
+    error:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+          format: int32
+        error:
+          type: string
+        path:
+          type: string
+    t_articles_group:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_articles_group:
+          type: integer
+          format: int32
+        id_parent_group:
+          type: integer
+          format: int32
+        name:
+          type: string
+          maxLength: 128
+          description: not null
+        sign_activity:
+          type: boolean
+          description: default true
+    t_article:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_article:
+          type: integer
+          format: int32
+        id_articles_group:
+          type: integer
+          format: int32
+          description: not null
+        id_maker:
+          type: integer
+          format: int32
+          description: not null
+        id_department:
+          type: integer
+          format: int32
+          description: not null
+        name:
+          type: string
+          maxLength: 256
+          description: not null
+        sname:
+          type: string
+          maxLength: 64
+          description: not null
+        dtype:
+          type: integer
+          format: int16
+          description: not null, default 0
+        vat_group:
+          type: string
+          maxLength: 2
+          description: not null
+        sale_in_tara:
+          type: boolean
+          description: not null, default false
+        active:
+          type: boolean
+          description: not null, default true
+        fiscal:
+          type: boolean
+          description: not null, default false
+        local:
+          type: boolean
+          description: not null, default true
+        article:
+          type: string
+          maxLength: 32
+          description: not null
+        memo:
+          type: string
+          maxLength: 256
+          description: not null
+        printer:
+          type: integer
+          format: int32
+          description: not null, default 0
+        article_before_str:
+          type: string
+          maxLength: 256
+        article_after_str:
+          type: string
+          maxLength: 256
+        uktzed:
+          type: string
+          maxLength: 20
+        is_excise:
+          type: integer
+          format: int32
+          description: not null, default 0
+    t_measure:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_measure:
+          type: integer
+          format: int32
+        name:
+          type: string
+          maxLength: 64
+          description: not null
+        sname:
+          type: string
+          maxLength: 16
+          description: not null
+        active:
+          type: boolean
+          description: not null, default true
+        description:
+          type: string
+          maxLength: 256
+        digits:
+          type: integer
+          format: int16
+          description: not null, default 0
+        enabled_divisional:
+          type: array
+          items:
+            type: number
+            description: numeric(4, 3)[]
+            
+    t_barcode:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_barcode:
+          type: integer
+          format: int32
+        id_article:
+          type: integer
+          format: int32
+          description: not null
+        id_measure:
+          type: integer
+          format: int32
+          description: not null
+        barcode:
+          type: string
+          maxLength: 30
+          description: not null
+        sign_find_barcode:
+          type: integer
+          format: int16
+          description: not null, default 1
+        price:
+          type: array
+          items:
+            type: number
+            description: not null, numeric(9, 2)[]
+        dtype:
+          type: integer
+          format: int16
+        add_field:
+          type: array
+          items:
+            type: number
+            description: numeric(9, 2)[]
+    
+    t_profile:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_profile:
+          type: integer
+          format: int32
+        name:
+          type: string
+          maxLength: 100
+          description: not null
+    t_user:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_user:
+          type: integer
+          format: int32
+        id_profile:
+          type: integer
+          format: int32
+          description: not null
+        login:
+          type: string
+          maxLength: 30
+          description: not null
+        pswd:
+          type: string
+          maxLength: 128
+          description: not null
+        dtype:
+          type: integer
+          format: int16
+          description: not null, default 0
+        active:
+          type: boolean
+          description: not null, default true
+        full_name:
+          type: string
+          maxLength: 300
+          description: not null
+        date_begin:
+          type: string
+          format: date
+        date_end:
+          type: string
+          format: date
+        cardnumber:
+          type: string
+          maxLength: 32
+    t_profile_events:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_profile:
+          type: integer
+          format: int32
+          description: not null
+        id_event:
+          type: integer
+          description: not null
+          format: int32
+    t_audit_action:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_audit_action:
+          type: integer
+          format: int32
+        id_event:
+          type: integer
+          format: int32
+          description: not null
+        id_workplace:
+          type: integer
+          format: int32
+          description: not null
+        id_user:
+          type: integer
+          format: int32
+          description: not null
+        id_article:
+          type: integer
+          format: int32
+        id_measure:
+          type: integer
+          format: int32
+        id_client:
+          type: integer
+          format: int32
+        fragment_number:
+          type: integer
+          format: int32
+          description: not null
+        check_number:
+          type: integer
+          format: int32
+        quantity:
+          type: number
+          description: numeric(16, 3)
+        price_sale:
+          type: number
+          description: numeric(15, 8)
+        date_event:
+          type: string
+          format: date-time
+          description: not null, with timezone, default now()
+        status_transfer:
+          type: integer
+          format: int16
+          description: not null, default 0
+        input_data:
+          type: string
+          maxLength: 30
+        exported:
+          type: integer
+          format: int16
+          description: not null, default 0
+        memo:
+          type: string
+          
+    t_client:
+      type: object
+      properties:
+        id_shop:
+          type: integer
+          format: int16
+          description: not null, default 0
+        id_client:
+          type: integer
+          format: int32
+        id_discount:
+          type: array
+          items:
+            type: integer
+            format: int32
+        full_name:
+          type: string
+          maxLength: 70
+          description: not null
+        active:
+          type: boolean
+          description: not null, default true
+        discount:
+          type: number
+          description: not null, numeric(6,4), default 0
+        sum:
+          type: array
+          items:
+            type: number
+            description: numeric(9, 2)[]
+        dtype:
+          type: integer
+          format: int16
+          description: not null
+        description:
+          type: string
+          maxLength: 500
+        date_begin:
+          type: string
+          format: date
+        date_end:
+          type: string
+          format: date
+        time_begin:
+          type: string
+          format: date-time
+          description: time with time zone
+        time_end:
+          type: string
+          format: date-time
+          description: time with time zone
+        date_birth:
+          type: string
+          format: date
+        date_reg:
+          type: string
+          format: date
+          description: not null
+        day_week:
+          type: integer
+          format: int16
+          description: not null
+        cardnumber:
+          type: array
+          items:
+            type: string
+            description: varchar(30)[]
+            
+    t_paydiscount:
+      type: object
+      properties:
+        id_paydiscount:
+          type: integer
+          format: int32
+        id_kassa:
+          type: integer
+          format: int16
+          description: not null
+        dtype:
+          type: integer
+          format: int32
+          description: not null
+        check_number:
+          type: integer
+          format: int32
+          description: not null
+        check_pos:
+          type: integer
+          format: int32
+        summa:
+          type: number
+          description: not null, numeric(9, 2)
+        percent:
+          type: number
+          description: not null, numeric(9, 2)
+        id_shop:
+          type: integer
+          format: int32
+          description: not null
