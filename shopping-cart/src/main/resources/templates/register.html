@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::Layout(~{::section})}">
+<body>
+
+<section>
+    <div class="container mt-5 p-1">
+        <div class="row">
+            <div class="col-md-4 p-5">
+                <img src="/img/shopping-cart-4.jpg" class="d-block w-100" alt="..."
+                     height="1080">
+            </div>
+            <div class="col-md-8 p-5">
+                <div class="card">
+                    <div class="card-header"><p class="fs-4 text-center">Register</p></div>
+                    <div class="card-body">
+                        <form th:action="@{/register}" method="post">
+                            <div class="row">
+                                <div class="col"><label class="form-label">Full Name
+                                    <input class="form-control" type="text" name="name"/>
+                                </label>
+                                </div>
+                                <div class="col"><label class="form-label">Phone
+                                    <input class="form-control" type="number" name="phone"/>
+                                </label>
+                                </div>
+                            </div>
+                            <div class="mb-3"><label class="form-label">Email
+                                <input class="form-control" type="email" name="email" size="59"/>
+                            </label>
+                            </div>
+                            <div class="row">
+                                <div class="col"><label class="form-label">Address
+                                    <input class="form-control" type="text" name="address"/>
+                                </label>
+                                </div>
+                                <div class="col"><label class="form-label">City
+                                    <input class="form-control" type="text" name="city"/>
+                                </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><label class="form-label">State
+                                    <input class="form-control" type="text" name="state"/>
+                                </label>
+                                </div>
+                                <div class="col"><label class="form-label">Pincode
+                                    <input class="form-control" type="number" name="pincode"/>
+                                </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><label class="form-label">Passowrd
+                                    <input class="form-control" type="password" name="password"/>
+                                </label>
+                                </div>
+                                <div class="col"><label class="form-label">Confirm Password
+                                    <input class="form-control" type="password" name="cpassword"/>
+                                </label>
+                                </div>
+                            </div>
+                            <div class="mb-3"><label class="form-label">Profile Image
+                                <input class="form-control" type="file" name="profile_image"/>
+                            </label>
+                            </div>
+                            <button type="submit" class="btn bg-black text-white col-md-12">Register</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        Have an account? <a href="/shopping-cart/login" class="text-decoration-none">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

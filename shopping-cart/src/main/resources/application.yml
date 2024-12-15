@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: shopping_cart
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/shopping_cart
+#    type: com.zaxxer.hikari.HikariDataSource
+#    hikari:
+#      minimum-idle: 5
+#      maximum-pool-size: 10
+#      idle-timeout: 30000
+#      max-lifetime: 1800000
+#      connection-timeout: 20000
+#      pool-name: HikariCP
+
+  jpa:
+    open-in-view: false
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true
+#    generate-ddl: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        show_sql: true
+#        use_sql_comments: true
+#        hbm2ddl:
+#          auto: create

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::Layout(~{::section})}">
+<body>
+
+<section>
+    <div class="container mt-5 p-5">
+        <div class="row">
+            <div class="col-md-6 p-5">
+                <img src="/img/shopping-cart-4.jpg" class="d-block w-100" alt="..."
+                     height="1080">
+            </div>
+            <div class="col-md-6 p-5">
+                <div class="card">
+                    <div class="card-header"><p class="fs-4 text-center">Login</p></div>
+                    <div class="card-body">
+                        <form th:action="@{/login}" method="post">
+                            <div class="mb-3"><label class="form-label">Email
+                                <input class="form-control" type="email" name="email"/>
+                            </label>
+                            </div>
+                            <div class="mb-3"><label class="form-label">Password
+                                <input class="form-control" type="password" name="password"/>
+                            </label>
+                            </div>
+                            <button type="submit" class="btn bg-black text-white col-md-12">Login</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="#" class="text-decoration-none">Forgot Password</a><br> Don't have an account?
+                        <a href="#" class="text-decoration-none">Create account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
