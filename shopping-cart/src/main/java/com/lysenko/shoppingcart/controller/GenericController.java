@@ -37,5 +37,15 @@ public class GenericController {
         userService.save(form);
         return "redirect:/login";
     }
+
+    @GetMapping("/products")
+    public String products() {
+        return "product";
+    }
+
+    @GetMapping("/product")
+    public String product() {
+        return "product_details";
+    }
 }
 
