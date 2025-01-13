@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group = 'pos.websocket'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+    implementation group: 'org.apache.httpcomponents.core5', name: 'httpcore5', version: '5.3.1'
+    implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.4.1'
+    implementation group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.2'
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '4.0.5'
+}
