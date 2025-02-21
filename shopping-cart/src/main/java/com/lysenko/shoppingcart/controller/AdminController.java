@@ -1,8 +1,11 @@
 package com.lysenko.shoppingcart.controller;
 
 import com.lysenko.shoppingcart.model.Category;
+import com.lysenko.shoppingcart.model.Product;
 import com.lysenko.shoppingcart.service.CategoryService;
+import com.lysenko.shoppingcart.service.ProductService;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +19,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/shopping-cart/admin")
+@RequiredArgsConstructor
 //@MultipartConfig
 public class AdminController {
 
     private final CategoryService categoryService;
-
-    public AdminController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    private final ProductService productService;
 
     @GetMapping
     public String index() {
@@ -34,7 +36,8 @@ public class AdminController {
     }
 
     @GetMapping("/add-product")
-    public String adminAddProduct() {
+    public String adminAddProduct(Model model) {
+        model.addAttribute("categories", categoryService.findAll());
         return "admin/add_product";
     }
 
@@ -64,9 +67,11 @@ public class AdminController {
                 session.setAttribute("error", "Category save failed");
             } else {
                 File saveFile = new ClassPathResource("static/img").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator + (file != null ? file.getOriginalFilename() : "unknown.jpg"));
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" +
+                        File.separator + (file != null ? file.getOriginalFilename() : "unknown.jpg"));
                 System.out.println(path);
-                if (!file.getOriginalFilename().isEmpty()) {
+                if (file != null && !ObjectUtils.isEmpty(file.getOriginalFilename()) &&
+                        !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
                     Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
                 }
                 session.setAttribute("success", "Category save success");
@@ -94,7 +99,7 @@ public class AdminController {
 
     @PostMapping("/updateCategory")
     public String updateCategory(@ModelAttribute Category category, @RequestParam(value = "isActive", required = false) Boolean isActive,
-                                 @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
+                                 @RequestParam(value = "file", required = false) MultipartFile file, HttpSession session) throws IOException {
 
         Category categoryById = categoryService.findById(category.getId());
         String imageName = file != null ? file.getOriginalFilename() : "unknown.jpg";
@@ -110,12 +115,33 @@ public class AdminController {
             session.setAttribute("error", "Category update failed");
         } else {
             File saveFile = new ClassPathResource("static/img").getFile();
-            Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator + file.getOriginalFilename());
+            Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator + imageName);
             System.out.println(path);
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(Objects.requireNonNull(file).getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             session.setAttribute("success", "Category updated successfully");
         }
         return "redirect:/shopping-cart/admin/editCategory/" + category.getId();
+    }
+
+    @PostMapping("/saveProduct")
+    public String saveProduct(@ModelAttribute Product product, @RequestParam(value = "file", required = false) MultipartFile image,
+                              HttpSession session) throws IOException {
+
+        String imageName = image.isEmpty() ? "unknown.jpg" : image.getOriginalFilename();
+        product.setImage(imageName);
+        Product saveProduct = productService.save(product);
+
+        if (ObjectUtils.isEmpty(saveProduct)) {
+            session.setAttribute("error", "Product save failed");
+        } else {
+            File saveFile = new ClassPathResource("static/img").getFile();
+            Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator + imageName);
+            System.out.println(path);
+            Files.copy(Objects.requireNonNull(image.getInputStream()), path, StandardCopyOption.REPLACE_EXISTING);
+            session.setAttribute("success", "Product save success");
+        }
+
+        return "redirect:/shopping-cart/admin/add-product";
     }
 
 }
