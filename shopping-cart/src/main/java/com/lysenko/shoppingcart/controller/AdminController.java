@@ -3,6 +3,7 @@ package com.lysenko.shoppingcart.controller;
 import com.lysenko.shoppingcart.model.Category;
 import com.lysenko.shoppingcart.model.Product;
 import com.lysenko.shoppingcart.service.CategoryService;
+import com.lysenko.shoppingcart.service.ProductRepository;
 import com.lysenko.shoppingcart.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class AdminController {
 
     private final CategoryService categoryService;
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
     @GetMapping
     public String index() {
@@ -142,6 +144,23 @@ public class AdminController {
         }
 
         return "redirect:/shopping-cart/admin/add-product";
+    }
+
+    @GetMapping("/products")
+    public String viewProduct(Model model) {
+        model.addAttribute("products", productService.findAll());
+        return "admin/products";
+    }
+
+    @GetMapping("/deleteProduct/{id}")
+    public String deleteProduct(@PathVariable Long id, HttpSession session) {
+        boolean result = productService.delete(id);
+        if (result) {
+            session.setAttribute("success", "Product deleted successfully");
+        } else {
+            session.setAttribute("error", "Product deletion failed");
+        }
+        return "redirect:/shopping-cart/admin/products";
     }
 
 }

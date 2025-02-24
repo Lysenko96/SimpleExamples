@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::Layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<section>
+    <div class="container-fluid p-5 mt-3">
+<!--        <div class="row">-->
+<!--            <div class="col-md-11">-->
+                <div class="card card-sh">
+                    <div class="card-header text-center"><p class="fs-4">Products Details</p>
+                        <th:block th:if="${session.success}">
+                            <p class="text-success fw-bold">[[${session.success}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                        </th:block>
+                        <th:block th:if="${session.error}">
+                            <p class="text-danger fw-bold">[[${session.error}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="c:${products}">
+                            <th scope="row">[[${c.id}]]</th>
+                            <td><img th:src="@{'/img/product_img/'+${c.image}}" alt=""
+                            width="70px" height="70px"></td>
+                            <td>[[${c.title}]]</td>
+                            <td>[[${c.category}]]</td>
+                            <td>[[${c.price}]]</td>
+                            <td>[[${c.stock}]]</td>
+                            <td>
+                                <a th:href="@{'/shopping-cart/admin/editProduct/'+${c.id}}" class="btn btn-light bg-black text-white btn-sm"><i
+                                        class="fa-solid fa-pen-to-square fa-1x"></i>Edit</a>
+                                <a th:href="@{'/shopping-cart/admin/deleteProduct/'+${c.id}}" class="btn btn-danger btn-sm"><i
+                                        class="fa-solid fa-trash fa-1x"></i>Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</section>
+</body>
+</html>
