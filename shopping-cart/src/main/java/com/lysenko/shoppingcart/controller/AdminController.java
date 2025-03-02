@@ -129,7 +129,7 @@ public class AdminController {
     public String saveProduct(@ModelAttribute Product product, @RequestParam(value = "file", required = false) MultipartFile image,
                               HttpSession session) throws IOException {
 
-        String imageName = image.isEmpty() ? "unknown.jpg" : image.getOriginalFilename();
+        String imageName = image.isEmpty() ? product.getImage() : image.getOriginalFilename();
         product.setImage(imageName);
         Product saveProduct = productService.save(product);
 
@@ -162,5 +162,26 @@ public class AdminController {
         }
         return "redirect:/shopping-cart/admin/products";
     }
+
+    @GetMapping("/editProduct/{id}")
+    public String editProduct(Model model, @PathVariable Long id) {
+        model.addAttribute("product", productService.findById(id));
+        model.addAttribute("categories", categoryService.findAll());
+        return "admin/edit_product";
+    }
+
+    @PostMapping("/updateProduct")
+    public String updateProduct(@ModelAttribute Product product,
+                                @RequestParam(value = "file", required = false) MultipartFile file,
+                                HttpSession session) throws IOException {
+        product = productService.update(product, file);
+        if (!ObjectUtils.isEmpty(product)) {
+            session.setAttribute("success", "Product update successfully");
+        } else {
+            session.setAttribute("error", "Product update failed");
+        }
+        return "redirect:/shopping-cart/admin/editProduct/" + product.getId();
+    }
+
 
 }
