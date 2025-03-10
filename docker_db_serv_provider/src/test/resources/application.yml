@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: docker-database-server-provider
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show-sql: true
+    open-in-view: false
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/server_provider
+    username: postgres
+    password: postgres
+  sql:
+    init:
+      mode: never
+
+
+custom:
+  path: "/home/user/test"
+  delimiter: ','
+  interval:
+    seconds: 5
+  import:
+    encoding: "utf-8"

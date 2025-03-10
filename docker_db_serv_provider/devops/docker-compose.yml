@@ -1,0 +1,12 @@
+services:
+  db_server_provider:
+    image:  harbor.self-service.com.ua/dockers/db_server_provider:latest
+    environment:
+      DB_HOST: $DB_HOST
+      DB_PORT: $DB_PORT
+      DB_NAME: $DB_NAME
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      FILE_ENCODING: $FILE_ENCODING
+    volumes:
+      - ./csv:/app/csv

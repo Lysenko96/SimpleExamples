@@ -1,0 +1,16 @@
+FROM gradle:jdk17 AS build
+
+WORKDIR /app
+
+COPY . .
+
+RUN gradle build -x test
+
+FROM openjdk:17 AS production
+
+WORKDIR /app
+
+COPY src/main/resources/application.yml .
+COPY --from=build /app/build/libs/* ./docker-database-server-provider.jar
+
+CMD ["java", "-jar", "docker-database-server-provider.jar", "--spring.config.location=file:///app/application.yml"]
