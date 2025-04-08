@@ -31,7 +31,10 @@
                             <th scope="col">Title</th>
                             <th scope="col">Category</th>
                             <th scope="col">Price</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Discount Price</th>
                             <th scope="col">Stock</th>
+                            <th scope="col">isActive</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -43,7 +46,10 @@
                             <td>[[${c.title}]]</td>
                             <td>[[${c.category}]]</td>
                             <td>[[${c.price}]]</td>
+                            <td>[[${c.discount}]]</td>
+                            <td>[[${c.discountPrice}]]</td>
                             <td>[[${c.stock}]]</td>
+                            <td>[[${c.isActive}]]</td>
                             <td>
                                 <a th:href="@{'/shopping-cart/admin/editProduct/'+${c.id}}" class="btn btn-light bg-black text-white btn-sm"><i
                                         class="fa-solid fa-pen-to-square fa-1x"></i>Edit</a>

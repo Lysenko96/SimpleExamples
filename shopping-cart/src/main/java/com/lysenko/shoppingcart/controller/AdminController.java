@@ -2,8 +2,8 @@ package com.lysenko.shoppingcart.controller;
 
 import com.lysenko.shoppingcart.model.Category;
 import com.lysenko.shoppingcart.model.Product;
+import com.lysenko.shoppingcart.repository.ProductRepository;
 import com.lysenko.shoppingcart.service.CategoryService;
-import com.lysenko.shoppingcart.service.ProductRepository;
 import com.lysenko.shoppingcart.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -131,6 +131,8 @@ public class AdminController {
 
         String imageName = image.isEmpty() ? product.getImage() : image.getOriginalFilename();
         product.setImage(imageName);
+        product.setDiscount(0);
+        product.setDiscountPrice(product.getPrice());
         Product saveProduct = productService.save(product);
 
         if (ObjectUtils.isEmpty(saveProduct)) {
@@ -174,6 +176,11 @@ public class AdminController {
     public String updateProduct(@ModelAttribute Product product,
                                 @RequestParam(value = "file", required = false) MultipartFile file,
                                 HttpSession session) throws IOException {
+        if (product.getDiscount() < 0 || product.getDiscount() > 100) {
+            session.setAttribute("error", "Invalid Discount");
+            return "redirect:/shopping-cart/admin/editProduct/" + product.getId();
+        }
+
         product = productService.update(product, file);
         if (!ObjectUtils.isEmpty(product)) {
             session.setAttribute("success", "Product update successfully");

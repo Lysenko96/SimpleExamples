@@ -17,4 +17,9 @@ public interface ProductService {
     Product findById(Long id);
 
     Product update(Product product, MultipartFile file) throws IOException;
+
+    List<Product> findAllActiveByCategory(String category);
+
+    List<Product> findAllActive();
+
 }

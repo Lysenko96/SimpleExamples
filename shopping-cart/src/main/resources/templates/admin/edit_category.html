@@ -34,14 +34,14 @@
                             <div class="mb-3">
                                 <label>Status</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" th:checked="${category.isActive==true}"
+                                    <input class="form-check-input" type="radio" th:checked="${category.getIsActive().equals(true)}"
                                            value="true" name="isActive" id="flexRadioDefault1">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Active
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" th:checked="${category.isActive==false}"
+                                    <input class="form-check-input" type="radio" th:checked="${category.getIsActive().equals(false)}"
                                            value="false" name="isActive" id="flexRadioDefault2">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Inactive

@@ -26,4 +26,7 @@ public class Product {
     private BigDecimal price;
     private int stock;
     private String image;
+    private int discount;
+    private BigDecimal discountPrice;
+    private Boolean isActive;
 }

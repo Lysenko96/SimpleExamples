@@ -34,18 +34,37 @@
                                     <textarea rows="3" cols="100" name="description" class="form-control"></textarea>
                                 </label>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 col">
                                 <label>Category
                                     <select class="form-control" name="category">
                                         <option>--select--</option>
                                         <option th:each="c:${categories}">[[${c.name}]]</option>
                                     </select>
                                 </label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="mb-3 col">
+                                <!--                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                <!--                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
                                 <label>Enter Price
                                     <input type="number" name="price" class="form-control">
                                 </label>
+                            </div>
+                            <div class="mb-3">
+                                <label>Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="true"
+                                           name="isActive" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Active
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           value="false" name="isActive" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Inactive
+                                    </label>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="mb-3 col">
@@ -58,7 +77,7 @@
                                         <input type="file" name="file" class="form-control"> </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn bg-black text-white col-md-12">Submit</button>
+                            <button type="submit" class="btn bg-black text-white col-md-12">Save</button>
                         </form>
                     </div>
                 </div>

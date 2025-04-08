@@ -17,4 +17,6 @@ public interface CategoryService {
     Category findById(Long id);
 
     Category findByName(String name);
+
+    List<Category> findAllActive();
 }

@@ -1,7 +1,8 @@
-package com.lysenko.shoppingcart.service;
+package com.lysenko.shoppingcart.service.impl;
 
 import com.lysenko.shoppingcart.model.Category;
 import com.lysenko.shoppingcart.repository.CategoryRepository;
+import com.lysenko.shoppingcart.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +49,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findByName(String name) {
         return categoryRepository.findByName(name);
+    }
+
+    @Override
+    public List<Category> findAllActive() {
+        return categoryRepository.findAllByIsActiveTrue();
     }
 }
