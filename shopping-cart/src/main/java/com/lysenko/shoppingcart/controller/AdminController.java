@@ -62,11 +62,11 @@ public class AdminController {
         }
         System.out.println(file);
         if (Boolean.TRUE.equals(categoryService.existCategory(category.getName()))) {
-            session.setAttribute("error", "Category name already exist");
+            session.setAttribute("error", "Category name already exists");
         } else {
             Category categorySave = categoryService.save(category);
             if (ObjectUtils.isEmpty(categorySave)) {
-                session.setAttribute("error", "Category save failed");
+                session.setAttribute("error", "Category saved failed");
             } else {
                 File saveFile = new ClassPathResource("static/img").getFile();
                 Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" +
@@ -76,7 +76,7 @@ public class AdminController {
                         !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
                     Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
                 }
-                session.setAttribute("success", "Category save success");
+                session.setAttribute("success", "Category saved success");
             }
         }
         return "redirect:/shopping-cart/admin/category";
@@ -88,7 +88,7 @@ public class AdminController {
         if (isDeleted) {
             session.setAttribute("success", "Category deleted successfully");
         } else {
-            session.setAttribute("error", "Category deletion failed");
+            session.setAttribute("error", "Category deleted failed");
         }
         return "redirect:/shopping-cart/admin/category";
     }
@@ -136,13 +136,13 @@ public class AdminController {
         Product saveProduct = productService.save(product);
 
         if (ObjectUtils.isEmpty(saveProduct)) {
-            session.setAttribute("error", "Product save failed");
+            session.setAttribute("error", "Product saved failed");
         } else {
             File saveFile = new ClassPathResource("static/img").getFile();
             Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator + imageName);
             System.out.println(path);
             Files.copy(Objects.requireNonNull(image.getInputStream()), path, StandardCopyOption.REPLACE_EXISTING);
-            session.setAttribute("success", "Product save success");
+            session.setAttribute("success", "Product saved success");
         }
 
         return "redirect:/shopping-cart/admin/add-product";
@@ -160,7 +160,7 @@ public class AdminController {
         if (result) {
             session.setAttribute("success", "Product deleted successfully");
         } else {
-            session.setAttribute("error", "Product deletion failed");
+            session.setAttribute("error", "Product deleted failed");
         }
         return "redirect:/shopping-cart/admin/products";
     }
@@ -183,9 +183,9 @@ public class AdminController {
 
         product = productService.update(product, file);
         if (!ObjectUtils.isEmpty(product)) {
-            session.setAttribute("success", "Product update successfully");
+            session.setAttribute("success", "Product updated successfully");
         } else {
-            session.setAttribute("error", "Product update failed");
+            session.setAttribute("error", "Product updated failed");
         }
         return "redirect:/shopping-cart/admin/editProduct/" + product.getId();
     }
