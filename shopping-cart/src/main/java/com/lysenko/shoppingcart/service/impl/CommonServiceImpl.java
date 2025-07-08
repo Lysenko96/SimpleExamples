@@ -12,11 +12,14 @@ import java.util.Objects;
 @Service
 public class CommonServiceImpl implements CommonService {
 
+    private static final String SUCCESS = "success";
+    private static final String ERROR = "error";
+
     @Override
     public void removeSessionMessage() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         HttpSession session = request.getSession();
-        session.removeAttribute("success");
-        session.removeAttribute("error");
+        session.removeAttribute(SUCCESS);
+        session.removeAttribute(ERROR);
     }
 }

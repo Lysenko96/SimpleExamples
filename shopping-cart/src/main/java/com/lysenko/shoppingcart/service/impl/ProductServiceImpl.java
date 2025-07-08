@@ -4,9 +4,9 @@ import com.lysenko.shoppingcart.model.Product;
 import com.lysenko.shoppingcart.repository.ProductRepository;
 import com.lysenko.shoppingcart.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,11 +17,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
+
+    private static final String IMG_PATH = "static/img";
+    private static final String PRODUCT_IMG = "product_img";
 
     private final ProductRepository productRepository;
 
@@ -38,11 +41,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean delete(Long id) {
         Product product = productRepository.findById(id).orElse(null);
-        if (product != null) {
-            productRepository.deleteById((long) product.getId());
-            return true;
+        if (product == null) {
+            return false;
         }
-        return false;
+        productRepository.deleteById((long) product.getId());
+        return true;
     }
 
     @Override
@@ -53,15 +56,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(Product product, MultipartFile file) throws IOException {
         Product productById = findById((long) product.getId());
-        String imageName = file.isEmpty() ? product.getImage() : file.getOriginalFilename();
-        if (imageName != null) {
-            productById.setImage(imageName);
-            File saveFile = new ClassPathResource("static/img").getFile();
-            Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator + imageName);
-            System.out.println(path);
-            Files.copy(Objects.requireNonNull(file).getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+//        String imageName = file.isEmpty() ? product.getImage() : file.getOriginalFilename();
+        String imageName = file != null ? file.getOriginalFilename() : product.getImage();
+        File saveFile = new ClassPathResource(IMG_PATH).getFile();
+        Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + PRODUCT_IMG + File.separator + imageName);
+        log.info("update path: {}", path);
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         }
-        if (!ObjectUtils.isEmpty(product)) {
+        if (productById != null) {
+            productById.setImage(imageName);
             productById.setCategory(product.getCategory());
             productById.setStock(product.getStock());
             productById.setPrice(product.getPrice());
@@ -73,18 +77,17 @@ public class ProductServiceImpl implements ProductService {
             BigDecimal discount = product.getPrice().multiply(BigDecimal.valueOf(product.getDiscount() / 100.0));
             BigDecimal discountedPrice = product.getPrice().subtract(discount);
             productById.setDiscountPrice(discountedPrice);
+            save(productById);
         }
-        save(productById);
         return productById;
     }
 
     @Override
     public List<Product> findAllActiveByCategory(String category) {
-        if (category != null) {
-            return productRepository.findAllByIsActiveTrueAndCategoryIgnoreCase(category);
-        } else {
-            return findAllActive();
+        if (category == null) {
+            return productRepository.findAllByIsActiveTrue();
         }
+        return productRepository.findAllByIsActiveTrueAndCategoryIgnoreCase(category);
     }
 
     @Override

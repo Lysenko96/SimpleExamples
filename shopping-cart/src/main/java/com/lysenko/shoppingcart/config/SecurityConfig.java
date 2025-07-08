@@ -33,9 +33,8 @@ public class SecurityConfig {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(passwordEncoder());
         authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
@@ -49,7 +48,6 @@ public class SecurityConfig {
                                 .requestMatchers("/**").permitAll())
                 .formLogin(form -> form.loginPage("/shopping-cart/main-login")
                         .loginProcessingUrl("/login")
-//                        .defaultSuccessUrl("/shopping-cart/user")
                         .successHandler(authSuccessHandler))
                 .logout(LogoutConfigurer::permitAll)
                 .build();

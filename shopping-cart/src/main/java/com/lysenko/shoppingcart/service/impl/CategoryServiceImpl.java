@@ -34,11 +34,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public boolean deleteById(Long id) {
         Category category = categoryRepository.findById(id).orElse(null);
-        if (category != null) {
-            categoryRepository.deleteById(id);
-            return true;
+        if (category == null) {
+            return false;
         }
-        return false;
+        categoryRepository.deleteById(id);
+        return true;
     }
 
     @Override

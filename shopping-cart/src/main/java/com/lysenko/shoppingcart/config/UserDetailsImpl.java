@@ -14,7 +14,7 @@ public class UserDetailsImpl implements UserDetails {
     private UserCustom user;
 
     public UserDetailsImpl(UserCustom user) {
-        super();
+//        super();
         this.user = user;
     }
 
@@ -30,7 +30,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        System.out.println(user.getEmail());
         return user.getEmail();
     }
 
