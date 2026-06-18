@@ -35,6 +35,7 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public String home() {
-        return "user/home";
+        return "redirect:/shopping-cart/";
     }
+
 }

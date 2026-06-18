@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
@@ -20,11 +21,13 @@ public class SecurityConfig {
 
     private final UserRepository userRepository;
     private final AuthenticationSuccessHandler authSuccessHandler;
+    private final AuthenticationFailureHandler authFailureHandler;
+    private final PasswordEncoder passwordEncoder;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder(10);
+//    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -33,7 +36,7 @@ public class SecurityConfig {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(passwordEncoder());
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(passwordEncoder);
         authProvider.setUserDetailsService(userDetailsService());
         return authProvider;
     }
@@ -48,8 +51,11 @@ public class SecurityConfig {
                                 .requestMatchers("/**").permitAll())
                 .formLogin(form -> form.loginPage("/shopping-cart/main-login")
                         .loginProcessingUrl("/login")
+                        .failureHandler(authFailureHandler)
                         .successHandler(authSuccessHandler))
                 .logout(LogoutConfigurer::permitAll)
                 .build();
     }
+
+
 }

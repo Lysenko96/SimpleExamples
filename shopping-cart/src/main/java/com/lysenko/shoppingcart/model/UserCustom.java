@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,4 +29,10 @@ public class UserCustom {
     private String password;
     private String image;
     private String role;
+    private Boolean isEnabled;
+    private Boolean accountNonLocked;
+    private Integer failedAttempt;
+    private Date lockTime;
+    private String resetToken;
+
 }

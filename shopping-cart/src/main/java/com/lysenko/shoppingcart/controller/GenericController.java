@@ -1,27 +1,36 @@
 package com.lysenko.shoppingcart.controller;
 
+import com.lysenko.shoppingcart.config.SecurityConfig;
 import com.lysenko.shoppingcart.model.Category;
 import com.lysenko.shoppingcart.model.UserCustom;
 import com.lysenko.shoppingcart.service.CategoryService;
 import com.lysenko.shoppingcart.service.ProductService;
 import com.lysenko.shoppingcart.service.UserService;
+import com.lysenko.shoppingcart.util.CommonUtil;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/shopping-cart")
@@ -40,6 +49,8 @@ public class GenericController {
     private final CategoryService categoryService;
     private final ProductService productService;
     private final UserService userService;
+    private final CommonUtil commonUtil;
+    private final PasswordEncoder passwordEncoder;
 
     @ModelAttribute
     public void getUserDetails(Principal login, Model model) {
@@ -57,7 +68,7 @@ public class GenericController {
         return "index";
     }
 
-    @GetMapping("/main-login")
+    @RequestMapping(value = "/main-login", method = {RequestMethod.GET, RequestMethod.POST})
     public String login() {
         return "login";
     }
@@ -109,5 +120,61 @@ public class GenericController {
         session.setAttribute(SUCCESS, "User register successfully");
         return REDIRECT_REGISTER;
     }
+
+    @GetMapping("/forgot-password")
+    public String showForgotPassword() {
+        return "forgot_password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String processForgotPassword(@RequestParam String email, HttpSession session, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        UserCustom userByEmail = userService.getUserByEmail(email);
+        if (ObjectUtils.isEmpty(userByEmail)) {
+            session.setAttribute(ERROR, "Invalid email");
+        } else {
+            String resetToken = UUID.randomUUID().toString();
+            userService.updateUserResetToken(email, resetToken);
+            String url = commonUtil.generateUrl(request) + "/shopping-cart/reset-password?token="+resetToken;
+            System.out.println("####resetUrl: " + url);
+            Boolean sendMail = commonUtil.sendMail(url,email);
+            if (sendMail.equals(Boolean.TRUE)) {
+                session.setAttribute(SUCCESS, "Please check your email... Password reset link sent");
+            } else {
+                session.setAttribute(ERROR, "Something wrong on server. Email not send");
+            }
+        }
+        return "redirect:/shopping-cart/forgot-password";
+    }
+
+    @GetMapping("/reset-password")
+    public String showResetPassword(@RequestParam String token, HttpSession session, Model model) {
+        UserCustom userByToken = userService.getUserByToken(token);
+        System.out.println("####userByToken: " + userByToken);
+        if (ObjectUtils.isEmpty(userByToken)) {
+            model.addAttribute(ERROR, "Your link is invalid or expired");
+            return "message";
+        }
+        model.addAttribute("token", token);
+        return "reset_password";
+    }
+
+    @PostMapping("/reset-password")
+    public String processResetPassword(@RequestParam String token, @RequestParam String password, HttpSession session, Model model) {
+        UserCustom userByToken = userService.getUserByToken(token);
+        System.out.println("####POSTuserByToken: " + userByToken);
+        System.out.println("###POSTtoken: " + token);
+        if (ObjectUtils.isEmpty(userByToken)) {
+            model.addAttribute(ERROR, "Your link is invalid or expired");
+            return "message";
+        } else {
+            userByToken.setPassword(passwordEncoder.encode(password));
+            userByToken.setResetToken(null);
+            userService.updateUser(userByToken);
+            model.addAttribute("token", token);
+            model.addAttribute(SUCCESS, "Password change successfully");
+            return "message";
+        }
+    }
+
 }
 

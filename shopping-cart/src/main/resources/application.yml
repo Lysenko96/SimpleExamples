@@ -2,19 +2,36 @@ spring:
   application:
     name: shopping_cart
 
+  mail:
+    host: smtp.gmail.com
+    #username: anton.lys96@gmail.com
+    username: anton.lysenko.info@gmail.com
+    password: tktjrnpmqwruonxi
+    #    port: 587
+    port: 465
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+#          auth: true
+#          starttls:
+#            enable: true
+
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
     url: jdbc:postgresql://localhost:5432/shopping_cart
-#    type: com.zaxxer.hikari.HikariDataSource
-#    hikari:
-#      minimum-idle: 5
-#      maximum-pool-size: 10
-#      idle-timeout: 30000
-#      max-lifetime: 1800000
-#      connection-timeout: 20000
-#      pool-name: HikariCP
+  #    type: com.zaxxer.hikari.HikariDataSource
+  #    hikari:
+  #      minimum-idle: 5
+  #      maximum-pool-size: 10
+  #      idle-timeout: 30000
+  #      max-lifetime: 1800000
+  #      connection-timeout: 20000
+  #      pool-name: HikariCP
 
   jpa:
     open-in-view: false

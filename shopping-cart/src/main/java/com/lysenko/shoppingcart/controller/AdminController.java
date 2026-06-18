@@ -209,4 +209,22 @@ public class AdminController {
         session.setAttribute(SUCCESS, "Product updated successfully");
         return REDIRECT_EDIT_PRODUCT + product.getId();
     }
+
+    @GetMapping("/users")
+    public String findAllUsers(Model model) {
+        model.addAttribute("users", userService.findAllUsersByRole("ROLE_USER"));
+
+        return "admin/users";
+    }
+
+    @GetMapping("/updateUserStatus")
+    public String updateUserStatus(@RequestParam Boolean status, @RequestParam Integer id, HttpSession session) {
+        boolean result = userService.updateUserStatus(id, status);
+        if (result) {
+            session.setAttribute(SUCCESS, "User status updated successfully");
+        } else {
+            session.setAttribute(ERROR, "User status updated failed");
+        }
+        return "redirect:/shopping-cart/admin/users";
+    }
 }
