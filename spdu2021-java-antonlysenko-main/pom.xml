@@ -17,7 +17,7 @@
 		<javax.servlet-api.version>4.0.1</javax.servlet-api.version>
 		<lombok.version>1.18.22</lombok.version>
 		<postgresql.version>42.3.1</postgresql.version>
-		<h2.version>2.0.202</h2.version>
+		<h2.version>2.2.220</h2.version>
 	</properties>
 
 	<dependencies>
