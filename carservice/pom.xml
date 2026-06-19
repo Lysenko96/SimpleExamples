@@ -15,7 +15,7 @@
     <description>carservice</description>
     <properties>
         <java.version>17</java.version>
-        <postgresql.version>42.3.3</postgresql.version>
+        <postgresql.version>42.3.8</postgresql.version>
     </properties>
     <dependencies>
         <dependency>
