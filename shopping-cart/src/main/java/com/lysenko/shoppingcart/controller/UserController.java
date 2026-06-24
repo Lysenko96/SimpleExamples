@@ -7,9 +7,7 @@ import com.lysenko.shoppingcart.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -36,6 +34,11 @@ public class UserController {
     @RequestMapping(value = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public String home() {
         return "redirect:/shopping-cart/";
+    }
+
+    @GetMapping("/addCart")
+    public String addToCart(@RequestParam Integer pid, @RequestParam Integer uid) {
+        return "redirect:/product-details/" + pid;
     }
 
 }

@@ -1,6 +1,5 @@
 package com.lysenko.shoppingcart.controller;
 
-import com.lysenko.shoppingcart.config.SecurityConfig;
 import com.lysenko.shoppingcart.model.Category;
 import com.lysenko.shoppingcart.model.UserCustom;
 import com.lysenko.shoppingcart.service.CategoryService;
@@ -13,7 +12,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,9 +132,9 @@ public class GenericController {
         } else {
             String resetToken = UUID.randomUUID().toString();
             userService.updateUserResetToken(email, resetToken);
-            String url = commonUtil.generateUrl(request) + "/shopping-cart/reset-password?token="+resetToken;
+            String url = commonUtil.generateUrl(request) + "/shopping-cart/reset-password?token=" + resetToken;
             System.out.println("####resetUrl: " + url);
-            Boolean sendMail = commonUtil.sendMail(url,email);
+            Boolean sendMail = commonUtil.sendMail(url, email);
             if (sendMail.equals(Boolean.TRUE)) {
                 session.setAttribute(SUCCESS, "Please check your email... Password reset link sent");
             } else {
@@ -177,4 +175,3 @@ public class GenericController {
     }
 
 }
-

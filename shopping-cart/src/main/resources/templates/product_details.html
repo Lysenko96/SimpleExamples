@@ -48,7 +48,12 @@
                         </div>
                     </div>
                     <th:block th:if="${product.getStock() > 0}">
-                        <a href="#" class="btn btn-success text-white col-md-12">Add To Cart</a>
+                        <th:block th:if="${user==null}" >
+                            <a href="/shopping-cart/main-login" class="btn btn-success text-white col-md-12">Add To Cart</a>
+                        </th:block>
+                        <th:block th:unless="${user==null}" >
+                            <a th:href="@{'/shopping-cart/addCart?pid='+${product.id}+'&uid='+${user.id}}" class="btn btn-success text-white col-md-12">Add To Cart</a>
+                        </th:block>
                     </th:block>
                     <th:block th:unless="${product.getStock() > 0}">
                         <a href="#" class="btn btn-warning text-white col-md-12">Out of Stock</a>
