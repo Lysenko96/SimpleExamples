@@ -93,7 +93,7 @@ public class GenericController {
     }
 
     @GetMapping("/product-details/{id}")
-    public String product(@PathVariable Long id, Model model) {
+    public String product(@PathVariable Integer id, Model model) {
         model.addAttribute("product", productService.findById(id));
         return "product_details";
     }

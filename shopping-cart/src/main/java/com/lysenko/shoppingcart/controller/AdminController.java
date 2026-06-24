@@ -177,7 +177,7 @@ public class AdminController {
     }
 
     @GetMapping("/deleteProduct/{id}")
-    public String deleteProduct(@PathVariable Long id, HttpSession session) {
+    public String deleteProduct(@PathVariable Integer id, HttpSession session) {
         boolean result = productService.delete(id);
         if (result) {
             session.setAttribute(SUCCESS, "Product deleted successfully");
@@ -188,7 +188,7 @@ public class AdminController {
     }
 
     @GetMapping("/editProduct/{id}")
-    public String editProduct(Model model, @PathVariable Long id) {
+    public String editProduct(Model model, @PathVariable Integer id) {
         model.addAttribute("product", productService.findById(id));
         model.addAttribute(CATEGORIES, categoryService.findAll());
         return "admin/edit_product";

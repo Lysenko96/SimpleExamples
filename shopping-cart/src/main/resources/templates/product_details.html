@@ -9,6 +9,14 @@
     <div class="container card-sh" style="margin-top: 70px; margin-bottom: 576px">
         <div class="col-md-12 p-5">
             <div class="row">
+                <th:block th:if="${session.success}">
+                    <p class="text-success text-center fw-bold alert alert-success">[[${session.success}]]</p>
+                    <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                </th:block>
+                <th:block th:if="${session.error}">
+                    <p class="text-danger text-center fw-bold alert alert-danger">[[${session.error}]]</p>
+                    <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+                </th:block>
                 <div class="col-md-6 text-end">
                     <img alt="" th:src="@{'/img/'+${product.image}}" width="500px" height="400px">
                 </div>
@@ -56,7 +64,7 @@
                         </th:block>
                     </th:block>
                     <th:block th:unless="${product.getStock() > 0}">
-                        <a href="#" class="btn btn-warning text-white col-md-12">Out of Stock</a>
+                        <a th:href="@{'/shopping-cart/addCart?pid='+${product.id}+'&uid='+${user.id}}" class="btn btn-warning text-white col-md-12">Out of Stock</a>
                     </th:block>
                 </div>
 

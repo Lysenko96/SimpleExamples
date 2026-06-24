@@ -39,23 +39,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(Integer id) {
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) {
             return false;
         }
-        productRepository.deleteById((long) product.getId());
+        productRepository.deleteById(product.getId());
         return true;
     }
 
     @Override
-    public Product findById(Long id) {
+    public Product findById(Integer id) {
         return productRepository.findById(id).orElse(null);
     }
 
     @Override
     public Product update(Product product, MultipartFile file) throws IOException {
-        Product productById = findById((long) product.getId());
+        Product productById = findById(product.getId());
 //        String imageName = file.isEmpty() ? product.getImage() : file.getOriginalFilename();
         String imageName = file != null ? file.getOriginalFilename() : product.getImage();
         File saveFile = new ClassPathResource(IMG_PATH).getFile();

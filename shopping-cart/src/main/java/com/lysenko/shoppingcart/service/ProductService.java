@@ -12,9 +12,9 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    boolean delete(Long id);
+    boolean delete(Integer id);
 
-    Product findById(Long id);
+    Product findById(Integer id);
 
     Product update(Product product, MultipartFile file) throws IOException;
 

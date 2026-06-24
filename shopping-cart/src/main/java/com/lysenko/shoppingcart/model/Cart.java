@@ -8,25 +8,21 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
-public class Product {
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(length = 500)
-    private String title;
-    @Column(length = 5000)
-    private String description;
-    private String category;
-    private BigDecimal price;
-    private int stock;
-    private String image;
-    private int discount;
-    private BigDecimal discountPrice;
-    private Boolean isActive;
+    @ManyToOne
+    private UserCustom user;
+    @ManyToOne
+    private Product product;
+    private BigDecimal quantity;
+    @Transient
+    private BigDecimal totalPrice;
 }
