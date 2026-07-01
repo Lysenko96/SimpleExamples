@@ -2,15 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.TransactionCreateRequestDTO;
 import com.example.demo.dto.TransactionCreateResponseDTO;
+import com.example.demo.dto.TransactionUpdateRequestDTO;
 import com.example.demo.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -30,6 +28,12 @@ public class TransactionController {
                 dto.getCurrency()
         );
 
-        return new TransactionCreateResponseDTO(transaction.getId());
+        return new TransactionCreateResponseDTO(transaction.getId(), transaction.getStatus());
+    }
+
+    @PostMapping("update/{id}")
+    public TransactionCreateResponseDTO update(@PathVariable Long id, @RequestBody TransactionUpdateRequestDTO dto) throws Exception {
+        var transaction = transactionService.update(id, dto.getTransactionStatus());
+        return new TransactionCreateResponseDTO(transaction.getId(), transaction.getStatus());
     }
 }

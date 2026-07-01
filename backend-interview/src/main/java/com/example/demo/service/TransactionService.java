@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Transaction;
+import com.example.demo.model.TransactionStatus;
 import com.example.demo.model.TransactionType;
 
 import java.math.BigDecimal;
@@ -19,4 +20,6 @@ public interface TransactionService {
     default Transaction get(final long id) {
         return find(id).orElseThrow(() -> new IllegalArgumentException("Transaction not found: " + id));
     }
+
+    Transaction update(long id, TransactionStatus status) throws Exception;
 }

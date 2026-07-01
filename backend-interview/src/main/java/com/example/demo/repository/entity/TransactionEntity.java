@@ -50,7 +50,7 @@ public class TransactionEntity implements Transaction {
     @Getter
     @Setter
     @Convert(converter = TransactionStatusConverter.class)
-    @Column(name = "status", nullable = false, updatable = false)
+    @Column(name = "status", nullable = false)
     private TransactionStatus status;
 
     @Getter
@@ -89,5 +89,11 @@ public class TransactionEntity implements Transaction {
         this.currency = currency;
         this.type = type;
         this.status = TransactionStatus.NEW;
+    }
+
+    @Override
+    public Transaction updateStatus(TransactionStatus status) {
+        this.status = status;
+        return this;
     }
 }

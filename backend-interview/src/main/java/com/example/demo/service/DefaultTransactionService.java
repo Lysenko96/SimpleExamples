@@ -19,7 +19,7 @@ import java.util.UUID;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class DefaultTransactionService implements TransactionService {
 
     private final BalanceService balanceService;
@@ -50,9 +50,10 @@ public class DefaultTransactionService implements TransactionService {
         if (transactionEntity != null) {
             String newReference = reference + "_" + UUID.randomUUID();
             transactionEntitySave.setReference(newReference);
-            transactionRepository.save(transactionEntitySave);
-            throw new DataIntegrityViolationException("Transaction with " + reference +
-                    " already exists create transaction with reference " + newReference);
+            log.info("Transaction with {} already exists create transaction with reference {} ", reference, newReference);
+            return transactionRepository.save(transactionEntitySave);
+//            throw new DataIntegrityViolationException("Transaction with " + reference +
+//                    " already exists create transaction with reference " + newReference);
         }
 
         return transactionRepository.save(transactionEntitySave);
@@ -79,5 +80,15 @@ public class DefaultTransactionService implements TransactionService {
     @Override
     public Optional<Transaction> find(long id) {
         return transactionRepository.findById(id).map(x -> x);
+    }
+
+    @Override
+    public Transaction update(long id, TransactionStatus status) throws Exception {
+        Transaction transaction = find(id).orElseThrow();
+        if (!transaction.getStatus().isFinal(status)) {
+            transaction.updateStatus(status);
+            log.info("Transaction update status: {}", transaction);
+        }
+        return transaction;
     }
 }
