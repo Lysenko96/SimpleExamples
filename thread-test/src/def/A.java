@@ -2,7 +2,7 @@ package def;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicStampedReference;
 
@@ -30,29 +30,40 @@ public class A {
         AtomicStampedReference a = new AtomicStampedReference(o, 1);
         System.out.println("1");
         A aa = new A();
-        new Thread(() -> {
+        Thread t = new Thread(() -> {
             for (int i = 0; i < 2; i++) {
                 aa.put();
 //                    try {
-//                        Thread.sleep(1000);
+//                        Thread.sleep(5000);
 //
 //                    } catch (InterruptedException e) {
 //                        throw new RuntimeException(e);
 //                    }
             }
-        }).start();
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//        new Thread(() -> {
+        });
+        System.out.println("PUTPRIOR: " + t.getPriority());
+        t.start();
+        // InterruptedException
+//        t.interrupt();
+        // throw custom exception when interrupt
+//    t.getUncaughtExceptionHandler().uncaughtException(t, new Exception("exc"));
+
             for (int p = 0; p < 4; p++) {
                 aa.get();
             }
-//        }).start();
+            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+        System.out.println("CURPRIOT: " + Thread.currentThread().getPriority());
         System.out.println("2");
         System.out.println("iiiiiiiii " + i);
+        ForkJoinPool.commonPool().execute(()->{
+            System.out.println("forkjoin");
+            System.out.println(Thread.currentThread().getName());
+        });
+        Thread.currentThread().interrupt();
+        System.out.println(Thread.currentThread().isInterrupted());
+        System.out.println(Thread.interrupted()); // change status interrupted
+        System.out.println(Thread.currentThread().isInterrupted()); // not changed status interrupted
+        System.out.println(t.isInterrupted());
     }
 
 
