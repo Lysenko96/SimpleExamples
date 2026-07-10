@@ -31,8 +31,9 @@ public class TransactionController {
                 dto.getAmount(),
                 dto.getCurrency()
         );
-        transactionListener.onTransactionCreate(transaction);
-        if (transaction.getReference().split("_")[0].equals(dto.getReference())) {
+//        transactionListener.onTransactionCreate(transaction);
+        if (transaction.getReference().split("_").length > 1 &&
+                transaction.getReference().split("_")[0].equals(dto.getReference())) {
             return new ResponseEntity<>(new TransactionCreateResponseDTO(transaction.getId(),
                     transaction.getStatus(), transaction.getAmount()), HttpStatus.CONFLICT);
         }
@@ -43,7 +44,7 @@ public class TransactionController {
     @PostMapping("update/{id}")
     public ResponseEntity<TransactionCreateResponseDTO> update(@PathVariable Long id, @RequestBody TransactionUpdateRequestDTO dto) {
         var transaction = transactionService.update(id, dto.getTransactionStatus());
-        transactionListener.onTransactionUpdate(transaction);
+//        transactionListener.onTransactionUpdate(transaction);
         return new ResponseEntity<>(new TransactionCreateResponseDTO(transaction.getId(), transaction.getStatus(),
                 transaction.getAmount()), HttpStatus.OK);
     }
