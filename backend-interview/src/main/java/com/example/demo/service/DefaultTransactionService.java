@@ -19,13 +19,14 @@ import java.util.UUID;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@Transactional(rollbackFor = Exception.class)
+@Transactional
 public class DefaultTransactionService implements TransactionService {
 
     private final BalanceService balanceService;
     private final TransactionRepository transactionRepository;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Transaction create(
             final TransactionType type,
             final String reference,
@@ -50,8 +51,7 @@ public class DefaultTransactionService implements TransactionService {
         if (transactionEntity != null) {
             String newReference = reference + "_" + UUID.randomUUID();
             transactionEntitySave.setReference(newReference);
-            log.info("Transaction with {} already exists create transaction with reference {} ", reference, newReference);
-            return transactionRepository.save(transactionEntitySave);
+           return transactionRepository.save(transactionEntitySave);
 //            throw new DataIntegrityViolationException("Transaction with " + reference +
 //                    " already exists create transaction with reference " + newReference);
         }
@@ -62,7 +62,7 @@ public class DefaultTransactionService implements TransactionService {
     @Override
     public Transaction toSuccess(long id) {
         TransactionEntity transactionEntity = transactionRepository.findById(id).orElseThrow();
-        if (!transactionEntity.getStatus().isFinal(TransactionStatus.SUCCESS)) {
+        if (!transactionEntity.getStatus().isFinal()) {
             transactionEntity.setStatus(TransactionStatus.SUCCESS);
         }
         return transactionEntity;
@@ -71,7 +71,7 @@ public class DefaultTransactionService implements TransactionService {
     @Override
     public Transaction toError(long id) {
         TransactionEntity transactionEntity = transactionRepository.findById(id).orElseThrow();
-        if (!transactionEntity.getStatus().isFinal(TransactionStatus.ERROR)) {
+        if (!transactionEntity.getStatus().isFinal()) {
             transactionEntity.setStatus(TransactionStatus.ERROR);
         }
         return transactionEntity;
@@ -83,9 +83,11 @@ public class DefaultTransactionService implements TransactionService {
     }
 
     @Override
-    public Transaction update(long id, TransactionStatus status) throws Exception {
+    @Transactional(rollbackFor = Exception.class)
+    public Transaction update(long id, TransactionStatus status) {
         Transaction transaction = find(id).orElseThrow();
-        if (!transaction.getStatus().isFinal(status)) {
+        TransactionStatus oldStatus = transaction.getStatus();
+        if (oldStatus != status && !oldStatus.isFinal()) {
             transaction.updateStatus(status);
             log.info("Transaction update status: {}", transaction);
         }

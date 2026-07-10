@@ -7,8 +7,8 @@ public enum TransactionStatus {
     SUCCESS,
     ERROR;
 
-    public boolean isFinal(TransactionStatus status) {
-        return this.equals(status);
+    public boolean isFinal() {
+        return this == SUCCESS || this == ERROR;
     }
 
 }

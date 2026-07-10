@@ -92,8 +92,7 @@ public class TransactionEntity implements Transaction {
     }
 
     @Override
-    public Transaction updateStatus(TransactionStatus status) {
+    public void updateStatus(TransactionStatus status) {
         this.status = status;
-        return this;
     }
 }

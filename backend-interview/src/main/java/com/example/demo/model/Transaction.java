@@ -1,10 +1,16 @@
 package com.example.demo.model;
 
+import java.math.BigDecimal;
+
 public interface Transaction {
 
     long getId();
 
-    Transaction updateStatus(TransactionStatus status);
+    void updateStatus(TransactionStatus status);
 
     TransactionStatus getStatus();
+
+    String getReference();
+
+    BigDecimal getAmount();
 }

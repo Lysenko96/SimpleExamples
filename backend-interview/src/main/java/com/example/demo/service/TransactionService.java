@@ -21,5 +21,5 @@ public interface TransactionService {
         return find(id).orElseThrow(() -> new IllegalArgumentException("Transaction not found: " + id));
     }
 
-    Transaction update(long id, TransactionStatus status) throws Exception;
+    Transaction update(long id, TransactionStatus status);
 }
