@@ -14,6 +14,9 @@ public class TransactionListener {
 
     // TODO
 
+    private static final String KEY_CREATE = UUID.randomUUID().toString();
+    private static final String KEY_UPDATE = UUID.randomUUID().toString();
+
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public TransactionListener(KafkaTemplate<String, String> kafkaTemplate) {
@@ -22,11 +25,11 @@ public class TransactionListener {
 
     @EventListener
     public void onTransactionCreate(Transaction transactionCreate) {
-        kafkaTemplate.send("transactionCreate", UUID.randomUUID().toString(), transactionCreate.toString());
+        kafkaTemplate.send("transactionCreate", KEY_CREATE, transactionCreate.toString());
     }
 
     @EventListener
     public void onTransactionUpdate(Transaction transactionUpdate) {
-        kafkaTemplate.send("transactionUpdate", UUID.randomUUID().toString(), transactionUpdate.toString());
+        kafkaTemplate.send("transactionUpdate", KEY_UPDATE, transactionUpdate.toString());
     }
 }
