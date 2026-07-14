@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
         // sync
         SendResult<String, ProductCreatedEvent> result = null;
         result = kafkaTemplate.send("transaction-created-events-topic", productId, productCreatedEvent).get();
-        LOG.info("Send succesfully: {}", result);
+        LOG.info("Send successfully: {}", result);
         LOG.info("Return:{}", productId);
         return productId;
     }
