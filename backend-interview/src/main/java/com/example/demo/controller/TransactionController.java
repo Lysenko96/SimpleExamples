@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.ExecutionException;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class TransactionController {
 
     private final TransactionService transactionService;
-    private final TransactionListener  transactionListener;
+    private final TransactionListener transactionListener;
 
     @PostMapping
     public ResponseEntity<TransactionCreateResponseDTO> create(@RequestBody @Valid final TransactionCreateRequestDTO dto) {
@@ -31,7 +33,11 @@ public class TransactionController {
                 dto.getAmount(),
                 dto.getCurrency()
         );
-        transactionListener.onTransactionCreate(transaction);
+        try {
+            transactionListener.onTransactionCreate(transaction);
+        } catch (ExecutionException | InterruptedException e) {
+            log.error("onTransactionCreate error {}", e.getMessage());
+        }
         if (transaction.getReference().split("_").length > 1 &&
                 transaction.getReference().split("_")[0].equals(dto.getReference())) {
             return new ResponseEntity<>(new TransactionCreateResponseDTO(transaction.getId(),
@@ -44,7 +50,11 @@ public class TransactionController {
     @PostMapping("update/{id}")
     public ResponseEntity<TransactionCreateResponseDTO> update(@PathVariable Long id, @RequestBody TransactionUpdateRequestDTO dto) {
         var transaction = transactionService.update(id, dto.getTransactionStatus());
-        transactionListener.onTransactionUpdate(transaction);
+        try {
+            transactionListener.onTransactionUpdate(transaction);
+        } catch (ExecutionException | InterruptedException e) {
+            log.error("onTransactionUpdate error {}", e.getMessage());
+        }
         return new ResponseEntity<>(new TransactionCreateResponseDTO(transaction.getId(), transaction.getStatus(),
                 transaction.getAmount()), HttpStatus.OK);
     }

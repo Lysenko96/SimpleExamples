@@ -11,11 +11,20 @@ import java.util.Map;
 public class KafkaConfig {
 
     @Bean
-    public NewTopic createTopic(){
+    public NewTopic createTopic() {
         return TopicBuilder.name("transaction-created-events-topic")
-                .partitions(1)
-                .replicas(1)
-                .configs(Map.of("min.insync.replicas","1"))
+                .partitions(2)
+                .replicas(2)
+                .configs(Map.of("min.insync.replicas", "2"))
+                .build();
+    }
+
+    @Bean
+    public NewTopic updateTopic() {
+        return TopicBuilder.name("transaction-updated-events-topic")
+                .partitions(2)
+                .replicas(2)
+                .configs(Map.of("min.insync.replicas", "2"))
                 .build();
     }
 }
