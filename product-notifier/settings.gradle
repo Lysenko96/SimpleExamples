@@ -1,0 +1,4 @@
+rootProject.name = 'product-notifier'
+include 'kafka'
+include 'mail'
+include 'model'
