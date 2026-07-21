@@ -1,5 +1,7 @@
 package com.example.mailservice.config;
 
+import com.example.mailservice.handler.NonRetryableException;
+import com.example.mailservice.handler.RetryableException;
 import com.example.model.event.ProductCreatedEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -15,6 +17,8 @@ import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
 import org.springframework.kafka.support.serializer.JacksonJsonSerializer;
+import org.springframework.util.backoff.FixedBackOff;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 
@@ -23,7 +27,7 @@ public class KafkaConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     public String bootstrapConfig;
-    @Value("${spring.kafka.consumer.group-id}")
+    @Value("${kafka.consumer.group-id}")
     public String groupId;
     @Value("${spring.kafka.consumer.properties.spring.json.trusted.packages}")
     public String trustedPackages;
@@ -45,8 +49,11 @@ public class KafkaConfig {
     public ConcurrentKafkaListenerContainerFactory<String, ProductCreatedEvent> kafkaListenerContainerFactory(
             ConsumerFactory<String, ProductCreatedEvent> consumerFactory,
             KafkaTemplate<String, Object> kafkaTemplate) {
+        DefaultErrorHandler errorHandler = new DefaultErrorHandler(new DeadLetterPublishingRecoverer(kafkaTemplate),
+                new FixedBackOff(3000, 2));
+        errorHandler.addNotRetryableExceptions(NonRetryableException.class);
+        errorHandler.addRetryableExceptions(RetryableException.class);
         ConcurrentKafkaListenerContainerFactory<String, ProductCreatedEvent> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        DefaultErrorHandler errorHandler = new DefaultErrorHandler(new DeadLetterPublishingRecoverer(kafkaTemplate));
         factory.setConsumerFactory(consumerFactory);
         factory.setCommonErrorHandler(errorHandler);
         return factory;
