@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record ResponseClientDto(
-        String name,
-        Integer age,
-        Address address,
-        List<Role> roles,
+        String clientName,
+        Integer clientAge,
+        Address clientAddress,
+        List<Role> clientRoles,
         LocalDateTime response) {
 }

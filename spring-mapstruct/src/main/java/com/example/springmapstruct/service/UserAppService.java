@@ -1,8 +1,10 @@
 package com.example.springmapstruct.service;
 
+import com.example.springmapstruct.dto.ResponseClientDto;
 import com.example.springmapstruct.entity.Address;
 import com.example.springmapstruct.entity.Role;
 import com.example.springmapstruct.entity.UserApp;
+import com.example.springmapstruct.mapper.UserAppMapper;
 import com.example.springmapstruct.repository.UserAppRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,20 @@ public class UserAppService {
 
     @Resource
     private UserAppRepository userAppRepository;
+    @Resource
+    private UserAppMapper userAppMapper;
 
     public void addDb() {
         List<UserApp> users = List.of(
-                new UserApp(null, "name", 1, "login", "password", new Address("country", "city"), List.of(Role.USER, Role.ADMIN))
+                new UserApp(null, "name", null, "login", "password", new Address("country", "city"), List.of(Role.USER, Role.ADMIN))
         );
         userAppRepository.saveAll(users);
     }
+
+    public ResponseClientDto getResponseUserAppDto(String name){
+        UserApp userApp = userAppRepository.findByName(name);
+        return userAppMapper.toResponseClientDto(userApp);
+    }
+
+
 }
