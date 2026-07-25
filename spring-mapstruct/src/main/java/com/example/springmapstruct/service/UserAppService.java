@@ -31,6 +31,7 @@ public class UserAppService {
 
     public ResponseClientDto getResponseUserAppDto(String name){
         UserApp userApp = userAppRepository.findByName(name);
+        System.out.println(userAppMapper.toDemoUserAppDto(userApp));
         return userAppMapper.toResponseClientDto(userApp, new UserAppSecond(44));
     }
 
