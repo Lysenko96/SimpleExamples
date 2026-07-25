@@ -4,6 +4,7 @@ import com.example.springmapstruct.dto.ResponseClientDto;
 import com.example.springmapstruct.entity.Address;
 import com.example.springmapstruct.entity.Role;
 import com.example.springmapstruct.entity.UserApp;
+import com.example.springmapstruct.entity.UserAppSecond;
 import com.example.springmapstruct.mapper.UserAppMapper;
 import com.example.springmapstruct.repository.UserAppRepository;
 import jakarta.annotation.Resource;
@@ -30,7 +31,7 @@ public class UserAppService {
 
     public ResponseClientDto getResponseUserAppDto(String name){
         UserApp userApp = userAppRepository.findByName(name);
-        return userAppMapper.toResponseClientDto(userApp);
+        return userAppMapper.toResponseClientDto(userApp, new UserAppSecond(44));
     }
 
 
