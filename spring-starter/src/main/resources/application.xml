@@ -1,41 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="repo1" class="com.example.spring.repository.UserRepository">
-        <constructor-arg name="name" value="${db.name}"/>
-        <constructor-arg name="poolSize" value="4"/>
-        <constructor-arg name="objects">
-            <list>
-                <value>1</value>
-                <value>2</value>
-            </list>
-        </constructor-arg>
-        <constructor-arg name="map">
-            <map>
-                <entry key="user" value="user1"/>
-            </map>
-        </constructor-arg>
-    </bean>
+		https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="repo2" class="com.example.spring.repository.UserRepository">
-        <property name="name" ref="#{driver.toUpperCase()}"/>
-    </bean>
+<!--    <bean class="com.example.spring.beanpostprocessor.InjectBeanPostProcessor"/>-->
+<!--    <bean id="repo1" class="com.example.spring.repository.UserRepository">-->
+<!--        <constructor-arg name="name" value="${db.name}"/>-->
+<!--        <constructor-arg name="poolSize" value="4"/>-->
+<!--        <constructor-arg name="objects">-->
+<!--            <list>-->
+<!--                <value>1</value>-->
+<!--                <value>2</value>-->
+<!--            </list>-->
+<!--        </constructor-arg>-->
+<!--        <constructor-arg name="map">-->
+<!--            <map>-->
+<!--                <entry key="user" value="user1"/>-->
+<!--            </map>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean name="connPool1" class="com.example.spring.repository.ConnectionPool">-->
+<!--        <constructor-arg name="name" value="${db.name}"/>-->
+<!--    </bean>-->
+<!--    <bean name="connPool2" class="com.example.spring.repository.ConnectionPool">-->
+<!--        <constructor-arg name="name" value="postgres"/>-->
+<!--    </bean>-->
+<!--    <bean id="repo2" class="com.example.spring.repository.UserRepository">-->
+<!--        <property name="name" ref="#{driver.toUpperCase()}"/>-->
+<!--    </bean>-->
+
+    <context:component-scan base-package="com.example.spring"/>
     <bean name="driver" class="java.lang.String">
         <constructor-arg value="StringValue"/>
     </bean>
     <bean name="STRINGVALUE" class="java.lang.String">
         <constructor-arg value="123String"/>
     </bean>
-    <bean name="dto" class="com.example.spring.dto.UserDto" scope="prototype" init-method="init" destroy-method="destroy"/>
-    <bean name="dto1" class="com.example.spring.dto.UserDto" scope="" init-method="init" destroy-method="destroy"/>
+<!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
+<!--    <context:annotation-config/>-->
+<!--    <bean name="dto" class="com.example.spring.dto.UserDto" scope="prototype"/>-->
+<!--    <bean name="dto1" class="com.example.spring.dto.UserDto" scope="" init-method="init" destroy-method="destroy"/>-->
+<!--    <bean name="dto1" class="com.example.spring.dto.UserDto"/>-->
 
-    <bean name="userMapper" class="com.example.spring.mapper.UserMapper">
-        <constructor-arg name="dto" ref="dto"/>
-    </bean>
+<!--    <bean name="userMapper" class="com.example.spring.mapper.UserMapper">-->
+<!--        <constructor-arg name="dto" ref="dto1"/>-->
+<!--    </bean>-->
 
-    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-        <property name="location" value="classpath:application.properties"/>
-    </bean>
+<!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+<!--        <property name="location" value="classpath:application.properties"/>-->
+<!--    </bean>-->
+
+<!--    <context:property-placeholder location="classpath:application.properties"/>-->
 </beans>

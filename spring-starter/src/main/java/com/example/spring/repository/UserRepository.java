@@ -1,19 +1,36 @@
 package com.example.spring.repository;
 
-import lombok.*;
+import com.example.spring.beanpostprocessor.InjectBean;
+import jakarta.annotation.Resource;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @ToString
 @NoArgsConstructor
 @Setter
 @AllArgsConstructor
+@Repository
 public class UserRepository {
 
-    private String name;
-    private Integer poolSize;
-    private List<Object> objects;
-    private Map<Object, Object> map;
+//    @InjectBean
+    @Autowired
+//    @Resource(name = "connPool2")
+//    @Qualifier("connPool2")
+    private ConnectionPool connPool1;
+
+    @Value("${db.poolSize}")
+    private String poolSize;
+
+    @Autowired
+    private List<ConnectionPool> connectionPoolList;
 
 }
