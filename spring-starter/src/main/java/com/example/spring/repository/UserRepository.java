@@ -17,15 +17,15 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
 @Repository
 public class UserRepository {
 
 //    @InjectBean
-    @Autowired
+//    @Autowired
 //    @Resource(name = "connPool2")
-//    @Qualifier("connPool2")
-    private ConnectionPool connPool1;
+//    @Qualifier("connectionPool1")
+    private ConnectionPool connPool;
 
     @Value("${db.poolSize}")
     private String poolSize;
@@ -33,4 +33,13 @@ public class UserRepository {
     @Autowired
     private List<ConnectionPool> connectionPoolList;
 
+    public UserRepository(ConnectionPool connectionPool1, String poolSize, List<ConnectionPool> connectionPoolList) {
+        this.connPool = connectionPool1;
+        this.poolSize = poolSize;
+        this.connectionPoolList = connectionPoolList;
+    }
+
+    public UserRepository(ConnectionPool connPool) {
+        this.connPool = connPool;
+    }
 }

@@ -33,13 +33,13 @@
 <!--        <property name="name" ref="#{driver.toUpperCase()}"/>-->
 <!--    </bean>-->
 
-    <context:component-scan base-package="com.example.spring"/>
+<!--    <context:component-scan base-package="com.example.spring"/>-->
     <bean name="driver" class="java.lang.String">
-        <constructor-arg value="StringValue"/>
+        <constructor-arg value="StringValue1"/>
     </bean>
-    <bean name="STRINGVALUE" class="java.lang.String">
-        <constructor-arg value="123String"/>
-    </bean>
+<!--    <bean name="STRINGVALUE" class="java.lang.String">-->
+<!--        <constructor-arg value="123String"/>-->
+<!--    </bean>-->
 <!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
 <!--    <context:annotation-config/>-->
 <!--    <bean name="dto" class="com.example.spring.dto.UserDto" scope="prototype"/>-->

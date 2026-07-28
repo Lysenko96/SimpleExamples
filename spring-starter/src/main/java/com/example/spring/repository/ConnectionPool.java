@@ -15,8 +15,6 @@ import java.util.Map;
 //@NoArgsConstructor
 //@AllArgsConstructor
 @Component
-@PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "com.example.spring")
 public class ConnectionPool {
 
     private String name;
