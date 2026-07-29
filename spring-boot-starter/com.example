@@ -1,0 +1,4 @@
+2026-07-29T08:53:43.532+03:00  INFO 98461 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-29T08:53:43.542+03:00  INFO 98461 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-29T09:02:19.139+03:00  INFO 106313 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-29T09:02:19.149+03:00  INFO 106313 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
