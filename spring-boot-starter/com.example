@@ -1,4 +1,28 @@
-2026-07-29T08:53:43.532+03:00  INFO 98461 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
-2026-07-29T08:53:43.542+03:00  INFO 98461 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
-2026-07-29T09:02:19.139+03:00  INFO 106313 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
-2026-07-29T09:02:19.149+03:00  INFO 106313 --- [main] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:50:47.844+03:00  INFO 898416 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:50:47.867+03:00  INFO 898416 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:55:43.025+03:00  INFO 903413 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:55:43.041+03:00  INFO 903413 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:56:29.671+03:00  INFO 904340 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:56:29.688+03:00  INFO 904340 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:57:10.884+03:00  INFO 905006 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:57:10.903+03:00  INFO 905006 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:57:41.791+03:00  INFO 905640 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T00:57:41.803+03:00  INFO 905640 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T01:00:04.381+03:00  INFO 907754 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T01:00:04.397+03:00  INFO 907754 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:43:58.272+03:00  INFO 146661 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:43:58.289+03:00  INFO 146661 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:44:06.646+03:00  WARN 147114 --- [Test worker] b.o.BeanOverrideBeanFactoryPostProcessor : Converting 'prototype' scoped bean definition 'connPool' to a singleton.
+2026-07-30T09:44:07.169+03:00  INFO 147114 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:45:04.492+03:00  WARN 149127 --- [Test worker] b.o.BeanOverrideBeanFactoryPostProcessor : Converting 'prototype' scoped bean definition 'connPool' to a singleton.
+2026-07-30T09:45:04.993+03:00  INFO 149127 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:45:28.169+03:00  INFO 149592 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:45:28.181+03:00  INFO 149592 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:45:34.892+03:00  WARN 149857 --- [Test worker] b.o.BeanOverrideBeanFactoryPostProcessor : Converting 'prototype' scoped bean definition 'connPool' to a singleton.
+2026-07-30T09:45:35.489+03:00  INFO 149857 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:45:44.080+03:00  WARN 150110 --- [Test worker] b.o.BeanOverrideBeanFactoryPostProcessor : Converting 'prototype' scoped bean definition 'connPool' to a singleton.
+2026-07-30T09:45:44.738+03:00  INFO 150110 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:49:08.363+03:00  INFO 153460 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:49:08.375+03:00  INFO 153460 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:49:25.927+03:00  INFO 153843 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
+2026-07-30T09:49:25.940+03:00  INFO 153843 --- [Test worker] c.e.spring.repository.ConnectionPool     : init ConnectionPool
