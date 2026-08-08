@@ -1,7 +1,6 @@
 package com.example.spring.service;
 
 import com.example.spring.mapper.UserMapper;
-import com.example.spring.repository.UserRepositoryClass;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,6 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserMapper userMapper;
-    private final UserRepositoryClass userRepositoryClass;
+//    private final UserRepositoryClass userRepositoryClass;
 
 }

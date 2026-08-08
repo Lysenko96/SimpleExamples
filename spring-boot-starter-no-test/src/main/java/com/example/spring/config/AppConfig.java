@@ -1,8 +1,6 @@
 package com.example.spring.config;
 
 import com.example.spring.repository.ConnectionPool;
-import com.example.spring.repository.UserRepositoryClass;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +21,8 @@ public class AppConfig {
         return new ConnectionPool("mysql");
     }
 
-    @Bean
-    public UserRepositoryClass userRepository(@Qualifier("connectionPool1") ConnectionPool connectionPool){
-        return new UserRepositoryClass(connectionPool);
-    }
+//    @Bean("userRepositoryClass")
+//    public UserRepositoryClass userRepository(@Qualifier("connectionPool1") ConnectionPool connectionPool){
+//        return new UserRepositoryClass(connectionPool);
+//    }
 }
