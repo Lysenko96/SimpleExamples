@@ -37,7 +37,7 @@ public class Company implements BaseEntity<Integer> {
     @Column(name = "description")
     private Map<String, String> locales = new HashMap<>();
     @Builder.Default
-    @OneToMany(mappedBy = "companyId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
     public Company(Integer id) {

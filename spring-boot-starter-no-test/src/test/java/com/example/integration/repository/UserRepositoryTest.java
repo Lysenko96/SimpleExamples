@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,37 @@ public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Test
+    void findFirst2BySort() {
+        var users = userRepository.findFirst2By(Sort.by(Sort.Order.desc("firstname"))
+                .and(Sort.by(Sort.Order.desc("lastname"))));
+//        var users = userRepository.findFirst2By(Sort.by("id").descending());
+        org.junit.jupiter.api.Assertions.assertFalse(users.isEmpty());
+        Assertions.assertThat(users).hasSize(2);
+
+    }
+
+    @Test
+    void findFirst3ByCompanyIsNotNullOrderByIdTest() {
+        var users = userRepository.findFirst3ByCompanyIsNotNullOrderByIdDesc();
+        org.junit.jupiter.api.Assertions.assertFalse(users.isEmpty());
+        Assertions.assertThat(users).hasSize(2);
+    }
+
+
+    @Test
+    void findFirstByCompanyIsNotNullOrderByIdTest() {
+        var user = userRepository.findFirstByCompanyIsNotNullOrderByIdDesc();
+        org.junit.jupiter.api.Assertions.assertTrue(user.isPresent());
+        user.ifPresent(u -> org.junit.jupiter.api.Assertions.assertEquals("apple", user.get().getFirstname()));
+    }
+
+    @Test
+    void checkProjections() {
+        var users = userRepository.findAllByCompanyId(1);
+        Assertions.assertThat(users).hasSize(1);
+    }
 
     @Test
     void findAllByContainingFirstnameAndContainingLastname() {

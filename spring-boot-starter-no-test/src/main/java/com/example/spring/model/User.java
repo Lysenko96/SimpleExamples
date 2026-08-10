@@ -1,7 +1,6 @@
 package com.example.spring.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,7 +30,7 @@ public class User implements BaseEntity<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "company_id")
-    private Company companyId;
+    private Company company;
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
