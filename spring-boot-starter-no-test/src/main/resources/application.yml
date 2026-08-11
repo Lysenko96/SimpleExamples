@@ -12,6 +12,10 @@ logging:
     path: /
 
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp
+      suffix: .jsp
   datasource:
     username: postgres
     password: postgres
