@@ -3,6 +3,9 @@ package com.example.spring.repository;
 import com.example.spring.dto.PersonalInfo;
 import com.example.spring.model.Role;
 import com.example.spring.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,6 +19,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    Page<User> findAllBy(Pageable pageable);
 
     List<User> findFirst2By(Sort sort);
 

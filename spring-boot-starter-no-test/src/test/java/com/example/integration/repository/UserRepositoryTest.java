@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,18 @@ public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Test
+    void checkPageable() {
+        var pageable = PageRequest.of(0, 1, Sort.by("id"));
+        var page = userRepository.findAllBy(pageable);
+        page.forEach(System.out::println);
+        while (page.hasNext()) {
+            page = userRepository.findAllBy(page.nextPageable());
+            page.forEach(System.out::println);
+            System.out.println(page.getTotalPages());
+        }
+    }
 
     @Test
     void findFirst2BySort() {

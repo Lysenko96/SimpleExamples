@@ -4,7 +4,7 @@
 //import lombok.RequiredArgsConstructor;
 //import org.junit.jupiter.api.Test;
 //
-//@IT
+//
 //@RequiredArgsConstructor
 //public class UserServiceIT {
 //
