@@ -5,6 +5,7 @@
     <title>Hello</title>
 </head>
 <body>
-HELLO WORLD!
+HELLO ${requestScope.user.username}!
+${requestScope.roles}
 </body>
 </html>
