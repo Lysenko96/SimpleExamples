@@ -25,4 +25,6 @@ public class Cart {
     private BigDecimal quantity;
     @Transient
     private BigDecimal totalPrice;
+    @Transient
+    private BigDecimal totalOrderPrice;
 }

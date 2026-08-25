@@ -21,19 +21,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
-    private final CategoryService categoryService;
-    private final CartService cartService;
     private static final String ERROR = "error";
     private static final String SUCCESS = "success";
 
+    private final UserService userService;
+    private final CategoryService categoryService;
+    private final CartService cartService;
 
     @ModelAttribute
     public void getUserDetails(Principal login, Model model) {
         if (login != null) {
             String email = login.getName();
             UserCustom user = userService.getUserByEmail(email);
+            Integer countCart = cartService.getCountCart(user.getId());
             model.addAttribute("user", user);
+            model.addAttribute("countCart", countCart);
         }
         List<Category> allActive = categoryService.findAllActive();
         model.addAttribute("categories", allActive);
@@ -53,6 +55,20 @@ public class UserController {
             session.setAttribute(SUCCESS, "Product added to cart");
         }
         return "redirect:/shopping-cart/product-details/" + pid;
+    }
+
+    @GetMapping("/cart")
+    public String loadCart(Principal p, Model m) {
+        UserCustom userCustom =  getLoggedInUserCustom(p);
+        List<Cart> carts = cartService.getCartsByUserId(userCustom.getId());
+        m.addAttribute("carts", carts);
+        return "/user/cart";
+    }
+
+    private UserCustom getLoggedInUserCustom(Principal p) {
+        String email = p.getName();
+        UserCustom userCustom = userService.getUserByEmail(email);
+        return userCustom;
     }
 
 }

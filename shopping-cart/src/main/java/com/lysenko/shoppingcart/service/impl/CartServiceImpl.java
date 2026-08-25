@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +30,10 @@ public class CartServiceImpl implements CartService {
         UserCustom userCustom = userRepository.findById(userId).orElse(null);
         Product product = productRepository.findById(productId).orElse(null);
         if (userCustom == null || product == null) {
-           log.info("saveCart userCustom or product is null");
-           log.info("userCustom: {}", userCustom);
-           log.info("product: {}", product);
-           return null;
+            log.info("saveCart userCustom or product is null");
+            log.info("userCustom: {}", userCustom);
+            log.info("product: {}", product);
+            return null;
         }
         Cart cartStatus = cartRepository.findByProductIdAndUserId(productId, userId);
         Cart cart = null;
@@ -55,6 +55,22 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<Cart> getCartsByUserId(Integer userId) {
-        return List.of();
+        List<Cart> carts = cartRepository.findByUserId(userId);
+        List<Cart> updateCarts = new ArrayList<>();
+        BigDecimal totalOrderPrice = BigDecimal.ZERO;
+        for (Cart cart : carts) {
+            BigDecimal totalPrice = cart.getProduct().getDiscountPrice().multiply(cart.getQuantity());
+            cart.setTotalPrice(totalPrice);
+            totalOrderPrice = totalOrderPrice.add(totalPrice);
+            cart.setTotalOrderPrice(totalOrderPrice);
+            updateCarts.add(cart);
+        }
+        return carts;
+    }
+
+    @Override
+    public Integer getCountCart(Integer userId) {
+        Integer countByUserId = cartRepository.countByUserId(userId);
+        return countByUserId;
     }
 }
