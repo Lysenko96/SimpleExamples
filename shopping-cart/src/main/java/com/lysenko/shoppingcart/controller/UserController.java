@@ -62,7 +62,17 @@ public class UserController {
         UserCustom userCustom =  getLoggedInUserCustom(p);
         List<Cart> carts = cartService.getCartsByUserId(userCustom.getId());
         m.addAttribute("carts", carts);
+        if (carts.isEmpty()) {
+            return "/user/cart";
+        }
+        m.addAttribute("totalOrderPrice", carts.getLast().getTotalOrderPrice());
         return "/user/cart";
+    }
+
+    @GetMapping("/cartQuantityUpdate")
+    public String updateCartQuantity(@RequestParam String symbol, @RequestParam Integer cid) {
+        cartService.updateQuantity(symbol, cid);
+        return "redirect:/shopping-cart/cart";
     }
 
     private UserCustom getLoggedInUserCustom(Principal p) {

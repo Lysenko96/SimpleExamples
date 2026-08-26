@@ -10,6 +10,7 @@ import com.lysenko.shoppingcart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
@@ -72,5 +74,26 @@ public class CartServiceImpl implements CartService {
     public Integer getCountCart(Integer userId) {
         Integer countByUserId = cartRepository.countByUserId(userId);
         return countByUserId;
+    }
+
+    @Override
+    public void updateQuantity(String symbol, Integer cid) {
+        Cart cart = cartRepository.findById(cid).orElse(null);
+        if (cart == null) {
+            log.info("Cart is null");
+            return;
+        }
+        BigDecimal updateQty = BigDecimal.ZERO;
+        if(symbol.equalsIgnoreCase("minus")) {
+            updateQty = cart.getQuantity().subtract(BigDecimal.ONE);
+            if (updateQty.compareTo(BigDecimal.ZERO) <= 0) {
+                cartRepository.deleteById(cid);
+                return;
+            }
+        } else {
+            updateQty = cart.getQuantity().add(BigDecimal.ONE);
+        }
+        cart.setQuantity(updateQty);
+        cartRepository.save(cart);
     }
 }
