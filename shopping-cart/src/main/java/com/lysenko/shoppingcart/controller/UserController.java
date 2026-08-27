@@ -75,6 +75,11 @@ public class UserController {
         return "redirect:/shopping-cart/cart";
     }
 
+    @GetMapping("/orders")
+    public String orderPage() {
+        return "/user/order";
+    }
+
     private UserCustom getLoggedInUserCustom(Principal p) {
         String email = p.getName();
         UserCustom userCustom = userService.getUserByEmail(email);
