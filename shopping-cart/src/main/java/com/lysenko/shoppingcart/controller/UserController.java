@@ -1,9 +1,6 @@
 package com.lysenko.shoppingcart.controller;
 
-import com.lysenko.shoppingcart.model.Cart;
-import com.lysenko.shoppingcart.model.Category;
-import com.lysenko.shoppingcart.model.OrderRequest;
-import com.lysenko.shoppingcart.model.UserCustom;
+import com.lysenko.shoppingcart.model.*;
 import com.lysenko.shoppingcart.service.CartService;
 import com.lysenko.shoppingcart.service.CategoryService;
 import com.lysenko.shoppingcart.service.OrderService;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -108,6 +106,32 @@ public class UserController {
     @GetMapping("/success")
     public String loadSuccess() {
         return "/user/success";
+    }
+
+    @GetMapping("/userOrders")
+    public String loadUserOrders(Principal p, Model m) {
+        UserCustom loginUser = getLoggedInUserCustom(p);
+        List<ProductOrder> orders = orderService.getOrdersByUserId(loginUser.getId());
+        m.addAttribute("orders", orders);
+        return "/user/my_orders";
+    }
+
+    @GetMapping("/updateStatus")
+    public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer status,HttpSession session) {
+        OrderStatus[] values = OrderStatus.values();
+        String statusName = null;
+        for (OrderStatus oStatus : values) {
+            if (oStatus.getId() == status) {
+                statusName = oStatus.getStatus();
+            }
+        }
+        Boolean updateOrder = orderService.updateOrderStatus(id, statusName);
+        if (updateOrder != null && updateOrder) {
+            session.setAttribute(SUCCESS, "Order updated successfully");
+        } else {
+            session.setAttribute(ERROR, "Order updated failed");
+        }
+        return "redirect:/shopping-cart/userOrders";
     }
 
     private UserCustom getLoggedInUserCustom(Principal p) {

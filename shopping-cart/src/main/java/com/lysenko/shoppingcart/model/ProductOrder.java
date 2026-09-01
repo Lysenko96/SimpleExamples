@@ -1,10 +1,14 @@
 package com.lysenko.shoppingcart.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +21,8 @@ public class ProductOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String orderId;
-    private LocalDate orderDate;
+//    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    private LocalDateTime orderDate;
     @ManyToOne
     private Product product;
     private BigDecimal price;
