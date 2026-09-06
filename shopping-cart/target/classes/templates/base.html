@@ -63,6 +63,12 @@
                     </li>
                 </th:block>
                 <th:block th:if="${user!=null}">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/shopping-cart/cart">
+                            <i class="fa-solid fa-cart-shopping"></i> Cart[ [[${countCart}]] ]</a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
@@ -70,16 +76,18 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="/shopping-cart/userOrders">My Orders</a></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-to-bracket"></i> Logout</a></li>
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/logout">
-                            <i class="fa-solid fa-right-to-bracket"></i> Logout</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" aria-current="page" href="/logout">-->
+<!--                            <i class="fa-solid fa-right-to-bracket"></i> Logout</a>-->
+<!--                    </li>-->
                 </th:block>
             </ul>
             <!--            <form class="d-flex" role="search">-->
