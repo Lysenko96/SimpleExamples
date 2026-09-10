@@ -1,18 +1,17 @@
 package com.example.orderservice.service;
 
 import com.example.orderservice.dto.InventoryResponse;
+import com.example.orderservice.dto.OrderLineItemDto;
 import com.example.orderservice.dto.OrderRequest;
 import com.example.orderservice.model.Order;
 import com.example.orderservice.model.OrderLineItem;
+import com.example.orderservice.repository.OrderLineItemRepository;
 import com.example.orderservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,12 +20,14 @@ public class OrderService {
 
     private OrderRepository orderRepository;
     private WebClient.Builder webClientBuilder;
+    private OrderLineItemRepository orderLineItemRepository;
     //private WebClient webClient;
 
 
-    public OrderService(OrderRepository orderRepository, WebClient.Builder webClientBuilder) {
+    public OrderService(OrderRepository orderRepository, WebClient.Builder webClientBuilder, OrderLineItemRepository orderLineItemRepository) {
         this.orderRepository = orderRepository;
         //this.webClient = webClient;
+        this.orderLineItemRepository = orderLineItemRepository;
         this.webClientBuilder = webClientBuilder;
     }
 
@@ -34,11 +35,16 @@ public class OrderService {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
 
-        order.setOrderLineItemList(orderRequest.getOrderLineItemDtoList()
-                .stream()
-                .map(orderLineItemDto -> new OrderLineItem(orderLineItemDto.getId(), orderLineItemDto.getSkuCode(), orderLineItemDto.getPrice(), orderLineItemDto.getQuantity()))
-                .collect(Collectors.toList()));
-
+//        orderRequest.getOrderLineItemDtoList()
+//                .stream()
+//                .map(orderLineItemDto -> new OrderLineItem(orderLineItemDto.getId(), orderLineItemDto.getSkuCode(), orderLineItemDto.getPrice(), orderLineItemDto.getQuantity()))
+//                .collect(Collectors.toList());
+        List<OrderLineItem> orderLineItemList = new ArrayList<>();
+        for (OrderLineItemDto orderLineItemDto : orderRequest.getOrderLineItemDtoList()) {
+            OrderLineItem orderLineItem = new OrderLineItem(orderLineItemDto.getId(), orderLineItemDto.getSkuCode(), orderLineItemDto.getPrice(), orderLineItemDto.getQuantity());
+            orderLineItemList.add(orderLineItemRepository.saveAndFlush(orderLineItem));
+        }
+        order.setOrderLineItemList(orderLineItemList);
         List<String> skuCodes = order.getOrderLineItemList().stream()
                 .map(OrderLineItem::getSkuCode)
                 .toList();
@@ -56,7 +62,7 @@ public class OrderService {
         boolean allProductsInStock = Arrays.stream(Objects.requireNonNull(inventoryResponsesArray))
                 .allMatch(InventoryResponse::isInStock);
 
-        if(allProductsInStock) orderRepository.save(order);
+        if(allProductsInStock) orderRepository.saveAndFlush(order);
         else throw new IllegalArgumentException("Product is not in stock");
     }
 
