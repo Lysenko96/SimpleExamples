@@ -1,4 +1,4 @@
-package poweroftwo;
+package net.pack.leetcodestyle.poweroftwo;
 
 public class Solution {
 
