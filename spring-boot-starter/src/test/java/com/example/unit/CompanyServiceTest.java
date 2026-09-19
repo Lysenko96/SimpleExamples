@@ -38,7 +38,7 @@ public class CompanyServiceTest {
 
         Assertions.assertTrue(actual.isPresent());
 
-        var expected = new CompanyDto(COMPANY_ID);
+        var expected = new CompanyDto(COMPANY_ID, null);
 
         actual.ifPresent(actualResult -> Assertions.assertEquals(expected, actualResult));
 

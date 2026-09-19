@@ -12,6 +12,10 @@ logging:
     path: /
 
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp
+      suffix: .jsp
   datasource:
     username: postgres
     password: postgres
@@ -21,3 +25,5 @@ spring:
     properties.hibernate:
       show_sql: true
       format_sql: true
+      hbm2ddl.auto: update
+    open-in-view: false

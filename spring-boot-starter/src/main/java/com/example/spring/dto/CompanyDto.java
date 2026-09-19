@@ -1,4 +1,7 @@
 package com.example.spring.dto;
 
-public record CompanyDto(Integer id) {
+import lombok.Builder;
+
+@Builder
+public record CompanyDto(Integer id, String name) {
 }
