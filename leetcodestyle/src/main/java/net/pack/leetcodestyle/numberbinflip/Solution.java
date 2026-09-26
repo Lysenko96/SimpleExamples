@@ -1,7 +1,5 @@
 package net.pack.leetcodestyle.numberbinflip;
 
-import java.math.BigInteger;
-
 public class Solution {
 
     public static void main(String[] args) {
