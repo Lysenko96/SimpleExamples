@@ -62,18 +62,14 @@ public class ParcelServiceImpl implements ParcelService {
                     Map.of(DeliveryType.ECONOM, 0L, DeliveryType.DEFAULT, 0L, DeliveryType.EXPRESS, 0L),
                     null, null, null, null);
         }
-        Map<ParcelStatus, Long> parcelsCountByStatus = Arrays.stream(ParcelStatus.values())
-                .collect(Collectors.toMap(Function.identity(),
-                        status -> parcels.stream().filter(p -> p.getStatus() == status).count()));
-        Map<DeliveryType, Long> parcelsCountByDeliveryType = Arrays.stream(DeliveryType.values())
-                .collect(Collectors.toMap(Function.identity(),
-                        type -> parcels.stream().filter(p -> p.getDeliveryType() == type).count()));
         return new ParcelStatistic(
                 parcels.size(),
                 parcels.stream().mapToDouble(Parcel::getWeight).average().orElse(0.0),
                 parcels.stream().mapToDouble(Parcel::getPrice).average().orElse(0.0),
-                parcelsCountByStatus,
-                parcelsCountByDeliveryType,
+                Arrays.stream(ParcelStatus.values()).collect(Collectors.toMap(Function.identity(),
+                        status -> parcels.stream().filter(p -> p.getStatus() == status).count())),
+                Arrays.stream(DeliveryType.values()).collect(Collectors.toMap(Function.identity(),
+                        type -> parcels.stream().filter(p -> p.getDeliveryType() == type).count())),
                 parcels.stream().max(Comparator.comparing(Parcel::getPrice)).orElse(null),
                 parcels.stream().min(Comparator.comparing(Parcel::getPrice)).orElse(null),
                 parcels.stream().max(Comparator.comparing(Parcel::getWeight)).orElse(null),
