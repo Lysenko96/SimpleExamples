@@ -57,27 +57,17 @@ public class ParcelServiceImpl implements ParcelService {
         Specification<Parcel> spec = getParcelSpecification(params);
         List<Parcel> parcels = parcelRepository.findAll(spec);
         if (parcels.isEmpty()) {
-            return new ParcelStatistic(
-                    0L, 0.0, 0.0,
+            return new ParcelStatistic(0L, 0.0, 0.0,
                     Map.of(ParcelStatus.IN_TRANSIT, 0L, ParcelStatus.DELIVERED, 0L, ParcelStatus.CREATED, 0L),
                     Map.of(DeliveryType.ECONOM, 0L, DeliveryType.DEFAULT, 0L, DeliveryType.EXPRESS, 0L),
-                    null, null, null, null
-            );
+                    null, null, null, null);
         }
-        Map<ParcelStatus, Long> parcelsCountByStatus = Arrays.stream(ParcelStatus.values()).collect(Collectors.toMap(
-                Function.identity(),
-                status -> parcels.stream().filter(p -> p.getStatus() == status).count()
-        ));
-        if (parcelsCountByStatus.isEmpty()) {
-            parcelsCountByStatus = Map.of(ParcelStatus.IN_TRANSIT, 0L, ParcelStatus.DELIVERED, 0L, ParcelStatus.CREATED, 0L);
-        }
-        Map<DeliveryType, Long> parcelsCountByDeliveryType = Arrays.stream(DeliveryType.values()).collect(Collectors.toMap(
-                Function.identity(),
-                type -> parcels.stream().filter(p -> p.getDeliveryType() == type).count()
-        ));
-        if (parcelsCountByDeliveryType.isEmpty()) {
-            parcelsCountByDeliveryType = Map.of(DeliveryType.ECONOM, 0L, DeliveryType.DEFAULT, 0L, DeliveryType.EXPRESS, 0L);
-        }
+        Map<ParcelStatus, Long> parcelsCountByStatus = Arrays.stream(ParcelStatus.values())
+                .collect(Collectors.toMap(Function.identity(),
+                        status -> parcels.stream().filter(p -> p.getStatus() == status).count()));
+        Map<DeliveryType, Long> parcelsCountByDeliveryType = Arrays.stream(DeliveryType.values())
+                .collect(Collectors.toMap(Function.identity(),
+                        type -> parcels.stream().filter(p -> p.getDeliveryType() == type).count()));
         return new ParcelStatistic(
                 parcels.size(),
                 parcels.stream().mapToDouble(Parcel::getWeight).average().orElse(0.0),
