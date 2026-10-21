@@ -4,10 +4,12 @@ import com.lysenko.shoppingcart.model.Category;
 import com.lysenko.shoppingcart.repository.CategoryRepository;
 import com.lysenko.shoppingcart.service.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;

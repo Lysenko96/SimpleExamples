@@ -25,11 +25,17 @@ public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandle
     private final UserService userService;
 
 
-
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String email = request.getParameter("username");
         UserCustom user = userRepository.findByEmail(email);
+        if (user == null) {
+            log.error("user is null");
+            exception = new LockedException("Your email and password is invalid");
+            setDefaultFailureUrl("/shopping-cart/main-login?error");
+            super.onAuthenticationFailure(request, response, exception);
+            return;
+        }
         if (user.getIsEnabled() == null) {
             log.error("isEnabled is null");
             return;

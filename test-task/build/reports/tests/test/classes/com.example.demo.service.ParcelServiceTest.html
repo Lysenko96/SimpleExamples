@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - ParcelServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>ParcelServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.demo.service.html">com.example.demo.service</a> &gt; ParcelServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">26</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.687s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+<li>
+<a href="#">Standard error</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">[1] deliveryType=EXPRESS, price=603.0</td>
+<td class="success">givenCreateParcelRequest_create_shouldSaveToDb(DeliveryType, Double)[1]</td>
+<td class="success">0.060s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[2] deliveryType=DEFAULT, price=402.0</td>
+<td class="success">givenCreateParcelRequest_create_shouldSaveToDb(DeliveryType, Double)[2]</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[3] deliveryType=ECONOM, price=201.0</td>
+<td class="success">givenCreateParcelRequest_create_shouldSaveToDb(DeliveryType, Double)[3]</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenNoParcelInDb_updateStatus_shouldThrowNotFoundException()</td>
+<td class="success">givenNoParcelInDb_updateStatus_shouldThrowNotFoundException()</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenNoParcels_getByTrackingNumber_shouldThrowNotFoundException()</td>
+<td class="success">givenNoParcels_getByTrackingNumber_shouldThrowNotFoundException()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenParcelByTrackingNumber_getByTrackingNumber_shouldReturnParcel()</td>
+<td class="success">givenParcelByTrackingNumber_getByTrackingNumber_shouldReturnParcel()</td>
+<td class="success">0.201s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">givenParcelInDb_updateStatus_shouldUpdateParcelStatus()</td>
+<td class="success">givenParcelInDb_updateStatus_shouldUpdateParcelStatus()</td>
+<td class="success">0.019s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[1] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), expectedStatistic=ParcelStatistic(totalParcels=5, averageWeight=37.5, averagePrice=52.0, parcelsCountByStatus={DELIVERED=2, CREATED=1, IN_TRANSIT=2}, parcelsCountByDeliveryType={ECONOM=1, EXPRESS=2, DEFAULT=2}, mostExpensiveParcel=Parcel(id=null, trackingNumber=b1f248f3-4c67-4d27-b4e9-bc6522c4d623, sender=Antony Williams, recipient=James Taylor, weight=75.0, price=90.0, status=DELIVERED, deliveryType=EXPRESS), cheapestParcel=Parcel(id=null, trackingNumber=d67237c5-8ec3-47b3-9b14-3d94a3ed37d2, sender=Lucas Johnson, recipient…</td>
+<td class="success">givenParcelsInDb_buildStatistic_shouldBuildStatisticUsingSearchParams(ParcelSearchParams, ParcelStatistic)[1]</td>
+<td class="success">0.029s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[2] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[EXPRESS, DEFAULT]), expectedStatistic=ParcelStatistic(totalParcels=4, averageWeight=44.375, averagePrice=60.0, parcelsCountByStatus={DELIVERED=1, CREATED=1, IN_TRANSIT=2}, parcelsCountByDeliveryType={ECONOM=0, EXPRESS=2, DEFAULT=2}, mostExpensiveParcel=Parcel(id=null, trackingNumber=b1f248f3-4c67-4d27-b4e9-bc6522c4d623, sender=Antony Williams, recipient=James Taylor, weight=75.0, price=90.0, status=DELIVERED, deliveryType=EXPRESS), cheapestParcel=Parcel(id=null, trackingNumber=c45a821a-bda1-4e12-b7d6-2e6a5ef62c14, sender=Lucas Johnson, recipie…</td>
+<td class="success">givenParcelsInDb_buildStatistic_shouldBuildStatisticUsingSearchParams(ParcelSearchParams, ParcelStatistic)[2]</td>
+<td class="success">0.024s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[3] searchParams=ParcelSearchParams(trackingNumber=invalidTrackingNumber, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), expectedStatistic=ParcelStatistic(totalParcels=0, averageWeight=0.0, averagePrice=0.0, parcelsCountByStatus={DELIVERED=0, CREATED=0, IN_TRANSIT=0}, parcelsCountByDeliveryType={ECONOM=0, EXPRESS=0, DEFAULT=0}, mostExpensiveParcel=null, cheapestParcel=null, heaviestParcel=null, lightestParcel=null)</td>
+<td class="success">givenParcelsInDb_buildStatistic_shouldBuildStatisticUsingSearchParams(ParcelSearchParams, ParcelStatistic)[3]</td>
+<td class="success">0.028s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[10] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=45.0, toPrice=45.0, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[10]</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[11] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[CREATED, IN_TRANSIT], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT), Parcel(id=null, trackingNumber=c45a821a-bda1-4e12-b7d6-2e6a5ef62c14, sender=Lucas Johnson, recipient=Olivia Davis, weight=22.0, price=35.0, status=IN_TRANSIT,…</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[11]</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[12] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[EXPRESS, DEFAULT]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT), Parcel(id=null, trackingNumber=b1f248f3-4c67-4d27-b4e9-bc6522c4d623, sender=Antony Williams, recipient=James Taylor, weight=75.0, price=90.0, status=DELIVERED…</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[12]</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[13] searchParams=ParcelSearchParams(trackingNumber=null, sender=Antony Williams, recipient=null, fromWeight=30.0, toWeight=null, fromPrice=45.0, toPrice=null, statuses=[CREATED, DELIVERED], deliveryTypes=[EXPRESS, DEFAULT]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=b1f248f3-4c67-4d27-b4e9-bc6522c4d623, sender=Antony Williams, recipient=James Taylor, weight=75.0, price=90.0, status=DELIVERED, deliveryType=EXPRESS)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[13]</td>
+<td class="success">0.014s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[14] searchParams=ParcelSearchParams(trackingNumber=null, sender=Lucas Johnson, recipient=Olivia Davis, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[DELIVERED], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=d67237c5-8ec3-47b3-9b14-3d94a3ed37d2, sender=Lucas Johnson, recipient=Olivia Davis, weight=10.0, price=20.0, status=DELIVERED, deliveryType=ECONOM)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[14]</td>
+<td class="success">0.016s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[15] searchParams=ParcelSearchParams(trackingNumber=null, sender=Lucas Johnson, recipient=Olivia Davis, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=d67237c5-8ec3-47b3-9b14-3d94a3ed37d2, sender=Lucas Johnson, recipient=Olivia Davis, weight=10.0, price=20.0, status=DELIVERED, deliveryType=ECONOM), Parcel(id=null, trackingNumber=c45a821a-bda1-4e12-b7d6-2e6a5ef62c14, sender=Lucas Johnson, recipient=Olivia Davis, weight=22.0, price=35.0, status=IN_TRANSIT, deliveryType=DEFAULT)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[15]</td>
+<td class="success">0.016s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[16] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=John Doe, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[EXPRESS, DEFAULT]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[16]</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[1] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT), Parcel(id=null, trackingNumber=d67237c5-8ec3-47b3-9b14-3d94a3ed37d2, sender=Lucas Johnson, recipient=Olivia Davis, weight=10.0, price=20.0, status=DELIVERED, …</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[1]</td>
+<td class="success">0.031s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[2] searchParams=ParcelSearchParams(trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[2]</td>
+<td class="success">0.016s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[3] searchParams=ParcelSearchParams(trackingNumber=null, sender=Antony Williams, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=b1f248f3-4c67-4d27-b4e9-bc6522c4d623, sender=Antony Williams, recipient=James Taylor, weight=75.0, price=90.0, status=DELIVERED, deliveryType=EXPRESS)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[3]</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[4] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=John Doe, fromWeight=null, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[4]</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[5] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=30.0, toWeight=null, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT), Parcel(id=null, trackingNumber=b1f248f3-4c67-4d27-b4e9-bc6522c4d623, sender=Antony Williams, recipient=James Taylor, weight=75.0, price=90.0, status=DELIVERED…</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[5]</td>
+<td class="success">0.015s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[6] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=40.0, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT), Parcel(id=null, trackingNumber=d67237c5-8ec3-47b3-9b14-3d94a3ed37d2, sender=Lucas Johnson, recipient=Olivia Davis, weight=10.0, price=20.0, status=DELIVERED, deliveryType=ECONOM), Parcel(id=null, trackingNumber=c45a821a-bda1-4e12-b7d6-2e6a5ef62c14, sender=Lucas Johnson, recipient=Olivia Davis, weight=22.0, price=35.0, status=IN_TRANS…</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[6]</td>
+<td class="success">0.014s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[7] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=30.0, toWeight=40.0, fromPrice=null, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT)]</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[7]</td>
+<td class="success">0.019s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[8] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=45.0, toPrice=null, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=fa635f04-3094-46b2-b6f7-8fbe377c8be3, sender=Antony Williams, recipient=John Doe, weight=50.0, price=70.0, status=CREATED, deliveryType=EXPRESS), Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT), Parcel(id=null, trackingNumber=b1f248f3-4c67-4d27-b4e9-bc6522c4d623, sender=Antony Williams, recipient=James Taylor, weight=75.0, price=90.0, status=DELIVERED…</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[8]</td>
+<td class="success">0.023s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">[9] searchParams=ParcelSearchParams(trackingNumber=null, sender=null, recipient=null, fromWeight=null, toWeight=null, fromPrice=null, toPrice=45.0, statuses=[], deliveryTypes=[]), matchingParcels=[Parcel(id=null, trackingNumber=a12c98d1-7b56-44a3-bb57-928cc501e2af, sender=Emma Brown, recipient=John Doe, weight=30.5, price=45.0, status=IN_TRANSIT, deliveryType=DEFAULT), Parcel(id=null, trackingNumber=d67237c5-8ec3-47b3-9b14-3d94a3ed37d2, sender=Lucas Johnson, recipient=Olivia Davis, weight=10.0, price=20.0, status=DELIVERED, deliveryType=ECONOM), Parcel(id=null, trackingNumber=c45a821a-bda1-4e12-b7d6-2e6a5ef62c14, sender=Lucas Johnson, recipient=Olivia Davis, weight=22.0, price=35.0, status=IN_TRANS…</td>
+<td class="success">givenParcelsInDb_findAll_shouldFindUsingSearchParams(ParcelSearchParams, List)[9]</td>
+<td class="success">0.024s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>12:28:42.053 [Test worker] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+12:28:42.057 [Test worker] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+12:28:42.063 [Test worker] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:28:42.134 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+12:28:42.427 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+12:28:42.428 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+12:28:42.438 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.9.0
+  API Version: 1.56
+  Operating System: Linux Mint 21.3
+  Total Memory: 31727 MB
+12:28:42.472 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+12:28:42.476 [Test worker] INFO org.testcontainers.utility.RegistryAuthLocator -- Failure when attempting to lookup auth config. Please ignore if you don't have images in an authenticated registry. Details: (dockerImageName: testcontainers/ryuk:0.14.0, configFile: /home/user/.docker/config.json, configEnv: DOCKER_AUTH_CONFIG). Falling back to docker-java default behaviour. Exception message: Status 404: No config supplied. Checked in order: /home/user/.docker/config.json (file not found), DOCKER_AUTH_CONFIG (not set)
+12:28:42.610 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: eb6c78548876f76db59d6a8080f25f940113818c848c2beefbb474326fd0ef9c
+12:28:42.924 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT0.451405357S
+12:28:42.927 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+12:28:42.928 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+12:28:42.928 [Test worker] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+12:28:42.928 [Test worker] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+12:28:43.024 [Test worker] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: 2d0b5eaf5d8ef5b7ad67f6f2813cb1a4eec2b7a10b1369c972e318eba154e9c3
+12:28:44.299 [Test worker] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT1.370910857S
+12:28:44.300 [Test worker] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:32919/test?loggerLevel=OFF)
+12:28:44.342 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.demo.service.ParcelServiceTest]: ParcelServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:28:44.391 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.demo.DemoApplication for test class com.example.demo.service.ParcelServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.4)
+
+2026-10-14T12:28:44.608+03:00  INFO 1293991 --- [    Test worker] c.e.demo.service.ParcelServiceTest       : Starting ParcelServiceTest using Java 21.0.12.1 with PID 1293991 (started by user in /home/user/Downloads/test-task)
+2026-10-14T12:28:44.610+03:00  INFO 1293991 --- [    Test worker] c.e.demo.service.ParcelServiceTest       : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2026-10-14T12:28:44.960+03:00  INFO 1293991 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-14T12:28:44.993+03:00  INFO 1293991 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 1 JPA repository interface.
+2026-10-14T12:28:45.808+03:00  INFO 1293991 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-14T12:28:45.845+03:00  INFO 1293991 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2026-10-14T12:28:45.882+03:00  INFO 1293991 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-14T12:28:45.963+03:00  INFO 1293991 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-14T12:28:45.993+03:00  INFO 1293991 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-14T12:28:46.140+03:00  INFO 1293991 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@498f5728
+2026-10-14T12:28:46.142+03:00  INFO 1293991 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-14T12:28:46.197+03:00  INFO 1293991 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-14T12:28:46.620+03:00  INFO 1293991 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: set client_min_messages = WARNING
+Hibernate: drop table if exists parcel cascade
+Hibernate: create table parcel (price float(53) not null, weight float(53) not null, id bigint generated by default as identity, delivery_type varchar(20) not null check (delivery_type in ('EXPRESS','DEFAULT','ECONOM')), status varchar(20) not null check (status in ('CREATED','IN_TRANSIT','DELIVERED')), recipient varchar(255) not null, sender varchar(255) not null, tracking_number varchar(255) not null unique, primary key (id))
+2026-10-14T12:28:46.642+03:00  INFO 1293991 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-14T12:28:46.941+03:00  WARN 1293991 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-14T12:28:47.283+03:00  INFO 1293991 --- [    Test worker] c.e.demo.service.ParcelServiceTest       : Started ParcelServiceTest in 2.838 seconds (process running for 5.685)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.tracking_number=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.tracking_number=?
+Hibernate: update parcel set delivery_type=?,price=?,recipient=?,sender=?,status=?,tracking_number=?,weight=? where id=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.tracking_number=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.tracking_number=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.tracking_number=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.tracking_number=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.tracking_number=?
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.delivery_type in (?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.tracking_number) like ? escape ''
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.tracking_number) like ? escape '' offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.sender) like ? escape '' offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.recipient) like ? escape '' offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.weight&gt;=? offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.weight&lt;=? offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.weight&gt;=? and p1_0.weight&lt;=? offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.price&gt;=? offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.price&lt;=? offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.price&gt;=? and p1_0.price&lt;=? offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.status in (?,?) offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where p1_0.delivery_type in (?,?) offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.sender) like ? escape '' and p1_0.weight&gt;=? and p1_0.price&gt;=? and p1_0.status in (?,?) and p1_0.delivery_type in (?,?) offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.sender) like ? escape '' and lower(p1_0.recipient) like ? escape '' and p1_0.status in (?) offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.sender) like ? escape '' and lower(p1_0.recipient) like ? escape '' offset ? rows fetch first ? rows only
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: delete from parcel where id=?
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: insert into parcel (delivery_type,price,recipient,sender,status,tracking_number,weight) values (?,?,?,?,?,?,?)
+Hibernate: select p1_0.id,p1_0.delivery_type,p1_0.price,p1_0.recipient,p1_0.sender,p1_0.status,p1_0.tracking_number,p1_0.weight from parcel p1_0 where lower(p1_0.recipient) like ? escape '' and p1_0.delivery_type in (?,?) offset ? rows fetch first ? rows only
+</pre>
+</span>
+</div>
+<div class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/home/user/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.15.11/a38b16385e867f59a641330f0362ebe742788ed8/byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 8.13</a> at Oct 14, 2026, 12:28:48 PM</p>
+</div>
+</div>
+</body>
+</html>

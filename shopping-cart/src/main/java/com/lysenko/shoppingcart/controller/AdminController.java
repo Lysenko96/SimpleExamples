@@ -3,6 +3,7 @@ package com.lysenko.shoppingcart.controller;
 import com.lysenko.shoppingcart.model.Category;
 import com.lysenko.shoppingcart.model.Product;
 import com.lysenko.shoppingcart.model.UserCustom;
+import com.lysenko.shoppingcart.service.CartService;
 import com.lysenko.shoppingcart.service.CategoryService;
 import com.lysenko.shoppingcart.service.ProductService;
 import com.lysenko.shoppingcart.service.UserService;
@@ -45,15 +46,17 @@ public class AdminController {
 
     private final CategoryService categoryService;
     private final ProductService productService;
-
     private final UserService userService;
+    private final CartService cartService;
 
     @ModelAttribute
     public void getUserDetails(Principal login, Model model) {
         if (login != null) {
             String email = login.getName();
             UserCustom user = userService.getUserByEmail(email);
+            Integer countCart = cartService.getCountCart(user.getId());
             model.addAttribute("user", user);
+            model.addAttribute("countCart", countCart);
         }
         List<Category> allActive = categoryService.findAllActive();
         model.addAttribute(CATEGORIES, allActive);

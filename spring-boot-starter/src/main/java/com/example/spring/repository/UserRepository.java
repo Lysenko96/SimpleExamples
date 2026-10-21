@@ -1,45 +1,51 @@
 package com.example.spring.repository;
 
-import com.example.spring.beanpostprocessor.InjectBean;
-import jakarta.annotation.Resource;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import com.example.spring.dto.PersonalInfo;
+import com.example.spring.model.Role;
+import com.example.spring.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-@ToString
-@NoArgsConstructor
-@Setter
-@AllArgsConstructor
 @Repository
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-//    @InjectBean
-//    @Autowired
-//    @Resource(name = "connPool2")
-//    @Qualifier("connPool")
-    private ConnectionPool connPool;
+    Page<User> findAllBy(Pageable pageable);
 
-    @Value("${db.poolSize}")
-    private String poolSize;
+    List<User> findFirst2By(Sort sort);
 
-//    @Autowired
-    private List<ConnectionPool> connectionPoolList;
+    Optional<User> findFirstByCompanyIsNotNullOrderByIdDesc();
 
-//    public UserRepository(ConnectionPool connectionPool1, String poolSize, List<ConnectionPool> connectionPoolList) {
-//        this.connPool = connectionPool1;
-//        this.poolSize = poolSize;
-//        this.connectionPoolList = connectionPoolList;
-//    }
-//
-    public UserRepository(ConnectionPool connPool) {
-        this.connPool = connPool;
-    }
+    List<User> findFirst3ByCompanyIsNotNullOrderByIdDesc();
+
+    @Query("""
+    SELECT new com.example.spring.dto.PersonalInfo(
+        u.firstname,
+        u.lastname,
+        u.birthDate
+    )
+    FROM User u
+    WHERE u.id = :id
+""")
+    List<PersonalInfo> findAllByCompanyId(@Param("id") Integer id);
+
+    @Query("select u from User u where u.firstname like %:firstname% and u.lastname like %:lastname%")
+    List<User> findAllByFirstnameContainingAndLastnameContaining(@Param("firstname") String firstname,@Param("lastname") String lastname);
+
+    @Query(value = "select u.* from user u where u.username", nativeQuery = true)
+    List<User> findAllByUsername(@Param("username") String username);
+
+    @Modifying(clearAutomatically = true)
+    @Query("update User u set u.role = :role where u.id in (:ids)")
+    int updateRole(@Param("role") Role role, @Param("ids") Long... ids);
+
 }
