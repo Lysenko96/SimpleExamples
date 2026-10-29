@@ -8,7 +8,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        s.recoverOrder(new int[]{3,4,5,1}, new int[]{1,5});
+        s.recoverOrder(new int[]{3, 4, 5, 1}, new int[]{1, 5});
     }
 
     public int[] recoverOrder(int[] order, int[] friends) {
