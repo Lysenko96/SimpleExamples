@@ -1,11 +1,10 @@
 package qatask;
 
-import com.codeborne.selenide.Configuration;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.chrome.ChromeOptions;
+import qatask.config.Config;
 import qatask.dto.Booking;
 import qatask.dto.BookingDto;
 
@@ -16,33 +15,26 @@ import static org.hamcrest.Matchers.*;
 
 public class SauceDemoAPITest {
 
+    private String requestBody = "{\n" +
+            "    \"firstname\" : \"Jim\",\n" +
+            "    \"lastname\" : \"Brown\",\n" +
+            "    \"totalprice\" : 111,\n" +
+            "    \"depositpaid\" : true,\n" +
+            "    \"bookingdates\" : {\n" +
+            "        \"checkin\" : \"2018-01-01\",\n" +
+            "        \"checkout\" : \"2019-01-01\"\n" +
+            "    },\n" +
+            "    \"additionalneeds\" : \"Breakfast\"\n" +
+            "}";
+
     @BeforeAll
     static void setup() {
-        Configuration.browser = "chrome";
-        Configuration.headless = true;
-        Configuration.browserSize = "1920x1080";
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless=new");
-
-        Configuration.browserCapabilities = options;
+        Config.config();
     }
 
     @Test
     public void createBookingThenVerifyResponseThenExtractIdThenRetrievesByIdThenVerifyMatchesData() {
-        String requestBody = "{\n" +
-                "    \"firstname\" : \"Jim\",\n" +
-                "    \"lastname\" : \"Brown\",\n" +
-                "    \"totalprice\" : 111,\n" +
-                "    \"depositpaid\" : true,\n" +
-                "    \"bookingdates\" : {\n" +
-                "        \"checkin\" : \"2018-01-01\",\n" +
-                "        \"checkout\" : \"2019-01-01\"\n" +
-                "    },\n" +
-                "    \"additionalneeds\" : \"Breakfast\"\n" +
-                "}";
+
         BookingDto create = given().auth()
                 .basic("admin", "password123")
                 .header("Content-Type", ContentType.JSON)
@@ -81,6 +73,7 @@ public class SauceDemoAPITest {
                 .body("bookingdates.checkin", equalTo("2018-01-01"))
                 .body("bookingdates.checkout", equalTo("2019-01-01"))
                 .extract().as(Booking.class);
+
         Assertions.assertEquals(get.getFirstname(), create.getBooking().getFirstname());
         Assertions.assertEquals(get.getLastname(), create.getBooking().getLastname());
         Assertions.assertEquals(get.getTotalprice(), create.getBooking().getTotalprice());
@@ -90,17 +83,7 @@ public class SauceDemoAPITest {
 
     @Test
     public void createBookingThenVerifyResponseWithoutBodyOrNotCorrectBodyFieldNameThen500() {
-        String requestBody = "{\n" +
-                "    \"firstname1\" : \"Jim1\",\n" +
-                "    \"lastname\" : \"Brown1\",\n" +
-                "    \"totalprice\" : 1111,\n" +
-                "    \"depositpaid\" : false,\n" +
-                "    \"bookingdates\" : {\n" +
-                "        \"checkin\" : \"2018-01-02\",\n" +
-                "        \"checkout\" : \"2019-01-02\"\n" +
-                "    },\n" +
-                "    \"additionalneeds\" : \"Breakfast1\"\n" +
-                "}";
+        requestBody = requestBody.replace("firstname", "firstname1");
         given().auth()
                 .basic("admin", "password123")
                 .header("Content-Type", ContentType.JSON)

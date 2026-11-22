@@ -1,9 +1,11 @@
 package qatask;
 
-import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.ClickOptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.chrome.ChromeOptions;
+import qatask.config.Config;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.text;
@@ -14,40 +16,32 @@ public class SauceDemoUITest {
 
     @BeforeAll
     static void setup() {
-        Configuration.browser = "chrome";
-        Configuration.headless = true;
-        Configuration.browserSize = "1920x1080";
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless=new");
-
-        Configuration.browserCapabilities = options;
+        Config.config();
     }
 
     @Test
     public void loginThenVerifySauceDemoProductsThenPageContainsProducts() {
-        open("https://www.saucedemo.com/");
-        $(("[data-test='username']")).setValue("standard_user");
-        $(("[data-test='password']")).setValue("secret_sauce");
-        $(("[data-test='login-button']")).click();
-        $("span.title").shouldHave(text("Products"));
-        $$(("[data-test='inventory-list']")).shouldHave(size(1));
-        $$(("[data-test='inventory-item']")).shouldHave(size(6));
+        login();
+        $("span.title").shouldHave(text("Products"), Duration.ofSeconds(5));
+        $$(("[data-test='inventory-list']")).shouldHave(size(1), Duration.ofSeconds(5));
+        $$(("[data-test='inventory-item']")).shouldHave(size(6), Duration.ofSeconds(5));
     }
 
     @Test
     public void loginThenVerifySortedProductsThenAddProductToCartThenVerifySelectedProduct() {
+        login();
+        $("[data-test='product-sort-container']").selectOptionByValue("lohi");
+        $(("span.active_option")).shouldHave(text("Price (low to high)"), Duration.ofSeconds(5));
+        $(("[data-test='add-to-cart-sauce-labs-onesie']")).click(ClickOptions.withTimeout(Duration.ofSeconds(5)));
+        $(("[data-test='shopping-cart-link']")).click(ClickOptions.withTimeout(Duration.ofSeconds(5)));
+        $(("div.inventory_item_name")).shouldHave(text("Sauce Labs Onesie"), Duration.ofSeconds(5));
+    }
+
+    private static void login() {
         open("https://www.saucedemo.com/");
         $(("[data-test='username']")).setValue("standard_user");
         $(("[data-test='password']")).setValue("secret_sauce");
-        $(("[data-test='login-button']")).click();
-        $("[data-test='product-sort-container']").selectOptionByValue("lohi");
-        $(("span.active_option")).shouldHave(text("Price (low to high)"));
-        $(("[data-test='add-to-cart-sauce-labs-onesie']")).click();
-        $(("[data-test='shopping-cart-link']")).click();
-        $(("div.inventory_item_name")).shouldHave(text("Sauce Labs Onesie"));
+        $(("[data-test='login-button']")).click(ClickOptions.withTimeout(Duration.ofSeconds(2)));
     }
 
 }
