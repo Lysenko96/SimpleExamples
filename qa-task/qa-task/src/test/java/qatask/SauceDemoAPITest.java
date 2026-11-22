@@ -1,9 +1,7 @@
 package qatask;
 
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import qatask.config.Config;
 import qatask.dto.Booking;
 import qatask.dto.BookingDto;
@@ -12,10 +10,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 
-
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SauceDemoAPITest {
 
-    private String requestBody = "{\n" +
+    private static String requestBody = "{\n" +
             "    \"firstname\" : \"Jim\",\n" +
             "    \"lastname\" : \"Brown\",\n" +
             "    \"totalprice\" : 111,\n" +
@@ -27,14 +25,16 @@ public class SauceDemoAPITest {
             "    \"additionalneeds\" : \"Breakfast\"\n" +
             "}";
 
+    private static String requestBodyFiled = requestBody.replace("firstname", "firstname1");
+
     @BeforeAll
     static void setup() {
         Config.config();
     }
 
+//    @Order(1)
     @Test
     public void createBookingThenVerifyResponseThenExtractIdThenRetrievesByIdThenVerifyMatchesData() {
-
         BookingDto create = given().auth()
                 .basic("admin", "password123")
                 .header("Content-Type", ContentType.JSON)
@@ -83,11 +83,10 @@ public class SauceDemoAPITest {
 
     @Test
     public void createBookingThenVerifyResponseWithoutBodyOrNotCorrectBodyFieldNameThen500() {
-        requestBody = requestBody.replace("firstname", "firstname1");
         given().auth()
                 .basic("admin", "password123")
                 .header("Content-Type", ContentType.JSON)
-                .body(requestBody)
+                .body(requestBodyFiled)
                 .when()
                 .post("https://restful-booker.herokuapp.com/booking")
                 .then()
