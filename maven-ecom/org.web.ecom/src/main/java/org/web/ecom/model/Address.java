@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 @Table(name = "addresses")
+@Builder
 public class Address {
 
     @Id
@@ -21,7 +22,6 @@ public class Address {
     private String zipcode;
     @JsonBackReference
     @ToString.Exclude
-//    @OneToOne(mappedBy = "address", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
     private User user;
 

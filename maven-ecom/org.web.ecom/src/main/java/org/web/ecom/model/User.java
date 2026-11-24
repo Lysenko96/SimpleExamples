@@ -3,7 +3,10 @@ package org.web.ecom.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@Builder(toBuilder = true)
 public class User {
 
     @Id
@@ -21,10 +25,10 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-//    @Column(unique = true, nullable = false)
     private String email;
     private String phone;
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Role role = Role.CUSTOMER;
     @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
