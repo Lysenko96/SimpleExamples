@@ -50,7 +50,12 @@ public class UserService {
             existingUser = mapToUser(existingUser, userRequest);
             Address exsitingAddress = addressRepository.findByUserId(existingUser.getId());
             if (exsitingAddress != null) {
-                existingUser.getAddress().setId(exsitingAddress.getId());
+                existingUser.getAddress().setId(existingUser.getAddress().getId() == null ? exsitingAddress.getId() : existingUser.getAddress().getId());
+                existingUser.getAddress().setStreet(existingUser.getAddress().getStreet() == null ? exsitingAddress.getStreet() : existingUser.getAddress().getStreet());
+                existingUser.getAddress().setCity(existingUser.getAddress().getCity() == null ? exsitingAddress.getCity() : existingUser.getAddress().getCity());
+                existingUser.getAddress().setState(existingUser.getAddress().getState() == null ? exsitingAddress.getState() : existingUser.getAddress().getState());
+                existingUser.getAddress().setCountry(existingUser.getAddress().getCountry() == null ? exsitingAddress.getCountry() : existingUser.getAddress().getCountry());
+                existingUser.getAddress().setZipcode(existingUser.getAddress().getZipcode() == null ? exsitingAddress.getZipcode() : existingUser.getAddress().getZipcode());
             }
             userRepository.save(existingUser);
             return true;
@@ -64,10 +69,10 @@ public class UserService {
 
     public User mapToUser(User user, UserRequest userRequest) {
         return user.toBuilder()
-                .firstName(userRequest.getFirstName())
-                .lastName(userRequest.getLastName())
-                .email(userRequest.getEmail())
-                .phone(userRequest.getPhone())
+                .firstName(userRequest.getFirstName() != null ? userRequest.getFirstName() : user.getFirstName())
+                .lastName(userRequest.getLastName() != null ? userRequest.getLastName() : user.getLastName())
+                .email(userRequest.getEmail() != null ? userRequest.getEmail() : user.getEmail())
+                .phone(userRequest.getPhone() != null ? userRequest.getPhone() : user.getPhone())
                 .address(userRequest.getAddress() != null ? Address.builder()
                         .city(userRequest.getAddress().getCity())
                         .country(userRequest.getAddress().getCountry())

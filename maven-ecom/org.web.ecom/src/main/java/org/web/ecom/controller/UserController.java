@@ -11,6 +11,7 @@ import org.web.ecom.model.User;
 import org.web.ecom.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,9 +49,9 @@ public class UserController {
     @PutMapping("{id}")
     public ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long id, @RequestBody UserRequest userRequest) {
         boolean updated = userService.updateUser(id, userRequest);
-        if (updated) {
-            User user = userService.mapToUser(User.builder().build(), userRequest);
-            return ResponseEntity.ok(mapToUserResponse(user));
+        Optional<User> saveUser = userService.fetchUser(id);
+        if (updated && saveUser.isPresent()) {
+            return ResponseEntity.ok(mapToUserResponse(saveUser.get()));
         }
         return ResponseEntity.notFound().build();
     }
